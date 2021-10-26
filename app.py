@@ -13,9 +13,6 @@ def login_page():
 
 
 
-
-
-
 @app.route("/register_book")
 def register_book():
     code = request.args.get["isbn"]
@@ -32,12 +29,7 @@ def register_book():
             author = json_data["author"]
             large_image_url = json_data["largeImageUrl"]
             sales_date = json_data["salesDate"]
-            return render_template('isbn.html', code=code, title=title, author=author, large_image_url=large_image_url, sales_date=sales_date)
-
-@app.route("/rent_book")
-def rent_book():
-    
-    
+            return render_template('isbn.html', code=code, title=title, author=author, large_image_url=large_image_url, sales_date=sales_date)    
 
 if __name__ == "__main__":
     app.run(debug=True)
