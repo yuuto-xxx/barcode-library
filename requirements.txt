@@ -1,0 +1,16 @@
+click==8.0.1
+Flask==2.0.1
+gunicorn==20.1.0
+itsdangerous==2.0.1
+Jinja2==3.0.1
+MarkupSafe==2.0.1
+Werkzeug==2.0.1
+opencv-python==4.5.3.56
+pyzbar==0.1.8
+numpy==1.21.2
+python-math==0.0.1
+opencv-python-headless==4.5.3.56
+opencv-contrib-python==4.5.3.56
+websockets==10.0
+requests==2.26.0
+requests-cache==0.8.1
