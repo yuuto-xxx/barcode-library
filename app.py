@@ -31,5 +31,7 @@ def register_book():
             sales_date = json_data["salesDate"]
             return render_template('isbn.html', code=code, title=title, author=author, large_image_url=large_image_url, sales_date=sales_date)    
 
+
+
 if __name__ == "__main__":
     app.run(debug=True)
