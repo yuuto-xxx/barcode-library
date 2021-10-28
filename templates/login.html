@@ -1,46 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログインページ</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="./css/login.css">
+	<title>ログインページ</title>
 </head>
 <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  	<script src="static/js/login.js"></script>
-    	<div class="wrapper">
-  	<form action="/TeamC/Login" method="POST" class="login">
-    	<p class="title">ログイン</p>
-    	<input type="email" name="mail" placeholder="メールアドレス" required="required" autofocus/>
-    	<i class="fa fa-user"></i>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="static/js/login.js"></script>
+	<div class="wrapper">
+		<form action="/Login" method="POST" class="login">
+		<p class="title">ログイン</p>
+		<input type="email" name="mail" placeholder="メールアドレス" required="required" autofocus/>
+		<i class="fa fa-user"></i>
 
-    	<form id="fieldPassword">
-      	<span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()"></span>
-    	<input type="password" name="pw" id="textpassword"  placeholder="パスワード" required="required" />
+		<form id="fieldPassword">
+			<span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()"></span>
+		<input type="password" name="pw" id="textpassword"  placeholder="パスワード" required="required" />
 
-    	<i class="fa fa-key"></i>
-    	<a href="/TeamC/forget_pw">パスワード忘れた方</a><br>
-    	<a href="/TeamC/Pwchange">パスワード変更</a>
-        <button>
-      		<i class="spinner"></i>
-      		<span class="state">ログイン</span>
-    	</button>
-  	</form>
-  	</form>
+		<i class="fa fa-key"></i>
+		<a href="/TeamC/forget_pw">パスワード忘れた方</a><br>
+
+		<a href="{{url_for('manager_login')}}">管理者ログイン</a>
+			
+			<button>
+				<i class="spinner"></i>
+				<span class="state">ログイン</span>
+		</button>
+	</form>
+	</form>
 </div>
 <script language="javascript">
-  function pushHideButton() {
-    var txtPass = document.getElementById("textpassword");
-    var btnEye = document.getElementById("buttonEye");
-    if (txtPass.type === "text") {
-      txtPass.type = "password";
-      btnEye.className = "fa fa-eye";
-    } else {
-      txtPass.type = "text";
-      btnEye.className = "fa fa-eye-slash";
-    }
-  }
+	function pushHideButton() {
+		var txtPass = document.getElementById("textpassword");
+		var btnEye = document.getElementById("buttonEye");
+		if (txtPass.type === "text") {
+			txtPass.type = "password";
+			btnEye.className = "fa fa-eye";
+		} else {
+			txtPass.type = "text";
+			btnEye.className = "fa fa-eye-slash";
+		}
+	}
 </script>
 </body>
 </html>
