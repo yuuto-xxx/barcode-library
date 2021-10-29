@@ -11,7 +11,7 @@ def login_page():
     return render_template("login.html", session=session, error=error)
 
 @app.route("/manager_login") #管理者ログイン
-def manager_login_page():
+def manager_login():
     session = request.args.get("session")
     error = request.args.get("error")
     return render_template("manager_login.html", session=session, error=error)
