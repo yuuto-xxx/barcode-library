@@ -1,6 +1,6 @@
 from flask import Flask, render_template, redirect, request, url_for, session
 
-import register_book
+# import register_book
 
 app = Flask(__name__)
 
@@ -49,7 +49,9 @@ def register_book():
             sales_date = json_data["salesDate"]
             return render_template('isbn.html', code=code, title=title, author=author, large_image_url=large_image_url, sales_date=sales_date)    
 
-
+@app.route("/sign_up")
+def sign_up():
+    return render_template('sign_up.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
