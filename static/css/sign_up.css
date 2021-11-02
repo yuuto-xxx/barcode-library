@@ -37,7 +37,7 @@
     color: #000;
   } 
   /* テキストボックス配置 */
-  /* input {
+  input {
     padding: 10px 15px;
     border-radius: 10px;
     transition: 0.3s ease;
@@ -58,12 +58,12 @@
     width: calc(50% - 30px);
     float: left;
     margin-right: 30px;
-  } */
+  }
  
 
 
 
-  /* input[type=submit] {
+  input[type=submit] {
     background: #707070;
     color: #EAE4DA;
     border: 2px solid #707070;
@@ -80,7 +80,7 @@
   }
   input[type=submit]:hover {
     outline-width: 0;
-  } */
-  /* input:focus {
+  }
+  * input:focus {
     outline: 0;
-  } */
+  } 
