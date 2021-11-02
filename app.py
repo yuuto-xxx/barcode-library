@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request, url_for, session
-
 import register_book
+import db
+import re
 
 app = Flask(__name__)
 
@@ -11,7 +12,7 @@ def login_page():
     return render_template("login.html", session=session, error=error)
 
 @app.route("/manager_login") #管理者ログイン
-def manager_login_page():
+def manager_login():
     session = request.args.get("session")
     error = request.args.get("error")
     return render_template("manager_login.html", session=session, error=error)
@@ -49,6 +50,53 @@ def register_book():
             sales_date = json_data["salesDate"]
             return render_template('isbn.html', code=code, title=title, author=author, large_image_url=large_image_url, sales_date=sales_date)    
 
+# 管理者登録
+@app.route("/manager_register")
+def manager_register():
+    return render_template("manager_register.html")
+    # if "user" in session:
+    #     return render_template("manager_register.html")
+    # else:
+    #     return render_template("login.html", session="セッション有効期限切れです。")
+
+# 管理者登録結果
+@app.route("/manager_register_result")
+def manager_register_result():
+    name = request.args.get("name")
+    mail_first = request.args.get("mail_first")
+    mail_second = request.args.get("mail_second")
+    if mail_first == mail_second and mail_check(mail_first):
+        salt = db.create_salt()
+        pw = db.new_pw()
+        result = db.manager_insert(name,mail_first,salt,pw)
+        if result:
+            event = "登録完了"
+            return render_template("manager_register.html",event=event)
+    else:
+        error = "正しい形式で入力してください。"
+        return render_template("manager_register.html",error=error)
+
+# メールアドレスのバリエーションチェック
+def mail_check(mail):
+    pattren = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    if re.match(pattren,mail)\
+        and len(mail) <= 256 :
+        return True
+    else :
+        return False
+
+# パスワードのバリエーションチェック
+def passwd_check(pw):
+    if pw == None:
+        return False
+    if  len(pw)>=8 \
+        and len(pw)<=64 \
+        and re.search("[A-Z]",pw)\
+        and re.search("[a-z]",pw)\
+        and re.search("[0-9]",pw):
+            return True
+    else :
+        return False
 
 
 if __name__ == "__main__":
