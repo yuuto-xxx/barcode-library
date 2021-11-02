@@ -2,6 +2,17 @@ import psycopg2
 import string
 import random
 import hashlib
+import os
+import psycopg2
+from flask_sqlalchemy import SQLAlchemy
+
+dbname=d146sdrtncr1rm 
+host = "ec2-23-23-199-57.compute-1.amazonaws.com "
+port = 5432 
+user = "sudfwfyugnjfdf "
+password = "46a5575767a9c88ebcb1930e8afe9c557df8911a3b4021ce902a500ba47a4e8b"
+
+DATABASE_URL = os.environ.get('postgres://sudfwfyugnjfdf:46a5575767a9c88ebcb1930e8afe9c557df8911a3b4021ce902a500ba47a4e8b@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d146sdrtncr1rm')
 
 # 管理者の新規登録
 def manager_insert(mail,name,pw,salt):
@@ -44,10 +55,21 @@ def hash_pw(pw,salt):
 # DBとのコネクションを取得
 def get_connection():
     connection = psycopg2.connect(
-  database='d6cp6dkkvdfkd1',        # データベース名
-  user='cxhmqrtrdemxbm',            # ユーザ名
-  password='bc491716a7dd69ab726a155c1928ddc06165ff87965dee628297ac73c03edfbb', # パスワード
-  host='ec2-44-198-100-81.compute-1.amazonaws.com', # ホスト名
+  database=dbname,
+  user=user,            # ユーザ名
+  password=password, # パスワード
+  host=host, # ホスト名
   port=5432 ) # ポート番号
     return connection
 
+
+
+def test():
+    conn = psycopg2.connect(DATABASE_URL, user=user, password=password)
+    cur = conn.cursor()
+    print("DBアクセス")
+    cur.execute("select * from course")
+    result = cur.fetchall()
+    print("リザルト表示:" + result)
+    cur.close()
+    conn.close()
