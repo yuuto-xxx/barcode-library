@@ -1,11 +1,13 @@
 from flask import Flask, render_template, redirect, request, url_for, session
 
-# import register_book
+import register_book
+import db
 
 app = Flask(__name__)
 
 @app.route("/") #学生ログイン
 def login_page():
+    db.test()
     session = request.args.get("session")
     error = request.args.get("error")
     return render_template("login.html", session=session, error=error)
@@ -23,12 +25,29 @@ def stu_top():
     else:
         return render_template("login.html", session="セッション有効期限切れです。")
 
-@app.route("/register_student") #学生登録
-def stu_register():
+# @app.route("manager_top") #管理者ログイン後トップページ
+# def manager_top():
+#     if "user" in session:
+#         return render_template("manager.html")
+#     else:
+#         return redirect('manager_login')
+
+@app.route("/sign_up")
+def sign_up():
     if "user" in session:
-        return render_template("")
+        return render_template('sign_up.html')
     else:
-        return render_template("login.html", session="セッション有効期限切れです。")
+        return render_template('login.html', session="セッション有効期限切れです。")
+        
+
+@app.route("/register_student", methods=['POST']) #学生登録
+def stu_register():
+    stu_number = request.form.get("stu_number")
+    name = request.form.get("name")
+    course = request.form.get("")
+    mail = request.form.get("mail")
+    re_mail = request.form.get("re_mail")
+    
 
 
 @app.route("/register_book") #本の登録
@@ -48,10 +67,6 @@ def register_book():
             large_image_url = json_data["largeImageUrl"]
             sales_date = json_data["salesDate"]
             return render_template('isbn.html', code=code, title=title, author=author, large_image_url=large_image_url, sales_date=sales_date)    
-
-@app.route("/sign_up")
-def sign_up():
-    return render_template('sign_up.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
