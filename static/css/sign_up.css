@@ -1,68 +1,124 @@
-  *{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
   }
   
-  body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   }
   
-  form {
-    border: 2px solid #707070;
-    padding: 40px 10px 0px 40px;
-    width: 70%;
-    max-width: 700px;
-    border-radius: 20px;
-  } */
+form {
+  border: 2px solid #707070;
+  padding: 40px 10px 0px 40px;
+  width: 70%;
+  max-width: 700px;
+  border-radius: 20px;
+  }
   
-  .focus {
-    border: 3px solid #fef6fb;
-    box-shadow: 0 0 10px 0 #707070;
-    position: absolute;
-    transition: width 0.2s ease, height 0.2s ease, left 0.2s ease, top 0.2s ease, border-radius 0.2s ease;
-    pointer-events: none;
-    z-index: 5;
-    border-radius: 10px;
-    display: none;
+#focus {
+  border: 3px solid #fef6fb;
+  box-shadow: 0 0 10px 0 #707070;
+  position: absolute;
+  transition: width 0.2s ease, height 0.2s ease, left 0.2s ease, top 0.2s ease, border-radius 0.2s ease;
+  pointer-events: none;
+  z-index: 5;
+  border-radius: 10px;
+  display: none;
   } 
   
-  h4 {
-    margin-bottom: 10px;
-    font-size: 2em;
-    color: #000;
-  } 
+/* h4 {
+  margin-bottom: 10px;
+  font-size: 2em;
+  color: #000;
+  }  */
   /* テキストボックス配置 */
-  /* input {
-    padding: 10px 15px;
-    border-radius: 10px;
-    transition: 0.3s ease;
-    color: #868283;
+input {
+  padding: 10px 15px;
+  border-radius: 10px;
+  transition: 0.3s ease;
+  color: #868283;
   }
-  input[type=text] {
-    width: calc(100% - 30px);
-    margin-bottom: 30px;
-    border: 2px solid #868283;
+input[type=text] {
+  width: calc(100% - 30px);
+  margin-bottom: 30px;
+  border: 2px solid #868283;
   }
-  input[type=text]:placeholder-shown {
-    border: 2px solid #EAE4DA;
+input[type=text]:placeholder-shown {
+  border: 2px solid #EAE4DA;
   }
-  input[type=text]::placeholder {
-    color: #A3A5AA;
+input[type=text]::placeholder {
+  color: #A3A5AA;
   }
-  input[type=text][half] {
-    width: calc(50% - 30px);
-    float: left;
-    margin-right: 30px;
-  } */
+input[type=text][half] {
+  width: calc(50% - 30px);
+  float: left;
+  margin-right: 30px;
+  }
  
+  /* プルダウンcss */
+  .cp_ipselect {
+    overflow: hidden;
+    width: 45%;
+    text-align: left;
+  }
+  .cp_ipselect select {
+    width: 100%;
+    padding-right: 1em;
+    cursor: pointer;
+    text-indent: 0.01px;
+    text-overflow: ellipsis;
+    border: none;
+    outline: none;
+    background: transparent;
+    background-image: none;
+    box-shadow: none;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .cp_ipselect select::-ms-expand {
+      display: none;
+  }
+  .cp_ipselect.cp_sl02 {
+    position: relative;
+    border: 1px solid #bbbbbb;
+    border-radius: 10px;
+    background: #ffffff;
+  }
+  .cp_ipselect.cp_sl02::before {
+    position: absolute;
+    top: 0.8em;
+    right: 0.9em;
+    width: 0;
+    height: 0;
+    padding: 0;
+    content: '';
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #666666;
+    pointer-events: none;
+  }
+  .cp_ipselect.cp_sl02:after {
+    position: absolute;
+    top: 0;
+    right: 2.5em;
+    bottom: 0;
+    width: 1px;
+    content: '';
+    border-left: 1px solid #bbbbbb;
+  }
+  .cp_ipselect.cp_sl02 select {
+    padding: 8px 38px 8px 8px;
+    color: #666666;
+  }
 
+  
 
-
+/* ボタン配置 */
   /* input[type=submit] {
     background: #707070;
     color: #EAE4DA;
@@ -81,6 +137,6 @@
   input[type=submit]:hover {
     outline-width: 0;
   } */
-  /* input:focus {
-    outline: 0;
-  } */
+* input:focus {
+  outline: 0;
+  }
