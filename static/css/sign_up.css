@@ -59,6 +59,7 @@ input[type=text][half] {
   float: left;
   margin-right: 30px;
   }
+
  
   /* プルダウンcss */
   .cp_ipselect {
@@ -117,7 +118,6 @@ input[type=text][half] {
   }
 
   
-
 /* ボタン配置 */
   /* input[type=submit] {
     background: #707070;
@@ -137,6 +137,7 @@ input[type=text][half] {
   input[type=submit]:hover {
     outline-width: 0;
   } */
+
 * input:focus {
   outline: 0;
   }
