@@ -79,6 +79,7 @@
     padding-bottom: 0;
     border-bottom: none;
     border-top: #aaa 1px solid;
+    margin-top: 120px
   }
   nav.globalMenuSp ul li:hover{
     background :#ddd;
@@ -87,7 +88,7 @@
   nav.globalMenuSp ul li a {
     display: block;
     color: #FFFFFF;
-    padding: 0.6em 0;
+    padding: 1em 0;
     text-decoration :none;
     font-size: 15pt;
   }
@@ -152,19 +153,59 @@ header {
     height: 75px;
     width:auto;
     margin-left: 239px;
-    text-align: right;
-    
-    
+    text-align: right;   
 }
 .main_board{
-  margin-top: 15pt;
-  width: 100%;
-  height: 100%;
-  transition: all 0.6s;
-  
+    margin-top: 15pt;
+    width: 100%;
+    height: 100%;
+    transition: all 0.6s;
+    
 }
 .main_board.active{
-  transform: translateX(273px);
+    transform: translateX(273px);
+}
+.main_board .book_amount {
+    margin-left: 20pt;
+    font-size: 15pt;
+}
+.main_board button{
+    font-size: 15pt;
+    margin-left: 450pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 70pt;
+}
+.column {
+    background-color: #36587A;
+    font-size: 20pt;
+    color: white;
+    height: 35pt;
+    margin-bottom: -12pt;
+
+}
+.column_title{
+    margin-left: 120px;
+}
+.author{
+    margin-left: 150px;
+}
+.company{
+  margin-left: 150px;
+}
+.return_day{
+  margin-left: 150px;
+}
+.blue{
+  background-color: #E7EFF8;
+  height: 35pt;
+  border-bottom: rgb(49, 48, 48) 1px solid;
+  border-top: rgb(49, 48, 48) 1px solid;
+}
+.white{
+  background-color: #FFFFFF;
+  height: 13pt;
+  
 }
 
 
