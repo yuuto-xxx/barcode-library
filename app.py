@@ -1,10 +1,18 @@
+from hashlib import new
 from flask import Flask, render_template, redirect, request, url_for, session
+from flask.globals import g
 import register_book
 import db
 import re
+import mail_send
+import random
+import string
 
 
 app = Flask(__name__)
+
+# 秘密鍵
+app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
 
 @app.route("/") #学生ログイン
 def login_page():
@@ -88,10 +96,64 @@ def manager_register_result():
         result = db.manager_insert(name,mail_first,salt,pw)
         if result:
             event = "登録完了"
+            # mail_send(mail_first,pw)
             return render_template("manager_register.html",event=event)
     else:
         error = "正しい形式で入力してください。"
         return render_template("manager_register.html",error=error)
+
+# 学生登録(個人)
+@app.route("/student_register")
+def student_register():
+    course_list = [
+        "情報システム科",
+        "ネットワークセキュリティ科",
+        "総合システム工学科",
+        "高度情報工学科",
+        "情報ビジネス科",
+        "グラフィックデザインコース",
+        "アニメ・マンガコース",
+        "CGクリエイトコース",
+        "建築インテリアコース",
+        "総合デザイン科"
+    ]
+    session['course_list'] = course_list
+    grade_list = [1,2,3,4]
+    session['grade_list'] = grade_list
+    return render_template("student_register.html",course_list=course_list,grade_list=grade_list)
+    # if "user" in session:
+    #     return render_template("manager_register.html")
+    # else:
+    #     return render_template("login.html", session="セッション有効期限切れです。")
+
+
+# 学生登録結果(個人)
+@app.route("/student_register_result", methods=['POST'])
+def student_register_result():
+    name = request.form.get("name")
+    student_id = request.form.get("student_id")
+    course = request.form.get("course")
+    grade = request.form.get("grade")
+    print(grade)
+    mail_first = request.form.get("mail_first")
+    mail_second = request.form.get("mail_second")
+    if mail_first == mail_second and mail_check(mail_first) \
+     and len(student_id) == 7 and student_id.isdigit() \
+     and len(name) <= 64 :
+        salt = db.create_salt()
+        pw = db.new_pw()
+        result = db.student_register(mail_first,name,student_id,course,grade,pw,salt)
+        if result:
+            event = "登録成功"
+            # mail_send(mail_first,pw)
+            return render_template("student_register.html",event=event,course_list=session['course_list'],grade_list=session['grade_list'])
+        else :
+            event = "登録失敗"
+            return render_template("student_register.html",event=event,course_list=session['course_list'],grade_list=session['grade_list'])
+    else :
+        error = "正しい形式で入力してください"
+        return render_template("student_register.html",error=error,course_list=session['course_list'],grade_list=session['grade_list'])
+
 
 # メールアドレスのバリエーションチェック
 def mail_check(mail):
