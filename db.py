@@ -6,7 +6,7 @@ import os
 import psycopg2
 from flask_sqlalchemy import SQLAlchemy
 
-dbname=d146sdrtncr1rm 
+dbname="d146sdrtncr1rm"
 host = "ec2-23-23-199-57.compute-1.amazonaws.com "
 port = 5432 
 user = "sudfwfyugnjfdf "
@@ -33,6 +33,18 @@ def manager_insert(mail,name,pw,salt):
     print(name)
     print(hashed_pw)
     print(salt)
+    return True
+
+# 学生の新規登録(個人)
+def student_register(mail,name,student_id,couse,grade,pw,salt):
+    hashed_pw = hash_pw(pw,salt)
+    print("mail",mail)
+    print("name",name)
+    print("student_id",student_id)
+    print("hashed_pw",hashed_pw,len(hashed_pw))
+    print("salt",salt,len(salt))
+    print("course",couse)
+    print("grade",grade)
     return True
 
 # ソルトの新規作成
