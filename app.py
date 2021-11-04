@@ -49,7 +49,7 @@ def sign_up():
         return render_template('login.html', session="セッション有効期限切れです。")
         
 
-@app.route("/register_student", methods=['POST']) #学生登録
+@app.route("/student_register", methods=['POST']) #学生登録
 def stu_register():
     stu_number = request.form.get("stu_number")
     name = request.form.get("name")
@@ -57,8 +57,8 @@ def stu_register():
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
 
-@app.route("/register_book") #本の登録
-def register_book():
+@app.route("/book_register") #本の登録
+def book_register():
     code = request.args.get["isbn"]
     print(code) #テスト
     if len(code) >= 12:
@@ -85,11 +85,11 @@ def manager_register():
     #     return render_template("login.html", session="セッション有効期限切れです。")
 
 # 管理者登録結果
-@app.route("/manager_register_result")
+@app.route("/manager_register_result", methods=['POST'])
 def manager_register_result():
-    name = request.args.get("name")
-    mail_first = request.args.get("mail_first")
-    mail_second = request.args.get("mail_second")
+    name = request.form.get("name")
+    mail_first = request.form.get("mail_first")
+    mail_second = request.form.get("mail_second")
     if mail_first == mail_second and mail_check(mail_first):
         salt = db.create_salt()
         pw = db.new_pw()
