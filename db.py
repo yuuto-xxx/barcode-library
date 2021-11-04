@@ -30,10 +30,6 @@ def manager_insert(mail,name,pw,salt):
     cur.close()
     conn.close()
     
-    print(mail)
-    print(name)
-    print(hashed_pw)
-    print(salt)
     return True
 
 # ソルトの新規作成
@@ -53,6 +49,60 @@ def hash_pw(pw,salt):
 
     return hash_pw
 
+def manager_login(mail, password):
+    salt = manager_search_salt(mail)
+
+    if salt == None:
+        return None
+
+    b_pw = bytes(password,"utf-8")
+    b_salt = bytes(salt,"utf-8")
+    hashed_pw = hashlib.pbkdf2_hmac("sha256", b_pw, b_salt, 1000).hex()
+
+    result = search_manager_account(mail,hashed_pw)
+
+    return result
+
+def manager_search_salt(mail):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "SELECT salt from manager where mail=%s"
+
+    try:
+        cur.execute(sql,(mail,))
+    except Exception as e:
+        print("salt_error",e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    if result :
+        return result[0]
+    else:
+        return None
+
+def search_manager_account(mail, pw):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "SELECT name from manager where mail=%s and password=%s"
+
+    try:
+        cur.execute(sql,(mail,pw))
+    except Exception as e:
+        print("search_manage_account_error",e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+
 # DBとのコネクションを取得
 def get_connection():
     connection = psycopg2.connect(
@@ -62,14 +112,3 @@ def get_connection():
     host=host, # ホスト名
     port=5432 ) # ポート番号
     return connection
-
-
-def test():
-    conn = psycopg2.connect(database=dbname, user=user, password=password, host=host, port=port, sslmode='allow')
-    cur = conn.cursor()
-    print("DBアクセス")
-    cur.execute("select * from course")
-    result = cur.fetchall()
-    print(result)
-    cur.close()
-    conn.close()
