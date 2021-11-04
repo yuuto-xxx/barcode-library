@@ -8,7 +8,6 @@ import mail_send
 import random
 import string
 
-
 app = Flask(__name__)
 
 # 秘密鍵
@@ -16,7 +15,6 @@ app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
 
 @app.route("/") #学生ログイン
 def login_page():
-    db.test()
     session = request.args.get("session")
     error = request.args.get("error")
     return render_template("login.html", session=session, error=error)
@@ -34,8 +32,13 @@ def stu_top():
     else:
         return render_template("login.html", session="セッション有効期限切れです。")
 
-# @app.route("manager_top") #管理者ログイン後トップページ
-# def manager_top():
+@app.route("/manager_top", methods=['POST']) #管理者ログイン後トップページ
+def manager_top():
+    mail = request.form.get("mail")
+    password = request.form.get("password")
+    result = db.manager_login(mail,password)
+    print(result[0])
+    return render_template("manager.html")
 #     if "user" in session:
 #         return render_template("manager.html")
 #     else:
@@ -43,10 +46,11 @@ def stu_top():
 
 @app.route("/sign_up")
 def sign_up():
-    if "user" in session:
-        return render_template('sign_up.html')
-    else:
-        return render_template('login.html', session="セッション有効期限切れです。")
+    return render_template("sigun_up.html")
+    # if "user" in session:
+    #     return render_template('sign_up.html')
+    # else:
+    #     return render_template('login.html', session="セッション有効期限切れです。")
         
 
 @app.route("/student_register", methods=['POST']) #学生登録
@@ -88,12 +92,14 @@ def manager_register():
 @app.route("/manager_register_result", methods=['POST'])
 def manager_register_result():
     name = request.form.get("name")
-    mail_first = request.form.get("mail_first")
-    mail_second = request.form.get("mail_second")
+    mail_first = request.form.get("mail")
+    mail_second = request.form.get("re_mail")
     if mail_first == mail_second and mail_check(mail_first):
+        print("mail_OK")
         salt = db.create_salt()
         pw = db.new_pw()
-        result = db.manager_insert(name,mail_first,salt,pw)
+        print(pw)
+        result = db.manager_insert(mail_first,name,pw,salt)
         if result:
             event = "登録完了"
             # mail_send(mail_first,pw)
