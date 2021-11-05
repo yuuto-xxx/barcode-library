@@ -79,6 +79,7 @@
     padding-bottom: 0;
     border-bottom: none;
     border-top: #aaa 1px solid;
+    margin-top: 120px
   }
   nav.globalMenuSp ul li:hover{
     background :#ddd;
@@ -87,7 +88,7 @@
   nav.globalMenuSp ul li a {
     display: block;
     color: #FFFFFF;
-    padding: 0.6em 0;
+    padding: 1em 0;
     text-decoration :none;
     font-size: 15pt;
   }
@@ -152,9 +153,7 @@ header {
     height: 75px;
     width:auto;
     margin-left: 239px;
-    text-align: right;
-    
-    
+    text-align: right;   
 }
 .main_board{
   margin-top: 15pt;
@@ -166,7 +165,80 @@ header {
 .main_board.active{
   transform: translateX(273px);
 }
+.main_board .attention ,.book_history{
+    margin-left: 20pt;
+    font-size: 15pt;
+}
+.main_board .result{
+    margin-left: 650pt;
+    color: #FF0000;
+    font-size: 15pt;
+}
+.rent_column , .book_column,.rent_column2,.history_column {
+    background-color: #36587A;
+    font-size: 20pt;
+    color: white;
+    height: 35pt;
+    margin-bottom: -12pt;
 
+}
+.rent_column .column_title{
+    margin-left: 200pt;
+}
+.rent_column .isbn{
+    margin-left: 240pt;
+}
+.rent_column2 .column_title{
+    margin-left: 120px;
+}
+.rent_column2 .author,.rent_column2 .company,.return_day{
+    margin-left: 150px;
+}
+.main_board .result_book{
+    margin-left: 30pt;
+    font-size: 15pt;
+}
+.main_board .book_search {
+    margin-left: 130pt;
+    font-size: 15pt;
+}
+.main_board .book_amount {
+    margin-left: 20pt;
+    font-size: 15pt;
+}
+
+.main_board .view_search{
+    font-size: 15pt;
+    margin-left: 10pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 70pt;
+}
+.main_board .return_button{
+    font-size: 15pt;
+    margin-left: 450pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 70pt;
+}
+.book_column .column_title, .author,.company,.view_star,.available{
+    margin-left: 100px;
+}
+.history_column .column_title,.history_column .author,.history_column .company,.rent_day,.history_column .return_day{
+  margin-left: 110px;
+
+}
+.blue{
+    background-color: #E7EFF8;
+    height: 35pt;
+    border-bottom: rgb(49, 48, 48) 1px solid;
+    border-top: rgb(49, 48, 48) 1px solid;
+  }
+  .white{
+    background-color: #FFFFFF;
+    height: 13pt;
+    
+  }
 
 
   
