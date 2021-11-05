@@ -16,7 +16,7 @@
         <h4 id=half3 align=right><a href="">一括登録する方はこちら</a></h4>
     </div>
 
-    <form autocomplete="off" action="{{url_for('stu_register)}}" method="POST">
+    <form autocomplete="off" action="{{url_for('stu_register')}}" method="post">
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
         <h4 id=half>学籍番号</h4>
@@ -44,6 +44,7 @@
         <div class="s_year cp_pull">
             <select>
                 <option value="" hidden>選択してください</option>
+                <option value="">1</option>
                 <option value="">2</option>
                 <option value="">3</option>
                 <option value="">4</option>
@@ -57,5 +58,20 @@
         <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" name="re_mail">
       </form>
       <input type="submit" value="登録">
+
+      <script>
+        var btn = document.getElementById('btn');
+         
+        btn.addEventListener('click', function() {
+            var result = window.confirm('本当に登録してよろしいですか？');
+            
+            if( result ) {
+                console.log('はい');
+            }
+            else {
+                console.log('いいえ');
+            }
+        })
+    </script>
 </body>
 </html>

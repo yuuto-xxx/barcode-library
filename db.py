@@ -3,7 +3,6 @@ import string
 import random
 import hashlib
 import os
-# from flask_sqlalchemy import SQLAlchemy
 
 dbname="d146sdrtncr1rm" 
 host = "ec2-23-23-199-57.compute-1.amazonaws.com"
@@ -60,7 +59,7 @@ def hash_pw(pw,salt):
 
     return hash_pw
 
-def manager_login(mail, password):
+def manager_login(mail, password): #管理者のログイン
     salt = manager_search_salt(mail)
 
     if salt == None:
@@ -105,6 +104,59 @@ def search_manager_account(mail, pw):
         cur.execute(sql,(mail,pw))
     except Exception as e:
         print("search_manage_account_error",e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+def student_login(mail, password): #学生のログイン
+    salt = search_student_salt(mail)
+
+    if salt == None:
+        return None
+
+    b_pw = bytes(password,"utf-8")
+    b_salt = bytes(salt,"utf-8")
+    hashed_pw = hashlib.pbkdf2_hmac("sha256", b_pw, b_salt, 1000).hex()
+
+    result = search_student_account(mail,hashed_pw)
+
+    return result
+
+def search_student_salt(mail):
+    conn = get_connection()
+    cur  = conn.cursor()
+
+    sql = "SELECT salt from student where mail=%s"
+
+    try:
+        cur.execute(sql,(mail,))
+    except Exception as e:
+        print("salt_error", e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    if result:
+        return result[0]
+    else:
+        return None
+
+def search_student_account(mail, password):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "SELECT name FROM student where mail=%s and password=%s"
+
+    try:
+        cur.execute(sql,(mail,password))
+    except Exception as e:
+        print("search_student_account_error",e)
 
     result = cur.fetchone()
 

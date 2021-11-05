@@ -46,7 +46,7 @@ def manager_top():
 
 @app.route("/sign_up")
 def sign_up():
-    return render_template("sigun_up.html")
+    return render_template("sign_up.html")
     # if "user" in session:
     #     return render_template('sign_up.html')
     # else:
@@ -55,11 +55,14 @@ def sign_up():
 
 @app.route("/student_register", methods=['POST']) #学生登録
 def stu_register():
+    print("画面遷移")
+    return "画面遷移"
     stu_number = request.form.get("stu_number")
     name = request.form.get("name")
     course = request.form.get("")
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
+    
 
 @app.route("/book_register") #本の登録
 def book_register():
@@ -77,7 +80,11 @@ def book_register():
             author = json_data["author"]
             large_image_url = json_data["largeImageUrl"]
             sales_date = json_data["salesDate"]
-            return render_template('isbn.html', code=code, title=title, author=author, large_image_url=large_image_url, sales_date=sales_date)    
+            return render_template('isbn.html', code=code, title=title, author=author, large_image_url=large_image_url, sales_date=sales_date)
+
+@app.route("/rent_book")
+def rent_book():
+    return render_template("")
 
 # 管理者登録
 @app.route("/manager_register")
@@ -111,22 +118,7 @@ def manager_register_result():
 # 学生登録(個人)
 @app.route("/student_register")
 def student_register():
-    course_list = [
-        "情報システム科",
-        "ネットワークセキュリティ科",
-        "総合システム工学科",
-        "高度情報工学科",
-        "情報ビジネス科",
-        "グラフィックデザインコース",
-        "アニメ・マンガコース",
-        "CGクリエイトコース",
-        "建築インテリアコース",
-        "総合デザイン科"
-    ]
-    session['course_list'] = course_list
-    grade_list = [1,2,3,4]
-    session['grade_list'] = grade_list
-    return render_template("student_register.html",course_list=course_list,grade_list=grade_list)
+    return render_template("sign_up.html")
     # if "user" in session:
     #     return render_template("manager_register.html")
     # else:
