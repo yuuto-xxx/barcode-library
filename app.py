@@ -186,5 +186,10 @@ def passwd_check(pw):
     else :
         return False
 
+# パスワード忘れた方
+@app.route('/forget_pw')
+def forget_pw():
+    return render_template("forget_pw.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
