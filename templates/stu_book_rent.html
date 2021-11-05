@@ -1,38 +1,5 @@
-<!DOCTYPE html>
-<html lang="jp">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/student_view.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <title>Document</title>
-</head>
-
-<body>
-    <div>
-    <header>
-        <h2 class="title">図書管理システム</h2>
-    </header></div>
-    <div class="ability"> 
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div> 
-        <nav class="globalMenuSp">
-            <ul>
-                <li><a href="#" class="menu_style menu_hover">借りている一覧</a></li>
-                    <li><a href="#" class="menu_style menu_hover">図書一覧</a></li>
-                    <li><a href="#" class="menu_style menu_hover">本を借りる</a></li>
-                    <li><a href="#" class="menu_style menu_hover">履歴</a></li>
-                    <li><a href="#" class="menu_style menu_hover">パスワード変更</a></li>
-                    <li><a href="#" class="menu_style menu_hover">ログアウト</a></li>
-            </ul>
-        </nav>
-        <div class="main_board">
+{% extends "student_layout.html" %}
+{% block content %}
             <span class="book_amount">※現在借りている本件数は...冊です</span>
             <button class="return_button">返却</button><br>
             <p class="rent_column2">
@@ -53,10 +20,4 @@
             <p class="white"></p>
             <p class="blue"></p>
             <p class="white"></p>
-        </div>
-        
-</body>
-<script src="../static/js/layout.js"></script>
-
-
-</html>
+{% endblock %}

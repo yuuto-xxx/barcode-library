@@ -46,7 +46,7 @@ def manager_top():
 
 @app.route("/sign_up")
 def sign_up():
-    return render_template("sigun_up.html")
+    return render_template("sign_up.html")
     # if "user" in session:
     #     return render_template('sign_up.html')
     # else:
@@ -60,24 +60,43 @@ def stu_register():
     course = request.form.get("")
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
-
+    
 @app.route("/book_register") #本の登録
 def book_register():
-    code = request.args.get["isbn"]
-    print(code) #テスト
-    if len(code) >= 12:
+    render_template("")
+
+
+@app.route("/book_register_verification")
+def book_register_verification():
+    isbn = request.args.get["isbn"]
+    print(isbn) #テスト
+    if len(isbn) >= 9:
         return "isbnを入力して下さい"
     else:
-        json_data = register_book.get_book(code)
+        json_data = register_book.get_book(isbn)
         if(json_data == None):
             print("jsonなし")
             return "検索結果なし"
         else:
+            large_image_url = json_data["largeImageUrl"]
             title = json_data["title"]
             author = json_data["author"]
-            large_image_url = json_data["largeImageUrl"]
+            publisher = json_data["publisherName"]
             sales_date = json_data["salesDate"]
-            return render_template('isbn.html', code=code, title=title, author=author, large_image_url=large_image_url, sales_date=sales_date)    
+            book = [isbn, large_image_url, title, author, publisher, sales_date]
+            return render_template('isbn.html', book=book)
+
+@app.route("/book_register_result")
+def book_register_result():
+    quantity = request.args.get("") #数量
+    book = request.args.getlist("book")
+    book.append(quantity)
+    db.book_register(book)
+    return render_template("",book=book)
+
+@app.route("/rent_book")
+def rent_book():
+    return render_template("")
 
 # 管理者登録
 @app.route("/manager_register")
@@ -95,10 +114,9 @@ def manager_register_result():
     mail_first = request.form.get("mail")
     mail_second = request.form.get("re_mail")
     if mail_first == mail_second and mail_check(mail_first):
-        print("mail_OK")
         salt = db.create_salt()
         pw = db.new_pw()
-        print(pw)
+        print("パスワード:", pw)
         result = db.manager_insert(mail_first,name,pw,salt)
         if result:
             event = "登録完了"
@@ -111,22 +129,7 @@ def manager_register_result():
 # 学生登録(個人)
 @app.route("/student_register")
 def student_register():
-    course_list = [
-        "情報システム科",
-        "ネットワークセキュリティ科",
-        "総合システム工学科",
-        "高度情報工学科",
-        "情報ビジネス科",
-        "グラフィックデザインコース",
-        "アニメ・マンガコース",
-        "CGクリエイトコース",
-        "建築インテリアコース",
-        "総合デザイン科"
-    ]
-    session['course_list'] = course_list
-    grade_list = [1,2,3,4]
-    session['grade_list'] = grade_list
-    return render_template("student_register.html",course_list=course_list,grade_list=grade_list)
+    return render_template("sign_up.html")
     # if "user" in session:
     #     return render_template("manager_register.html")
     # else:

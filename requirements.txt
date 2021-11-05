@@ -14,3 +14,5 @@ opencv-contrib-python==4.5.3.56
 websockets==10.0
 requests==2.26.0
 requests-cache==0.8.1
+psycopg2==2.9.1
+psycopg2-binary==2.9.1
