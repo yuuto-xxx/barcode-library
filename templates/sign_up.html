@@ -10,13 +10,12 @@
 </head>
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="static/js/sign_up.js"></script>
     <div>
         <h4 id=half2 align=left>※下記の内容をご入力の上,ご確認ください</h4>
         <h4 id=half3 align=right><a href="">一括登録する方はこちら</a></h4>
     </div>
 
-    <form autocomplete="off" action="{{url_for('stu_register)}}" method="POST">
+    <form autocomplete="off" action="{{url_for('stu_register)}}" method="POST" id="form1">
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
         <h4 id=half>学籍番号</h4>
@@ -40,7 +39,6 @@
                 <option value="10">総合デザイン科</option>
             </select>
         </div>
-
         <div class="s_year cp_pull">
             <select>
                 <option value="" hidden>選択してください</option>
@@ -56,6 +54,24 @@
         <h4>メールアドレス(再入力)</h4>
         <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" name="re_mail">
       </form>
-      <input type="submit" value="登録">
+      <input type="submit" value="登録" form="form1" id="btn">
+
+    <!-- アラート機能 -->
+      <script>
+        var btn = document.getElementById('btn');
+         
+        btn.addEventListener('click', function() {
+            var result = window.confirm('本当に登録してよろしいですか？');
+            
+            if( result ) {
+                console.log('はい');
+            }
+            else {
+                console.log('いいえ');
+            }
+        })
+    </script>
+    {{error}}
+    {{event}}
 </body>
 </html>
