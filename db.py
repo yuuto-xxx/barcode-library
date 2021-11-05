@@ -166,6 +166,22 @@ def search_student_account(mail, password):
     return result
 
 
+def book_register(isbn,image,title,author,publisher,release_day,amount_max):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "insert into book values (%s,%s,%s,%s,%s,%s,%s)"
+
+    try:
+        cur.execute(sql,())
+    except Exception as e:
+        print("本の登録エラー", e)
+
+    cur.close()
+    conn.close()
+
+
+
 # DBとのコネクションを取得
 def get_connection():
     connection = psycopg2.connect(
