@@ -165,7 +165,7 @@ def search_student_account(mail, password):
 
     return result
 
-
+#本の登録
 def book_register(isbn,image,title,author,publisher,release_day,amount_max):
     conn = get_connection()
     cur = conn.cursor()
@@ -180,14 +180,31 @@ def book_register(isbn,image,title,author,publisher,release_day,amount_max):
     cur.close()
     conn.close()
 
+def book_search():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select * from book where "
+
+    try:
+        cur.execute(sql,())
+    except Exception as e:
+        print("図書検索エラー",e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
 
 
 # DBとのコネクションを取得
 def get_connection():
     connection = psycopg2.connect(
     database=dbname,
-    user=user,            # ユーザ名
-    password=password, # パスワード
-    host=host, # ホスト名
-    port=5432 ) # ポート番号
+    user=user,
+    password=password,
+    host=host,
+    port=5432 )
     return connection
