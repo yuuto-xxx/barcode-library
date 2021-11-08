@@ -191,5 +191,10 @@ def passwd_check(pw):
 def forget_pw():
     return render_template("forget_pw.html")
 
+# 本登録(カメラ)
+@app.route('/register_camera')
+def book_register_camera():
+    return render_template("book_register_camera.html")
+    
 if __name__ == "__main__":
     app.run(debug=True)
