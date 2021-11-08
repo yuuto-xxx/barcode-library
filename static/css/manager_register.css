@@ -72,15 +72,3 @@
   * input:focus {
     outline: 0;
     }
-  
-  @media screen and (max-width: 479px) { /*ウィンドウ幅が最大479pxまでの場合に適用*/
-    #menu-bg {
-    background-color: #00FF00; /*緑色*/
-    }
-  }
-
-  @media screen and (min-width: 767px) { /*ウィンドウ幅が767px以上の場合に適用*/
-    #menu-bg {
-    background-color: #00FFFF; /*青色*/
-    }
-  }

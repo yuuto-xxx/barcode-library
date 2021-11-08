@@ -27,10 +27,7 @@ def manager_login():
 
 @app.route("/student_top") #学生ログイン後トップページ
 def stu_top():
-    if "user" in session:
-        return render_template("stu_top.html")
-    else:
-        return render_template("login.html", session="セッション有効期限切れです。")
+    return render_template("stu_top.html")
 
 @app.route("/manager_top", methods=['POST']) #管理者ログイン後トップページ
 def manager_top():
@@ -66,7 +63,7 @@ def book_register():
     render_template("")
 
 
-@app.route("/book_register_verification")
+@app.route("/book_register_verification") #確認画面
 def book_register_verification():
     isbn = request.args.get["isbn"]
     print(isbn) #テスト
@@ -86,7 +83,7 @@ def book_register_verification():
             book = [isbn, large_image_url, title, author, publisher, sales_date]
             return render_template('isbn.html', book=book)
 
-@app.route("/book_register_result")
+@app.route("/book_register_result") #登録リザルト
 def book_register_result():
     quantity = request.args.get("") #数量
     book = request.args.getlist("book")
@@ -94,9 +91,16 @@ def book_register_result():
     db.book_register(book)
     return render_template("",book=book)
 
-@app.route("/rent_book")
+@app.route("/student_rent_book")
 def rent_book():
     return render_template("")
+
+@app.route("/student_book_list")
+def book_list():
+    book_list = db.book_list()
+    print(book_list)
+    return render_template("stu_book_list.html",book_list=book_list)
+
 
 # 管理者登録
 @app.route("/manager_register")

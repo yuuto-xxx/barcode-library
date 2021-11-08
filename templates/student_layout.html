@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-    <link rel="stylesheet" href="../static/css/student_layout.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/student_layout.css')}}">
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="{{url_for('static', filename='js/layout.js')}}"></script>
     <title>Document</title>
 </head>
-
 <body>
     <div>
     <header>
@@ -38,6 +37,7 @@
             {% endblock %}
             
         </div>
+        <script src="{{url_for('static', filename='js/layout.js')}}"></script>
 </body>
-<script src="../static/js/layout.js"></script>
+
 </html>

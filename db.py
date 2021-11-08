@@ -180,11 +180,11 @@ def book_register(isbn,image,title,author,publisher,release_day,amount_max):
     cur.close()
     conn.close()
 
-def book_search():
+def book_list():  #本の一覧表示
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "select * from book where "
+    sql = "select * from book"
 
     try:
         cur.execute(sql,())
