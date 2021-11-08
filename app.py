@@ -21,6 +21,7 @@ def login_page():
 
 @app.route("/manager_login") #管理者ログイン
 def manager_login():
+    # テストユーザ:メール→test@test.jp パスワード→plA810nG
     session = request.args.get("session")
     error = request.args.get("error")
     return render_template("manager_login.html", session=session, error=error)
@@ -36,10 +37,6 @@ def manager_top():
     result = db.manager_login(mail,password)
     print(result[0])
     return render_template("manager.html")
-#     if "user" in session:
-#         return render_template("manager.html")
-#     else:
-#         return redirect('manager_login')
 
 @app.route("/sign_up")
 def sign_up():
@@ -58,16 +55,16 @@ def stu_register():
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
     
-@app.route("/book_register") #本の登録
-def book_register():
-    render_template("")
-
+# 本登録(カメラ)
+@app.route('/book_register_camera')
+def book_register_camera():
+    return render_template("book_register_camera.html")
 
 @app.route("/book_register_verification") #確認画面
 def book_register_verification():
-    isbn = request.args.get["isbn"]
+    isbn = request.args.get("isbn")
     print(isbn) #テスト
-    if len(isbn) >= 9:
+    if len(isbn) <= 9:
         return "isbnを入力して下さい"
     else:
         json_data = register_book.get_book(isbn)
@@ -81,7 +78,8 @@ def book_register_verification():
             publisher = json_data["publisherName"]
             sales_date = json_data["salesDate"]
             book = [isbn, large_image_url, title, author, publisher, sales_date]
-            return render_template('isbn.html', book=book)
+            return large_image_url
+            # return render_template('', book=book)
 
 @app.route("/book_register_result") #登録リザルト
 def book_register_result():
@@ -195,10 +193,7 @@ def passwd_check(pw):
 def forget_pw():
     return render_template("forget_pw.html")
 
-# 本登録(カメラ)
-@app.route('/register_camera')
-def book_register_camera():
-    return render_template("book_register_camera.html")
+
     
 if __name__ == "__main__":
     app.run(debug=True)
