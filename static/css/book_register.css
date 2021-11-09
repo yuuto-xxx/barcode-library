@@ -1,0 +1,66 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    }
+    
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column; 
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    }
+  
+form {
+    border: 2px solid #707070;
+    padding: 10px 10px 0px 40px;
+    width: 70%;
+    max-width: 700px;
+    border-radius: 20px;
+    }
+
+.square {
+    border: 2px solid #707070;
+    padding: 10px 10px 0px 40px;
+    width: 95%;
+    max-width: 700px;
+    display: flex; /*--横並び指定--*/	
+    display: inline-block;      /* インラインブロック要素にする */   
+}
+
+.square li {
+    display: list-item;  /* 縦に並べる */
+    list-style-type: none;
+    text-transform: uppercase;
+    padding: 0.5em;
+    text-align: right;
+  }
+
+  /* テキストボックス配置 */
+input {
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    color: #131313;
+}
+
+input[type=text] {
+    width: 350px;
+    /* margin-bottom: 30px; */
+    border: 2px solid #b5b6b8;
+}
+  
+input[type=text]:placeholder-shown {
+    border: 2px solid #EAE4DA;
+}
+  
+input[type=text]::placeholder {
+    color: #b5b6b8;
+}
+
+/* .photo {
+
+} */

@@ -63,7 +63,7 @@ def stu_register():
     
 @app.route("/book_register") #本の登録
 def book_register():
-    render_template("")
+    return render_template("book_register.html")
 
 
 @app.route("/book_register_verification")
