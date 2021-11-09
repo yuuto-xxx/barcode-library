@@ -1,0 +1,26 @@
+{% extends "student_layout.html" %}
+{% block content %}
+    <p class="result_book">※該当検索は...件です</p>
+    <span class="book_search">キーワード：</span>
+    <input type="text" name="key" size="40" style="font-size: 15pt;">
+    <button class="view_search">検索</button><br>
+    <p class="book_column">
+        <span class="column_title">タイトル</span>
+        <span class="author">著者</span>
+        <span class="company">出版社</span>
+        <span class="view_star">評価</span>
+        <span class="available">貸出可否</span>
+    </p>
+        <p class="blue">{{book_list[0][2]}}</p>
+        <p class="white"></p>
+        <p class="blue"></p>
+        <p class="white"></p>
+        <p class="blue"></p>
+        <p class="white"></p>
+        <p class="blue"></p>
+        <p class="white"></p>
+        <p class="blue"></p>
+        <p class="white"></p>
+        <p class="blue"></p>
+        <p class="white"></p>
+{% endblock %}
