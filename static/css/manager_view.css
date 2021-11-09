@@ -1,6 +1,6 @@
 .hamburger {
     display : block;
-    position: fixed;
+    position: absolute;
     z-index : 3;
     left : 13px;
     top   : 12px;
@@ -52,7 +52,8 @@
   nav.globalMenuSp {
     position: fixed;
     z-index : 2;
-    top  : 100;
+    margin-top: pt;
+    top  : 0;
     left : 0;
     color: #000;
     background: #707070;
@@ -76,10 +77,10 @@
     
   }
   nav.globalMenuSp ul li:last-child {
+    margin-top: 30pt;
     padding-bottom: 0;
     border-bottom: none;
     border-top: #aaa 1px solid;
-    margin-top: 120px
   }
   nav.globalMenuSp ul li:hover{
     background :#ddd;
@@ -88,7 +89,7 @@
   nav.globalMenuSp ul li a {
     display: block;
     color: #FFFFFF;
-    padding: 1em 0;
+    padding: 0.6em 0;
     text-decoration :none;
     font-size: 15pt;
   }
@@ -106,11 +107,13 @@ body {
 }
 
 header {
-    position: fixed;
+    position: absolute;
     white-space: nowrap;
     background-color: #707070;
-    width: 240px;
-    height: 12vh;
+    width: 100%;
+    height: 13vh;
+    top: 0;
+    left: 0;
 }
 
 .title {
@@ -148,97 +151,98 @@ header {
     color: #04A9F3;
     border-left: #04A9F3 5px solid;
 }
-.ability {
-    background-color:#707070 ;
-    height: 75px;
-    width:auto;
-    margin-left: 239px;
-    text-align: right;   
-}
 .main_board{
-  margin-top: 15pt;
+  margin-top: 70pt;
   width: 100%;
-  height: 100%;
   transition: all 0.6s;
   
 }
 .main_board.active{
-  transform: translateX(273px);
+  transform: translateX(270px);
 }
-.main_board .attention ,.book_history{
-    margin-left: 20pt;
+.main_board .report{
+  margin-left: 20pt;
+  font-size: 15pt;
+}
+.main_board .delete_result{
+  font-size: 15pt;
+  color: red;
+  margin-left: 700px;
+}
+.main_board .last_change{
+    text-align: right;
+    margin-right: 220pt;
     font-size: 15pt;
+  }
+.last_change .change_name{
+  margin-left: 20pt;
 }
-.main_board .result{
-    margin-left: 650pt;
-    color: #FF0000;
-    font-size: 15pt;
-}
-.rent_column , .book_column,.rent_column2,.history_column {
-    background-color: #36587A;
-    font-size: 20pt;
-    color: white;
-    height: 35pt;
-    margin-bottom: -12pt;
-
-}
-.rent_column .column_title{
-    margin-left: 200pt;
-}
-.rent_column .isbn{
-    margin-left: 240pt;
-}
-.rent_column2 .column_title{
-    margin-left: 120px;
-}
-.rent_column2 .author,.rent_column2 .company,.return_day{
-    margin-left: 150px;
-}
-.main_board .result_book{
-    margin-left: 30pt;
-    font-size: 15pt;
-}
-.main_board .book_search {
+.main_board .student_search{
     margin-left: 130pt;
     font-size: 15pt;
 }
-.main_board .book_amount {
-    margin-left: 20pt;
-    font-size: 15pt;
-}
-
 .main_board .view_search{
-    font-size: 15pt;
-    margin-left: 10pt;
-    background-color: #45B3CF;
+  font-size: 15pt;
+  margin-left: 10pt;
+  background-color: #45B3CF;
+  color: white;
+  width: 70pt;
+}
+.renting_column , .book_column,.promotion_column{
+  background-color: #36587A;
+    font-size: 20pt;
     color: white;
-    width: 70pt;
-}
-.main_board .return_button{
-    font-size: 15pt;
-    margin-left: 450pt;
-    background-color: #45B3CF;
-    color: white;
-    width: 70pt;
-}
-.book_column .column_title, .author,.company,.view_star,.available{
-    margin-left: 100px;
-}
-.history_column .column_title,.history_column .author,.history_column .company,.rent_day,.history_column .return_day{
-  margin-left: 110px;
+    height: 40pt;
+    margin-bottom: -1pt;
 
 }
+.renting_column .name{
+  margin-left: 120px;
+}
+.renting_column .column_title,.renting_column .rent_day,.return_day{
+  margin-left: 150px;
+}
+.book_column .column_title, .author,.company,.release_day{
+  margin-left: 120px;
+}
+.promotion_column .name{
+    margin-left: 120px;
+}
+.promotion_column .stu_number,.promotion_column .course{
+  margin-left: 250px;
+}
+
 .blue{
     background-color: #E7EFF8;
     height: 35pt;
     border-bottom: rgb(49, 48, 48) 1px solid;
     border-top: rgb(49, 48, 48) 1px solid;
+    margin-bottom: -10pt;
+    margin-top: -10pt;
+
   }
   .white{
     background-color: #FFFFFF;
-    height: 13pt;
-    
+    height: 35pt;
   }
+  .main_board .delete{
+    font-size: 13pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 50pt;
+    margin-top: 5pt;
+    margin-left: 930px;
+  }
+.main_board .promotion_button{
+  text-align: center;
+}
+.main_board button{
+  font-size: 15pt;
+  background-color: #45B3CF;
+  color: white;
+  width: 70pt;
+
+}
 
 
   

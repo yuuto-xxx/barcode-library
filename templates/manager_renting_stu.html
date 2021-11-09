@@ -1,15 +1,14 @@
-{% extends "student_layout.html" %}
+{% extends "manager_view.html" %}
 {% block content %}
-            <p class="result_book">※該当検索は...件です</p>
-            <span class="book_search">キーワード：</span>
+            <p class="report">※現在、学生が借りている一覧です。</p>
+            <span class="student_search">キーワード：</span>
             <input type="text" name="key" size="40" style="font-size: 15pt;">
             <button class="view_search">検索</button><br>
-            <p class="book_column">
+            <p class="renting_column">
+                <span class="name">名前</span>
                 <span class="column_title">タイトル</span>
-                <span class="author">著者</span>
-                <span class="company">出版社</span>
-                <span class="view_star">評価</span>
-                <span class="available">貸出可否</span>
+                <span class="rent_day">貸出日</span>
+                <span class="return_day">返却日</span>
             </p>
             <p class="blue"></p>
             <p class="white"></p>
@@ -24,6 +23,3 @@
             <p class="blue"></p>
             <p class="white"></p>
 {% endblock %}
-
-
-</html>

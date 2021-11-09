@@ -8,7 +8,7 @@
     <title>本登録</title>
 </head>
 <body>
-    <form action="">
+    <form action="{{url_for('book_register_result')}}">
         <h4>本詳細情報</h4>
         <div class="square">
             <ul>
@@ -17,6 +17,13 @@
                 <li><input type="text" placeholder="(例)著者" autocomplete="off">
                 <li><input type="text" placeholder="(例)出版社" autocomplete="off">
                 <li><input type="text" placeholder="(例)発売日" autocomplete="off">
+
+                    
+                    {% for i in range(book|length) %}
+                    <div>{{book[i]}}</div>
+                    <input type="text" name="book" value={{book[i]}}>
+                    {% endfor %}
+                    <!-- <input type="text" name="quantity"> -->
             </ul>
         </div>
     </form>
