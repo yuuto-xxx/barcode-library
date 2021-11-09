@@ -166,17 +166,19 @@ def search_student_account(mail, password):
     return result
 
 #本の登録
-def book_register(isbn,image,title,author,publisher,release_day,amount_max):
+def book_register(book):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "insert into book values (%s,%s,%s,%s,%s,%s,%s)"
+    sql = "insert into book values(%s,%s,%s,%s,%s,%s,%s)"
 
     try:
-        cur.execute(sql,())
+        print(book[0])
+        cur.execute(sql,(book[0],book[1],book[2],book[3],book[4],book[5],book[6]))
     except Exception as e:
         print("本の登録エラー", e)
 
+    conn.commit()
     cur.close()
     conn.close()
 

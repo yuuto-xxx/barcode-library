@@ -78,16 +78,18 @@ def book_register_verification():
             publisher = json_data["publisherName"]
             sales_date = json_data["salesDate"]
             book = [isbn, large_image_url, title, author, publisher, sales_date]
-            return large_image_url
-            # return render_template('', book=book)
+            return render_template('book_register.html', book=book)
 
 @app.route("/book_register_result") #登録リザルト
 def book_register_result():
-    quantity = request.args.get("") #数量
+    # quantity = request.args.get("") #数量
+    quantity = request.args.get("quantity")
     book = request.args.getlist("book")
     book.append(quantity)
+    print(book)
     db.book_register(book)
-    return render_template("",book=book)
+    return "登録完了"
+    # return render_template("",book=book)
 
 @app.route("/student_rent_book")
 def rent_book():
