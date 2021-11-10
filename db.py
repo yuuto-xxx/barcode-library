@@ -191,7 +191,7 @@ def book_list():  #本の一覧表示
     try:
         cur.execute(sql,())
     except Exception as e:
-        print("図書検索エラー",e)
+        print("図書一覧表示エラー",e)
 
     result = cur.fetchall()
 
@@ -199,7 +199,6 @@ def book_list():  #本の一覧表示
     conn.close()
 
     return result
-
 
 # DBとのコネクションを取得
 def get_connection():

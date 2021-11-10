@@ -1,15 +1,16 @@
 from email.mime.text import MIMEText
-import smtplib
+from email.mime.multipart import MIMEMultipart
+from smtplib import SMTP
 
 
 def mail(mail2,pw):
     # SMTP認証情報
-    account = "#"
-    password = "#"
+    account = "morijyobi.library.apprication@gmail.com"
+    password = "morijyobi"
     
     # 送受信先
     to_email = mail2
-    from_email = "#"
+    from_email = account
     
     # MIMEの作成
     subject = "仮パスワードの送信"
@@ -20,7 +21,7 @@ def mail(mail2,pw):
     msg["From"] = from_email
     
     # メール送信処理
-    server = smtplib.SMTP("smtp.gmail.com", 587)
+    server = SMTP("smtp.gmail.com", 587)
     server.starttls()
     server.login(account, password)
     server.send_message(msg)

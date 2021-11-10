@@ -51,7 +51,7 @@ def sign_up():
 def stu_register():
     stu_number = request.form.get("stu_number")
     name = request.form.get("name")
-    course = request.form.get("")
+    course = request.form.get("course")
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
     
@@ -63,7 +63,6 @@ def book_register_camera():
 @app.route("/book_register_verification") #確認画面
 def book_register_verification():
     isbn = request.args.get("isbn")
-    print(isbn) #テスト
     if len(isbn) <= 9:
         return "isbnを入力して下さい"
     else:
@@ -81,12 +80,10 @@ def book_register_verification():
             return render_template('book_register.html', book=book)
 
 @app.route("/book_register_result") #登録リザルト
-def book_register_result():
-    # quantity = request.args.get("") #数量
+def book_register_result():   
     quantity = request.args.get("quantity")
     book = request.args.getlist("book")
     book.append(quantity)
-    print(book)
     db.book_register(book)
     return "登録完了"
     # return render_template("",book=book)
@@ -194,7 +191,6 @@ def passwd_check(pw):
 @app.route('/forget_pw')
 def forget_pw():
     return render_template("forget_pw.html")
-
 
     
 if __name__ == "__main__":
