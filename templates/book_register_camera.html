@@ -33,7 +33,7 @@
             
               navigator.mediaDevices.getUserMedia(
                 //マイクはオフ, カメラの設定   背面カメラを希望する 640×480を希望する 1230*800
-                {"audio":false,"video":{"facingMode":"environment","width":{"ideal":1230},"height":{"ideal":800}}}
+                {"audio":false,"video":{"facingMode":"environment","width":{"ideal":640},"height":{"ideal":480}}}
               ).then( //許可
                 function(stream){
                   video.srcObject = stream;
