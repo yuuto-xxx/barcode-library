@@ -173,7 +173,6 @@ def book_register(book):
     sql = "insert into book values(%s,%s,%s,%s,%s,%s,%s)"
 
     try:
-        print(book[0])
         cur.execute(sql,(book[0],book[1],book[2],book[3],book[4],book[5],book[6]))
     except Exception as e:
         print("本の登録エラー", e)

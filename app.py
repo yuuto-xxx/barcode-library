@@ -7,6 +7,7 @@ import re
 import mail_send
 import random
 import string
+import datetime as dt
 
 app = Flask(__name__)
 
@@ -82,6 +83,11 @@ def book_register_verification():
             author = json_data["author"]
             publisher = json_data["publisherName"]
             sales_date = json_data["salesDate"]
+            try:
+                sales_date = dt.datetime.strptime(sales_date,"%Y年%m月")
+            except ValueError:
+                sales_date = dt.datetime.strptime(sales_date,"%Y年%m月%d日頃")
+            sales_date = sales_date.strftime("%Y/%m/%d")
             book = [isbn, large_image_url, title, author, publisher, sales_date]
             return render_template('book_register.html', book=book)
 
@@ -89,6 +95,7 @@ def book_register_verification():
 def book_register_result():   
     quantity = request.args.get("quantity")
     book = request.args.getlist("book")
+    print(book[5])
     book.append(quantity)
     db.book_register(book)
     return "登録完了"
