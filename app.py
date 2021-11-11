@@ -199,7 +199,10 @@ def passwd_check(pw):
 def forget_pw():
     return render_template("forget_pw.html")
 
-
+#　レビュー画面
+@app.route('/review')
+def review():
+    return render_template("review.html")
     
 if __name__ == "__main__":
     app.run(debug=True)

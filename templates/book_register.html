@@ -9,23 +9,26 @@
 </head>
 <body>
     <form action="{{url_for('book_register_result')}}">
-        <h4>本詳細情報</h4>
+        <h4 style="text-align: left;">本詳細情報</h4>
         <div class="square">
-            <ul>
-                <!-- <li id="photo">  -->
-                <li><input type="text" half placeholder="(例)タイトル" autocomplete="off">
-                <li><input type="text" placeholder="(例)著者" autocomplete="off">
-                <li><input type="text" placeholder="(例)出版社" autocomplete="off">
-                <li><input type="text" placeholder="(例)発売日" autocomplete="off">
-
-                    
-                    {% for i in range(book|length) %}
+            <ul class="info2">
+                <li><img src="C:/Users/kokubunren/Pictures/Saved Pictures/401.jpg" width="180" height="200"></li>
+                <li>冊数:<input type="number" half  min="1" autocapitalize="off"></li>
+            </ul>
+            <ul class="info">
+                <li><input type="text" placeholder="タイトル" autocomplete="off"></li>
+                <li><input type="text" placeholder="著者" autocomplete="off"></li>
+                <li><input type="text" placeholder="出版社" autocomplete="off"></li>
+                <li><input type="text" placeholder="発売日" autocomplete="off"></li>
+                
+                <!-- {% for i in range(book|length) %}
                     <div>{{book[i]}}</div>
                     <input type="text" name="book" value={{book[i]}}>
                     {% endfor %}
-                    <!-- <input type="text" name="quantity"> -->
+                <input type="text" name="quantity"> -->
             </ul>
         </div>
+        <input type="submit" value="この本を登録">
     </form>
 </body>
 </html>
