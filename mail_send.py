@@ -1,15 +1,15 @@
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from smtplib import SMTP
+import smtplib
 
-
-def mail(mail2,pw):
+def mail(address,pw):
     # SMTP認証情報
     account = "morijyobi.library.apprication@gmail.com"
     password = "morijyobi"
     
     # 送受信先
-    to_email = mail2
+    to_email = address
     from_email = account
     
     # MIMEの作成
@@ -29,16 +29,16 @@ def mail(mail2,pw):
     print("ok")
     return True
 
-def mail(mail2,pw,student_flg):
+def mail(address,pw,student_flg):
     # SMTP認証情報
-    account = "#"
-    password = "#"
+    account = "morijyobi.library.apprication@gmail.com"
+    password = "morijyobi"
     
     # 送受信先
-    to_email = mail2
-    from_email = "#"
+    to_email = address
+    from_email = account
     
-    email = "?mail="+mail2+"?student_flg="+student_flg
+    email = "?mail="+address+"?student_flg="+student_flg
     # MIMEの作成
     subject = "仮パスワードの送信"
     message = f"新しいパスワード；＿＿{pw}__http://127.0.0.1/pw_reset{email}"

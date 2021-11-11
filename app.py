@@ -39,24 +39,6 @@ def manager_top():
     print(result[0])
     return render_template("manager.html")
 
-@app.route("/sign_up")
-def sign_up():
-    return render_template("sign_up.html")
-    # if "user" in session:
-    #     return render_template('sign_up.html')
-    # else:
-    #     return render_template('login.html', session="セッション有効期限切れです。")
-        
-
-@app.route("/student_register", methods=['POST']) #学生登録
-def stu_register():
-    stu_number = request.form.get("stu_number")
-    name = request.form.get("name")
-    course = request.form.get("course")
-    year = request.form.get("year")
-    mail = request.form.get("mail")
-    re_mail = request.form.get("re_mail")
-    return name
     
 @app.route("/book_register") #本の登録
 def book_register():
@@ -136,34 +118,28 @@ def manager_register_result():
         error = "正しい形式で入力してください。"
         return render_template("manager_register.html",error=error)
 
-# 学生登録(個人)
-@app.route("/student_register")
+@app.route("/stu_register")
+def stu_register():
+    return render_template("stu_register.html")
+        
+@app.route("/student_register", methods=['POST']) #学生登録
 def student_register():
-    return render_template("sign_up.html")
-    # if "user" in session:
-    #     return render_template("manager_register.html")
-    # else:
-    #     return render_template("login.html", session="セッション有効期限切れです。")
-
-# 学生登録結果(個人)
-@app.route("/student_register_result", methods=['POST'])
-def student_register_result():
+    stu_number = request.form.get("stu_number")
     name = request.form.get("name")
-    student_id = request.form.get("student_id")
     course = request.form.get("course")
-    grade = request.form.get("grade")
-    print(grade)
-    mail_first = request.form.get("mail_first")
-    mail_second = request.form.get("mail_second")
-    if mail_first == mail_second and mail_check(mail_first) \
-     and len(student_id) == 7 and student_id.isdigit() \
+    year = request.form.get("year")
+    mail = request.form.get("mail")
+    re_mail = request.form.get("re_mail")
+
+    if mail == re_mail and mail_check(mail) \
+     and len(stu_number) == 7 and stu_number.isdigit() \
      and len(name) <= 64 :
         salt = db.create_salt()
         pw = db.new_pw()
-        result = db.student_register(mail_first,name,student_id,course,grade,pw,salt)
+        result = db.student_register(mail,name,stu_number,course,year,pw,salt)
         if result:
             event = "登録成功"
-            # mail_send(mail_first,pw)
+            mail_send.mail(mail,pw) #新規登録用メールメソッド
             return render_template("student_register.html",event=event,course_list=session['course_list'],grade_list=session['grade_list'])
         else :
             event = "登録失敗"
@@ -182,7 +158,7 @@ def stud_delete():
 def forget_pw():
     return render_template("forget_pw.html")
 
-# メール送信
+# メール送信(パスワードを忘れた人用メソッド)
 @app.route('/forget_pw_2',methods=['POST'])
 def forget_pw_2():
     mail = request.form.get('email')
@@ -206,7 +182,7 @@ def forget_pw_2():
             student_flg = 0
             # 仮パスワードをアップデートしてメール送信
             # db.update_manger(new_pw,new_salt)
-            mail_send.mail_2(mail,new_pw,student_flg)
+            mail_send.mail(mail,new_pw,student_flg)
             return render_template('mail_result.html')
         else:
             error = "登録していないメールアドレスです"
