@@ -55,9 +55,12 @@ def stu_register():
     year = request.form.get("year")
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
-
     return name
     
+@app.route("/book_register") #本の登録
+def book_register():
+    return render_template("book_register.html")
+
 # 本登録(カメラ)
 @app.route('/book_register_camera')
 def book_register_camera():
@@ -242,7 +245,11 @@ def pw_reset_2():
 # 学生登録(一括)
 def student_register_all():
     return render_template('student_register_all.html')
-
+  
+#　レビュー画面
+@app.route('/review')
+def review():
+    return render_template("review.html")
 
 
 # メールアドレスのバリエーションチェック
@@ -276,7 +283,7 @@ def name_check(name):
         return True
     else :
         return False
-
+      
 # 学籍番号バリエーションチェック
 def student_id_check(student_id):
     if student_id == None:
