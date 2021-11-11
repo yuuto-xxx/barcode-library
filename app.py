@@ -7,6 +7,7 @@ import re
 import mail_send
 import random
 import string
+import datetime as dt
 
 app = Flask(__name__)
 
@@ -51,10 +52,12 @@ def sign_up():
 def stu_register():
     stu_number = request.form.get("stu_number")
     name = request.form.get("name")
-    course = request.form.get("")
+    course = request.form.get("course")
+    year = request.form.get("year")
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
-
+    return name
+    
 @app.route("/book_register") #本の登録
 def book_register():
     return render_template("book_register.html")
@@ -67,7 +70,6 @@ def book_register_camera():
 @app.route("/book_register_verification") #確認画面
 def book_register_verification():
     isbn = request.args.get("isbn")
-    print(isbn) #テスト
     if len(isbn) <= 9:
         return "isbnを入力して下さい"
     else:
@@ -81,16 +83,20 @@ def book_register_verification():
             author = json_data["author"]
             publisher = json_data["publisherName"]
             sales_date = json_data["salesDate"]
+            try:
+                sales_date = dt.datetime.strptime(sales_date,"%Y年%m月")
+            except ValueError:
+                sales_date = dt.datetime.strptime(sales_date,"%Y年%m月%d日頃")
+            sales_date = sales_date.strftime("%Y/%m/%d")
             book = [isbn, large_image_url, title, author, publisher, sales_date]
             return render_template('book_register.html', book=book)
 
 @app.route("/book_register_result") #登録リザルト
-def book_register_result():
-    # quantity = request.args.get("") #数量
+def book_register_result():   
     quantity = request.args.get("quantity")
     book = request.args.getlist("book")
+    print(book[5])
     book.append(quantity)
-    print(book)
     db.book_register(book)
     return "登録完了"
     # return render_template("",book=book)
@@ -110,10 +116,6 @@ def book_list():
 @app.route("/manager_register")
 def manager_register():
     return render_template("manager_register.html")
-    # if "user" in session:
-    #     return render_template("manager_register.html")
-    # else:
-    #     return render_template("login.html", session="セッション有効期限切れです。")
 
 # 管理者登録結果
 @app.route("/manager_register_result", methods=['POST'])

@@ -173,7 +173,6 @@ def book_register(book):
     sql = "insert into book values(%s,%s,%s,%s,%s,%s,%s)"
 
     try:
-        print(book[0])
         cur.execute(sql,(book[0],book[1],book[2],book[3],book[4],book[5],book[6]))
     except Exception as e:
         print("本の登録エラー", e)
@@ -191,7 +190,7 @@ def book_list():  #本の一覧表示
     try:
         cur.execute(sql,())
     except Exception as e:
-        print("図書検索エラー",e)
+        print("図書一覧表示エラー",e)
 
     result = cur.fetchall()
 
@@ -199,7 +198,6 @@ def book_list():  #本の一覧表示
     conn.close()
 
     return result
-
 
 # DBとのコネクションを取得
 def get_connection():
