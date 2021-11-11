@@ -103,10 +103,6 @@ def book_list():
 @app.route("/manager_register")
 def manager_register():
     return render_template("manager_register.html")
-    # if "user" in session:
-    #     return render_template("manager_register.html")
-    # else:
-    #     return render_template("login.html", session="セッション有効期限切れです。")
 
 # 管理者登録結果
 @app.route("/manager_register_result", methods=['POST'])
