@@ -172,6 +172,91 @@ def student_register_result():
         return render_template("student_register.html",error=error,course_list=session['course_list'],grade_list=session['grade_list'])
 
 
+# パスワード忘れた方
+@app.route('/forget_pw')
+def forget_pw():
+    return render_template("forget_pw.html")
+
+# メール送信
+@app.route('/forget_pw_2',methods=['POST'])
+def forget_pw_2():
+    mail = request.form.get('email')
+    salt = db.search_student_salt(mail)
+    # 1の場合は学生
+    student_flg = 1
+    # 学生アカウントの場合
+    if salt:
+        new_pw = db.new_pw()
+        new_salt = db.create_salt()
+        # 仮パスワードをアップデートしてメール送信
+        # db.update_student(new_pw,new_salt)
+        mail_send.mail_2(mail,new_pw,student_flg)
+        return render_template('mail_result.html')
+    else:
+        salt = db.manager_search_salt(mail)
+        # 管理者アカウントの場合
+        if salt:
+            new_pw = db.new_pw()
+            new_salt = db.create_salt()
+            student_flg = 0
+            # 仮パスワードをアップデートしてメール送信
+            # db.update_manger(new_pw,new_salt)
+            mail_send.mail_2(mail,new_pw,student_flg)
+            return render_template('mail_result.html')
+        else:
+            error = "登録していないメールアドレスです"
+            return render_template('forget_pw.html',error=error)
+
+# パスワードリセット(メール送信url) 
+@app.route('/pw_reset')
+def pw_reset():
+    mail = request.args.get('mail')
+    student_flg = request.args.get('student_flg')
+    session["data"] = [mail,student_flg]
+    return render_template('pw_reset.html')
+
+# パスワードリセット(確認)
+@app.route('/pw_reset_2',menthods=["POST"])
+def pw_reset_2():
+    if "data" in session:
+        flg = session["data"][1]  
+        mail = session["data"][0]
+        pw = request.form.get("pw_first")
+        pw_2 =  request.form.get("pw_2")
+        pw_3 = request.form.get("pw_3")
+        if pw_2 != pw_3:
+            error = "パスワードとパスワード(確認)は一致していません"
+            return render_template('pw_reset.html',error=error)
+        if passwd_check(pw_2):
+            error = "バリエーションエラー"
+            return render_template('pw_reset.html',error=error)
+        # 学生の場合
+        if flg == 1:
+            result = db.student_login(mail,pw)
+            if result:
+                # 学生パスワードリセット
+                # result_2 = db.student_update(mail,pw_2)
+                event = "パスワードリセット成功"
+                return render_template('login.html',event=event)
+        # 管理者の場合
+        elif flg == 0:
+            result = db.manager_login(mail,pw)
+            if result:
+                # 管理者パスワードリセット
+                # result_2 = db.manager_update(mail,pw_2)
+                event = "パスワードリセット成功"
+                return render_template('login.html',event=event)
+
+# 学生登録(一括)
+def student_register_all():
+    return render_template('student_register_all.html')
+  
+#　レビュー画面
+@app.route('/review')
+def review():
+    return render_template("review.html")
+
+
 # メールアドレスのバリエーションチェック
 def mail_check(mail):
     pattren = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
@@ -190,19 +275,30 @@ def passwd_check(pw):
         and re.search("[A-Z]",pw)\
         and re.search("[a-z]",pw)\
         and re.search("[0-9]",pw):
-            return True
+        return True
     else :
         return False
 
-# パスワード忘れた方
-@app.route('/forget_pw')
-def forget_pw():
-    return render_template("forget_pw.html")
+# 名前バリエーションチェック
+def name_check(name):
+    if name == None:
+        return False
+    if len(name)>0\
+        and len(name)<=64:
+        return True
+    else :
+        return False
+      
+# 学籍番号バリエーションチェック
+def student_id_check(student_id):
+    if student_id == None:
+        return False
+    if re.fullmatch('[0-9]+', student_id)\
+        and len(student_id) == 7:
+        return True
+    else:
+        return False
 
-#　レビュー画面
-@app.route('/review')
-def review():
-    return render_template("review.html")
     
 if __name__ == "__main__":
     app.run(debug=True)
