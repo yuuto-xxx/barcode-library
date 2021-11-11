@@ -145,7 +145,6 @@ def student_register():
     # else:
     #     return render_template("login.html", session="セッション有効期限切れです。")
 
-
 # 学生登録結果(個人)
 @app.route("/student_register_result", methods=['POST'])
 def student_register_result():
@@ -173,6 +172,10 @@ def student_register_result():
         error = "正しい形式で入力してください"
         return render_template("student_register.html",error=error,course_list=session['course_list'],grade_list=session['grade_list'])
 
+# 学生削除
+@app.route("/stu_delete")
+def stud_delete():
+    return render_template("stu_delete.html")
 
 # パスワード忘れた方
 @app.route('/forget_pw')
