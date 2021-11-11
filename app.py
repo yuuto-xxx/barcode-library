@@ -52,8 +52,11 @@ def stu_register():
     stu_number = request.form.get("stu_number")
     name = request.form.get("name")
     course = request.form.get("course")
+    year = request.form.get("year")
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
+
+    return name
     
 # 本登録(カメラ)
 @app.route('/book_register_camera')
@@ -205,7 +208,7 @@ def pw_reset():
     return render_template('pw_reset.html')
 
 # パスワードリセット(確認)
-@app.route('/pw_reset_2',menthods=["POST"])
+@app.route('/pw_reset_2',methods=["POST"])
 def pw_reset_2():
     if "data" in session:
         flg = session["data"][1]  
