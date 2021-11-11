@@ -280,10 +280,7 @@ header {
 }
 .search_table{
   border: black solid 1px;
-  margin-left: 75pt;
-  margin-right: 75pt;
-  margin-bottom: 40pt;
-  margin-top: 30pt;
+  margin: 30pt 75pt 40pt
 }
 .search_table .search_column{
     background-color: #36587A;
@@ -299,6 +296,120 @@ header {
 .search_table .search_column .stu_number,.search_column .course{
   margin-left: 70pt;
 }
+/*一括登録の画面*/
+.file_choose{
+  border: black solid 1px;
+  margin-left: 30pt;
+  margin-right: 300pt;
+  height: 35pt;
+  position: relative;
+}
+.file_choose label {
+  display: inline-block;
+  background: #666;
+  color:#fff;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  margin-top: 5pt;
+  margin-left: 588pt;
+  
+ }
+ .file_choose label:hover {
+  background: #45B3CF;
+  transition: all 0.4s;
+ }
+ .file_choose label input {
+  /* 今回のポイント */
+  position: absolute;
+  left:0;
+  top:0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  
+ }
+ .file_choose .filename {
+  font-weight: 16px;
+  margin:0 0 0 10px;
+  position: absolute;
+  margin-top: 5pt;
+ }
+ .link_style{
+  text-decoration: none;
+  margin-left: 520pt;
+  color: #04A9F3;
+  font-size: 13pt;
+}
+.link_style:hover{
+  color: red;
+}
+.course_table{
+  margin-left: 295pt;
+  margin-top: 5pt;
+}
+.course_table table {
+  border: 1px solid rgb(139, 138, 138);
+  border-collapse: collapse;
+  
+}
+.course_table table th{
+  border-bottom: 1px solid rgb(139, 138, 138);
+  font-size: 15pt;
+  
+}
+.course_table table td{
+  border-left: 1px solid rgb(139, 138, 138);
+  border-bottom: 1px solid rgb(139, 138, 138);
+  width: 180pt;
+}
+.course_table table tr {
+  height: 30pt;
+}
+.course_table table .course_id{
+  width: 30pt;
+  text-align: center;
+}
+.csv_table{
+  border: black solid 1px;
+  margin-top: 20pt;
+  margin-left: 50pt;
+  margin-right: 290pt;
+  height: 150pt;
+}
+.csv_table .csv_column{
+  border-bottom: black solid 1px;
+  font-size: 17pt;
+  margin-top: 1pt;
+  height: 35pt;
+  font-weight: lighter;
+}
+.csv_table .name{
+  margin-left: 30pt;
+}
+.csv_table .stu_number,.csv_table .course,.csv_table .year,.csv_table .mail{
+  margin-left: 80pt;
+  
+}
+.regist_button{
+  margin-left: 330pt;
+}
+.regist_button button{
+  font-size: 15pt;
+  background-color: #45B3CF;
+  color: white;
+  width: 90pt;
+
+}
+.main_board .regist_report{
+  font-size: 20pt;
+  font-weight: lighter;
+  margin-left: 60pt;
+  margin-top: 80pt;
+}
+
+
 
 
 
