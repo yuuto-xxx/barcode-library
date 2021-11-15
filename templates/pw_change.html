@@ -6,22 +6,25 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
-	<title>ログインページ</title>
+	<title>パスワードを忘れた方</title>
 </head>
 <body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="./js/login.js"></script>
 	<div class="wrapper">
-		<form class="login">
+		<form class="login" action="{{url_for('pw_change')}}" method="post">
 			<p class="title">パスワード変更</p>
-			<input type="text" name="" placeholder="仮パスワード" autofocus required="required"/>
+			<input type="text" name="temporary_password" placeholder="仮パスワード" autofocus required="required" autocomplete="off"/>
 			<i class="fa fa-user"></i>
 
-			<input type="text" name=""placeholder="新規パスワード" required="required"/>
+			<input type="password" name="new_password" placeholder="新規パスワード" required="required"/>
 			<i class="fa fa-key"></i>
 			<form id="fieldPassword">
      		<span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()"></span>
-			<input type="password" name="" id="textpassword"  placeholder="パスワード(確認)" required="required" />
+			<input type="password" name="re_password" id="textpassword"  placeholder="パスワード(確認)" required="required" />
+			<input type="hidden" name="student_flg" value={{student_flg}}>
+			<input type="hidden" name="new_salt" value={{new_salt}}>
+			<input type="hidden" name="mail" value={{mail}}>
 
 			<i class="fa fa-key"></i>
 			<button>
@@ -43,4 +46,4 @@
   }
 </script>
 </body>
-</htm
+</html>

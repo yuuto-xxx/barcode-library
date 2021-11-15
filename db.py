@@ -231,6 +231,44 @@ def update_manager(mail, new_pw, new_salt):
     cur.close()
     conn.close()
 
+def search_temporary_password(mail):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select password from manager where mail=%s"
+
+    try:
+        cur.execute(sql,(mail,))
+    except Exception as e:
+        print(e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    print(result[0])
+    return result[0]
+
+def stu_search_temporary_password(mail):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select password from student where mail=%s"
+
+    try:
+        cur.execute(sql,(mail,))
+    except Exception as e:
+        print(e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+
 # DBとのコネクションを取得
 def get_connection():
     connection = psycopg2.connect(

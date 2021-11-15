@@ -164,7 +164,7 @@ def forget_pw_2():
     mail = request.form.get('email')
     salt = db.search_student_salt(mail)
     # 1の場合は学生
-    student_flg = 1
+    student_flg = "1"
     # 学生アカウントの場合
     if salt:
         new_pw = db.new_pw()
@@ -172,21 +172,61 @@ def forget_pw_2():
         # 仮パスワードをアップデートしてメール送信
         db.update_student(mail, new_pw, new_salt)
         mail_send.forget_pw_mail(mail, new_pw, student_flg)
-        return render_template('mail_result.html')
+        return render_template('pw_change.html', student_flg=student_flg,salt=new_salt,mail=mail)
     else:
         salt = db.manager_search_salt(mail)
         # 管理者アカウントの場合
         if salt:
             new_pw = db.new_pw()
             new_salt = db.create_salt()
-            student_flg = 0
+            student_flg = "0"
             # 仮パスワードをアップデートしてメール送信
             db.update_manager(mail, new_pw, new_salt)
             mail_send.forget_pw_mail(mail,new_pw,student_flg)
-            return render_template('mail_result.html')
+            return render_template('pw_change.html', student_flg=student_flg, new_salt=new_salt, mail=mail)
         else:
             error = "登録していないメールアドレスです"
             return render_template('forget_pw.html',error=error)
+
+@app.route("/pw_change", methods=["POST"])
+def pw_change():
+    temporary_password = request.form.get("temporary_password")
+    password = request.form.get("new_password")
+    re_password = request.form.get("re_password")
+    flg = request.form.get("student_flg")
+    salt = request.form.get("new_salt")
+    mail = request.form.get("mail")
+    print(flg)
+    print(mail)
+
+    if flg == "1":
+        stu_tem_pass = db.stu_search_temporary_password(mail)
+        if temporary_password == stu_tem_pass:
+            if password == re_password:
+                db.update_student(mail,password,salt)
+                return ("パスワード変更完了")
+            else:
+                error = "再入力パスワードが間違っています"
+                return render_template("pw_change.html",error=error)
+        else:
+            error = "仮パスワードが間違っています"
+            return render_template("pw_change.html",error=error)
+    elif flg == "0":
+        manager_tem_pass = db.search_temporary_password(mail)
+        if temporary_password == manager_tem_pass:
+            if password == re_password:
+                hash_pw = db.hash_pw(password,salt)
+                db.update_manager(mail,hash_pw,salt)
+                return render_template("login.html")
+            else:
+                error = "再入力パスワードが間違っています"
+                return render_template("pw_change.html",error=error)
+        else:
+            error = "仮パスワードが間違っています"
+            return render_template("pw_change.html",error=error)
+    else:
+        return "student_flgエラー"
+    
 
 # パスワードリセット(メール送信url) 
 @app.route('/pw_reset')
@@ -195,11 +235,6 @@ def pw_reset():
     student_flg = request.args.get('student_flg')
     session["data"] = [mail,student_flg]
     return render_template('pw_reset.html')
-
-# パスワード変更
-@app.route('/pw_change')
-def pw_change():
-    return render_template('pw_change.html')
 
 # パスワードリセット(確認)
 @app.route('/pw_reset_2',methods=["POST"])
