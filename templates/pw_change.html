@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+	<title>ログインページ</title>
+</head>
+<body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="./js/login.js"></script>
+	<div class="wrapper">
+		<form class="login">
+			<p class="title">パスワード変更</p>
+			<input type="text" name="" placeholder="仮パスワード" autofocus required="required"/>
+			<i class="fa fa-user"></i>
+
+			<input type="text" name=""placeholder="新規パスワード" required="required"/>
+			<i class="fa fa-key"></i>
+			<form id="fieldPassword">
+     		<span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()"></span>
+			<input type="password" name="" id="textpassword"  placeholder="パスワード(確認)" required="required" />
+
+			<i class="fa fa-key"></i>
+			<button>
+				<i class="spinner"></i> <span class="state">登録</span>
+			</button>
+		</form>
+	</div>
+<script language="javascript">
+  function pushHideButton() {
+    var txtPass = document.getElementById("textpassword");
+    var btnEye = document.getElementById("buttonEye");
+    if (txtPass.type === "text") {
+      txtPass.type = "password";
+      btnEye.className = "fa fa-eye";
+    } else {
+      txtPass.type = "text";
+      btnEye.className = "fa fa-eye-slash";
+    }
+  }
+</script>
+</body>
+</htm

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/sign_up.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生削除</title>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <h4>※下記の内容をご入力の上、ご確認ください</h4>
+    <form autocomplete="off" action="" method="POST" id="form1">
+        <!-- テキストボックスを半分 -->
+        <h4 id=half>名前</h4>
+        <h4 id=half>学籍番号</h4>
+        <input type="text" half placeholder="(例)盛岡太郎" autocomplete="off">
+        <input type="text" half placeholder="(例)3201120" autocomplete="off">
+        <!-- プルダウン -->
+        <h4 id=half>学科</h4>
+        <h4 id=half>学年</h4>
+        <div class="cp_ipselect cp_sl02">
+            <select required>
+                <option value="" hidden>選択してください</option>
+                <option value="1">情報システム科</option>
+                <option value="2">ネットワークセキュリティ科</option>
+                <option value="3">総合システム工学科</option>
+                <option value="4">高度情報工学科</option>
+                <option value="5">情報ビジネス科</option>
+                <option value="6">グラフィックデザインコース</option>
+                <option value="7">アニメ・マンガコース</option>
+                <option value="8">CGクリエイトコース</option>
+                <option value="9">建築インテリアコース</option>
+                <option value="10">総合デザイン科</option>
+            </select>
+        </div>
+        <div class="s_year cp_pull">
+            <select>
+                <option value="" hidden>選択してください</option>
+                <option value="">1</option>
+                <option value="">2</option>
+                <option value="">3</option>
+                <option value="">4</option>
+            </select>
+        </div>&nbsp;&nbsp;
+
+        <!-- メールアドレス　-->
+        <h4>メールアドレス</h4>
+        <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" autocomplete="off">
+      </form>
+      <input type="submit" value="削除" form="form1" id="btn">
+  
+    <!-- アラート機能 -->
+      <script>
+        var btn = document.getElementById('btn');
+         
+        btn.addEventListener('click', function() {
+            var result = window.confirm('本当に削除してよろしいですか？');
+            
+            if( result ) {
+                console.log('はい');
+            }
+            else {
+                console.log('いいえ');
+            }
+        })
+    </script>
+    {{error}}
+    {{event}}
+</body>
+</html>

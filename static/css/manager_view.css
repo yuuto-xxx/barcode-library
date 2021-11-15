@@ -1,0 +1,417 @@
+.hamburger {
+    display : block;
+    position: absolute;
+    z-index : 3;
+    left : 13px;
+    top   : 12px;
+    width : 42px;
+    height: 42px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .hamburger span {
+    display : block;
+    position: absolute;
+    width   : 30px;
+    height  : 2px ;
+    left    : 1300px;
+    background : rgb(241, 239, 239);
+    -webkit-transition: 0.3s ease-in-out;
+    -moz-transition   : 0.3s ease-in-out;
+    transition        : 0.3s ease-in-out;
+  }
+  .hamburger span:nth-child(1) {
+    top: 10px;
+  }
+  .hamburger span:nth-child(2) {
+    top: 20px;
+  }
+  .hamburger span:nth-child(3) {
+    top: 30px;
+  }
+  
+  /* ナビ開いてる時のボタン */
+  .hamburger.active span:nth-child(1) {
+    top : 16px;
+    left: 1300px;
+    background :#fff;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform   : rotate(-45deg);
+    transform        : rotate(-45deg);
+  }
+  
+  .hamburger.active span:nth-child(2),
+  .hamburger.active span:nth-child(3) {
+    top: 16px;
+    background :#fff;
+    -webkit-transform: rotate(45deg);
+    -moz-transform   : rotate(45deg);
+    transform        : rotate(45deg);
+  }
+  
+  nav.globalMenuSp {
+    position: fixed;
+    z-index : 2;
+    margin-top: pt;
+    top  : 0;
+    left : 0;
+    color: #000;
+    background: #707070;
+    text-align: center;
+    transform: translateX(-100%);
+    transition: all 0.6s;
+    width: 20%;
+  }
+  
+  nav.globalMenuSp ul {
+    background: #707070;
+    padding: 0;
+    width: 100%;
+    height: 600vh;
+  }
+  
+  nav.globalMenuSp ul li {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    
+  }
+  nav.globalMenuSp ul li:last-child {
+    margin-top: 30pt;
+    padding-bottom: 0;
+    border-bottom: none;
+    border-top: #aaa 1px solid;
+  }
+  nav.globalMenuSp ul li:hover{
+    background :#ddd;
+  }
+  
+  nav.globalMenuSp ul li a {
+    display: block;
+    color: #FFFFFF;
+    padding: 0.6em 0;
+    text-decoration :none;
+    font-size: 15pt;
+  }
+  
+  /* このクラスを、jQueryで付与・削除する */
+  nav.globalMenuSp.active {
+    transform: translateX(0%);
+  }
+
+
+/*layout.css から持ってきた */
+
+body {
+    margin: 0;
+}
+
+header {
+    position: absolute;
+    white-space: nowrap;
+    background-color: #707070;
+    width: 100%;
+    height: 13vh;
+    top: 0;
+    left: 0;
+}
+
+.title {
+    margin-left: 70px;
+    color: #FFFFFF;
+}
+
+.header_menu {
+    list-style: none;
+    padding: 0;
+}
+
+.header_menu li {
+    width: 220px;
+    padding: 10px 0;
+    margin-left: 5px;
+}
+
+.logout {
+    position: absolute;
+    bottom: 20px;
+    width: 220px;
+}
+
+.header_menu .menu_style {
+    font-size: 1.2rem;
+    color: #aaa;
+    display: block;
+    width: 100%;
+    padding: 10px 0 10px 20px;
+    text-decoration: none;
+}
+
+.menu_hover:hover {
+    color: #04A9F3;
+    border-left: #04A9F3 5px solid;
+}
+.main_board{
+  margin-top: 70pt;
+  width: 100%;
+  transition: all 0.6s;
+  
+}
+.main_board.active{
+  transform: translateX(270px);
+}
+.main_board .report{
+  margin-left: 20pt;
+  font-size: 15pt;
+}
+.main_board .delete_result{
+  font-size: 15pt;
+  color: red;
+  margin-left: 700px;
+}
+.main_board .last_change{
+    text-align: right;
+    margin-right: 220pt;
+    font-size: 15pt;
+  }
+.last_change .change_name{
+  margin-left: 20pt;
+}
+.main_board .student_search{
+    margin-left: 130pt;
+    font-size: 15pt;
+}
+.main_board .view_search{
+  font-size: 15pt;
+  margin-left: 10pt;
+  background-color: #45B3CF;
+  color: white;
+  width: 70pt;
+}
+.renting_column , .book_column,.promotion_column{
+  background-color: #36587A;
+    font-size: 20pt;
+    color: white;
+    height: 40pt;
+    margin-bottom: -1pt;
+
+}
+.renting_column .name{
+  margin-left: 120px;
+}
+.renting_column .column_title,.renting_column .rent_day,.return_day{
+  margin-left: 150px;
+}
+.book_column .column_title, .author,.company,.release_day{
+  margin-left: 120px;
+}
+.promotion_column .name{
+    margin-left: 120px;
+}
+.promotion_column .stu_number,.promotion_column .course{
+  margin-left: 250px;
+}
+
+.blue{
+    background-color: #E7EFF8;
+    height: 35pt;
+    border-bottom: rgb(49, 48, 48) 1px solid;
+    border-top: rgb(49, 48, 48) 1px solid;
+    margin-bottom: -10pt;
+    margin-top: -10pt;
+
+  }
+  .white{
+    background-color: #FFFFFF;
+    height: 35pt;
+  }
+  .main_board .delete{
+    font-size: 13pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 50pt;
+    margin-top: 5pt;
+    margin-left: 930px;
+  }
+.main_board .promotion_button{
+  text-align: center;
+}
+.main_board button{
+  font-size: 15pt;
+  background-color: #45B3CF;
+  color: white;
+  width: 70pt;
+
+}
+/* ここは学生変更のスタイル*/
+.edit_board{
+  margin-top: 20pt;
+  margin-left: 100pt;
+  margin-right: 350pt;
+  border: black solid 1px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+}
+.edit_board .name{
+  margin-left: 120pt;
+  margin-bottom: -10pt;
+  font-size: 20pt;
+  font-weight:lighter;
+}
+.edit_board .name_type{
+  margin-left: 110pt;
+}
+.name_type input{
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  font-size: 20pt;
+  padding: 10px;
+  width: 200pt;
+}
+.name_type button{
+  font-size: 15pt;
+  background-color: #45B3CF;
+  color: white;
+  width: 70pt;
+  height: 35pt;
+  margin-left: 60pt;
+}
+.search_table{
+  border: black solid 1px;
+  margin: 30pt 75pt 40pt
+}
+.search_table .search_column{
+    background-color: #36587A;
+    font-size: 20pt;
+    color: white;
+    height: 35pt;
+    margin-bottom: -1pt;
+    margin-top: -0.5pt;
+}
+.search_table .search_column .name{
+  margin-left: 65pt;
+}
+.search_table .search_column .stu_number,.search_column .course{
+  margin-left: 70pt;
+}
+/*一括登録の画面*/
+.file_choose{
+  border: black solid 1px;
+  margin-left: 30pt;
+  margin-right: 300pt;
+  height: 35pt;
+  position: relative;
+}
+.file_choose label {
+  display: inline-block;
+  background: #666;
+  color:#fff;
+  font-size: 16px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: all 0.3s;
+  margin-top: 5pt;
+  margin-left: 588pt;
+  
+ }
+ .file_choose label:hover {
+  background: #45B3CF;
+  transition: all 0.4s;
+ }
+ .file_choose label input {
+  /* 今回のポイント */
+  position: absolute;
+  left:0;
+  top:0;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  
+ }
+ .file_choose .filename {
+  font-weight: 16px;
+  margin:0 0 0 10px;
+  position: absolute;
+  margin-top: 5pt;
+ }
+ .link_style{
+  text-decoration: none;
+  margin-left: 520pt;
+  color: #04A9F3;
+  font-size: 13pt;
+}
+.link_style:hover{
+  color: red;
+}
+.course_table{
+  margin-left: 295pt;
+  margin-top: 5pt;
+}
+.course_table table {
+  border: 1px solid rgb(139, 138, 138);
+  border-collapse: collapse;
+  
+}
+.course_table table th{
+  border-bottom: 1px solid rgb(139, 138, 138);
+  font-size: 15pt;
+  
+}
+.course_table table td{
+  border-left: 1px solid rgb(139, 138, 138);
+  border-bottom: 1px solid rgb(139, 138, 138);
+  width: 180pt;
+}
+.course_table table tr {
+  height: 30pt;
+}
+.course_table table .course_id{
+  width: 30pt;
+  text-align: center;
+}
+.csv_table{
+  border: black solid 1px;
+  margin-top: 20pt;
+  margin-left: 50pt;
+  margin-right: 290pt;
+  height: 150pt;
+}
+.csv_table .csv_column{
+  border-bottom: black solid 1px;
+  font-size: 17pt;
+  margin-top: 1pt;
+  height: 35pt;
+  font-weight: lighter;
+}
+.csv_table .name{
+  margin-left: 30pt;
+}
+.csv_table .stu_number,.csv_table .course,.csv_table .year,.csv_table .mail{
+  margin-left: 80pt;
+  
+}
+.regist_button{
+  margin-left: 330pt;
+}
+.regist_button button{
+  font-size: 15pt;
+  background-color: #45B3CF;
+  color: white;
+  width: 90pt;
+
+}
+.main_board .regist_report{
+  font-size: 20pt;
+  font-weight: lighter;
+  margin-left: 60pt;
+  margin-top: 80pt;
+}
+
+
+
+
+
+
+  

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/forget_pw.css')}}">
+    <title>パスワード忘れた方</title>
+</head>
+<body>
+    <header>
+        <h1>パスワードを忘れた方はこちら</h1>
+    </header><br>
+        <h3>現在のパスワードをリセットして、新しいパスワードを再発行します。<br>
+            アカウント登録したメールアドレスを入力してください。</h3><br>
+        <form action="{{url_for('forget_pw_2')}}" method="post">
+            メール:<input type="email" name="email" placeholder="例：morijyobi.ac.jp" class="hoge" required><br>
+            <div class="btn">
+                <script>
+                function modoru() {
+                    history.back();
+                }
+            </script>
+			<input type="button" class="btn1" value="戻る" onclick="modoru()">
+			<input type="submit" value="送信">
+		</div>
+	</form>
+</html>

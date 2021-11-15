@@ -1,0 +1,172 @@
+.hamburger {
+    display : block;
+    position: fixed;
+    z-index : 3;
+    left : 13px;
+    top   : 12px;
+    width : 42px;
+    height: 42px;
+    cursor: pointer;
+    text-align: center;
+  }
+  .hamburger span {
+    display : block;
+    position: absolute;
+    width   : 30px;
+    height  : 2px ;
+    left    : 1300px;
+    background : rgb(241, 239, 239);
+    -webkit-transition: 0.3s ease-in-out;
+    -moz-transition   : 0.3s ease-in-out;
+    transition        : 0.3s ease-in-out;
+  }
+  .hamburger span:nth-child(1) {
+    top: 10px;
+  }
+  .hamburger span:nth-child(2) {
+    top: 20px;
+  }
+  .hamburger span:nth-child(3) {
+    top: 30px;
+  }
+  
+  /* ナビ開いてる時のボタン */
+  .hamburger.active span:nth-child(1) {
+    top : 16px;
+    left: 1300px;
+    background :#fff;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform   : rotate(-45deg);
+    transform        : rotate(-45deg);
+  }
+  
+  .hamburger.active span:nth-child(2),
+  .hamburger.active span:nth-child(3) {
+    top: 16px;
+    background :#fff;
+    -webkit-transform: rotate(45deg);
+    -moz-transform   : rotate(45deg);
+    transform        : rotate(45deg);
+  }
+  
+  nav.globalMenuSp {
+    position: fixed;
+    z-index : 2;
+    top  : 100;
+    left : 0;
+    color: #000;
+    background: #707070;
+    text-align: center;
+    transform: translateX(-100%);
+    transition: all 0.6s;
+    width: 20%;
+  }
+  
+  nav.globalMenuSp ul {
+    background: #707070;
+    padding: 0;
+    width: 100%;
+    height: 600vh;
+  }
+  
+  nav.globalMenuSp ul li {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    
+  }
+  nav.globalMenuSp ul li:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+    border-top: #aaa 1px solid;
+  }
+  nav.globalMenuSp ul li:hover{
+    background :#ddd;
+  }
+  
+  nav.globalMenuSp ul li a {
+    display: block;
+    color: #FFFFFF;
+    padding: 0.6em 0;
+    text-decoration :none;
+    font-size: 15pt;
+  }
+  
+  /* このクラスを、jQueryで付与・削除する */
+  nav.globalMenuSp.active {
+    transform: translateX(0%);
+  }
+
+
+/*layout.css から持ってきた */
+
+body {
+    margin: 0;
+}
+
+header {
+    position: fixed;
+    white-space: nowrap;
+    background-color: #707070;
+    width: 240px;
+    height: 12vh;
+}
+
+.title {
+    margin-left: 70px;
+    color: #FFFFFF;
+}
+
+.header_menu {
+    list-style: none;
+    padding: 0;
+}
+
+.header_menu li {
+    width: 220px;
+    padding: 10px 0;
+    margin-left: 5px;
+}
+
+.logout {
+    position: absolute;
+    bottom: 20px;
+    width: 220px;
+}
+
+.header_menu .menu_style {
+    font-size: 1.2rem;
+    color: #aaa;
+    display: block;
+    width: 100%;
+    padding: 10px 0 10px 20px;
+    text-decoration: none;
+}
+
+.menu_hover:hover {
+    color: #04A9F3;
+    border-left: #04A9F3 5px solid;
+}
+.ability {
+    background-color:#707070 ;
+    height: 75px;
+    width:auto;
+    margin-left: 239px;
+    text-align: right;
+    
+    
+}
+.main_board{
+  margin-top: 15pt;
+  width: 100%;
+  height: 100%;
+  transition: all 0.6s;
+  
+}
+.main_board.active{
+  transform: translateX(273px);
+}
+
+
+
+  

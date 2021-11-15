@@ -1,0 +1,58 @@
+{% extends "manager_view.html" %}
+{% block content %}
+            <div class="file_choose">
+                <span class="filename">ファイル選択</span>
+                <label><input type="file" name="fileinput" class="file_input">ファイル添付</label>
+            </div><br>
+            <a href="#" class="link_style"> テンプレートをダウンロードする</a>
+            <div class="course_table">
+                <table>
+                    <tr>
+                        <th colspan="4">学科</th>
+                    </tr>
+                    <tr>
+                        <td class="course_id">1</td>
+                        <td>情報システム科</td>
+                        <td class="course_id">6</td>
+                        <td>グラフィックデザインコース</td>
+
+                    </tr>
+                    <tr>
+                        <td class="course_id">2</td>
+                        <td>ネットワークセキュリティ科</td>
+                        <td class="course_id">7</td>
+                        <td>アニメ・マンガコース</td>
+                    </tr>
+                    <tr>
+                        <td class="course_id">3</td>
+                        <td>総合システム工学科</td>
+                        <td class="course_id">8</td>
+                        <td>CGクリエイトコース</td>
+                    </tr>
+                    <tr>
+                        <td class="course_id">4</td>
+                        <td>高度情報工学科</td>
+                        <td class="course_id">9</td>
+                        <td>建築インテリアコース</td>
+                    </tr>
+                    <tr>
+                        <td  class="course_id">5</td>
+                        <td>情報ビジネス科</td>
+                        <td class="course_id">10</td>
+                        <td>総合デザイン科</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="csv_table">
+                <p class="csv_column">
+                    <span class="name">名前</span>
+                    <span class="stu_number">学籍番号</span>
+                    <span class="course">学科</span>
+                    <span class="year">学年</span>
+                    <span class="mail">メールアドレス</span>
+                </p>
+                <!-- ここでCSVファイルから格納する -->
+
+            </div>
+            <p class="regist_button"><button>登録</button></p>
+{% endblock %}
