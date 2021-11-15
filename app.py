@@ -196,6 +196,11 @@ def pw_reset():
     session["data"] = [mail,student_flg]
     return render_template('pw_reset.html')
 
+# パスワード変更
+@app.route('/pw_change')
+def pw_change():
+    return render_template('pw_change.html')
+
 # パスワードリセット(確認)
 @app.route('/pw_reset_2',methods=["POST"])
 def pw_reset_2():
@@ -280,6 +285,10 @@ def student_id_check(student_id):
     else:
         return False
 
-    
+#　本詳細情報
+@app.route("/book_detail")
+def book_detail():
+    return render_template("book_detail.html")    
+
 if __name__ == "__main__":
     app.run(debug=True)
