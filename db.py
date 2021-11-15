@@ -4,6 +4,8 @@ import random
 import hashlib
 import os
 
+from requests.api import get
+
 dbname="d146sdrtncr1rm" 
 host = "ec2-23-23-199-57.compute-1.amazonaws.com"
 port = 5432 
@@ -198,6 +200,36 @@ def book_list():  #本の一覧表示
     conn.close()
 
     return result
+
+def update_student(mail, new_pw, new_salt):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update student set password=%s, salt=%s where mail=%s"
+
+    try:
+        cur.execute(sql,(new_pw,new_salt,mail))
+    except Exception as e:
+        print("UPDATEエラー", e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def update_manager(mail, new_pw, new_salt):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update manager set password = %s, salt = %s where mail = %s"
+
+    try:
+        cur.execute(sql,(new_pw,new_salt,mail))
+    except Exception as e:
+        print("UPDATEエラー", e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
 
 # DBとのコネクションを取得
 def get_connection():
