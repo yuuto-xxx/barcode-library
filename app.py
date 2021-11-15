@@ -112,7 +112,7 @@ def manager_register_result():
         result = db.manager_insert(mail_first,name,pw,salt)
         if result:
             event = "登録完了"
-            # mail_send(mail_first,pw)
+            mail_send.mail(mail_first,pw)
             return render_template("manager_register.html",event=event)
     else:
         error = "正しい形式で入力してください。"
@@ -170,8 +170,8 @@ def forget_pw_2():
         new_pw = db.new_pw()
         new_salt = db.create_salt()
         # 仮パスワードをアップデートしてメール送信
-        # db.update_student(new_pw,new_salt)
-        mail_send.mail_2(mail,new_pw,student_flg)
+        db.update_student(mail, new_pw, new_salt)
+        mail_send.forget_pw_mail(mail, new_pw, student_flg)
         return render_template('mail_result.html')
     else:
         salt = db.manager_search_salt(mail)
@@ -181,8 +181,8 @@ def forget_pw_2():
             new_salt = db.create_salt()
             student_flg = 0
             # 仮パスワードをアップデートしてメール送信
-            # db.update_manger(new_pw,new_salt)
-            mail_send.mail(mail,new_pw,student_flg)
+            db.update_manager(mail, new_pw, new_salt)
+            mail_send.forget_pw_mail(mail,new_pw,student_flg)
             return render_template('mail_result.html')
         else:
             error = "登録していないメールアドレスです"
