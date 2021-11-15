@@ -66,13 +66,14 @@ input[type=text][half] {
 #half2 {
   float: left;
   margin-right: 120px;
+
 }
 
 #half3 {
   float: right;
   margin-left: 90px;
 }
- 
+
   /* プルダウン学科css */
   .cp_ipselect {
     overflow: hidden;
