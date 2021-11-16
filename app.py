@@ -7,6 +7,8 @@ import re
 import mail_send
 import random
 import string
+import csv
+from werkzeug.utils import secure_filename
 import datetime as dt
 
 app = Flask(__name__)
@@ -130,8 +132,8 @@ def student_register():
     year = request.form.get("year")
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
-
     if mail == re_mail and mail_check(mail) \
+     and mail not in db.search_student_mail() \
      and len(stu_number) == 7 and stu_number.isdigit() \
      and len(name) <= 64 :
         salt = db.create_salt()
@@ -162,6 +164,9 @@ def forget_pw():
 @app.route('/forget_pw_2',methods=['POST'])
 def forget_pw_2():
     mail = request.form.get('email')
+    if mail_check(mail):
+        error="メールアドレスの形式は間違っています"
+        return render_template("forget_pw.html",error=error)
     salt = db.search_student_salt(mail)
     # 1の場合は学生
     student_flg = "1"
@@ -269,14 +274,54 @@ def pw_reset_2():
                 return render_template('login.html',event=event)
 
 # 学生登録(一括)
+@app.route('/student_register_all')
 def student_register_all():
     return render_template('student_register_all.html')
+
+# 学生登録(一括)テンプレートを表示
+@app.route('/student_all_file',methods=['POST'])
+def student_all_file():
+    file = request.files['file']
+    list = []
+    with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
+        for line in csv.reader(f):
+            list.append(line)
+    return render_template('student_register_all.html',list=list)
+
+# 学生登録(一括)登録処理
+@app.route('/student_all_file_result',methods=['POST'])
+def student_all_file_2():
+    file = request.files['file']
+    list = []
+    list_true = []
+    list_false = []
+    with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
+        for line in csv.reader(f):
+            list.append(line)
+    del list[0]
+    for i in list:
+        if name_check(i[0]) and student_id_check(i[1]) and \
+         i[0] not in db.search_student_mail() and \
+         mail_check(i[4]) and int(i[3])>=1 and int(i[3])<=4 and\
+         int(i[2])>=1 and int(i[2])<=10 :
+            list_true.append(i)
+        else :
+            list_false.append(i)
+    for n in list_true:
+        name = n[0]
+        stu_id = n[1]
+        course = n[2]
+        course_year = n[3]
+        mail = n[4]
+        result = db.student_register(stu_id,mail,name,course,course_year)
+        if not result:
+            list_false.append(n)
+    return render_template('student_all_file_result.html',list_true=list_true,list_false=list_false)
   
 #　レビュー画面
 @app.route('/review')
 def review():
     return render_template("review.html")
-
 
 # メールアドレスのバリエーションチェック
 def mail_check(mail):
