@@ -169,3 +169,7 @@ footer a, footer a:link {
   border-style: solid;
   width: 2000px;
 }
+
+#migi {
+  float: right;
+}

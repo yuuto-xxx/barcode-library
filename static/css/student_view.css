@@ -334,10 +334,10 @@ header {
 }
 /*カメラ画面*/
 .camera_area{
-  
   height: 350pt;
   margin-right: 390pt;
-  margin-top: -10pt;
+  margin-top: -50pt;
+  margin-left: 150pt;
 }
 
 

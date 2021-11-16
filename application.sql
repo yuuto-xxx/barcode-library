@@ -1,10 +1,18 @@
-#Šw‰Èƒe[ƒuƒ‹
+#å­¦ç§‘ãƒ†ãƒ¼ãƒ–ãƒ«
 create table course (course_id varchar(2) not null primary key, course_name varchar(32) not null, max_year int not null);
 
-insert into course values('1', 'î•ñƒVƒXƒeƒ€‰È',2);
-insert into course values('2', '',);
+insert into course values('1', 'æƒ…å ±ã‚·ã‚¹ãƒ†ãƒ ç§‘',2);
+insert into course values('2', 'ãƒãƒƒãƒˆãƒ¯ãƒ¼ã‚¯ã‚»ã‚­ãƒ¥ãƒªãƒ†ã‚£ç§‘',2);
+insert into course values('3', 'ç·åˆã‚·ã‚¹ãƒ†ãƒ å·¥å­¦ç§‘',3);
+insert into course values('4', 'é«˜åº¦æƒ…å ±å·¥å­¦ç§‘',4);
+insert into course values('5', 'æƒ…å ±ãƒ“ã‚¸ãƒã‚¹ç§‘',2);
+insert into course values('6', 'ã‚°ãƒ©ãƒ•ã‚£ãƒƒã‚¯ãƒ‡ã‚¶ã‚¤ãƒ³ã‚³ãƒ¼ã‚¹',2);
+insert into course values('7', 'ã‚¢ãƒ‹ãƒ¡ãƒ»ãƒãƒ³ã‚¬ã‚³ãƒ¼ã‚¹',2);
+insert into course values('8', 'CGã‚¯ãƒªã‚¨ã‚¤ãƒˆã‚³ãƒ¼ã‚¹',2);
+insert into course values('9', 'å»ºç¯‰ã‚¤ãƒ³ãƒ†ãƒªã‚¢ã‚³ãƒ¼ã‚¹',2);
+insert into course values('10', 'ç·åˆãƒ‡ã‚¶ã‚¤ãƒ³ç§‘',3);
 
-#Šw¶ƒe[ƒuƒ‹
+#å­¦ç”Ÿãƒ†ãƒ¼ãƒ–ãƒ«
 create table student (stu_number int not null primary key,
 mail varchar(256) not null,
 name varchar(64) not null unique,
@@ -16,7 +24,7 @@ password_flag boolean not null default True,
 delete_flag boolean not null default false,
 foreign key (course_id) references course(course_id));
 
-#ŠÇ—Òƒe[ƒuƒ‹
+#ç®¡ç†è€…ãƒ†ãƒ¼ãƒ–ãƒ«
 create table manager (mail varchar(256) not null primary key,
 name varchar(64) not null,
 password varchar(64) not null,
@@ -24,13 +32,13 @@ salt varchar(32) not null,
 password_flag boolean not null default true,
 delete_flag boolean not null default false);
 
-#i‹‰—š—ğƒe[ƒuƒ‹
+#é€²ç´šå±¥æ­´ãƒ†ãƒ¼ãƒ–ãƒ«
 create table promotion_history(promotion_id serial not null primary key,
 promotion_day date not null,
 manager_mail varchar(256) not null,
 foreign key (manager_mail) references manager(mail));
 
-#ƒuƒbƒNƒe[ƒuƒ‹
+#æœ¬ãƒ†ãƒ¼ãƒ–ãƒ«
 create table book(book_isbn varchar(13) not null primary key,
 image varchar(128),
 title varchar(128) not null,
@@ -40,7 +48,7 @@ release_day date,
 amount_max int not null,
 book_delete_flag boolean not null default false);
 
-#ƒŒƒrƒ…[ƒe[ƒuƒ‹
+#ãƒ¬ãƒ“ãƒ¥ãƒ¼ãƒ†ãƒ¼ãƒ–ãƒ«
 create table review (book_isbn varchar(13) not null,
 stu_number int not null,
 review_comment varchar(1024),
@@ -49,7 +57,7 @@ name_flag boolean not null default false,
 foreign key(book_isbn) references book(book_isbn),
 foreign key(stu_number) references student(stu_number));
 
-#Ø‚è‚Ä‚¢‚é–{ƒe[ƒuƒ‹
+#å€Ÿã‚Šã¦ã„ã‚‹æœ¬ãƒ†ãƒ¼ãƒ–ãƒ«
 create table rent_book (stu_number int not null,
 book_isbn varchar(13) not null,
 rent_day date not null,
@@ -58,13 +66,13 @@ amount int not null default 1,
 foreign key(stu_number) references student(stu_number),
 foreign key(book_isbn) references book(book_isbn));
 
-#ƒ^ƒO’†ŠÔƒe[ƒuƒ‹
+#ä¸­é–“ãƒ†ãƒ¼ãƒ–ãƒ«
 create table book_tag (book_isbn varchar(13) not null,
 tag_id int not null,
 primary key(book_isbn,tag_id),
 foreign key(book_isbn) references book(book_isbn),
 foreign key(tag_id) references tag(tag_id));
 
-#ƒ^ƒOƒe[ƒuƒ‹
+#ã‚¿ã‚°ãƒ†ãƒ¼ãƒ–ãƒ«
 create table tag (tag_id serial not null primary key,
 tag_name varchar(16) not null);

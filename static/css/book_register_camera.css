@@ -1,0 +1,91 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    }
+    
+  body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column; 
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    }
+  
+  form {
+    border: 2px solid #707070;
+    padding: 10px 10px 0px 40px;
+    width: 70%;
+    max-width: 700px;
+    border-radius: 20px;
+    margin-left: 40pt;
+    }
+    
+  /* テキストボックス配置 */
+  input {
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    color: #131313;
+    }
+  input[type=text] {
+    width: calc(100% - 30px);
+    margin-bottom: 30px;
+    border: 2px solid #b5b6b8;
+    }
+    
+  input[type=text]:placeholder-shown {
+    border: 2px solid #EAE4DA;
+    }
+
+  input[type=text]::placeholder {
+    color: #b5b6b8;
+    }
+
+  input[type=text][half] {
+    width: calc(80% - 30px);
+    float: left;
+    margin-right: 30px;
+    }
+
+#half{
+    width: calc(50% - 30px);
+    float: left;
+    margin-right: 30px;
+  }
+
+#half2{
+    width: calc(50% -30px);
+    float: center;
+    margin-right: 200px;
+}
+
+.list {
+	position: relative;
+	overflow: hidden; /* ulでリスト全体を右に50%移動している分幅が広がりスクロールバーが表示されるのを防ぐ */
+}
+ 
+.list ul {
+	position: relative;
+	left: 50%; /* ulを右に50%移動 */
+	float: left;
+	margin-left: -150px;/* liのmarginの半分をネガティブマージン（しないと右にずれる） */
+}
+ 
+
+    /* ボタン配置 */
+  * input[type=submit] {
+      font-size: 13pt;
+      background-color: #45B3CF;
+      color: white;
+      /* width: 80pt; */
+      padding: 5px ;
+      border-radius: 0px;
+    }
+  
+  * input:focus {
+    outline: 0;
+    }
+  

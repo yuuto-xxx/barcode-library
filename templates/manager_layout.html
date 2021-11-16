@@ -5,29 +5,28 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/manager_layout.css">
+    <link rel="stylesheet" href="../static/css/manager_view.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
     <title>Document</title>
 </head>
 
 <body>
     <div>
-    <header>
-        <h2 class="title">図書管理システム</h2>
-    </header></div>
-    <div class="ability"> 
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-        </div> 
+        <header>
+            <h2 class="title">図書管理システム</h2>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+        </header></div>
+       
         <nav class="globalMenuSp">
             <ul>
-                <li><a href="#" class="menu_style menu_hover">図書登録</a></li>
+                <li><a href="{{url_for('book_register_camera')}}" class="menu_style menu_hover">図書登録</a></li>
                     <li><a href="#" class="menu_style menu_hover">図書一覧</a></li>
                     <li><a href="#" class="menu_style menu_hover">貸出一覧</a></li>
-                    <li><a href="#" class="menu_style menu_hover">学生登録</a></li>
+                    <li><a href="{{url_for('stu_register')}}" class="menu_style menu_hover">学生登録</a></li>
                     <li><a href="#" class="menu_style menu_hover">学生変更</a></li>
                     <li><a href="#" class="menu_style menu_hover">学生削除</a></li>
                     <li><a href="#" class="menu_style menu_hover">学生進級</a></li>
@@ -37,7 +36,10 @@
             </ul>
         </nav>  
         <div class="main_board">
+            {% block content %}
+
             
+            {% endblock %}
         </div>
         
 
