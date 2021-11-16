@@ -3,17 +3,17 @@ import string
 import random
 import hashlib
 import os
+import urllib.parse
 
 from requests.api import get
 
-dbname="d146sdrtncr1rm" 
-host = "ec2-23-23-199-57.compute-1.amazonaws.com"
-port = 5432 
-user = "sudfwfyugnjfdf"
-password = "46a5575767a9c88ebcb1930e8afe9c557df8911a3b4021ce902a500ba47a4e8b"
+os.environ["DATABASE_URL"] = "postgres://sudfwfyugnjfdf:46a5575767a9c88ebcb1930e8afe9c557df8911a3b4021ce902a500ba47a4e8b@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d146sdrtncr1rm"
 
-DATABASE_URL = os.environ.get('postgres://sudfwfyugnjfdf:46a5575767a9c88ebcb1930e8afe9c557df8911a3b4021ce902a500ba47a4e8b@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d146sdrtncr1rm')
-url = "postgres://sudfwfyugnjfdf:46a5575767a9c88ebcb1930e8afe9c557df8911a3b4021ce902a500ba47a4e8b@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d146sdrtncr1rm"
+# dbname="d146sdrtncr1rm" 
+# host = "ec2-23-23-199-57.compute-1.amazonaws.com"
+# port = 5432 
+# user = "sudfwfyugnjfdf"
+# password = "46a5575767a9c88ebcb1930e8afe9c557df8911a3b4021ce902a500ba47a4e8b"
 
 # 管理者の新規登録
 def manager_insert(mail,name,pw,salt):
@@ -292,10 +292,14 @@ def stu_search_temporary_password(mail):
 
 # DBとのコネクションを取得
 def get_connection():
+    url = urllib.parse.urlparse(os.environ['DATABASE_URL'])
+
     connection = psycopg2.connect(
-    database=dbname,
-    user=user,
-    password=password,
-    host=host,
-    port=5432 )
+        database=url.path[1:],
+        user=url.username,
+        password=url.password,
+        host=url.hostname,
+        port=url.port
+    )
+
     return connection

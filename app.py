@@ -209,7 +209,7 @@ def pw_change():
         if temporary_password == stu_tem_pass:
             if password == re_password:
                 db.update_student(mail,password,salt)
-                return ("パスワード変更完了")
+                return render_template("login.html")
             else:
                 error = "再入力パスワードが間違っています"
                 return render_template("pw_change.html",error=error)
