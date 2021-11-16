@@ -321,7 +321,6 @@ header {
   transition: all 0.4s;
  }
  .file_choose label input {
-  /* 今回のポイント */
   position: absolute;
   left:0;
   top:0;
@@ -362,7 +361,7 @@ header {
 .course_table table td{
   border-left: 1px solid rgb(139, 138, 138);
   border-bottom: 1px solid rgb(139, 138, 138);
-  width: 180pt;
+  width: 200pt;
 }
 .course_table table tr {
   height: 30pt;
