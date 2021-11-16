@@ -4,6 +4,8 @@ import random
 import hashlib
 import os
 
+from requests.api import get
+
 dbname="d146sdrtncr1rm" 
 host = "ec2-23-23-199-57.compute-1.amazonaws.com"
 port = 5432 
@@ -180,7 +182,6 @@ def book_register(book):
     sql = "insert into book values(%s,%s,%s,%s,%s,%s,%s)"
 
     try:
-        print(book[0])
         cur.execute(sql,(book[0],book[1],book[2],book[3],book[4],book[5],book[6]))
     except Exception as e:
         print("本の登録エラー", e)
@@ -198,7 +199,7 @@ def book_list():  #本の一覧表示
     try:
         cur.execute(sql,())
     except Exception as e:
-        print("図書検索エラー",e)
+        print("図書一覧表示エラー",e)
 
     result = cur.fetchall()
 
@@ -220,6 +221,68 @@ def search_student_mail():
         print("学生メール一覧",e)
 
     result = cur.fetchall()
+
+def update_student(mail, new_pw, new_salt):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update student set password=%s, salt=%s where mail=%s"
+
+    try:
+        cur.execute(sql,(new_pw,new_salt,mail))
+    except Exception as e:
+        print("UPDATEエラー", e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def update_manager(mail, new_pw, new_salt):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update manager set password = %s, salt = %s where mail = %s"
+
+    try:
+        cur.execute(sql,(new_pw,new_salt,mail))
+    except Exception as e:
+        print("UPDATEエラー", e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def search_temporary_password(mail):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select password from manager where mail=%s"
+
+    try:
+        cur.execute(sql,(mail,))
+    except Exception as e:
+        print(e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    print(result[0])
+    return result[0]
+
+def stu_search_temporary_password(mail):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select password from student where mail=%s"
+
+    try:
+        cur.execute(sql,(mail,))
+    except Exception as e:
+        print(e)
+
+    result = cur.fetchone()
 
     cur.close()
     conn.close()

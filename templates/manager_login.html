@@ -14,6 +14,7 @@
 	<div class="wrapper">
 		<form action="{{url_for('manager_top')}}" method="POST" class="login">
 		<p class="title">ログイン</p>
+		<a href="{{url_for('login_page')}}" id="migi">学生ログイン</a>
 		<input type="email" name="mail" placeholder="メールアドレス" required="required" autofocus/>
 		<i class="fa fa-user"></i>
 
@@ -22,9 +23,7 @@
 		<input type="password" name="password" id="textpassword"  placeholder="パスワード" required="required" />
 
 		<i class="fa fa-key"></i>
-		<!-- <a href="/TeamC/forget_pw">パスワード忘れた方</a><br> -->
-
-		<a href="{{url_for('login_page')}}">学生ログイン</a>
+		<a href="{{url_for('forget_pw')}}">パスワード忘れた方</a><br>
 			
 			<button>
 				<i class="spinner"></i>

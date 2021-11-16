@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/sign_up.css')}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生新規登録</title>
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <div>
+        <h4 id=half2 align=left>※下記の内容をご入力の上,ご確認ください</h4>
+        <h4 id=half3 align=right><a href="">一括登録する方はこちら</a></h4>
+    </div>
+
+    <form autocomplete="off" action="{{url_for('student_register')}}" method="POST" id="form1">
+        <!-- テキストボックスを半分 -->
+        <h4 id=half>名前</h4>
+        <h4 id=half>学籍番号</h4>
+        <input type="text" half placeholder="(例)盛岡太郎" autocomplete="off" name="name">
+        <input type="text" half placeholder="(例)3201120" autocomplete="off" name="stu_number">
+        <!-- プルダウン -->
+        <h4 id=half>学科</h4>
+        <h4 id=half>学年</h4>
+        <div class="cp_ipselect cp_sl02">
+            <select name="course" required>
+                <option value="" hidden>選択してください</option>
+                <option value="1">情報システム科</option>
+                <option value="2">ネットワークセキュリティ科</option>
+                <option value="3">総合システム工学科</option>
+                <option value="4">高度情報工学科</option>
+                <option value="5">情報ビジネス科</option>
+                <option value="6">グラフィックデザインコース</option>
+                <option value="7">アニメ・マンガコース</option>
+                <option value="8">CGクリエイトコース</option>
+                <option value="9">建築インテリアコース</option>
+                <option value="10">総合デザイン科</option>
+            </select>
+        </div>
+        <div class="s_year cp_pull">
+            <select name="year">
+                <option value="" hidden>選択してください</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select>
+        </div>&nbsp;&nbsp;
+
+        <!-- メールアドレス　-->
+        <h4>メールアドレス</h4>
+        <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" autocomplete="off" name="mail">
+        <h4>メールアドレス(再入力)</h4>
+        <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" name="re_mail">
+      </form>
+      <input type="submit" value="登録" form="form1" id="btn">
+  
+    <!-- アラート機能 -->
+      <script>
+        var btn = document.getElementById("btn");
+         
+        btn.addEventListener("click", function() {
+            var result = window.confirm("本当に登録してよろしいですか？");
+            
+            if( result ) {
+                console.log("はい");
+            }
+            else {
+                console.log("いいえ");
+            }
+        })
+    </script>
+    {{error}}
+    {{event}}
+</body>
+</html>
