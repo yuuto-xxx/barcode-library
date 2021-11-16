@@ -332,6 +332,15 @@ header {
   color: white;
   width: 90pt;
 }
+/*カメラ画面*/
+.camera_area{
+  
+  height: 350pt;
+  margin-right: 390pt;
+  margin-top: -10pt;
+}
+
+
 
 
   
