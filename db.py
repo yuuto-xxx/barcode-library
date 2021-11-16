@@ -31,15 +31,22 @@ def manager_insert(mail,name,pw,salt):
     return True
 
 # 学生の新規登録(個人)
-def student_register(mail,name,student_id,couse,grade,pw,salt):
-    hashed_pw = hash_pw(pw,salt)
-    print("mail",mail)
-    print("name",name)
-    print("student_id",student_id)
-    print("hashed_pw",hashed_pw,len(hashed_pw))
-    print("salt",salt,len(salt))
-    print("course",couse)
-    print("grade",grade)
+def student_register(student_id,mail,name,course_id,year):
+    # conn = get_connection()
+    # cur = conn.cursor()
+    # pw = new_pw()
+    # salt = create_salt()
+    # sql = "INSERT INTO studnet VALUES(%s,%s,%s,%s,%s,%s,%s)"
+    # hashed_pw = hash_pw(pw,salt)
+    # try:
+    #     cur.execute(sql,(student_id,mail,name,hashed_pw,salt,course_id,year))
+    # except Exception as e:
+    #     print("SQL実行に失敗：", e)
+    
+    # conn.commit()
+    # cur.close()
+    # conn.close()
+    
     return True
 
 # ソルトの新規作成
@@ -192,6 +199,25 @@ def book_list():  #本の一覧表示
         cur.execute(sql,())
     except Exception as e:
         print("図書検索エラー",e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+# 学生のmail一覧
+def search_student_mail():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select mail from student"
+
+    try:
+        cur.execute(sql,())
+    except Exception as e:
+        print("学生メール一覧",e)
 
     result = cur.fetchall()
 
