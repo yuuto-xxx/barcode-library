@@ -1,34 +1,5 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/css/book_register_camera.css">
-    <link rel="stylesheet" href="../static/css/student_view.css">
-    <title>Document</title>
-</head>
-<body>
-    <div>
-        <header>
-            <h2 class="title">図書管理システム</h2>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
-        </header></div>
-        <nav class="globalMenuSp">
-            <ul>
-                <li><a href="#" class="menu_style menu_hover">借りている一覧</a></li>
-                    <li><a href="#" class="menu_style menu_hover">図書一覧</a></li>
-                    <li><a href="#" class="menu_style menu_hover">本を借りる</a></li>
-                    <li><a href="#" class="menu_style menu_hover">履歴</a></li>
-                    <li><a href="#" class="menu_style menu_hover">パスワード変更</a></li>
-                    <li><a href="#" class="menu_style menu_hover">ログアウト</a></li>
-            </ul>
-        </nav>
-        <div class="main_board">
+{% extends "student_layout.html" %}
+{% block content %}
             <div class="camera_area">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
             <h4 id="left">※本をカメラで登録する為、本のisbnをカメラに向かってかざしてください。</h4>
@@ -123,7 +94,7 @@
                           });
                         });
                         </script>
-                    <div><canvas id="preview"></canvas></div>&nbsp;
+                    <div><canvas id="preview" style="margin-left: 45pt;"></canvas></div>&nbsp;
                       <div class="list">
                         <ul>
                         <input type="text" half id="jan" name="isbn">
@@ -132,14 +103,23 @@
                       </div>
                     </form>
             </div>
+            <p class="rent_column" style="margin-top: 100pt;">
+              <span class="isbn">ISBN</span>
+              <span class="column_title">タイトル</span>
+          </p>
+          <p class="blue"></p>
+          <p class="white"></p>
+          <p class="blue"></p>
+          <p class="white"></p>
+          <p class="blue"></p>
+          <p class="white"></p>
+          <p class="blue"></p>
+          <p class="white"></p>
+          <p class="blue"></p>
+          <p class="white"></p>
+          <p class="blue"></p>
+          <p class="white"></p>
     
-            
-        </div>
-    
-</body>
-<script src="../static/js/layout.js"></script>
-<script src="../static/js/quagga.min.js"></script>
-
-
-
-</html> 
+          <link rel="stylesheet" href="../static/css/book_register_camera.css">
+          <script src="../static/js/quagga.min.js"></script>
+{% endblock %}
