@@ -20,7 +20,7 @@ app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
 def login_page():
     session = request.args.get("session")
     error = request.args.get("error")
-    return render_template("login.html", session=session, error=error)
+    return render_template("login.html")
 
 @app.route("/manager_login") #管理者ログイン
 def manager_login():
@@ -29,20 +29,35 @@ def manager_login():
     error = request.args.get("error")
     return render_template("manager_login.html", session=session, error=error)
 
-@app.route("/student_top") #学生ログイン後トップページ
+#学生ログイン後トップページ
+@app.route("/student_top", methods=["POST"]) 
 def stu_top():
-    return render_template("stu_top.html")
+    mail = request.form.get("mail")
+    password = request.form.get("password")
+    result = db.student_login(mail,password)
+    print(result)
+    if result[1]:
+        student_flg = 1
+        return render_template("first_login.html", student_flg=student_flg, mail=mail)
+    else:
+        return render_template("stu_book_rent.html")
+    
 
-@app.route("/manager_top", methods=['POST']) #管理者ログイン後トップページ
+#管理者ログイン後トップページ
+@app.route("/manager_top", methods=['POST'])
 def manager_top():
     mail = request.form.get("mail")
     password = request.form.get("password")
     result = db.manager_login(mail,password)
-    print(result[0])
-    return render_template("manager.html")
+    print(result[1])
+    if result[1]: #password_flagの判定
+        student_flg = 0
+        return render_template("first_login.html", student_flg=student_flg, mail=mail)
+    else:
+        return render_template("manager_renting_stu.html")
 
-    
-@app.route("/book_register") #本の登録
+#本の登録
+@app.route("/book_register")
 def book_register():
     return render_template("book_register.html")
 
@@ -76,7 +91,7 @@ def book_register_verification():
             return render_template('book_register.html', book=book)
 
 @app.route("/book_register_result") #登録リザルト
-def book_register_result():   
+def book_register_result():
     quantity = request.args.get("quantity")
     book = request.args.getlist("book")
     print(book[5])
@@ -89,6 +104,7 @@ def book_register_result():
 def rent_book():
     return render_template("")
 
+#本の一覧
 @app.route("/student_book_list")
 def book_list():
     book_list = db.book_list()
@@ -120,11 +136,13 @@ def manager_register_result():
         error = "正しい形式で入力してください。"
         return render_template("manager_register.html",error=error)
 
+
+#学生登録
 @app.route("/stu_register")
 def stu_register():
     return render_template("stu_register.html")
         
-@app.route("/student_register", methods=['POST']) #学生登録
+@app.route("/student_register", methods=['POST']) 
 def student_register():
     stu_number = request.form.get("stu_number")
     name = request.form.get("name")
@@ -136,19 +154,21 @@ def student_register():
      and mail not in db.search_student_mail() \
      and len(stu_number) == 7 and stu_number.isdigit() \
      and len(name) <= 64 :
-        salt = db.create_salt()
         pw = db.new_pw()
-        result = db.student_register(mail,name,stu_number,course,year,pw,salt)
+        result = db.student_register(stu_number, mail, name, course, year, pw)
         if result:
             event = "登録成功"
             mail_send.mail(mail,pw) #新規登録用メールメソッド
-            return render_template("student_register.html",event=event,course_list=session['course_list'],grade_list=session['grade_list'])
+            return render_template("stu_register.html")
+            # return render_template("stu_register.html",event=event,course_list=session['course_list'],grade_list=session['grade_list'])
         else :
             event = "登録失敗"
-            return render_template("student_register.html",event=event,course_list=session['course_list'],grade_list=session['grade_list'])
+            return render_template("stu_register.html", event=event)
+            # return render_template("stu_register.html",event=event,course_list=session['course_list'],grade_list=session['grade_list'])
     else :
         error = "正しい形式で入力してください"
-        return render_template("student_register.html",error=error,course_list=session['course_list'],grade_list=session['grade_list'])
+        return render_template("stu_register.html", error=error)
+        # return render_template("student_register.html",error=error,course_list=session['course_list'],grade_list=session['grade_list'])
 
 # 学生変更
 @app.route("/stu_change")
@@ -157,7 +177,7 @@ def stu_change():
     
 # 学生削除
 @app.route("/stu_delete")
-def stud_delete():
+def stu_delete():
     return render_template("stu_delete.html")
 
 # パスワード忘れた方
@@ -195,9 +215,9 @@ def forget_pw_2():
             mail_send.forget_pw_mail(mail,new_pw,student_flg)
             return render_template('pw_change.html', student_flg=student_flg, new_salt=new_salt, mail=mail)
         else:
-            error = "登録していないメールアドレスです"
+            error = "登録されていないメールアドレスです"
             return render_template('forget_pw.html',error=error)
-
+#パスワード変更
 @app.route("/pw_change", methods=["POST"])
 def pw_change():
     temporary_password = request.form.get("temporary_password")
@@ -230,10 +250,10 @@ def pw_change():
                 return render_template("login.html")
             else:
                 error = "再入力パスワードが間違っています"
-                return render_template("pw_change.html",error=error)
+                return render_template("pw_change.html", error=error)
         else:
             error = "仮パスワードが間違っています"
-            return render_template("pw_change.html",error=error)
+            return render_template("pw_change.html", error=error)
     else:
         return "student_flgエラー"
     
@@ -277,6 +297,34 @@ def pw_reset_2():
                 # result_2 = db.manager_update(mail,pw_2)
                 event = "パスワードリセット成功"
                 return render_template('login.html',event=event)
+
+#初回ログイン時パスワード変更
+@app.route("/first_login", methods=["POST"])
+def first_login():
+    new_password = request.form.get("new_password")
+    re_password = request.form.get("re_password")
+    stu_flg = request.form.get("student_flg")
+    mail = request.form.get("mail")
+
+    if stu_flg == "1":
+        if new_password == re_password:
+            salt = db.search_student_salt(mail)
+            hashed_pw = db.hash_pw(new_password,salt)
+            db.password_update_student(mail,hashed_pw)
+            return render_template("stu_book_rent.html")
+        else:
+            error = "パスワード不一致"
+    elif stu_flg == "0":
+        if new_password == re_password:
+            salt = db.manager_search_salt(mail)
+            hashed_pw = db.hash_pw(new_password,salt)
+            db.password_update_manager(mail,hashed_pw)
+            return render_template("manager_renting_stu.html")
+        else:
+            error = "パスワード不一致"
+    else:
+        "student_flgエラー"
+
 
 # 学生登録(一括)
 @app.route('/student_register_all')
@@ -326,7 +374,7 @@ def student_all_file_2():
 #　レビュー画面
 @app.route('/review')
 def review():
-    return render_template("review.html")
+    return render_template("stu_review_book.html")
 
 # メールアドレスのバリエーションチェック
 def mail_check(mail):

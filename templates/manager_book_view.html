@@ -1,4 +1,9 @@
 {% extends "manager_layout.html" %}
+
+{% block head %}
+<title>本の一覧</title>
+{% endblock %}
+
 {% block content %}
             <span class="student_search">キーワード入力：</span>
             <input type="text" name="key" size="40" style="font-size: 15pt;">
@@ -9,6 +14,7 @@
                 <span class="company">出版社</span>
                 <span class="release_day">出版日</span>
             </p>
+            
             <p class="blue"><button class="delete">削除</button></p>
             <p class="white"><button class="delete">削除</button></p>
             <p class="blue"></p>
