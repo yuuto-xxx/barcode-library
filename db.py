@@ -9,12 +9,6 @@ from requests.api import get
 
 os.environ["DATABASE_URL"] = "postgres://sudfwfyugnjfdf:46a5575767a9c88ebcb1930e8afe9c557df8911a3b4021ce902a500ba47a4e8b@ec2-23-23-199-57.compute-1.amazonaws.com:5432/d146sdrtncr1rm"
 
-# dbname="d146sdrtncr1rm" 
-# host = "ec2-23-23-199-57.compute-1.amazonaws.com"
-# port = 5432 
-# user = "sudfwfyugnjfdf"
-# password = "46a5575767a9c88ebcb1930e8afe9c557df8911a3b4021ce902a500ba47a4e8b"
-
 # 管理者の新規登録
 def manager_insert(mail,name,pw,salt):
     conn = get_connection()
@@ -33,21 +27,21 @@ def manager_insert(mail,name,pw,salt):
     return True
 
 # 学生の新規登録(個人)
-def student_register(student_id,mail,name,course_id,year):
-    # conn = get_connection()
-    # cur = conn.cursor()
-    # pw = new_pw()
-    # salt = create_salt()
-    # sql = "INSERT INTO studnet VALUES(%s,%s,%s,%s,%s,%s,%s)"
-    # hashed_pw = hash_pw(pw,salt)
-    # try:
-    #     cur.execute(sql,(student_id,mail,name,hashed_pw,salt,course_id,year))
-    # except Exception as e:
-    #     print("SQL実行に失敗：", e)
+def student_register(stu_number,mail,name,course_id,year,pw):
+    conn = get_connection()
+    cur = conn.cursor()
+    salt = create_salt()
+    sql = "INSERT INTO student VALUES(%s,%s,%s,%s,%s,%s,%s)"
+    hashed_pw = hash_pw(pw,salt)
+    try:
+        cur.execute(sql,(stu_number,mail,name,hashed_pw,salt,course_id,year))
+        print(hashed_pw)
+    except Exception as e:
+        print("SQL実行に失敗：", e)
     
-    # conn.commit()
-    # cur.close()
-    # conn.close()
+    conn.commit()
+    cur.close()
+    conn.close()
     
     return True
 
@@ -107,7 +101,7 @@ def search_manager_account(mail, pw):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "SELECT name from manager where mail=%s and password=%s"
+    sql = "SELECT name, password_flag from manager where mail=%s and password=%s"
 
     try:
         cur.execute(sql,(mail,pw))
@@ -160,7 +154,7 @@ def search_student_account(mail, password):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "SELECT name FROM student where mail=%s and password=%s"
+    sql = "SELECT name, password_flag FROM student where mail=%s and password=%s"
 
     try:
         cur.execute(sql,(mail,password))
@@ -221,6 +215,11 @@ def search_student_mail():
         print("学生メール一覧",e)
 
     result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
 
 def update_student(mail, new_pw, new_salt):
     conn = get_connection()
@@ -288,6 +287,37 @@ def stu_search_temporary_password(mail):
     conn.close()
 
     return result
+
+def password_update_student(mail,pw):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update student set password=%s, password_flag=%s where mail=%s"
+
+    try:
+        cur.execute(sql,(pw,"false",mail))
+    except Exception as e:
+        print("パスワードアップデートエラー",e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+def password_update_manager(mail,pw):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update manager set password=%s, password_flag=%s where mail=%s"
+
+    try:
+        cur.execute(sql,(pw,"false",mail))
+    except Exception as e:
+        print("パスワードアップデートエラー")
+
+    conn.commit()
+    cur.close()
+    conn.close()
 
 
 # DBとのコネクションを取得
