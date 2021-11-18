@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% extends "manager_layout.html" %}
+{% block content %}
+  {% block head %}
     <link rel="stylesheet" href="{{url_for('static', filename='css/book_register_camera.css')}}">
     <script type="text/javascript" src="{{url_for('static', filename='js/quagga.min.js')}}"></script>
     <title>本登録(カメラ)</title>
-</head>
+  {% endblock %}
+    
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <h4 id="left">※本をカメラで登録する為、本のisbnをカメラに向かってかざしてください。</h4> 
@@ -37,8 +35,8 @@
               ).then( //許可
                 function(stream){
                   video.srcObject = stream;
-                  //0.8秒毎にスキャンする
-                  setTimeout(Scan,800,true);
+                  //1.5秒毎にスキャンする
+                  setTimeout(Scan,1500,true);
                 }
               ).catch( //拒否
                 function(err){jan.value+=err+'\n';}
@@ -116,5 +114,6 @@
             </ul>
           </div>
         </form> 
-</body>
-</html>
+<!-- </body>
+</html> -->
+{% endblock %}
