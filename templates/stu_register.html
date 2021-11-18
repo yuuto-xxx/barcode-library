@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
+{% extends "manager_layout.html" %}
+
+    {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/sign_up.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>学生新規登録</title>
-</head>
-<body>
+    {% endblock %}
+
+{% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div>
         <h4 id=half2 align=left>※下記の内容をご入力の上,ご確認ください</h4>
@@ -74,5 +75,4 @@
     </script>
     {{error}}
     {{event}}
-</body>
-</html>
+{% endblock %}

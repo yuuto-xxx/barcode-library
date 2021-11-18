@@ -18,13 +18,10 @@ app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
 
 @app.route("/") #学生ログイン
 def login_page():
-    session = request.args.get("session")
-    error = request.args.get("error")
     return render_template("login.html")
 
 @app.route("/manager_login") #管理者ログイン
 def manager_login():
-    # テストユーザ:メール→test@test.jp パスワード→plA810nG
     session = request.args.get("session")
     error = request.args.get("error")
     return render_template("manager_login.html", session=session, error=error)
