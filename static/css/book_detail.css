@@ -7,14 +7,13 @@
     
 body {
     height: 80vh;
-    display: flex;
-    flex-direction: column; 
     flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    overflow: scroll;
     }
-  
+
+.info-area{
+    margin-top: 130px;
+}
+
 form {
     border: 2px solid #707070;
     padding: 10px 10px 10px 40px;
@@ -22,6 +21,7 @@ form {
     max-width: 700px;
     border-radius: 20px;
     text-align: center;
+    margin: 0 auto;
     }
 
 .square {
@@ -34,7 +34,7 @@ form {
 }
 
 .square li {
-    display: list-item;  /* 縦に並べる */
+    display: list-item;
     list-style-type: none;
     text-transform: uppercase;
     padding: 0.5em;
@@ -71,12 +71,11 @@ input[type=text]::placeholder {
     color: #b5b6b8;
 }
 
-input[type=number][half] {
-    width: 100px;
-    height: 10px;
-    float: right;
-    margin-right: 10px;
+input[type=text][half] {
+    width: 150px;
+    padding: 5px;
     border-radius: 0px;
+    margin-top: 10px;
     text-align: center;
     }
 
@@ -86,6 +85,7 @@ input[type=number][half] {
     background-color: #45B3CF;
     color: white;
     width: 50pt;
+    padding: 5px;
     margin-top: 10px;
     border-radius: 0px;
     text-align: center;
@@ -95,13 +95,55 @@ input[type=number][half] {
     padding-top: 10px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-end;
+    align-items: center;
   }
 
 .flex2{
-    padding-top: 10px;
+    width: 70%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding-top: 30px;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     text-align: center;
+    align-items: center;
 }
+
+.tag{
+    margin-left: 30%;
+}
+
+/* 要素内の縦スクロールバー追記 */
+.review{
+    overflow-y: auto;
+    width: 70%;
+    max-width: 700px;
+    height: 100px;
+    margin: 0 auto;
+    border: #707070 2px solid;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+/* スクロールバーのカスタマイズ */
+.review::-webkit-scrollbar{
+    width: 10px;
+}
+
+.review::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: #cde7ee;
+  }
+
+.review::-webkit-scrollbar-thumb {
+    background-color: rgba(36, 36, 39, 0.5);
+    border-radius: 10px;
+}
+
+/* 
+#review::-webkit-scrollbar-track {
+    background-color: #e4e4e4;
+    border-radius: 100px;
+} */

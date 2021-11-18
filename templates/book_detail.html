@@ -8,30 +8,44 @@
     <title>本詳細情報</title>
 </head>
 <body>
-    <form action="{{url_for('book_register_result')}}">
-        <h4 style="text-align: left;">本詳細情報</h4>
-        <div class="square">
-            <ul class="info2">
-                <li><img src="" width="180" height="280"></li>
-            </ul>
-            <ul class="info">
-                <li><input type="text" placeholder="タイトル" autocomplete="off"></li>
-                <li><input type="text" placeholder="著者" autocomplete="off"></li>
-                <li><input type="text" placeholder="出版社" autocomplete="off"></li>
-                <li><input type="text" placeholder="発売日" autocomplete="off"></li>
-            </ul>
+    {% extends "manager_layout.html" %}
+    {% block content %}
+    <div class="info-area">
+        <form action="{{url_for('book_register_result')}}">
+            <h4 style="text-align: left;">本詳細情報</h4>
+            <div class="square">
+                <ul class="info2">
+                    <li><img src="" width="180" height="280"></li>
+                </ul>
+                <ul class="info">
+                    <li><input type="text" placeholder="タイトル" autocomplete="off"></li>
+                    <li><input type="text" placeholder="著者" autocomplete="off"></li>
+                    <li><input type="text" placeholder="出版社" autocomplete="off"></li>
+                    <li><input type="text" placeholder="発売日" autocomplete="off"></li>
+                </ul>
+            </div>
+            <div class="flex">
+                <h4>残り 3 冊</h4>
+                <div class="tag">
+                    <input type="text" half placeholder="タグを追加">
+                    <input type="submit" value="追加">
+                </div>
+            </div>
+        </form>
+        <div class="flex2">
+            <h4>レビュー</h4>
+            <input type="button" onclick="location.href=''" value="カスタムレビューを書く">
         </div>
-        <div class="flex">
-            <h4>残り 3 冊</h4>
-            <select name="">
-                <option value="" hidden>タグを選択</option>
-            </select>
-            <input type="submit" value="追加">
-        </div>
-    </form>
-    <div class="flex2">
-        <h4>レビュー</h4>
-        <input type="button" onclick="" value="カスタムレビューを書く">
     </div>
+    <div class="review">
+        <div class="sampleText1">aaa</div>
+        <div class="sampleText1">bbb</div>
+        <div class="sampleText1">ccc</div>
+        <div class="sampleText1">ddd</div>
+        <div class="sampleText1">eee</div>
+        <div class="sampleText1">fff</div>
+        <div class="sampleText1">ggg</div>
+    </div>
+    {% endblock %}
 </body>
 </html>
