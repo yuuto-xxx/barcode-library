@@ -170,6 +170,11 @@ def student_register():
         return render_template("stu_register.html", error=error)
         # return render_template("student_register.html",error=error,course_list=session['course_list'],grade_list=session['grade_list'])
 
+# 学生変更
+@app.route("/stu_change")
+def stu_change():
+    return render_template("stu_change.html")
+    
 # 学生削除
 @app.route("/stu_delete")
 def stu_delete():
