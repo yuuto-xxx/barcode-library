@@ -1,16 +1,15 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
+{% extends "manager_layout.html" %}
+
+    {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"> -->
     <link rel="stylesheet" href="{{url_for('static', filename='css/sign_up.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>学生新規登録</title>
-</head>
-<body>
-    {% extends "manager_layout.html" %}
-    {% block content %}
+    {% endblock %}
+
+{% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="form_group">
     <div class="yoko">
@@ -77,6 +76,5 @@
     </script>
     {{error}}
     {{event}}
-    {% endblock %}
-</body>
-</html>
+
+{% endblock %}
