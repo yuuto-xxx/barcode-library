@@ -9,10 +9,13 @@
     <title>学生新規登録</title>
 </head>
 <body>
+    {% extends "manager_layout.html" %}
+    {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <div>
-        <h4 id=half2 align=left>※下記の内容をご入力の上,ご確認ください</h4>
-        <h4 id=half3 align=right><a href="">一括登録する方はこちら</a></h4>
+    <div class="form_group">
+    <div class="yoko">
+        <h4>※下記の内容をご入力の上、ご確認ください</h4>
+        <h4><a href="./manager_group_regist.html">一括登録する方はこちら</a></h4>
     </div>
 
     <form autocomplete="off" action="{{url_for('student_register')}}" method="POST" id="form1">
@@ -56,7 +59,7 @@
         <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" name="re_mail">
       </form>
       <input type="submit" value="登録" form="form1" id="btn">
-  
+    </div>
     <!-- アラート機能 -->
       <script>
         var btn = document.getElementById("btn");
@@ -74,5 +77,6 @@
     </script>
     {{error}}
     {{event}}
+    {% endblock %}
 </body>
 </html>
