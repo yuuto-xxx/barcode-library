@@ -154,7 +154,7 @@ def search_student_account(mail, password):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "SELECT name, password_flag FROM student where mail=%s and password=%s"
+    sql = "SELECT stu_number, name, password_flag FROM student where mail=%s and password=%s"
 
     try:
         cur.execute(sql,(mail,password))
@@ -196,6 +196,24 @@ def book_list():  #本の一覧表示
         print("図書一覧表示エラー",e)
 
     result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+def book_detail(isbn):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select * from book where book_isbn=%s"
+
+    try:
+        cur.execute(sql,(isbn,))
+    except Exception as e:
+        print("本の詳細情報取得エラー")
+
+    result = cur.fetchone()
 
     cur.close()
     conn.close()
@@ -314,6 +332,39 @@ def password_update_manager(mail,pw):
         cur.execute(sql,(pw,"false",mail))
     except Exception as e:
         print("パスワードアップデートエラー")
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
+def book_review(review):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "insert into review values(%s,%s,%s,%s,%s)"
+
+    try:
+        cur.execute(sql,(review[0],review[1],review[2],review[3],review[4]))
+        print("レビュー作成")
+    except Exception as e:
+        print("レビューエラー")
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def book_review_star(review):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "insert into review(book_isbn,stu_number,review_star,name_flag) values(%s,%s,%s,%s)"
+
+    try:
+        cur.execute(sql,(review[0], review[1], review[2], review[3]))
+        print("レビュー登録")
+    except Exception as e:
+        print("レビューエラー:",e)
 
     conn.commit()
     cur.close()
