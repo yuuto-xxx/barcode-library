@@ -8,6 +8,9 @@
     <title>本登録</title>
 </head>
 <body>
+    {% extends "manager_layout.html" %}
+    {% block content %}
+    <div class="form_group">
     <form action="{{url_for('book_register_result')}}">
         <h4 style="text-align: left;">本詳細情報</h4>
         <div class="square">
@@ -27,5 +30,7 @@
             <input type="hidden" name="book" value={{book[i]}}>
         {% endfor %}
     </form>
+    {% endblock %}
+</div>
 </body>
 </html>
