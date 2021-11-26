@@ -26,21 +26,17 @@
                 <td class="blue"><a href="{{url_for('book_detail', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
                 <td class="blue">{{book_list[i][3]}}</td>
                 <td class="blue">{{book_list[i][4]}}</td>
-                <td class="blue">3.5</td>
+                <td class="blue">{{book_list[i][8]}}</td>
                 <td class="blue">〇</td>
             </tr>
                 {% else %}
                 <td class="white"><a href="{{url_for('book_detail', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
                 <td class="white">{{book_list[i][3]}}</td>
                 <td class="white">{{book_list[i][4]}}</td>
+                <td class="blue">{{book_list[i][8]}}</td>
+                <td class="blue">〇</td>
             </tr>
                 {% endif %}
             {% endfor %}
         </table>
-    
-    <!-- </p> -->
-        <!-- <a href="{{url_for('book_detail', book=book_list[0][2])}}"><p class="blue">{{book_list[0][2]}}</p></a> -->
-        <!-- <p class="white">{{book_list[1][2]}}</p> -->
-        <!-- <p class="blue"></p>
-        <p class="white"></p>-->
 {% endblock %}
