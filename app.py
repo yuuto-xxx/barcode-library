@@ -1,4 +1,5 @@
 from hashlib import new
+from typing import Reversible
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask.globals import g
 from flask.sessions import SessionInterface
@@ -65,6 +66,10 @@ def manager_top():
     else:
         return render_template("manager_renting_stu.html")
 
+@app.route("/manager/renting/student")
+def manager_renting():
+    return render_template("manager_renting_stu.html")
+
 #本の登録
 @app.route("/book_register")
 def book_register():
@@ -118,8 +123,21 @@ def rent_book():
 def book_list():
     if "user" in session:
         book_list = db.book_list()
+        # book_list = db.book_list()
         for i in range(len(book_list)):
-            print(book_list[i][2])
+            review_avg = 0
+            review = db.book_review_score(book_list[i][0])
+            review_score = 0
+            review_count = 0
+            for j in range(len(review)):
+                review_score += review[j]
+                review_count += 1
+            try:
+                review_avg = review_score / review_count
+            except Exception as e:
+                review_avg = 0
+            book_list[i] = book_list[i] + (review_avg,)
+        print(book_list)
         return render_template("stu_book_list.html",book_list=book_list)
     else:
         redirect(url_for('login_page'))
@@ -188,10 +206,16 @@ def student_register():
 def stu_change():
     return render_template("stu_change.html")
     
-# 学生削除
-@app.route("/stu_delete")
+# 学生削除(検索)
+@app.route("/manager_student_delete/search")
+def stu_delete_search():
+    student_list = db.student_list()
+    return render_template("manager_stu_delete.html", student_list=student_list)
+
+@app.route("/manager_student_delete_detail")
 def stu_delete():
     return render_template("stu_delete.html")
+
 
 # パスワード忘れた方
 @app.route('/forget_pw')
@@ -423,7 +447,7 @@ def register_review():
             db.book_review(book_review)
             return book_detail(isbn)
     else:
-        redirect(url_for('login_page'))
+        return redirect("/", session=session)
 
 # メールアドレスのバリエーションチェック
 def mail_check(mail):
@@ -479,6 +503,10 @@ def book_detail(isbn):
     book = db.book_detail(isbn)
     return render_template("book_detail.html", book=book)
 
+@app.route("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)
