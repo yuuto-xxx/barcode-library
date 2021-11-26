@@ -4,23 +4,43 @@
     <span class="book_search">キーワード：</span>
     <input type="text" name="key" size="15">
     <button class="view_search">検索</button><br>
-    <p class="book_column">
+    <!-- <p class="book_column">
         <span class="column_title">タイトル</span>
         <span class="author">著者</span>
         <span class="company">出版社</span>
         <span class="view_star">評価</span>
-        <span class="available">貸出可否</span>
-    </p>
-        <p class="blue">{{book_list[0][2]}}</p>
-        <p class="white">{{book_list[1][2]</p>
-        <p class="blue"></p>
-        <p class="white"></p>
-        <p class="blue"></p>
-        <p class="white"></p>
-        <p class="blue"></p>
-        <p class="white"></p>
-        <p class="blue"></p>
-        <p class="white"></p>
-        <p class="blue"></p>
-        <p class="white"></p>
+        <span class="available">貸出可否</span> -->
+        
+        <table class="book_table">
+            <tr>
+                <th class="book_column">タイトル</th>
+                <th class="book_column">著者</th>
+                <th class="book_column">出版社</th>
+                <th class="book_column_review">評価</th>
+                <th class="book_column_available">貸出可否</th>
+                <th class="tag">タグ</th>
+            </tr>
+            {% for i in range(book_list | length -1) %}
+                {% if i%2 == 0 %}
+            <tr>
+                <td class="blue"><a href="{{url_for('book_detail', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
+                <td class="blue">{{book_list[i][3]}}</td>
+                <td class="blue">{{book_list[i][4]}}</td>
+                <td class="blue">3.5</td>
+                <td class="blue">〇</td>
+            </tr>
+                {% else %}
+                <td class="white"><a href="{{url_for('book_detail', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
+                <td class="white">{{book_list[i][3]}}</td>
+                <td class="white">{{book_list[i][4]}}</td>
+            </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+    
+    <!-- </p> -->
+        <!-- <a href="{{url_for('book_detail', book=book_list[0][2])}}"><p class="blue">{{book_list[0][2]}}</p></a> -->
+        <!-- <p class="white">{{book_list[1][2]}}</p> -->
+        <!-- <p class="blue"></p>
+        <p class="white"></p>-->
 {% endblock %}

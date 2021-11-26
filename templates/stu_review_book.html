@@ -1,16 +1,27 @@
 {% extends "student_layout.html" %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
 {% block content %}
+            <form action="{{url_for('register_review')}}" method="post">
             <p class="screen_title">レビュー機能</p>
             <div class="review_style">
                 <div>
                     <p class="user_name">公開名</p>
-                    <p class="name_type"><span><input type="text" name="name" value="盛岡太郎"></span>
+                    <p class="name_type"><span><input type="text" name="name" value={{name}}></span>
                     </p>
-                    <span class="show_anonymous">匿名で表示<input type="checkbox" name="anonymous" style="transform: scale(1.8);margin-left: 15pt;"></span>
+                    <span class="show_anonymous">匿名で表示<input type="checkbox" name="anonymous" value="1" style="transform: scale(1.8);margin-left: 15pt;"></span>
                 </div>
                 <div class="rate">
                    <p class="rate_question">本の評価は？</p>
-                   <form type="get" action="#">
+                   
+                     <input type="hidden" name="isbn" value={{isbn}}>
                     <div class="evaluation">
                       <input id="star1" type="radio" name="star" value="5" />
                       <label for="star1"><span class="text">最高</span>★</label>
@@ -23,7 +34,7 @@
                       <input id="star5" type="radio" name="star" value="1" />
                       <label for="star5"><span class="text">最悪</span>★</label>
                     </div>
-                  </form>
+                  
                 </div>
 
             </div>
@@ -32,4 +43,5 @@
                 <textarea name="review" cols="65" rows="5" maxlength="1024" class="review_add"></textarea>
             </div>
             <p class="post_button"><button>投稿</button></p>
+          </form>
 {% endblock %}

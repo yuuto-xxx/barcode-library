@@ -176,7 +176,7 @@ header {
     color: #FF0000;
     font-size: 15pt;
 }
-.rent_column , .book_column,.rent_column2,.history_column {
+.rent_column, .rent_column2,.history_column {
     background-color: #36587A;
     font-size: 20pt;
     color: white;
@@ -201,7 +201,7 @@ header {
     font-size: 15pt;
 }
 .main_board .book_search {
-    margin-left: 130pt;
+    margin-left: 210pt;
     font-size: 15pt;
 }
 .flex_class{
@@ -231,9 +231,28 @@ header {
     height: 5%;
     margin-top: 1%;
 }
-.book_column .column_title, .author,.company,.view_star,.available{
-    margin-left: 100px;
+
+.book_column, .book_column_available, .book_column_review, .tag{
+  background-color: #36587A;
+  color: white;
+  font-size: 20pt;
+  height: 35pt;
 }
+
+.book_column{
+  /* margin-left: 100px; */
+  width:20%;
+}
+
+.book_column_review, .book_column_available, .tag{
+  /* margin-left: 100px; */
+  width: 10%;
+}
+
+.book_table{
+  overflow-y:auto
+}
+
 .history_column .column_title,.history_column .author,.history_column .company,.rent_day,.history_column .return_day{
   margin-left: 110px;
 
@@ -241,12 +260,12 @@ header {
 .blue{
     background-color: #E7EFF8;
     height: 35pt;
-    border-bottom: rgb(49, 48, 48) 1px solid;
-    border-top: rgb(49, 48, 48) 1px solid;
+    text-align: center;
   }
 .white{
     background-color: #FFFFFF;
-    height: 13pt;
+    height: 35pt;
+    text-align: center;
     
 }
   /*学生レビューのスタイル */

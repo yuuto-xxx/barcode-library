@@ -1,6 +1,7 @@
 from hashlib import new
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask.globals import g
+from flask.sessions import SessionInterface
 import register_book
 import db
 import re
@@ -10,6 +11,7 @@ import string
 import csv
 from werkzeug.utils import secure_filename
 import datetime as dt
+from datetime import timedelta
 
 app = Flask(__name__)
 
@@ -20,11 +22,11 @@ app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
 def login_page():
     session = request.args.get("session")
     error = request.args.get("error")
-    return render_template("login.html")
+
+    return render_template("login.html", session=session, error=error)
 
 @app.route("/manager_login") #管理者ログイン
 def manager_login():
-    # テストユーザ:メール→test@test.jp パスワード→plA810nG
     session = request.args.get("session")
     error = request.args.get("error")
     return render_template("manager_login.html", session=session, error=error)
@@ -35,9 +37,16 @@ def stu_top():
     mail = request.form.get("mail")
     password = request.form.get("password")
     result = db.student_login(mail,password)
-    print(result)
-    if result[1]:
-        student_flg = 1
+
+    session["user"] = (result[0],result[1],result[2])
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=30)
+
+    if result == None:
+        error = "メールアドレス又はパスワードが間違っています"
+        return render_template("login.html",error=error)
+    elif result[2]:
+        student_flg = 2
         return render_template("first_login.html", student_flg=student_flg, mail=mail)
     else:
         return render_template("stu_book_rent.html")
@@ -107,9 +116,13 @@ def rent_book():
 #本の一覧
 @app.route("/student_book_list")
 def book_list():
-    book_list = db.book_list()
-    print(book_list)
-    return render_template("stu_book_list.html",book_list=book_list)
+    if "user" in session:
+        book_list = db.book_list()
+        for i in range(len(book_list)):
+            print(book_list[i][2])
+        return render_template("stu_book_list.html",book_list=book_list)
+    else:
+        redirect(url_for('login_page'))
 
 
 # 管理者登録
@@ -170,6 +183,11 @@ def student_register():
         return render_template("stu_register.html", error=error)
         # return render_template("student_register.html",error=error,course_list=session['course_list'],grade_list=session['grade_list'])
 
+# 学生変更
+@app.route("/stu_change")
+def stu_change():
+    return render_template("stu_change.html")
+    
 # 学生削除
 @app.route("/stu_delete")
 def stu_delete():
@@ -212,6 +230,7 @@ def forget_pw_2():
         else:
             error = "登録されていないメールアドレスです"
             return render_template('forget_pw.html',error=error)
+
 #パスワード変更
 @app.route("/pw_change", methods=["POST"])
 def pw_change():
@@ -369,7 +388,42 @@ def student_all_file_2():
 #　レビュー画面
 @app.route('/review')
 def review():
-    return render_template("stu_review_book.html")
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        name = user[1]
+        isbn = request.args.get("isbn")
+        return render_template("stu_review_book.html", stu_number=stu_number, name=name, isbn=isbn)
+    else:
+        redirect(url_for('login_page'))
+
+@app.route("/register_review", methods=["POST"])
+def register_review():
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+
+        isbn = request.form.get("isbn")
+        anonymous = request.form.get("anonymous") #匿名
+        star = request.form.get("star")
+        review = request.form.get("review")
+        print("匿名表示:" , anonymous)
+        print("レビュー内容:" , review)
+
+        if len(review) == 0:
+            if anonymous == None:
+                anonymous = False
+            book_review = [isbn, stu_number, star, anonymous]
+            db.book_review_star(book_review)
+            return book_detail(isbn)
+        else:
+            if anonymous == None:
+                anonymous = 0
+            book_review = [isbn, stu_number, review, star, anonymous]
+            db.book_review(book_review)
+            return book_detail(isbn)
+    else:
+        redirect(url_for('login_page'))
 
 # メールアドレスのバリエーションチェック
 def mail_check(mail):
@@ -416,7 +470,15 @@ def student_id_check(student_id):
 #　本詳細情報
 @app.route("/book_detail")
 def book_detail():
-    return render_template("book_detail.html")    
+    isbn = request.args.get("book")
+    print(isbn)
+    book = db.book_detail(isbn)
+    return render_template("book_detail.html", book=book)
+
+def book_detail(isbn):
+    book = db.book_detail(isbn)
+    return render_template("book_detail.html", book=book)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
