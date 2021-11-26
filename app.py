@@ -367,7 +367,7 @@ def first_login():
 # 学生登録(一括)
 @app.route('/student_register_all')
 def student_register_all():
-    return render_template('student_register_all.html')
+    return render_template('manager_group_regist.html')
 
 # 学生登録(一括)テンプレートを表示
 @app.route('/student_all_file',methods=['POST'])
@@ -377,7 +377,7 @@ def student_all_file():
     with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
         for line in csv.reader(f):
             list.append(line)
-    return render_template('student_register_all.html',list=list)
+    return render_template('manager_group_regist.html',list=list)
 
 # 学生登録(一括)登録処理
 @app.route('/student_all_file_result',methods=['POST'])
@@ -407,7 +407,7 @@ def student_all_file_2():
         result = db.student_register(stu_id,mail,name,course,course_year)
         if not result:
             list_false.append(n)
-    return render_template('student_all_file_result.html',list_true=list_true,list_false=list_false)
+    return render_template('manager_group_regist_result.html',list_true=list_true,list_false=list_false)
   
 #　レビュー画面
 @app.route('/review')
