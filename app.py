@@ -47,7 +47,7 @@ def stu_top():
         error = "メールアドレス又はパスワードが間違っています"
         return render_template("login.html",error=error)
     elif result[2]:
-        student_flg = 2
+        student_flg = 1
         return render_template("first_login.html", student_flg=student_flg, mail=mail)
     else:
         return render_template("stu_book_rent.html")
@@ -361,7 +361,7 @@ def first_login():
         else:
             error = "パスワード不一致"
     else:
-        "student_flgエラー"
+        return "student_flgエラー"
 
 
 # 学生登録(一括)
