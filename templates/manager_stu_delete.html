@@ -1,5 +1,6 @@
 {% extends "manager_layout.html" %}
 {% block content %}
+            <form action="" method="post">
             <p class="report">※以下の内容ご入力の上、ご確認ください。</p>
            <div class="edit_board">
                 <p class="name">名前</p>
@@ -12,12 +13,27 @@
                         <span class="stu_number">学籍番号</span>
                         <span class="course">学科</span>
                     </p>
+                    {% if name_list %}
+                    {% for i in range(len)%}
+                    <p class="blue">{{2*i+1}}<a href="{{url_for('stu_delete',stu_number={{name_list[2*i][1]}})}}">{{name_list[2*i][0]}}</a>{{name_list[2*i][1]}}  {{name_list[2*i][2]}}</p>
+                    {% if (2*i+1) > len%}
+                    <p class="white"></p>
+                    {% else %}
+                    <p class="white">{{2*i+2}}<a href="{{url_for('stu_delete',stu_number={{name_list[2*i][1]}})}}">{{name_list[2*i][0]}}</a>{{name_list[2*i][1]}}  {{name_list[2*i][2]}}</p>
+                    {% endif%}
+                    {% endfor %}
+                    <p class="blue"></p>
+                    <p class="white"></p>
+                    <p class="blue"></p>
+                    {% else %}
                     <p class="blue"></p>
                     <p class="white"></p>
                     <p class="blue"></p>
                     <p class="white"></p>
                     <p class="blue"></p>
+                    {% endif %}
 
                 </div>
             </div>
+        </form>
 {% endblock %}

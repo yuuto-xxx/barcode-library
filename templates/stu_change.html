@@ -10,18 +10,18 @@
 <body>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <h4 id=half2>※下記の内容をご入力の上、ご確認ください</h4>
-    <form autocomplete="off" action="{{url_for('student_register')}}" method="POST" id="form1">
+    <form autocomplete="off" action="" method="POST" id="form1">
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
         <h4 id=half>学籍番号</h4>
-        <input type="text" half placeholder="(例)盛岡太郎" autocomplete="off" name="name">
-        <input type="text" half placeholder="(例)3201120" autocomplete="off" name="stu_number" readonly>
+        <input type="text" half value="{{result[1]}}" autocomplete="off" name="name">
+        <input type="text" half value="{{result[2]}}" autocomplete="off" name="stu_number" readonly>
         <!-- プルダウン -->
         <h4 id=half>学科</h4>
         <h4 id=half>学年</h4>
         <div class="cp_ipselect cp_sl02">
             <select name="course" required>
-                <option value="" hidden>選択してください</option>
+                <option value="" hidden>{{result[3]}}</option>
                 <option value="1">情報システム科</option>
                 <option value="2">ネットワークセキュリティ科</option>
                 <option value="3">総合システム工学科</option>
@@ -36,7 +36,7 @@
         </div>
         <div class="s_year cp_pull">
             <select name="year">
-                <option value="" hidden>選択してください</option>
+                <option value="" hidden>result[4]</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -46,9 +46,9 @@
 
         <!-- メールアドレス　-->
         <h4>メールアドレス</h4>
-        <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" autocomplete="off" name="mail">
+        <input type="text" value="{{result[0]}}" autocomplete="off" name="mail">
         <h4>メールアドレス(再入力)</h4>
-        <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" name="re_mail">
+        <input type="text" value="{{result[0]}}" name="re_mail">
       </form>
       <input type="submit" value="変更" form="form1" id="btn">
   

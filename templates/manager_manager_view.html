@@ -5,6 +5,19 @@
                 <span class="name">名前</span>
                 <span class="stu_number">メールアドレス</span>
             </p>
+            {% if list %}
+            {% for i in range(len)%}
+            <p class="blue">{{2*i+1}}{{list[2*i][0]}}  {{list[2*i][1]}} <a href="{{url_for('manager_delete',mail={{list[2*i][1]}})}}">削除</a></p>
+            {% if (2*i+1) > len%}
+            <p class="white"></p>
+            {% else %}
+            <p class="white">{{2*i+2}}{{list[2*i][0]}}  {{list[2*i][1]}} <a href="{{url_for('manager_delete',mail={{list[2*i][1]}})}}">削除</a></p>
+            {% endif%}
+            {% endfor %}
+            <p class="blue"></p>
+            <p class="white"></p>
+            <p class="blue"></p>
+            {% else %}
             <p class="blue"><button class="delete">削除</button></p>
             <p class="white"><button class="delete">削除</button></p>
             <p class="blue"></p>
@@ -19,4 +32,5 @@
             <p class="white"></p>
             <p class="blue"></p>
             <p class="white"></p>
+            {% endif %}
 {% endblock %}
