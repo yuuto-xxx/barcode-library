@@ -3,7 +3,7 @@
   position: absolute;
   z-index : 3;
   left : 13px;
-  top   : 12px;
+  top   : 5px;
   width : 42px;
   height: 42px;
   cursor: pointer;
@@ -12,9 +12,10 @@
 .hamburger span {
   display : block;
   position: absolute;
+  top: 5px;
   width   : 30px;
   height  : 2px ;
-  left    : 1300px;
+  left    : 10px;
   background : rgb(241, 239, 239);
   -webkit-transition: 0.3s ease-in-out;
   -moz-transition   : 0.3s ease-in-out;
@@ -33,7 +34,7 @@
 /* ナビ開いてる時のボタン */
 .hamburger.active span:nth-child(1) {
   top : 16px;
-  left: 1300px;
+  left: 10px;
   background :#fff;
   -webkit-transform: rotate(-45deg);
   -moz-transform   : rotate(-45deg);
@@ -50,10 +51,11 @@
 }
 
 nav.globalMenuSp {
+  /* overflow-y: auto; */
   position: fixed;
   z-index : 2;
-  margin-top: pt;
-  top  : 0;
+  margin-top: 10pt;
+  top  : 47px;
   left : 0;
   color: #000;
   background: #707070;
@@ -62,26 +64,39 @@ nav.globalMenuSp {
   transition: all 0.6s;
   width: 20%;
 }
+/* スクロールバーデザイン */
+/* .globalMenuSp::-webkit-scrollbar{
+  width: 10px;
+}
 
+.globalMenuSp::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: #cde7ee;
+}
+
+.globalMenuSp::-webkit-scrollbar-thumb {
+  background-color: rgba(36, 36, 39, 0.5);
+  border-radius: 10px;
+} */
+
+/* メニュー設定 */
 nav.globalMenuSp ul {
   background: #707070;
   padding: 0;
   width: 100%;
-  height: 600vh;
+  height: 85vh;
 }
 
 nav.globalMenuSp ul li {
   list-style-type: none;
   padding: 0;
   width: 100%;
-  
 }
 nav.globalMenuSp ul li:last-child {
-  margin-top: 30pt;
+  margin-top: 3pt;
   padding-bottom: 0;
   border-bottom: none;
   border-top: #aaa 1px solid;
-  margin-top: 190pt;
 }
 nav.globalMenuSp ul li:hover{
   background :#ddd;
@@ -90,35 +105,35 @@ nav.globalMenuSp ul li:hover{
 nav.globalMenuSp ul li a {
   display: block;
   color: #FFFFFF;
-  padding: 0.6em 0;
+  padding: 0.5em 0;
   text-decoration :none;
   font-size: 15pt;
 }
-
 /* このクラスを、jQueryで付与・削除する */
 nav.globalMenuSp.active {
   transform: translateX(0%);
 }
-
-
 /*layout.css から持ってきた */
 
 body {
   margin: 0;
+  width: 100%;
 }
 
 header {
   position: absolute;
+  position: fixed;
   white-space: nowrap;
   background-color: #707070;
   width: 100%;
-  height: 13vh;
+  height: 60px;
   top: 0;
   left: 0;
 }
 
 .title {
   margin-left: 70px;
+  margin-top: 10px;
   color: #FFFFFF;
 }
 
@@ -152,14 +167,12 @@ header {
   color: #04A9F3;
   border-left: #04A9F3 5px solid;
 }
+/* ここが問題児 */
 .main_board{
   margin-top: 70pt;
-  width: 100%;
+  /* width: 100%; */
+  /* margin: 0 auto; */
   transition: all 0.6s;
-  
-}
-.main_board.active{
-  transform: translateX(270px);
 }
 .screen_title{
   margin-left: 60pt;
@@ -182,8 +195,8 @@ header {
     color: white;
     height: 35pt;
     margin-bottom: -12pt;
-
 }
+/* 多分貸出css? */
 .rent_column .column_title{
     margin-left: 200pt;
 }
@@ -223,7 +236,7 @@ header {
     color: white;
     width: 70pt;
 }
-
+/* ここが問題児2 */
 .book_column, .book_column_available, .book_column_review, .tag{
   background-color: #36587A;
   color: white;
@@ -247,7 +260,6 @@ header {
 
 .history_column .column_title,.history_column .author,.history_column .company,.rent_day,.history_column .return_day{
   margin-left: 110px;
-
 }
 .blue{
     background-color: #E7EFF8;
@@ -257,8 +269,7 @@ header {
 .white{
     background-color: #FFFFFF;
     height: 35pt;
-    text-align: center;
-    
+    text-align: center;   
 }
   /*学生レビューのスタイル */
 .screen_title{
@@ -357,8 +368,3 @@ header {
   margin-right: 300pt;
   margin-left: 150pt;
 }
-
-
-
-
-  
