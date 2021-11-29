@@ -1,3 +1,4 @@
+@media screen and (min-width: 1025px) {
 .hamburger {
   display : block;
   position: absolute;
@@ -217,11 +218,17 @@ header {
     margin-left: 210pt;
     font-size: 15pt;
 }
+.flex_class{
+  display: flex;
+}
 .main_board .book_amount {
     margin-left: 20pt;
     font-size: 15pt;
 }
 
+.main_board input{
+  font-size: 15pt;
+}
 .main_board .view_search{
     font-size: 15pt;
     margin-left: 10pt;
@@ -231,10 +238,12 @@ header {
 }
 .main_board .return_button{
     font-size: 15pt;
-    margin-left: 450pt;
+    margin-left: 45%;
     background-color: #45B3CF;
     color: white;
     width: 70pt;
+    height: 5%;
+    margin-top: 1%;
 }
 /* ここが問題児2 */
 .book_column, .book_column_available, .book_column_review, .tag{
