@@ -1,4 +1,6 @@
+from ctypes import resize
 from hashlib import new
+from logging import error
 from typing import Reversible
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask.globals import g
@@ -201,20 +203,118 @@ def student_register():
         return render_template("stu_register.html", error=error)
         # return render_template("student_register.html",error=error,course_list=session['course_list'],grade_list=session['grade_list'])
 
+# 学生変更検索画面
+@app.route("/manager_stu_edit")
+def manager_stu_edit():
+    return render_template("manager_stu_edit.html")
+
+# 学生変更検索画面名前表示
+@app.route("/manager_student_edit",methods=["POST"])
+def manager_student_edit():
+    name = request.form.get('name')
+    if name_check(name):
+        result = db.student_search_change(name)
+    if result:
+        len1 = len(result)
+        # name,stu_number,mail
+        return render_template("manager_stu_edit.html",name_list=result,len=len1)
+    else :
+        error = "名前は存在しません"
+        return render_template("manger_stu_edit.html",error=error)
+
 # 学生変更
 @app.route("/stu_change")
 def stu_change():
-    return render_template("stu_change.html")
-    
-# 学生削除(検索)
-@app.route("/manager_student_delete/search")
-def stu_delete_search():
-    student_list = db.student_list()
-    return render_template("manager_stu_delete.html", student_list=student_list)
+    stu_number = request.args.get('stu_number')
+    result = db.student_search_change_result(stu_number)
+    # mail,name,stu_number,course_name,year
+    if result:
+        return render_template("stu_change.html",result=result)
+
+# 学生変更確認
+@app.route("/student_change",methods=["POST"])
+def student_change():
+    name = request.form.get('name')
+    stu_number = request.form.get('stu_number')
+    course = request.form.get('course')
+    max_year = db.search_max_year(course)
+    year = request.form.get('year')
+    mail = request.form.get('mail')
+    re_mail = request.form.get('re_mail')
+    if name_check(name) and student_id_check(stu_number) and \
+     mail==re_mail and mail_check(mail) and int(year)<=int(max_year):
+        result = db.stu_change_update(stu_number,name,mail,course,year)
+        if result:
+            event = "変更成功"
+            return render_template("stu_change",event=event)
+        else :
+            print("失敗")
+    else :
+        error = "正しい形式で入力してください"
+        return render_template("stu_change",error=error)
+
+# 学生削除検索
+@app.route("/manager_stu_delete")
+def manager_stu_delete():
+    return render_template("manager_stu_delete.html")
+
+# 学生削除検索結果
+@app.route("/manager_stu_delete",methods=["POST"])
+def manager_stu_delete():
+    name = request.form.get('name')
+    if name_check(name):
+        result = db.student_search_change(name)
+    if result:
+        len1 = len(result)
+        return render_template("manager_stu_delete.html",name_list=result,len=len1)
+    else :
+        error="名前は存在しません"
+        return render_template("manager_stu_delete.html",error=error)
 
 @app.route("/manager_student_delete_detail")
 def stu_delete():
-    return render_template("stu_delete.html")
+    stu_number = request.args.get('stu_number')
+    result = db.student_search_change_result(stu_number)
+    # mail,name,stu_number,course_name,year
+    if result:
+        return render_template("stu_delete.html",result=result)
+
+# 学生削除処理
+@app.route("/student_delete",methods=["POST"])
+def student_delete():
+    stu_number = request.form.get('stu_number')
+    result = db.delete_flag(stu_number)
+    if result:
+        event="削除成功"
+        return render_template("stu_delete.html",event=event)
+    else :
+        error="削除失敗"
+        return render_template("stu_delete.html",error=error)
+
+# 管理者一覧画面
+@app.route("/manager_manager_view")
+def manager_manager_view():
+    manager_all = db.select_manager_all()
+    # name,mail
+    if manager_all:
+        len1 = len(manager_all)
+        return render_template("manager_manager_view.html",list=manager_all,len=len1)
+    else :
+        error="管理者select_allエラー"
+        return render_template("manager_manager_view.html",error=error)
+
+# 管理者削除
+@app.route("/manager_delete_result")
+def manager_delete_result():
+    mail = request.args.get("mail")
+    result = db.manager_delete_flag(mail)
+    manager_all = db.select_manager_all()
+    if result:
+        event="削除成功"
+        return render_template("manager_delete_result.html",event=event,list=manager_all)
+    else :
+        error="削除失敗"
+        return render_template("manager_manager_view.html",error=error)
 
 
 # パスワード忘れた方
