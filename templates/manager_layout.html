@@ -28,11 +28,11 @@
                     <li><a href="#" class="menu_style menu_hover">貸出一覧</a></li>
                     <li><a href="{{url_for('stu_register')}}" class="menu_style menu_hover">学生登録</a></li>
                     <li><a href="#" class="menu_style menu_hover">学生変更</a></li>
-                    <li><a href="#" class="menu_style menu_hover">学生削除</a></li>
+                    <li><a href="{{url_for('stu_delete_search')}}" class="menu_style menu_hover">学生削除</a></li>
                     <li><a href="#" class="menu_style menu_hover">学生進級</a></li>
                     <li><a href="{{url_for('manager_register')}}" class="menu_style menu_hover">管理者登録</a></li>
                     <li><a href="#" class="menu_style menu_hover">管理者一覧</a></li>
-                    <li><a href="{{url_for('login_page')}}" class="menu_style menu_hover">ログアウト</a></li>
+                    <li><a href="{{url_for('logout')}}" class="menu_style menu_hover">ログアウト</a></li>
             </ul>
         </nav>  
         <div class="main_board">

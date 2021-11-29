@@ -1,4 +1,7 @@
+from ctypes import resize
 from hashlib import new
+from logging import error
+from typing import Reversible
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask.globals import g
 from flask.sessions import SessionInterface
@@ -46,7 +49,7 @@ def stu_top():
         error = "メールアドレス又はパスワードが間違っています"
         return render_template("login.html",error=error)
     elif result[2]:
-        student_flg = 2
+        student_flg = 1
         return render_template("first_login.html", student_flg=student_flg, mail=mail)
     else:
         return render_template("stu_book_rent.html")
@@ -64,6 +67,10 @@ def manager_top():
         return render_template("first_login.html", student_flg=student_flg, mail=mail)
     else:
         return render_template("manager_renting_stu.html")
+
+@app.route("/manager/renting/student")
+def manager_renting():
+    return render_template("manager_renting_stu.html")
 
 #本の登録
 @app.route("/book_register")
@@ -118,8 +125,21 @@ def rent_book():
 def book_list():
     if "user" in session:
         book_list = db.book_list()
+        # book_list = db.book_list()
         for i in range(len(book_list)):
-            print(book_list[i][2])
+            review_avg = 0
+            review = db.book_review_score(book_list[i][0])
+            review_score = 0
+            review_count = 0
+            for j in range(len(review)):
+                review_score += review[j]
+                review_count += 1
+            try:
+                review_avg = review_score / review_count
+            except Exception as e:
+                review_avg = 0
+            book_list[i] = book_list[i] + (review_avg,)
+        print(book_list)
         return render_template("stu_book_list.html",book_list=book_list)
     else:
         redirect(url_for('login_page'))
@@ -183,15 +203,119 @@ def student_register():
         return render_template("stu_register.html", error=error)
         # return render_template("student_register.html",error=error,course_list=session['course_list'],grade_list=session['grade_list'])
 
+# 学生変更検索画面
+@app.route("/manager_stu_edit")
+def manager_stu_edit():
+    return render_template("manager_stu_edit.html")
+
+# 学生変更検索画面名前表示
+@app.route("/manager_student_edit",methods=["POST"])
+def manager_student_edit():
+    name = request.form.get('name')
+    if name_check(name):
+        result = db.student_search_change(name)
+    if result:
+        len1 = len(result)
+        # name,stu_number,mail
+        return render_template("manager_stu_edit.html",name_list=result,len=len1)
+    else :
+        error = "名前は存在しません"
+        return render_template("manger_stu_edit.html",error=error)
+
 # 学生変更
 @app.route("/stu_change")
 def stu_change():
-    return render_template("stu_change.html")
-    
-# 学生削除
-@app.route("/stu_delete")
+    stu_number = request.args.get('stu_number')
+    result = db.student_search_change_result(stu_number)
+    # mail,name,stu_number,course_name,year
+    if result:
+        return render_template("stu_change.html",result=result)
+
+# 学生変更確認
+@app.route("/student_change",methods=["POST"])
+def student_change():
+    name = request.form.get('name')
+    stu_number = request.form.get('stu_number')
+    course = request.form.get('course')
+    max_year = db.search_max_year(course)
+    year = request.form.get('year')
+    mail = request.form.get('mail')
+    re_mail = request.form.get('re_mail')
+    if name_check(name) and student_id_check(stu_number) and \
+     mail==re_mail and mail_check(mail) and int(year)<=int(max_year):
+        result = db.stu_change_update(stu_number,name,mail,course,year)
+        if result:
+            event = "変更成功"
+            return render_template("stu_change",event=event)
+        else :
+            print("失敗")
+    else :
+        error = "正しい形式で入力してください"
+        return render_template("stu_change",error=error)
+
+# 学生削除検索
+@app.route("/manager_stu_delete")
+def manager_stu_delete():
+    return render_template("manager_stu_delete.html")
+
+# 学生削除検索結果
+@app.route("/manager_stu_delete",methods=["POST"])
+def manager_stu_delete():
+    name = request.form.get('name')
+    if name_check(name):
+        result = db.student_search_change(name)
+    if result:
+        len1 = len(result)
+        return render_template("manager_stu_delete.html",name_list=result,len=len1)
+    else :
+        error="名前は存在しません"
+        return render_template("manager_stu_delete.html",error=error)
+
+@app.route("/manager_student_delete_detail")
 def stu_delete():
-    return render_template("stu_delete.html")
+    stu_number = request.args.get('stu_number')
+    result = db.student_search_change_result(stu_number)
+    # mail,name,stu_number,course_name,year
+    if result:
+        return render_template("stu_delete.html",result=result)
+
+# 学生削除処理
+@app.route("/student_delete",methods=["POST"])
+def student_delete():
+    stu_number = request.form.get('stu_number')
+    result = db.delete_flag(stu_number)
+    if result:
+        event="削除成功"
+        return render_template("stu_delete.html",event=event)
+    else :
+        error="削除失敗"
+        return render_template("stu_delete.html",error=error)
+
+# 管理者一覧画面
+@app.route("/manager_manager_view")
+def manager_manager_view():
+    manager_all = db.select_manager_all()
+    # name,mail
+    if manager_all:
+        len1 = len(manager_all)
+        return render_template("manager_manager_view.html",list=manager_all,len=len1)
+    else :
+        error="管理者select_allエラー"
+        return render_template("manager_manager_view.html",error=error)
+
+# 管理者削除
+@app.route("/manager_delete_result")
+def manager_delete_result():
+    mail = request.args.get("mail")
+    result = db.manager_delete_flag(mail)
+    manager_all = db.select_manager_all()
+    if result:
+        event="削除成功"
+        return render_template("manager_delete_result.html",event=event,list=manager_all)
+    else :
+        error="削除失敗"
+        return render_template("manager_manager_view.html",error=error)
+
 
 # パスワード忘れた方
 @app.route('/forget_pw')
@@ -337,13 +461,13 @@ def first_login():
         else:
             error = "パスワード不一致"
     else:
-        "student_flgエラー"
+        return "student_flgエラー"
 
 
 # 学生登録(一括)
 @app.route('/student_register_all')
 def student_register_all():
-    return render_template('student_register_all.html')
+    return render_template('manager_group_regist.html')
 
 # 学生登録(一括)テンプレートを表示
 @app.route('/student_all_file',methods=['POST'])
@@ -353,7 +477,7 @@ def student_all_file():
     with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
         for line in csv.reader(f):
             list.append(line)
-    return render_template('student_register_all.html',list=list)
+    return render_template('manager_group_regist.html',list=list)
 
 # 学生登録(一括)登録処理
 @app.route('/student_all_file_result',methods=['POST'])
@@ -383,7 +507,7 @@ def student_all_file_2():
         result = db.student_register(stu_id,mail,name,course,course_year)
         if not result:
             list_false.append(n)
-    return render_template('student_all_file_result.html',list_true=list_true,list_false=list_false)
+    return render_template('manager_group_regist_result.html',list_true=list_true,list_false=list_false)
   
 #　レビュー画面
 @app.route('/review')
@@ -423,7 +547,7 @@ def register_review():
             db.book_review(book_review)
             return book_detail(isbn)
     else:
-        redirect(url_for('login_page'))
+        return redirect("/", session=session)
 
 # メールアドレスのバリエーションチェック
 def mail_check(mail):
@@ -479,6 +603,10 @@ def book_detail(isbn):
     book = db.book_detail(isbn)
     return render_template("book_detail.html", book=book)
 
+@app.route("/logout")
+def logout():
+    session.pop("user", None)
+    return redirect("/")
 
 if __name__ == "__main__":
     app.run(debug=True)
