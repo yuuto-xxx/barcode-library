@@ -1,4 +1,4 @@
-{% extends "manager_layout.html" %}
+{% extends "student_layout.html" %}
 
 {% block head %}
     <meta charset="UTF-8">
@@ -17,15 +17,15 @@
                     <li><img src={{book[1]}} width="180" height="280"></li>
                 </ul>
                 <ul class="info">
-                    <li><input type="text" placeholder="タイトル" autocomplete="off" value={{book[2]}}></li>
-                    <li><input type="text" placeholder="著者" autocomplete="off" value={{book[3]}}></li>
-                    <li><input type="text" placeholder="出版社" autocomplete="off" value={{book[4]}}></li>
-                    <li><input type="text" placeholder="発売日" autocomplete="off" value={{book[5]}}></li>
+                    <li><input type="text" placeholder="タイトル" autocomplete="off" value={{book[2]}} disabled></li>
+                    <li><input type="text" placeholder="著者" autocomplete="off" value={{book[3]}} disabled></li>
+                    <li><input type="text" placeholder="出版社" autocomplete="off" value={{book[4]}} disabled></li>
+                    <li><input type="text" placeholder="発売日" autocomplete="off" value={{book[5]}} disabled></li>
                 </ul>
             </div>
             <div class="flex">
                 <h4>残り 3 冊</h4>
-                <div class="tag">
+                <div class="tag2">
                     <input type="text" half placeholder="タグを追加">
                     <input type="submit" value="追加">
                 </div>
