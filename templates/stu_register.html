@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet"> -->
-    <link rel="stylesheet" href="{{url_for('static', filename='css/sign_up.css')}}">
+    <link rel="stylesheet" href="{{url_for('static', filename='../static/css/sign_up.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>学生新規登録</title>
     {% endblock %}
@@ -17,7 +17,7 @@
         <h4><a href="./manager_group_regist.html">一括登録する方はこちら</a></h4>
     </div>
 
-    <form autocomplete="off" action="{{url_for('student_register')}}" method="POST" id="form1">
+    <form autocomplete="off" action="#" method="POST" id="form1">
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
         <h4 id=half>学籍番号</h4>
@@ -77,5 +77,3 @@
     {{error}}
     {{event}}
 {% endblock %}
-</body>
-</html>
