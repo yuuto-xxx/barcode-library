@@ -414,6 +414,149 @@ def password_update_manager(mail,pw):
     cur.close()
     conn.close()
 
+# 学生変更検索結果
+def student_search_change(name):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select student.name,student.stu_number,course.course_name from student \
+        join course on (student.course_id = course.course_id) where name = %s and delete_flag is false"
+    name_like = "%"+name+"%"
+    try:
+        cur.execute(sql,(name_like,))
+    except Exception as e:
+        print(e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+# 学生詳細情報stu_numberで検索
+def student_search_change_result(stu_number):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select student.mail,student.name,student.stu_number,\
+        course.course_name,student.year from student \
+            join course on (student.course_id = course.course_id) \
+                where stu_number = %s and delete_flag is false"
+
+    try:
+        cur.execute(sql,(stu_number,))
+    except Exception as e:
+        print(e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+# course_nameでmax_yearを検索
+def search_max_year(course_name):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select max_year from course where course_name=%s"
+
+    try:
+        cur.execute(sql,(course_name,))
+    except Exception as e:
+        print(e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result[0]
+
+# course_nameでcourse_idを検索
+def search_course_id(course_name):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select course_id from course where course_name=%s"
+
+    try:
+        cur.execute(sql,(course_name,))
+    except Exception as e:
+        print(e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result[0]
+
+def stu_change_update(stu_number,name,mail,course_name,year):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update student set name=%s, mail=%s, course_id=%s, year=%s where stu_number=%s"
+    course_id = search_course_id(course_name)
+    try:
+        cur.execute(sql,(name,mail,course_id,year,stu_number))
+    except Exception as e:
+        print("学生詳細アップデートエラー")
+
+    conn.commit()
+    cur.close()
+    conn.close()
+    return True
+
+def delete_flag(stu_number):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update student set delete_flag=%s where stu_number=%s"
+    try:
+        cur.execute(sql,("true",stu_number))
+    except Exception as e:
+        print("学生削除フラグアップデートエラー")
+
+    conn.commit()
+    cur.close()
+    conn.close()
+    return True
+
+# 管理者一覧
+def select_manager_all():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql="select name,mail from manager where delete_flag is false"
+    try:
+        cur.execute(sql,)
+    except Exception as e:
+        print("管理者一覧エラー:",e)
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+    
+def manager_delete_flag(mail):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update manager set delete_flag=%s where mail=%s"
+    try:
+        cur.execute(sql,("true",mail))
+    except Exception as e:
+        print("管理者削除フラグアップデートエラー")
+
+    conn.commit()
+    cur.close()
+    conn.close()
+    return True
+
 
 def book_review(review):
     conn = get_connection()
