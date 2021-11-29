@@ -114,8 +114,13 @@ def book_register_result():
     return "登録完了"
     # return render_template("",book=book)
 
-@app.route("/student_rent_book")
-def rent_book():
+@app.route("/stu_camera_rent")
+def stu_camera_rent():
+    return render_template("stu_camera_rent.html")
+
+@app.route("/stu_book_rent", methods=["POST"])
+def stu_book_rent():
+    isbn = request.form.get("isbn")
     return render_template("")
 
 #本の一覧
