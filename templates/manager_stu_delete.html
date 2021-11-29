@@ -2,9 +2,14 @@
 {% block content %}
             <form action="" method="post">
             <p class="report">※以下の内容ご入力の上、ご確認ください。</p>
-           <div class="edit_board">
+            <div class="edit_board">
                 <p class="name">名前</p>
-                <p class="name_type"><span><input type="text" name="name" value="盛岡"></span>
+                <p class="name_type"><span><input type="text" name="name" placeholder="(例)盛岡" list="student_list" autocomplete="off"></span>
+                    <datalist id="student_list">
+                        {% for i in range(student_list | length) %}
+                            <option value={{student_list[i][2]}}>
+                        {% endfor %}
+                    </datalist><br>
                     <span><button>検索</button></span>
                 </p>
                 <div class="search_table">
@@ -32,7 +37,6 @@
                     <p class="white"></p>
                     <p class="blue"></p>
                     {% endif %}
-
                 </div>
             </div>
         </form>

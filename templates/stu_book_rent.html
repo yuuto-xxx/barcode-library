@@ -1,7 +1,10 @@
 {% extends "student_layout.html" %}
 {% block content %}
-            <span class="book_amount">※現在借りている本件数は...冊です</span>
-            <button class="return_button">返却</button><br>
+            <div class="flex_class">
+                <p class="book_amount">※現在借りている本件数は...冊です</p>
+            <button class="return_button">返却</button>
+            </div>
+            
             <p class="rent_column2">
                 <span class="column_title">タイトル</span>
                 <span class="author">著者</span>
@@ -20,4 +23,4 @@
             <p class="white"></p>
             <p class="blue"></p>
             <p class="white"></p>
-{% endblock %}
+      {% endblock %}

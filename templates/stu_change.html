@@ -8,7 +8,10 @@
     <title>学生変更</title>
 </head>
 <body>
+    {% extends "manager_layout.html" %}
+    {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <div class="form_group">
     <h4 id=half2>※下記の内容をご入力の上、ご確認ください</h4>
     <form autocomplete="off" action="" method="POST" id="form1">
         <!-- テキストボックスを半分 -->
@@ -51,7 +54,7 @@
         <input type="text" value="{{result[0]}}" name="re_mail">
       </form>
       <input type="submit" value="変更" form="form1" id="btn">
-  
+    </div>
     <!-- アラート機能 -->
       <script>
         var btn = document.getElementById("btn");
@@ -69,5 +72,6 @@
     </script>
     {{error}}
     {{event}}
+    {% endblock %}
 </body>
 </html>

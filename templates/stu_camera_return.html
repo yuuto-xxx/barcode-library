@@ -1,6 +1,6 @@
 {% extends "student_layout.html" %}
 {% block content %}
-            <div class="camera_area">
+          <div class="camera_area">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
             <h4 id="left">※本をカメラで登録する為、本のisbnをカメラに向かってかざしてください。</h4>
                 <form autocomplete="off" action="{{url_for('book_register_verification')}}">
@@ -21,7 +21,33 @@
                           tmp = document.createElement('canvas');
                           tmp_ctx = tmp.getContext("2d");
                           jan=document.getElementById("jan");
-                          navigator.mediaDevices.getUserMedia(
+                          function device() {
+                          var ua = navigator.userAgent;
+                          if(ua.indexOf('iPhone') > 0 || ua.indexOf('iPod') > 0 || ua.indexOf('Android') > 0 && ua.indexOf('Mobile') > 0){
+                              return 'mobile';
+                          }else if(ua.indexOf('iPad') > 0 || ua.indexOf('Android') > 0){
+                              return 'tablet';
+                          }else{
+                            return 'desktop';
+                            }
+                          }
+                          if( device() == "mobile" ) {
+                            navigator.mediaDevices.getUserMedia(
+                            //マイクはオフ, カメラの設定   背面カメラを希望する 640×480を希望する 1230*800
+                            {"audio":false,"video":{"facingMode":"environment","width":{"ideal":350},"height":{"ideal":400}}}
+                          ).then( //許可
+                            function(stream){
+                              video.srcObject = stream;
+                              //0.8秒毎にスキャンする
+                              setTimeout(Scan,800,true);
+                            }
+                          ).catch( //拒否
+                            function(err){jan.value+=err+'\n';}
+                          );
+                          
+                        }
+                          else{
+                            navigator.mediaDevices.getUserMedia(
                             //マイクはオフ, カメラの設定   背面カメラを希望する 640×480を希望する 1230*800
                             {"audio":false,"video":{"facingMode":"environment","width":{"ideal":640},"height":{"ideal":480}}}
                           ).then( //許可
@@ -33,6 +59,8 @@
                           ).catch( //拒否
                             function(err){jan.value+=err+'\n';}
                           );
+                              }
+                         
                           function Scan(first){
                             if(first){
                               //選択された幅高さ
@@ -94,10 +122,10 @@
                           });
                         });
                         </script>
-                    <div><canvas id="preview" style="margin-left: 45pt;"></canvas></div>&nbsp;
+                    <div><canvas id="preview"></canvas></div>&nbsp;
                       <div class="list">
                         <ul>
-                        <input type="text" half id="jan" name="isbn">
+                        <input type="text" half id="jan" name="isbn" size="20">
                         <input type="submit" value="登録">
                         </ul>
                       </div>
