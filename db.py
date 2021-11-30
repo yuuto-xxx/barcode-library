@@ -419,8 +419,10 @@ def student_search_change(name):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "select student.name,student.stu_number,course.course_name from student \
-        join course on (student.course_id = course.course_id) where name = %s and delete_flag is false"
+    # sql = "select student.name, student.stu_number, course.course_name from student \
+    #     join course on (student.course_id = course.course_id) where name = %s and delete_flag is false"
+    sql = "select student.name, student.stu_number, course.course_name from student, course \
+        where name like %s and student.delete_flag is false and student.course_id = course.course_id "
     name_like = "%"+name+"%"
     try:
         cur.execute(sql,(name_like,))
@@ -428,6 +430,7 @@ def student_search_change(name):
         print(e)
 
     result = cur.fetchall()
+    print("学生検索結果:", result)
 
     cur.close()
     conn.close()

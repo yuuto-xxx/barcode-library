@@ -12,32 +12,31 @@
                 <p class="name_type"><span><input type="text" name="name" value="盛岡"></span>
                     <span><button>検索</button></span>
                 </p>
-                <div class="search_table">
-                    <p class="search_column">
-                        <span class="name">名前</span>
-                        <span class="stu_number">学籍番号</span>
-                        <span class="course">学科</span>
-                    </p>
-                    {% if name_list %}
-                    {% for i in range(len)%}
-                    <p class="blue">{{2*i+1}}<a href="{{url_for('stu_change',stu_number={{name_list[2*i][1]}})}}">{{name_list[2*i][0]}}</a>{{name_list[2*i][1]}}  {{name_list[2*i][2]}}</p>
-                    {% if (2*i+1) > len%}
-                    <p class="white"></p>
-                    {% else %}
-                    <p class="white">{{2*i+2}}<a href="{{url_for('stu_change',stu_number={{name_list[2*i][1]}})}}">{{name_list[2*i][0]}}</a>{{name_list[2*i][1]}}  {{name_list[2*i][2]}}</p>
-                    {% endif%}
+            <div>
+                <table class="search_table" width="61.5%">
+                    <tr>
+                        <th style="font-size: 30px;" class="search_table_name">名前</th>
+                        <th style="font-size: 30px;" class="search_table_stu_number">学籍番号</th>
+                        <th style="font-size: 30px;" class="search_table_course">学科</th>
+                    </tr>
+                    {% for i in range(name_list | length - 1) %}
+                        {% if i%2 == 0 %}
+                            <tr>
+                                <td class="blue">{{2*i+1}}</td>
+                                <td class="blue"><a href="{{url_for('stu_change', stu_number=name_list[2*i][1])}}">{{name_list[2*i][0]}}</a></td>
+                                <td class="blue">{{name_list[2*i][1]}}</td>
+                                <td class="blue">{{name_list[2*i][2]}}</td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td class="white">{{2*i+2}}</td>
+                                <td class="white"><a href="{{url_for('stu_change', stu_number=name_list[2*i][1])}}">{{name_list[2*i][0]}}</a></td>
+                                <td class="white">{{name_list[2*i][1]}}</td>
+                                <td class="white">{{name_list[2*i][2]}}</td>
+                            </tr>
+                        {% endif %}
                     {% endfor %}
-                    <p class="blue"></p>
-                    <p class="white"></p>
-                    <p class="blue"></p>
-                    {% else %}
-                    <p class="blue"></p>
-                    <p class="white"></p>
-                    <p class="blue"></p>
-                    <p class="white"></p>
-                    <p class="blue"></p>
-                    {% endif %}
-                </div>
+                </table>
             </div>
         </form>
 {% endblock %}

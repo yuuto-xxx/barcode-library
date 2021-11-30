@@ -295,8 +295,8 @@
   margin-left: 60pt;
   }
   .search_table{
-  border: black solid 1px;
-  margin: 30pt 75pt 40pt
+  border: black solid 2px;
+  margin: 30pt 110pt 40pt
   }
   .search_table .search_column{
     background-color: #36587A;
@@ -306,8 +306,14 @@
     margin-bottom: -1pt;
     margin-top: -0.5pt;
   }
+
+  .search_table_name .search_table_stu_number .search_table_course{
+    font-size: 30pt;
+    height: 50pt;
+  }
+
   .search_table .search_column .name{
-  margin-left: 65pt;
+  margin-left: 70pt;
   }
   .search_table .search_column .stu_number,.search_column .course{
   margin-left: 70pt;
@@ -428,6 +434,19 @@
   margin-left: 150pt;
   }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
   @media screen and (max-width: 480px) {
     .hamburger {
       display : block;
