@@ -282,7 +282,7 @@ header {
 }
   /*学生レビューのスタイル */
 .screen_title{
-  margin-left: 60pt;
+  margin-left: 190pt;
   font-size: 20pt;
   border-bottom: #aaa 1px solid;
   margin-right: 300pt;
@@ -376,4 +376,5 @@ header {
   height: 300pt;
   margin-right: 300pt;
   margin-left: 150pt;
+}
 }
