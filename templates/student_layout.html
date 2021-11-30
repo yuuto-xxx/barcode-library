@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../static/css/student_view.css">
     <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
     <title>Document</title>
+    {% block head %}
+    {% endblock %}
 </head>
 
 <body>
@@ -34,11 +36,7 @@
             {% block content %}
 
             {% endblock %}
-            
-        </div>
-        
+        </div> 
 </body>
 <script src="../static/js/layout.js"></script>
-
-
 </html>
