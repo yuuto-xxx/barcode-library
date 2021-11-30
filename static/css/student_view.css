@@ -350,6 +350,7 @@
     color: white;
     width: 90pt;
   }
+
   /*カメラ画面*/
   .camera_area{
     height: 300pt;
@@ -357,3 +358,107 @@
     margin-left: 150pt;
   }
   }
+
+.white{
+    background-color: #FFFFFF;
+    height: 35pt;
+    text-align: center;   
+}
+  /*学生レビューのスタイル */
+.screen_title{
+  margin-left: 190pt;
+  font-size: 20pt;
+  border-bottom: #aaa 1px solid;
+  margin-right: 220pt;
+}
+.user_name{
+  margin-left: 10pt;
+  font-size: 20pt;
+  margin-bottom: -5pt;
+}
+.name_type input{
+  font-size: 20pt;
+  padding: 10px;
+  width: 200pt;
+  text-align: center;
+}
+.show_anonymous{
+  font-size: 18pt;
+}
+.review_style{
+  display: flex;
+  margin-left: 190pt;
+  margin-top: -15pt;
+}
+.rate{
+  margin-top: 26pt;
+  margin-left: 70pt;
+  border: rgb(145, 144, 144) solid 1px;
+  height: 95pt;
+  width: 250pt;
+}
+.rate .rate_question{
+  text-align: center;
+  font-size: 20pt;
+  margin-top: 5pt;
+}
+.evaluation{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  margin-top: -17pt;
+}
+.evaluation input[type='radio']{
+  display: none;
+}
+.evaluation label{
+  position: relative;
+  padding: 10px 10px 0;
+  color: gray;
+  cursor: pointer;
+  font-size: 50px;
+}
+.evaluation label .text{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+  color: gray;
+}
+.evaluation label:hover,
+.evaluation label:hover ~ label,
+.evaluation input[type='radio']:checked ~ label{
+  color: yellow;
+}
+.review_area{
+  margin-left: 190pt;
+  margin-top: 40pt;
+}
+.review_area .title_view{
+  font-size: 18pt;
+  margin-left: 10pt;
+}
+.review_add{
+  border: rgb(145, 144, 144) solid 1px;
+  font-size: 18pt;
+  padding: 10pt;
+  margin-top: -15pt;
+}
+.post_button{
+  margin-left: 400pt;
+}
+.post_button button{
+  font-size: 15pt;
+  background-color: #45B3CF;
+  color: white;
+  width: 90pt;
+}
+/*カメラ画面*/
+.camera_area{
+  height: 300pt;
+  margin-right: 300pt;
+  margin-left: 150pt;
+}
+}
