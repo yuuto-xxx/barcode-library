@@ -282,10 +282,10 @@ header {
 }
   /*学生レビューのスタイル */
 .screen_title{
-  margin-left: 60pt;
+  margin-left: 190pt;
   font-size: 20pt;
   border-bottom: #aaa 1px solid;
-  margin-right: 300pt;
+  margin-right: 220pt;
 }
 .user_name{
   margin-left: 10pt;
@@ -303,12 +303,12 @@ header {
 }
 .review_style{
   display: flex;
-  margin-left: 75pt;
+  margin-left: 190pt;
   margin-top: -15pt;
 }
 .rate{
   margin-top: 26pt;
-  margin-left: 150pt;
+  margin-left: 70pt;
   border: rgb(145, 144, 144) solid 1px;
   height: 95pt;
   width: 250pt;
@@ -349,7 +349,7 @@ header {
   color: yellow;
 }
 .review_area{
-  margin-left: 75pt;
+  margin-left: 190pt;
   margin-top: 40pt;
 }
 .review_area .title_view{
@@ -363,7 +363,7 @@ header {
   margin-top: -15pt;
 }
 .post_button{
-  margin-left: 340pt;
+  margin-left: 400pt;
 }
 .post_button button{
   font-size: 15pt;

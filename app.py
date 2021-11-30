@@ -266,7 +266,7 @@ def student_change():
 def manager_stu_delete():
     return render_template("manager_stu_delete.html")
 
-# 学生削除検索結果
+# 学生削除検索結
 @app.route("/manager_student_delete",methods=["POST"])
 def manager_student_delete():
     name = request.form.get('name')
