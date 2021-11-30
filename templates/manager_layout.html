@@ -24,14 +24,14 @@
         <nav class="globalMenuSp">
             <ul>
                 <li><a href="{{url_for('book_register_camera')}}" class="menu_style menu_hover">図書登録</a></li>
-                    <li><a href="#"  class="menu_style menu_hover">図書一覧</a></li>
+                    <li><a href="{{url_for('book_list')}}"  class="menu_style menu_hover">図書一覧</a></li>
                     <li><a href="#" class="menu_style menu_hover">貸出一覧</a></li>
                     <li><a href="{{url_for('stu_register')}}" class="menu_style menu_hover">学生登録</a></li>
-                    <li><a href="#" class="menu_style menu_hover">学生変更</a></li>
+                    <li><a href="{{url_for('manager_stu_edit')}}" class="menu_style menu_hover">学生変更</a></li>
                     <li><a href="#" class="menu_style menu_hover">学生削除</a></li>
                     <li><a href="#" class="menu_style menu_hover">学生進級</a></li>
                     <li><a href="{{url_for('manager_register')}}" class="menu_style menu_hover">管理者登録</a></li>
-                    <li><a href="#" class="menu_style menu_hover">管理者一覧</a></li>
+                    <li><a href="{{url_for('manager_manager_view')}}" class="menu_style menu_hover">管理者一覧</a></li>
                     <li><a href="{{url_for('logout')}}" class="menu_style menu_hover">ログアウト</a></li>
             </ul>
         </nav>  

@@ -184,6 +184,7 @@ def book_register(book):
     cur.close()
     conn.close()
 
+#本テーブルのレコード数
 def book_count():
     conn = get_connection()
     cur = conn.cursor()
@@ -201,9 +202,8 @@ def book_count():
 
     return count
 
-def book_list():  #本の一覧表示
-    count = book_count()
-    count = int(count[0])
+#本の一覧表示
+def book_list():
     conn = get_connection()
     cur = conn.cursor()
     
@@ -235,9 +235,6 @@ def book_review_score(isbn):
 
     for i in cur:
         list.append(i[0])
-    print(list)
-
-    # result = cur.fetchall()
 
     cur.close()
     conn.close()
@@ -262,6 +259,23 @@ def book_detail(isbn):
     conn.close()
 
     return result
+
+#本を借りる
+def rent_book():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = ""
+
+    try:
+        cur.execute(sql,)
+    except Exception as e:
+        print(e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
 
 # 学生一覧
 def student_list():
@@ -404,8 +418,10 @@ def student_search_change(name):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "select student.name,student.stu_number,course.course_name from student \
-        join course on (student.course_id = course.course_id) where name = %s and delete_flag is false"
+    # sql = "select student.name, student.stu_number, course.course_name from student \
+    #     join course on (student.course_id = course.course_id) where name = %s and delete_flag is false"
+    sql = "select student.name, student.stu_number, course.course_name from student, course \
+        where name like %s and student.delete_flag is false and student.course_id = course.course_id "
     name_like = "%"+name+"%"
     try:
         cur.execute(sql,(name_like,))
@@ -413,6 +429,7 @@ def student_search_change(name):
         print(e)
 
     result = cur.fetchall()
+    print("学生検索結果:", result)
 
     cur.close()
     conn.close()
@@ -520,6 +537,7 @@ def select_manager_all():
         cur.execute(sql,)
     except Exception as e:
         print("管理者一覧エラー:",e)
+
     result = cur.fetchall()
 
     cur.close()
