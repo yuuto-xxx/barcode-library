@@ -259,17 +259,17 @@ def manager_stu_delete():
     return render_template("manager_stu_delete.html")
 
 # 学生削除検索結果
-@app.route("/manager_stu_delete",methods=["POST"])
-def manager_stu_delete():
-    name = request.form.get('name')
-    if name_check(name):
-        result = db.student_search_change(name)
-    if result:
-        len1 = len(result)
-        return render_template("manager_stu_delete.html",name_list=result,len=len1)
-    else :
-        error="名前は存在しません"
-        return render_template("manager_stu_delete.html",error=error)
+# @app.route("/manager_stu_delete",methods=["POST"])
+# def manager_stu_delete():
+#     name = request.form.get('name')
+#     if name_check(name):
+#         result = db.student_search_change(name)
+#     if result:
+#         len1 = len(result)
+#         return render_template("manager_stu_delete.html",name_list=result,len=len1)
+#     else :
+#         error="名前は存在しません"
+#         return render_template("manager_stu_delete.html",error=error)
 
 @app.route("/manager_student_delete_detail")
 def stu_delete():
