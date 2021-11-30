@@ -1,379 +1,359 @@
 @media screen and (min-width: 1025px) {
-.hamburger {
-  display : block;
-  position: absolute;
-  z-index : 3;
-  left : 13px;
-  top   : 5px;
-  width : 42px;
-  height: 42px;
-  cursor: pointer;
-  text-align: center;
-}
-.hamburger span {
-  display : block;
-  position: absolute;
-  top: 5px;
-  width   : 30px;
-  height  : 2px ;
-  left    : 10px;
-  background : rgb(241, 239, 239);
-  -webkit-transition: 0.3s ease-in-out;
-  -moz-transition   : 0.3s ease-in-out;
-  transition        : 0.3s ease-in-out;
-}
-.hamburger span:nth-child(1) {
-  top: 10px;
-}
-.hamburger span:nth-child(2) {
-  top: 20px;
-}
-.hamburger span:nth-child(3) {
-  top: 30px;
-}
-
-/* ナビ開いてる時のボタン */
-.hamburger.active span:nth-child(1) {
-  top : 16px;
-  left: 10px;
-  background :#fff;
-  -webkit-transform: rotate(-45deg);
-  -moz-transform   : rotate(-45deg);
-  transform        : rotate(-45deg);
-}
-
-.hamburger.active span:nth-child(2),
-.hamburger.active span:nth-child(3) {
-  top: 16px;
-  background :#fff;
-  -webkit-transform: rotate(45deg);
-  -moz-transform   : rotate(45deg);
-  transform        : rotate(45deg);
-}
-
-nav.globalMenuSp {
-  /* overflow-y: auto; */
-  position: fixed;
-  z-index : 2;
-  margin-top: 10pt;
-  top  : 47px;
-  left : 0;
-  color: #000;
-  background: #707070;
-  text-align: center;
-  transform: translateX(-100%);
-  transition: all 0.6s;
-  width: 20%;
-}
-/* スクロールバーデザイン */
-/* .globalMenuSp::-webkit-scrollbar{
-  width: 10px;
-}
-
-.globalMenuSp::-webkit-scrollbar-track {
-  border-radius: 5px;
-  background: #cde7ee;
-}
-
-.globalMenuSp::-webkit-scrollbar-thumb {
-  background-color: rgba(36, 36, 39, 0.5);
-  border-radius: 10px;
-} */
-
-/* メニュー設定 */
-nav.globalMenuSp ul {
-  background: #707070;
-  padding: 0;
-  width: 100%;
-  height: 85vh;
-}
-
-nav.globalMenuSp ul li {
-  list-style-type: none;
-  padding: 0;
-  width: 100%;
-}
-nav.globalMenuSp ul li:last-child {
-  margin-top: 3pt;
-  padding-bottom: 0;
-  border-bottom: none;
-  border-top: #aaa 1px solid;
-}
-nav.globalMenuSp ul li:hover{
-  background :#ddd;
-}
-
-nav.globalMenuSp ul li a {
-  display: block;
-  color: #FFFFFF;
-  padding: 0.5em 0;
-  text-decoration :none;
-  font-size: 15pt;
-}
-/* このクラスを、jQueryで付与・削除する */
-nav.globalMenuSp.active {
-  transform: translateX(0%);
-}
-/*layout.css から持ってきた */
-
-body {
-  margin: 0;
-  width: 100%;
-}
-
-header {
-  position: absolute;
-  position: fixed;
-  white-space: nowrap;
-  background-color: #707070;
-  width: 100%;
-  height: 60px;
-  top: 0;
-  left: 0;
-}
-
-.title {
-  margin-left: 70px;
-  margin-top: 10px;
-  color: #FFFFFF;
-}
-
-.header_menu {
-  list-style: none;
-  padding: 0;
-}
-
-.header_menu li {
-  width: 220px;
-  padding: 10px 0;
-  margin-left: 5px;
-}
-
-.logout {
-  position: absolute;
-  bottom: 20px;
-  width: 220px;
-}
-
-.header_menu .menu_style {
-  font-size: 1.2rem;
-  color: #aaa;
-  display: block;
-  width: 100%;
-  padding: 10px 0 10px 20px;
-  text-decoration: none;
-}
-
-.menu_hover:hover {
-  color: #04A9F3;
-  border-left: #04A9F3 5px solid;
-}
-/* ここが問題児 */
-.main_board{
-  margin-top: 70pt;
-  /* width: 100%; */
-  /* margin: 0 auto; */
-  transition: all 0.6s;
-}
-.screen_title{
-  margin-left: 60pt;
-  font-size: 15pt;
-  border-bottom: #aaa 1px solid;
-  margin-right: 300pt;
-}
-.main_board .attention ,.book_history{
-    margin-left: 20pt;
-    font-size: 15pt;
-}
-.main_board .result{
-    margin-left: 650pt;
-    color: #FF0000;
-    font-size: 15pt;
-}
-.rent_column, .rent_column2,.history_column {
-    background-color: #36587A;
-    font-size: 20pt;
-    color: white;
-    height: 35pt;
-    margin-bottom: -12pt;
-}
-/* 多分貸出css? */
-.rent_column .column_title{
-    margin-left: 200pt;
-}
-.rent_column .isbn{
-    margin-left: 240pt;
-}
-.rent_column2 .column_title{
-    margin-left: 120px;
-}
-.rent_column2 .author,.rent_column2 .company,.return_day{
-    margin-left: 150px;
-}
-.main_board .result_book{
-    margin-left: 30pt;
-    font-size: 15pt;
-}
-.main_board .book_search {
-    margin-left: 210pt;
-    font-size: 15pt;
-}
-.flex_class{
-  display: flex;
-}
-.main_board .book_amount {
-    margin-left: 20pt;
-    font-size: 15pt;
-}
-
-.main_board input{
-  font-size: 15pt;
-}
-.main_board .view_search{
-    font-size: 15pt;
-    margin-left: 10pt;
-    background-color: #45B3CF;
-    color: white;
-    width: 70pt;
-}
-.main_board .return_button{
-    font-size: 15pt;
-    margin-left: 45%;
-    background-color: #45B3CF;
-    color: white;
-    width: 70pt;
-    height: 5%;
-    margin-top: 1%;
-}
-/* ここが問題児2 */
-.book_column, .book_column_available, .book_column_review, .tag{
-  background-color: #36587A;
-  color: white;
-  font-size: 20pt;
-  height: 35pt;
-}
-
-.book_column{
-  /* margin-left: 100px; */
-  width:20%;
-}
-
-.book_column_review, .book_column_available, .tag{
-  /* margin-left: 100px; */
-  width: 10%;
-}
-
-.book_table{
-  overflow-y:auto
-}
-
-.history_column .column_title,.history_column .author,.history_column .company,.rent_day,.history_column .return_day{
-  margin-left: 110px;
-}
-.blue{
-    background-color: #E7EFF8;
-    height: 35pt;
+  .hamburger {
+    display : block;
+    position: absolute;
+    z-index : 3;
+    left : 13px;
+    top   : 5px;
+    width : 42px;
+    height: 42px;
+    cursor: pointer;
     text-align: center;
   }
-.white{
-    background-color: #FFFFFF;
+  .hamburger span {
+    display : block;
+    position: absolute;
+    top: 5px;
+    width   : 30px;
+    height  : 2px ;
+    left    : 10px;
+    background : rgb(241, 239, 239);
+    -webkit-transition: 0.3s ease-in-out;
+    -moz-transition   : 0.3s ease-in-out;
+    transition        : 0.3s ease-in-out;
+  }
+  .hamburger span:nth-child(1) {
+    top: 10px;
+  }
+  .hamburger span:nth-child(2) {
+    top: 20px;
+  }
+  .hamburger span:nth-child(3) {
+    top: 30px;
+  }
+  /* ナビ開いてる時のボタン */
+  .hamburger.active span:nth-child(1) {
+    top : 16px;
+    left: 10px;
+    background :#fff;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform   : rotate(-45deg);
+    transform        : rotate(-45deg);
+  }
+  .hamburger.active span:nth-child(2),
+  .hamburger.active span:nth-child(3) {
+    top: 16px;
+    background :#fff;
+    -webkit-transform: rotate(45deg);
+    -moz-transform   : rotate(45deg);
+    transform        : rotate(45deg);
+  }
+  nav.globalMenuSp {
+    /* overflow-y: auto; */
+    position: fixed;
+    z-index : 2;
+    margin-top: 10pt;
+    top  : 47px;
+    left : 0;
+    color: #000;
+    background: #707070;
+    text-align: center;
+    transform: translateX(-100%);
+    transition: all 0.6s;
+    width: 20%;
+  }
+  /* スクロールバーデザイン */
+  /* .globalMenuSp::-webkit-scrollbar{
+    width: 10px;
+  }
+  .globalMenuSp::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: #CDE7EE;
+  }
+  .globalMenuSp::-webkit-scrollbar-thumb {
+    background-color: rgba(36, 36, 39, 0.5);
+    border-radius: 10px;
+  } */
+  /* メニュー設定 */
+  nav.globalMenuSp ul {
+    background: #707070;
+    padding: 0;
+    width: 100%;
+    height: 85vh;
+  }
+  nav.globalMenuSp ul li {
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+  }
+  nav.globalMenuSp ul li:last-child {
+    margin-top: 3pt;
+    padding-bottom: 0;
+    border-bottom: none;
+    border-top: #aaa 1px solid;
+  }
+  nav.globalMenuSp ul li:hover{
+    background :#ddd;
+  }
+  nav.globalMenuSp ul li a {
+    display: block;
+    color: #FFFFFF;
+    padding: 0.5em 0;
+    text-decoration :none;
+    font-size: 15pt;
+  }
+  /* このクラスを、jQueryで付与・削除する */
+  nav.globalMenuSp.active {
+    transform: translateX(0%);
+  }
+  /*layout.css から持ってきた */
+  body {
+    margin: 0;
+    width: 100%;
+  }
+  header {
+    position: absolute;
+    position: fixed;
+    white-space: nowrap;
+    background-color: #707070;
+    width: 100%;
+    height: 60px;
+    top: 0;
+    left: 0;
+  }
+  .title {
+    margin-left: 70px;
+    margin-top: 10px;
+    color: #FFFFFF;
+  }
+  .header_menu {
+    list-style: none;
+    padding: 0;
+  }
+  .header_menu li {
+    width: 220px;
+    padding: 10px 0;
+    margin-left: 5px;
+  }
+  .logout {
+    position: absolute;
+    bottom: 20px;
+    width: 220px;
+  }
+  .header_menu .menu_style {
+    font-size: 1.2rem;
+    color: #aaa;
+    display: block;
+    width: 100%;
+    padding: 10px 0 10px 20px;
+    text-decoration: none;
+  }
+  .menu_hover:hover {
+    color: #04A9F3;
+    border-left: #04A9F3 5px solid;
+  }
+  /* ここが問題児 */
+  .main_board{
+    margin-top: 70pt;
+    /* width: 100%; */
+    /* margin: 0 auto; */
+    transition: all 0.6s;
+  }
+  .screen_title{
+    margin-left: 60pt;
+    font-size: 15pt;
+    border-bottom: #aaa 1px solid;
+    margin-right: 300pt;
+  }
+  .main_board .attention ,.book_history{
+      margin-left: 20pt;
+      font-size: 15pt;
+  }
+  .main_board .result{
+      margin-left: 650pt;
+      color: #FF0000;
+      font-size: 15pt;
+  }
+  .rent_column, .rent_column2,.history_column {
+      background-color: #36587A;
+      font-size: 20pt;
+      color: white;
+      height: 35pt;
+      margin-bottom: -12pt;
+  }
+  /* 多分貸出css? */
+  .rent_column .column_title{
+      margin-left: 200pt;
+  }
+  .rent_column .isbn{
+      margin-left: 240pt;
+  }
+  .rent_column2 .column_title{
+      margin-left: 120px;
+  }
+  .rent_column2 .author,.rent_column2 .company,.return_day{
+      margin-left: 150px;
+  }
+  .main_board .result_book{
+      margin-left: 30pt;
+      font-size: 15pt;
+  }
+  .main_board .book_search {
+      margin-left: 210pt;
+      font-size: 15pt;
+  }
+  .flex_class{
+    display: flex;
+  }
+  .main_board .book_amount {
+      margin-left: 20pt;
+      font-size: 15pt;
+  }
+  .main_board input{
+    font-size: 15pt;
+  }
+  .main_board .view_search{
+      font-size: 15pt;
+      margin-left: 10pt;
+      background-color: #45B3CF;
+      color: white;
+      width: 70pt;
+  }
+  .main_board .return_button{
+      font-size: 15pt;
+      margin-left: 45%;
+      background-color: #45B3CF;
+      color: white;
+      width: 70pt;
+      height: 5%;
+      margin-top: 1%;
+  }
+  /* ここが問題児2 */
+  .book_column, .book_column_available, .book_column_review, .tag{
+    background-color: #36587A;
+    color: white;
+    font-size: 20pt;
     height: 35pt;
-    text-align: center;   
-}
-  /*学生レビューのスタイル */
-.screen_title{
-  margin-left: 60pt;
-  font-size: 20pt;
-  border-bottom: #aaa 1px solid;
-  margin-right: 300pt;
-}
-.user_name{
-  margin-left: 10pt;
-  font-size: 20pt;
-  margin-bottom: -5pt;
-}
-.name_type input{
-  font-size: 20pt;
-  padding: 10px;
-  width: 200pt;
-  text-align: center;
-}
-.show_anonymous{
-  font-size: 18pt;
-}
-.review_style{
-  display: flex;
-  margin-left: 75pt;
-  margin-top: -15pt;
-}
-.rate{
-  margin-top: 26pt;
-  margin-left: 150pt;
-  border: rgb(145, 144, 144) solid 1px;
-  height: 95pt;
-  width: 250pt;
-}
-.rate .rate_question{
-  text-align: center;
-  font-size: 20pt;
-  margin-top: 5pt;
-}
-.evaluation{
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: center;
-  margin-top: -17pt;
-}
-.evaluation input[type='radio']{
-  display: none;
-}
-.evaluation label{
-  position: relative;
-  padding: 10px 10px 0;
-  color: gray;
-  cursor: pointer;
-  font-size: 50px;
-}
-.evaluation label .text{
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  text-align: center;
-  font-size: 12px;
-  color: gray;
-}
-.evaluation label:hover,
-.evaluation label:hover ~ label,
-.evaluation input[type='radio']:checked ~ label{
-  color: yellow;
-}
-.review_area{
-  margin-left: 75pt;
-  margin-top: 40pt;
-}
-.review_area .title_view{
-  font-size: 18pt;
-  margin-left: 10pt;
-}
-.review_add{
-  border: rgb(145, 144, 144) solid 1px;
-  font-size: 18pt;
-  padding: 10pt;
-  margin-top: -15pt;
-}
-.post_button{
-  margin-left: 340pt;
-}
-.post_button button{
-  font-size: 15pt;
-  background-color: #45B3CF;
-  color: white;
-  width: 90pt;
-}
-/*カメラ画面*/
-.camera_area{
-  height: 300pt;
-  margin-right: 300pt;
-  margin-left: 150pt;
-}
+  }
+  .book_column{
+    /* margin-left: 100px; */
+    width:20%;
+  }
+  .book_column_review, .book_column_available, .tag{
+    /* margin-left: 100px; */
+    width: 10%;
+  }
+  .book_table{
+    overflow-y:auto
+  }
+  .history_column .column_title,.history_column .author,.history_column .company,.rent_day,.history_column .return_day{
+    margin-left: 110px;
+  }
+  .blue{
+      background-color: #E7EFF8;
+      height: 35pt;
+      text-align: center;
+    }
+  .white{
+      background-color: #FFFFFF;
+      height: 35pt;
+      text-align: center;  
+  }
+    /*学生レビューのスタイル */
+  .screen_title{
+    margin-left: 190pt;
+    font-size: 20pt;
+    border-bottom: #aaa 1px solid;
+    margin-right: 220pt;
+  }
+  .user_name{
+    margin-left: 10pt;
+    font-size: 20pt;
+    margin-bottom: -5pt;
+  }
+  .name_type input{
+    font-size: 20pt;
+    padding: 10px;
+    width: 200pt;
+    text-align: center;
+  }
+  .show_anonymous{
+    font-size: 18pt;
+  }
+  .review_style{
+    display: flex;
+    margin-left: 190pt;
+    margin-top: -15pt;
+  }
+  .rate{
+    margin-top: 26pt;
+    margin-left: 70pt;
+    border: rgb(145, 144, 144) solid 1px;
+    height: 95pt;
+    width: 250pt;
+  }
+  .rate .rate_question{
+    text-align: center;
+    font-size: 20pt;
+    margin-top: 5pt;
+  }
+  .evaluation{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin-top: -17pt;
+  }
+  .evaluation input[type='radio']{
+    display: none;
+  }
+  .evaluation label{
+    position: relative;
+    padding: 10px 10px 0;
+    color: gray;
+    cursor: pointer;
+    font-size: 50px;
+  }
+  .evaluation label .text{
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    text-align: center;
+    font-size: 12px;
+    color: gray;
+  }
+  .evaluation label:hover,
+  .evaluation label:hover ~ label,
+  .evaluation input[type='radio']:checked ~ label{
+    color: yellow;
+  }
+  .review_area{
+    margin-left: 190pt;
+    margin-top: 40pt;
+  }
+  .review_area .title_view{
+    font-size: 18pt;
+    margin-left: 10pt;
+  }
+  .review_add{
+    border: rgb(145, 144, 144) solid 1px;
+    font-size: 18pt;
+    padding: 10pt;
+    margin-top: -15pt;
+  }
+  .post_button{
+    margin-left: 340pt;
+  }
+  .post_button button{
+    font-size: 15pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 90pt;
+  }
+  /*カメラ画面*/
+  .camera_area{
+    height: 300pt;
+    margin-right: 300pt;
+    margin-left: 150pt;
+  }
+  }
