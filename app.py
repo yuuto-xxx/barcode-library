@@ -140,11 +140,13 @@ def book_list():
                 review_score += review[j]
                 review_count += 1
             try:
-                review_avg = review_score / review_count
+                if review_count == 0:
+                    review_avg = 0
+                else:
+                    review_avg = review_score / review_count
             except Exception as e:
                 review_avg = 0
             book_list[i] = book_list[i] + (review_avg,)
-        print(book_list)
         return render_template("stu_book_list.html",book_list=book_list)
     else:
         redirect(url_for('login_page'))
@@ -303,11 +305,10 @@ def manager_manager_view():
     manager_all = db.select_manager_all()
     # name,mail
     if manager_all:
-        len1 = len(manager_all)
-        return render_template("manager_manager_view.html",list=manager_all,len=len1)
+        return render_template("manager_manager_view.html", list=manager_all)
     else :
         error="管理者select_allエラー"
-        return render_template("manager_manager_view.html",error=error)
+        return render_template("manager_manager_view.html", error=error)
 
 # 管理者削除
 @app.route("/manager_delete_result")

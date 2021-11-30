@@ -235,7 +235,6 @@ def book_review_score(isbn):
 
     for i in cur:
         list.append(i[0])
-    print(list)
 
     cur.close()
     conn.close()
@@ -538,6 +537,7 @@ def select_manager_all():
         cur.execute(sql,)
     except Exception as e:
         print("管理者一覧エラー:",e)
+
     result = cur.fetchall()
 
     cur.close()
