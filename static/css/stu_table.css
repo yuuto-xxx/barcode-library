@@ -1,0 +1,27 @@
+.rent_table{
+    overflow-y: auto;
+    border: none;
+    width: 70%;
+    margin-left: 10%;
+    margin-top: 100pt;
+}
+th {
+    background-color: #36587A;
+    color: white;
+    font-size: 20pt;
+    height: 35pt;
+    border: none;
+}
+.rent_table .isbn{
+    width: 40%;
+}
+.rent_table .id_table{
+    width:10%
+}
+.rent_table .column_title{
+    width:60%
+}
+tr {
+    border: none;
+
+}
