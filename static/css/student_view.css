@@ -85,7 +85,7 @@ nav.globalMenuSp ul {
   background: #707070;
   padding: 0;
   width: 100%;
-  height: 85vh;
+  height: 90vh;
 }
 
 nav.globalMenuSp ul li {
@@ -264,7 +264,7 @@ header {
 }
 
 .book_table{
-  overflow-y:auto
+  overflow-y:auto;
 }
 
 .history_column .column_title,.history_column .author,.history_column .company,.rent_day,.history_column .return_day{
