@@ -350,7 +350,6 @@
     color: white;
     width: 90pt;
   }
-<<<<<<< HEAD
   /*カメラ画面*/
   .camera_area{
     height: 300pt;
@@ -358,7 +357,6 @@
     margin-left: 150pt;
   }
   }
-=======
 .white{
     background-color: #FFFFFF;
     height: 35pt;
@@ -461,5 +459,4 @@
   margin-right: 300pt;
   margin-left: 150pt;
 }
-}
->>>>>>> 35a37fffebb6582868672f87c13a9c9efbf29c1f
+
