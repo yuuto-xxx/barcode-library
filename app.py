@@ -116,8 +116,13 @@ def book_register_result():
     return "登録完了"
     # return render_template("",book=book)
 
-@app.route("/student_rent_book")
-def rent_book():
+@app.route("/stu_camera_rent")
+def stu_camera_rent():
+    return render_template("stu_camera_rent.html")
+
+@app.route("/stu_book_rent", methods=["POST"])
+def stu_book_rent():
+    isbn = request.form.get("isbn")
     return render_template("")
 
 #本の一覧
@@ -135,11 +140,13 @@ def book_list():
                 review_score += review[j]
                 review_count += 1
             try:
-                review_avg = review_score / review_count
+                if review_count == 0:
+                    review_avg = 0
+                else:
+                    review_avg = review_score / review_count
             except Exception as e:
                 review_avg = 0
             book_list[i] = book_list[i] + (review_avg,)
-        print(book_list)
         return render_template("stu_book_list.html",book_list=book_list)
     else:
         redirect(url_for('login_page'))
@@ -209,18 +216,19 @@ def manager_stu_edit():
     return render_template("manager_stu_edit.html")
 
 # 学生変更検索画面名前表示
-@app.route("/manager_student_edit",methods=["POST"])
+@app.route("/manager_student_edit", methods=["POST"])
 def manager_student_edit():
     name = request.form.get('name')
     if name_check(name):
         result = db.student_search_change(name)
     if result:
-        len1 = len(result)
+        print(result)
         # name,stu_number,mail
-        return render_template("manager_stu_edit.html",name_list=result,len=len1)
+        return render_template("manager_stu_edit.html", name_list=result)
     else :
         error = "名前は存在しません"
-        return render_template("manger_stu_edit.html",error=error)
+        print("名前検索なし")
+        return render_template("manager_stu_edit.html", error=error)
 
 # 学生変更
 @app.route("/stu_change")
@@ -258,15 +266,15 @@ def student_change():
 def manager_stu_delete():
     return render_template("manager_stu_delete.html")
 
-# 学生削除検索結果
-@app.route("/manager_stu_delete",methods=["POST"])
-def manager_stu_delete():
+# 学生削除検索結
+@app.route("/manager_student_delete",methods=["POST"])
+def manager_student_delete():
     name = request.form.get('name')
     if name_check(name):
         result = db.student_search_change(name)
     if result:
-        len1 = len(result)
-        return render_template("manager_stu_delete.html",name_list=result,len=len1)
+        print(result)
+        return render_template("manager_stu_delete.html", name_list=result)
     else :
         error="名前は存在しません"
         return render_template("manager_stu_delete.html",error=error)
@@ -297,11 +305,10 @@ def manager_manager_view():
     manager_all = db.select_manager_all()
     # name,mail
     if manager_all:
-        len1 = len(manager_all)
-        return render_template("manager_manager_view.html",list=manager_all,len=len1)
+        return render_template("manager_manager_view.html", list=manager_all)
     else :
         error="管理者select_allエラー"
-        return render_template("manager_manager_view.html",error=error)
+        return render_template("manager_manager_view.html", error=error)
 
 # 管理者削除
 @app.route("/manager_delete_result")
@@ -364,8 +371,6 @@ def pw_change():
     flg = request.form.get("student_flg")
     salt = request.form.get("new_salt")
     mail = request.form.get("mail")
-    print(flg)
-    print(mail)
 
     if flg == "1":
         stu_tem_pass = db.stu_search_temporary_password(mail)

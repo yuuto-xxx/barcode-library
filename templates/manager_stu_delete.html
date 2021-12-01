@@ -12,7 +12,18 @@
                     </datalist><br>
                     <span><button>検索</button></span>
                 </p>
-                <div class="search_table">
+                </div>
+                <table class="search_table" width="61.5%">
+                    <tr>
+                        <th style="font-size: 30px;" class="search_table_name">名前</th>
+                        <th style="font-size: 30px;" class="search_table_stu_number">学籍番号</th>
+                        <th style="font-size: 30px;" class="search_table_course">学科</th>
+                    </tr>
+                    {% for i in range(name_list | length -1 ) %}
+                        {% if i%2 == 0 %}
+                            
+                </table>
+                <!-- <div class="search_table">
                     <p class="search_column">
                         <span class="name">名前</span>
                         <span class="stu_number">学籍番号</span>
@@ -37,7 +48,7 @@
                     <p class="white"></p>
                     <p class="blue"></p>
                     {% endif %}
-                </div>
+                </div> -->
             </div>
         </form>
 {% endblock %}

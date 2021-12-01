@@ -3,16 +3,6 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
     }
-
-    /* body {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      } */
-      
   form {
     border: 2px solid #707070;
     padding: 10px 10px 0px 40px;
@@ -67,7 +57,10 @@
     float: center;
     margin-right: 200px;
 }
-
+.yoko {
+  display: flex; 
+  justify-content: space-between;
+}
 .list {
 	position: relative;
 	overflow: hidden; /* ulでリスト全体を右に50%移動している分幅が広がりスクロールバーが表示されるのを防ぐ */
@@ -80,20 +73,24 @@
 	margin-left: -130px;/* liのmarginの半分をネガティブマージン（しないと右にずれる） */
 }
  
-
-    /* ボタン配置 */
-  * input[type=submit] {
-      font-size: 13pt;
-      background-color: #45B3CF;
-      color: white;
-      /* width: 80pt; */
-      padding: 5px ;
-      border-radius: 0px;
-    }
-  
-  * input:focus {
-    outline: 0;
-    }
+/* ボタン配置 */
+* input[type=submit] {
+    font-size: 13pt;
+    background-color: #45B3CF;
+    color: white;
+    /* width: 80pt; */
+    padding: 5px ;
+    border-radius: 0px;
+  }
+.main_board{
+  /* margin-top: 70pt; */
+  width: 70%;
+  margin: 0 auto;
+  transition: all 0.6s;
+  } 
+* input:focus {
+  outline: 0;
+  }
 }
 @media screen and (max-width: 480px) {
   *{
@@ -172,26 +169,23 @@
 	float: left;
 	margin-left: -130px;
 }
- 
-
-    /* ボタン配置 */
-  * input[type=submit] {
-      font-size: 9pt;
-      background-color: #45B3CF;
-      color: white;
-      /* width: 80pt; */
-      padding: 5px ;
-      border-radius: 0px;
-      margin-left: 30%;
+/* ボタン配置 */
+* input[type=submit] {
+    font-size: 9pt;
+    background-color: #45B3CF;
+    color: white;
+    /* width: 80pt; */
+    padding: 5px ;
+    border-radius: 0px;
+    margin-left: 30%;
+  }
+* input:focus {
+  outline: 0;
+  }
+.main_board{
+    /* margin-top: 70pt; */
+    width: 70%;
+    margin: 0 auto;
+    transition: all 0.6s;
     }
-  
-  * input:focus {
-    outline: 0;
-    }
-    .main_board{
-      /* margin-top: 70pt; */
-      width: 70%;
-      margin: 0 auto;
-      transition: all 0.6s;
-      }
-    }
+  }
