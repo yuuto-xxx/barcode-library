@@ -418,8 +418,6 @@ def student_search_change(name):
     conn = get_connection()
     cur = conn.cursor()
 
-    # sql = "select student.name, student.stu_number, course.course_name from student \
-    #     join course on (student.course_id = course.course_id) where name = %s and delete_flag is false"
     sql = "select student.name, student.stu_number, course.course_name from student, course \
         where name like %s and student.delete_flag is false and student.course_id = course.course_id "
     name_like = "%"+name+"%"
@@ -459,14 +457,14 @@ def student_search_change_result(stu_number):
     return result
 
 # course_nameでmax_yearを検索
-def search_max_year(course_name):
+def search_max_year(course_id):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "select max_year from course where course_name=%s"
+    sql = "select max_year from course where course_id = %s"
 
     try:
-        cur.execute(sql,(course_name,))
+        cur.execute(sql,(course_id,))
     except Exception as e:
         print(e)
 
@@ -496,12 +494,11 @@ def search_course_id(course_name):
 
     return result[0]
 
-def stu_change_update(stu_number,name,mail,course_name,year):
+def stu_change_update(stu_number,name,mail,course_id,year):
     conn = get_connection()
     cur = conn.cursor()
 
     sql = "update student set name=%s, mail=%s, course_id=%s, year=%s where stu_number=%s"
-    course_id = search_course_id(course_name)
     try:
         cur.execute(sql,(name,mail,course_id,year,stu_number))
     except Exception as e:

@@ -21,14 +21,12 @@
                     {% for i in range(name_list | length) %}
                         {% if i%2 == 0 %}
                             <tr>
-                                <td class="blue">{{2*i+1}}</td>
                                 <td class="blue"><a href="{{url_for('stu_change', stu_number=name_list[i][1])}}">{{name_list[i][0]}}</a></td>
                                 <td class="blue">{{name_list[i][1]}}</td>
                                 <td class="blue">{{name_list[i][2]}}</td>
                             </tr>
                         {% else %}
                             <tr>
-                                <td class="white">{{2*i+2}}</td>
                                 <td class="white"><a href="{{url_for('stu_change', stu_number=name_list[i][1])}}">{{name_list[i][0]}}</a></td>
                                 <td class="white">{{name_list[i][1]}}</td>
                                 <td class="white">{{name_list[i][2]}}</td>
