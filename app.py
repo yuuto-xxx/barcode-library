@@ -15,6 +15,7 @@ import csv
 from werkzeug.utils import secure_filename
 import datetime as dt
 from datetime import timedelta
+from functools import singledispatch
 
 app = Flask(__name__)
 
@@ -82,7 +83,8 @@ def book_register():
 def book_register_camera():
     return render_template("book_register_camera.html")
 
-@app.route("/book_register_verification") #確認画面
+#本登録の確認画面
+@app.route("/book_register_verification")
 def book_register_verification():
     isbn = request.args.get("isbn")
     if len(isbn) <= 9:
@@ -222,7 +224,8 @@ def student_register():
 # 学生変更検索画面
 @app.route("/manager_stu_edit")
 def manager_stu_edit():
-    return render_template("manager_stu_edit.html")
+    student_list = db.student_list()
+    return render_template("manager_stu_edit.html", student_list=student_list)
 
 # 学生変更検索画面名前表示
 @app.route("/manager_student_edit", methods=["POST"])
@@ -246,7 +249,15 @@ def stu_change():
     result = db.student_search_change_result(stu_number)
     # mail,name,stu_number,course_name,year
     if result:
-        return render_template("stu_change.html",result=result)
+        visibility = 0
+        return render_template("stu_change.html",result=result, visibility=visibility)
+
+def stu_change(stu_number):
+    result = db.student_search_change_result(stu_number)
+    print("りだいれくと")
+    visibility = 1
+    if result:
+        return render_template("stu_change.html",result=result, visibility=visibility)
 
 # 学生変更確認
 @app.route("/student_change",methods=["POST"])
@@ -256,19 +267,21 @@ def student_change():
     course = request.form.get('course')
     max_year = db.search_max_year(course)
     year = request.form.get('year')
+    print("学年:",year)
     mail = request.form.get('mail')
     re_mail = request.form.get('re_mail')
     if name_check(name) and student_id_check(stu_number) and \
      mail==re_mail and mail_check(mail) and int(year)<=int(max_year):
         result = db.stu_change_update(stu_number,name,mail,course,year)
         if result:
-            event = "変更成功"
-            return render_template("stu_change",event=event)
+            print("学生変更成功")
+            return redirect(url_for('stu_change', stu_number=stu_number))
         else :
             print("失敗")
     else :
         error = "正しい形式で入力してください"
-        return render_template("stu_change",error=error)
+        print("学生変更エラー")
+        # return redirect(url_for('stu_change', error=error))
 
 # 学生削除検索
 @app.route("/manager_stu_delete")
