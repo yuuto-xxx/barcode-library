@@ -1,30 +1,28 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
+{% extends "manager_layout.html" %}
+{% block head %}
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{url_for('static', filename='css/sign_up.css')}}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <title>学生変更</title>
-</head>
-<body>
-    {% extends "manager_layout.html" %}
+{% endblock %}
+
     {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="form_group">
     <h4 id=half2>※下記の内容をご入力の上、ご確認ください</h4>
-    <form autocomplete="off" action="" method="POST" id="form1">
+    <form autocomplete="off" action="{{url_for('student_change')}}" method="POST" id="form1">
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
         <h4 id=half>学籍番号</h4>
-        <input type="text" half value="{{result[1]}}" autocomplete="off" name="name">
-        <input type="text" half value="{{result[2]}}" autocomplete="off" name="stu_number" readonly>
+        <input type="text" half value="{{result[0][1]}}" autocomplete="off" name="name">
+        <input type="text" half value="{{result[0][2]}}" autocomplete="off" name="stu_number" readonly>
         <!-- プルダウン -->
         <h4 id=half>学科</h4>
         <h4 id=half>学年</h4>
         <div class="cp_ipselect cp_sl02">
             <select name="course" required>
-                <option value="" hidden>{{result[3]}}</option>
+                <option value="" hidden>{{result[0][3]}}</option>
                 <option value="1">情報システム科</option>
                 <option value="2">ネットワークセキュリティ科</option>
                 <option value="3">総合システム工学科</option>
@@ -39,7 +37,7 @@
         </div>
         <div class="s_year cp_pull">
             <select name="year">
-                <option value="" hidden>result[4]</option>
+                <option value={{result[0][4]}} hidden>{{result[0][4]}}</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -49,14 +47,17 @@
 
         <!-- メールアドレス　-->
         <h4>メールアドレス</h4>
-        <input type="text" value="{{result[0]}}" autocomplete="off" name="mail">
+        <input type="text" value="{{result[0][0]}}" autocomplete="off" name="mail">
         <h4>メールアドレス(再入力)</h4>
-        <input type="text" value="{{result[0]}}" name="re_mail">
+        <input type="text" value="{{result[0][0]}}" name="re_mail">
       </form>
-      <input type="submit" value="変更" form="form1" id="btn">
+        {% if visibility == 0 %}
+            <input type="submit" value="変更" form="form1" id="btn">
+        {% endif %}
+        {{visibility}}
     </div>
-    <!-- アラート機能 -->
-      <script>
+    
+    <script>
         var btn = document.getElementById("btn");
          
         btn.addEventListener("click", function() {
@@ -64,6 +65,7 @@
             
             if( result ) {
                 console.log("はい");
+                btn.style.visibility = 'hidden';
             }
             else {
                 console.log("いいえ");
@@ -72,6 +74,4 @@
     </script>
     {{error}}
     {{event}}
-    {% endblock %}
-</body>
-</html>
+{% endblock %}
