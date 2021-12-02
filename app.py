@@ -125,7 +125,7 @@ def stu_book_rent():
     isbn = request.form.get("isbn")
     return render_template("")
 
-#本の一覧
+#本の一覧(学生)
 @app.route("/student_book_list")
 def book_list():
     if "user" in session:
@@ -151,15 +151,87 @@ def book_list():
     else:
         redirect(url_for('login_page'))
 
+# 本の一覧(管理者)
+@app.route("/manager_book_list")
+def manager_book_list():
+    if "user" in session:
+        result = db.book_list()
+        if result:
+            return render_template("manager_book_list.html",book_list=result)
+    else :
+        redirect(url_for('login_page'))
+# 本の一覧(管理者検索)
+@app.route("/delete_search")
+def delete_search():
+    if "user" in session:
+        key = request.args.get("key")
+        result = db.book_search(key)
+        if result !=[]:
+            return render_template("manager_book_list.html",book_list=result)
+        else :
+            return redirect(url_for("manager_book_list"))
+    else :
+        redirect(url_for('login_page'))
+
+
 # 本情報変更
 @app.route('/book_change')
 def book_change():
-    return render_template("book_change.html")
+    if "user" in session:
+        book = request.args.getlist('book')
+        return render_template("book_change.html",book=book)
+    else :
+        redirect(url_for('login_page'))
+
+
+# 本の情報変更
+@app.route('/book_change_main')
+def book_change_main():
+    if "user" in session:
+        book_isbn = request.args.get('book')
+        title = request.args.get('title')
+        author = request.args.get('author')
+        pub = request.args.get('pub')
+        day = request.args.get('day')
+        num = request.args.get('quantity')
+        result = db.book_change(book_isbn,title,author,pub,day,num)
+        if result:
+            return redirect(url_for('manager_book_list'))
+        else :
+            return render_template('book_change_main.html',error="error")
+    else :
+        redirect(url_for("login_page"))
 
 # 本削除
 @app.route('/book_delete')
 def book_delete():
-    return render_template("book_delete.html")
+    if "user" in session:
+        book = request.args.getlist("book")
+        print(book)
+        print("aaa")
+        # isbn,image,title,author,publisher,release_day,amount_max,book_delete_flag
+        if book:
+            # session["book"] = book
+            return render_template("book_delete.html",book=book)
+    else:
+        redirect(url_for('login_page'))
+
+# 本削除
+@app.route("/book_delete_main")
+def book_delete_main():
+    if "user" in session:
+        isbn = request.args.get('isbn')
+        max = request.args.get('max')
+        quantity = request.args.get('quantity')
+        # return render_template("book_delete_main.html",num=quantity)
+        if quantity >= max:
+            result = db.book_delete_flag(isbn)
+        else :
+            result = db.book_delete_amount(isbn,quantity)
+        if result:
+            return render_template('manager_book_list.html')
+    else :
+        redirect(url_for('login_page'))
 
 # 管理者登録
 @app.route("/manager_register")
