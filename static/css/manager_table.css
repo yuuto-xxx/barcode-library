@@ -2,7 +2,7 @@
     overflow-y: auto;
     border: none;
     width: 100%;
-    margin-top: 5%;
+    margin-top: 2%;
     border-collapse: collapse;
     font-family: 'Times New Roman', Times, serif;
     border-left: black solid 1px;
@@ -15,7 +15,7 @@ th {
     height: 35pt;
     border: none;
 }
-.book_table .book_num{
+.book_num{
     width: 7%;
 }
 .book_table .column_book {
@@ -27,6 +27,12 @@ th {
     color: white;
     margin-top: 5pt;
     width: 80%;
+}
+.book_table .column_view{
+    width:46%
+}
+.promotion_table{
+    width:31%
 }
 tr{
     border: none;

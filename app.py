@@ -15,7 +15,6 @@ import csv
 from werkzeug.utils import secure_filename
 import datetime as dt
 from datetime import timedelta
-from functools import singledispatch
 
 app = Flask(__name__)
 
@@ -118,14 +117,15 @@ def book_register_result():
     return "登録完了"
     # return render_template("",book=book)
 
+#本を借りる
 @app.route("/stu_camera_rent")
 def stu_camera_rent():
     return render_template("stu_camera_rent.html")
 
-@app.route("/stu_book_rent", methods=["POST"])
+@app.route("/stu_book_rent")
 def stu_book_rent():
-    isbn = request.form.get("isbn")
-    return render_template("")
+    data = '12345678'
+    return data
 
 #本の一覧
 @app.route("/student_book_list")
@@ -258,7 +258,6 @@ def student_change():
     course = request.form.get('course')
     max_year = db.search_max_year(course)
     year = request.form.get('year')
-    print("学年:",year)
     mail = request.form.get('mail')
     re_mail = request.form.get('re_mail')
     if name_check(name) and student_id_check(stu_number) and \

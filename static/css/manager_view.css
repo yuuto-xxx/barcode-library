@@ -31,7 +31,6 @@
   .hamburger span:nth-child(3) {
     top: 30px;
   }
-  
   /* ナビ開いてる時のボタン */
   .hamburger.active span:nth-child(1) {
     top : 16px;
@@ -40,8 +39,7 @@
     -webkit-transform: rotate(-45deg);
     -moz-transform   : rotate(-45deg);
     transform        : rotate(-45deg);
-  }
-  
+  }  
   .hamburger.active span:nth-child(2),
   .hamburger.active span:nth-child(3) {
     top: 16px;
@@ -49,8 +47,7 @@
     -webkit-transform: rotate(45deg);
     -moz-transform   : rotate(45deg);
     transform        : rotate(45deg);
-  }
-  
+  }  
   nav.globalMenuSp {
     /* overflow-y: auto; */
     position: fixed;
@@ -65,34 +62,17 @@
     transition: all 0.6s;
     width: 20%;
   }
-  /* スクロールバーデザイン */
-  /* .globalMenuSp::-webkit-scrollbar{
-    width: 10px;
-  }
-  
-  .globalMenuSp::-webkit-scrollbar-track {
-    border-radius: 5px;
-    background: #cde7ee;
-  }
-  
-  .globalMenuSp::-webkit-scrollbar-thumb {
-    background-color: rgba(36, 36, 39, 0.5);
-    border-radius: 10px;
-  } */
-  
   /* メニュー設定 */
   nav.globalMenuSp ul {
     background: #707070;
     padding: 0;
     width: 100%;
-    height: 85vh;
+    height: 95vh;
   }
-  
   nav.globalMenuSp ul li {
     list-style-type: none;
     padding: 0;
-    width: 100%;
-    
+    width: 100%; 
   }
   nav.globalMenuSp ul li:last-child {
     margin-top: 3pt;
@@ -103,7 +83,6 @@
   nav.globalMenuSp ul li:hover{
     background :#ddd;
   }
-  
   nav.globalMenuSp ul li a {
     display: block;
     color: #FFFFFF;
@@ -111,20 +90,14 @@
     text-decoration :none;
     font-size: 15pt;
   }
-  
   /* このクラスを、jQueryで付与・削除する */
   nav.globalMenuSp.active {
     transform: translateX(0%);
   }
-  
-  
-  /*layout.css から持ってきた */
-  
   body {
     margin: 0;
     width: 100%;
   }
-  
   header {
     position: absolute;
     position: fixed;
@@ -135,30 +108,25 @@
     top: 0;
     left: 0;
   }
-  
   .title {
     margin-left: 70px;
     margin-top: 10px;
     color: #FFFFFF;
   }
-  
   .header_menu {
     list-style: none;
     padding: 0;
   }
-  
   .header_menu li {
     width: 220px;
     padding: 10px 0;
     margin-left: 5px;
   }
-  
   .logout {
     position: absolute;
     bottom: 20px;
     width: 220px;
   }
-  
   .header_menu .menu_style {
     font-size: 1.2rem;
     color: #aaa;
@@ -167,7 +135,6 @@
     padding: 10px 0 10px 20px;
     text-decoration: none;
   }
-  
   .menu_hover:hover {
     color: #04A9F3;
     border-left: #04A9F3 5px solid;
@@ -306,12 +273,10 @@
     margin-bottom: -1pt;
     margin-top: -0.5pt;
   }
-
   .search_table_name .search_table_stu_number .search_table_course{
     font-size: 30pt;
     height: 50pt;
   }
-
   .search_table .search_column .name{
   margin-left: 70pt;
   }
@@ -436,18 +401,7 @@
   }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
+/* ここからスマホ画面 */
   @media screen and (max-width: 480px) {
     .hamburger {
       display : block;
@@ -481,7 +435,6 @@
     .hamburger span:nth-child(3) {
       top: 30px;
     }
-    
     /* ナビ開いてる時のボタン */
     .hamburger.active span:nth-child(1) {
       top : 16px;
@@ -491,7 +444,6 @@
       -moz-transform   : rotate(-45deg);
       transform        : rotate(-45deg);
     }
-    
     .hamburger.active span:nth-child(2),
     .hamburger.active span:nth-child(3) {
       top: 16px;
@@ -500,7 +452,6 @@
       -moz-transform   : rotate(45deg);
       transform        : rotate(45deg);
     }
-    
     nav.globalMenuSp {
       /* overflow-y: auto; */
       position: fixed;
@@ -515,34 +466,17 @@
       transition: all 0.6s;
       width: 25%;
     }
-    /* スクロールバーデザイン */
-    /* .globalMenuSp::-webkit-scrollbar{
-      width: 10px;
-    }
-    
-    .globalMenuSp::-webkit-scrollbar-track {
-      border-radius: 5px;
-      background: #cde7ee;
-    }
-    
-    .globalMenuSp::-webkit-scrollbar-thumb {
-      background-color: rgba(36, 36, 39, 0.5);
-      border-radius: 10px;
-    } */
-    
     /* メニュー設定 */
     nav.globalMenuSp ul {
       background: #707070;
       padding: 0;
       width: 100%;
       height: 85vh;
-    }
-    
+    } 
     nav.globalMenuSp ul li {
       list-style-type: none;
       padding: 0;
-      width: 100%;
-      
+      width: 100%; 
     }
     nav.globalMenuSp ul li:last-child {
       margin-top: 3pt;
@@ -553,28 +487,21 @@
     nav.globalMenuSp ul li:hover{
       background :#ddd;
     }
-    
     nav.globalMenuSp ul li a {
       display: block;
       color: #FFFFFF;
       padding: 0.5em 0;
       text-decoration :none;
       font-size: 15pt;
-    }
-    
+    } 
     /* このクラスを、jQueryで付与・削除する */
     nav.globalMenuSp.active {
       transform: translateX(0%);
     }
-    
-    
-    /*layout.css から持ってきた */
-    
     body {
       margin: 0;
       width: 100%;
-    }
-    
+    }   
     header {
       position: absolute;
       position: fixed;
@@ -585,24 +512,20 @@
       top: 0;
       left: 0;
     }
-    
     .title {
       margin-left: 70px;
       margin-top: 10px;
       color: #FFFFFF;
     }
-    
     .header_menu {
       list-style: none;
       padding: 0;
     }
-    
     .header_menu li {
       width: 220px;
       padding: 10px 0;
       margin-left: 5px;
     }
-    
     .logout {
       position: absolute;
       bottom: 20px;
@@ -680,7 +603,6 @@
     .promotion_column .stu_number,.promotion_column .course{
     margin-left: 250px;
     }
-    
     .blue{
       background-color: #E7EFF8;
       height: 35pt;
@@ -817,7 +739,6 @@
     .course_table table {
     border: 1px solid rgb(139, 138, 138);
     border-collapse: collapse;
-    
     }
     .course_table table th{
     border-bottom: 1px solid rgb(139, 138, 138);
@@ -854,7 +775,6 @@
     }
     .csv_table .stu_number,.csv_table .course,.csv_table .year,.csv_table .mail{
     margin-left: 80pt;
-    
     }
     .regist_button{
     margin-left: 330pt;
