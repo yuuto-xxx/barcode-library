@@ -5,16 +5,7 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
     }
-    
-  /* body {
-    height: 100vh;
-    display: flex;
-    flex-direction: column; 
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    } */
-  
+
   form {
     border: 2px solid #707070;
     padding: 40px 10px 0px 40px;
@@ -128,7 +119,6 @@
       padding: 8px 38px 8px 8px;
       color: #666666;
     }
-  
     
      /* プルダウン学年css */
      .s_year {
@@ -225,15 +215,6 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
   }
-  
-/* body {
-  height: 100vh;
-  display: flex;
-  flex-direction: column; 
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  } */
 
 form {
   border: 2px solid #707070;
