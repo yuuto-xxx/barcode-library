@@ -120,7 +120,7 @@ input[type=text][half] {
     overflow-y: auto;
     width: 70%;
     max-width: 700px;
-    height: 200px;
+    height: 100px;
     margin: 0 auto;
     border: #707070 2px solid;
     padding: 10px;
