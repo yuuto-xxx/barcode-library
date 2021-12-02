@@ -33,7 +33,7 @@
             
               navigator.mediaDevices.getUserMedia(
                 //マイクはオフ, カメラの設定   背面カメラを希望する 640×480を希望する 1230*800
-                {"audio":false,"video":{"facingMode":"environment","width":{"ideal":640},"height":{"ideal":480}}}
+                {"audio":false,"video":{"facingMode":"environment","width":{"ideal":1200},"height":{"ideal":400}}}
               ).then( //許可
                 function(stream){
                   video.srcObject = stream;
@@ -108,7 +108,7 @@
             });
             </script>
 
-        <div><canvas id="preview"></canvas></div>&nbsp;
+        <div><canvas id="preview"></canvas></div>
           <div class="list">
             <ul>
             <input type="text" half id="jan" name="isbn">

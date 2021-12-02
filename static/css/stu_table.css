@@ -1,9 +1,9 @@
 .rent_table{
     overflow-y: auto;
     border: none;
-    width: 70%;
+    width: 80%;
     margin-left: 10%;
-    margin-top: 100pt;
+    /* margin-top: 100pt; */
 }
 th {
     background-color: #36587A;
@@ -23,5 +23,4 @@ th {
 }
 tr {
     border: none;
-
 }
