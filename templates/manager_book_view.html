@@ -5,28 +5,53 @@
 {% endblock %}
 
 {% block content %}
+            <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <span class="student_search">キーワード入力：</span>
             <input type="text" name="key" size="40" style="font-size: 15pt;">
             <button class="view_search">検索</button><br>
-            <p class="book_column">
-                <span class="column_title">タイトル</span>
-                <span class="author">著者</span>
-                <span class="company">出版社</span>
-                <span class="release_day">出版日</span>
-            </p>
-            
-            <p class="blue"><button class="delete">削除</button></p>
-            <p class="white"><button class="delete">削除</button></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
+            <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
+            <table class="book_table">
+                <tr>
+                    <th class="book_num"></th>
+                    <th class="column_book">タイトル</th>
+                    <th class="column_book">著者</th>
+                    <th class="column_book">出版社</th>
+                    <th class="column_book">出版日</th>
+                    <th class="book_num"></th>
+                </tr>
+                
+                <tr>
+                    <td class="blue">1</td>
+                    <td class="blue"></td>
+                    <td class="blue"></td>
+                    <td class="blue"></td>
+                    <td class="blue"></td>
+                    <td class="blue"><button class="delete_button">削除</button></td>
+                </tr>
+                    
+                    <td class="white">2</td>
+                    <td class="white"></td>
+                    <td class="white"></td>
+                    <td class="white"></td>
+                    <td class="white"></td>
+                    <td class="white"><button class="delete_button">削除</button></td>
+                </tr>
+                <tr>
+                  <td class="blue">3</td>
+                  <td class="blue"></td>
+                  <td class="blue"></td>
+                  <td class="blue"></td>
+                  <td class="blue"></td>
+                  <td class="blue"><button class="delete_button">削除</button></td>
+              </tr>
+            </tr>
+                    
+            <td class="white">4</td>
+            <td class="white"></td>
+            <td class="white"></td>
+            <td class="white"></td>
+            <td class="white"></td>
+            <td class="white"><button class="delete_button">削除</button></td>
+        </tr>
+            </table>
 {% endblock %}
