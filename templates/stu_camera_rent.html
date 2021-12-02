@@ -3,7 +3,7 @@
             <div class="camera_area">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
             <h4 id="left">※本のisbnをカメラに向かってかざしてください。</h4>
-                <form autocomplete="off" action="{{url_for('book_register_verification')}}">
+                <form autocomplete="off" action="{{url_for('stu_book_rent')}}">
                     <!-- カメラ -->
                     <script>
                         var DetectedCount=0,DetectedCode="";
@@ -113,7 +113,20 @@
                             if(DetectedCount>=3){
                               console.log(result.codeResult.code);
                               jan.value+=result.codeResult.code+' ';
-                              jan.scrollTop=jan.scrollHeight;  
+                              jan.scrollTop=jan.scrollHeight;
+                              $(function(){
+                                $.ajax({
+                                  url : '/stu_book_rent',
+                                  type : 'GET',
+                                  dataType : 'text',
+                                })
+                                .done(function(data){
+                                  $('result').text(data);
+                                })
+                                .fail(function(){
+                                  window.alert('ISBN取得エラー');
+                                })
+                              })                           
                               DetectedCode='';
                               DetectedCount=0;
                             }
@@ -140,7 +153,7 @@
             
             <tr>
                 <td class="blue"></td>
-                <td class="blue"></td>
+                <td class="blue" id="result"></td>
                 <td class="blue"></td>
             </tr>
                 
