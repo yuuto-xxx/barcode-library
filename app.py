@@ -153,15 +153,6 @@ def book_list():
     else:
         redirect(url_for('login_page'))
 
-# 本情報変更
-@app.route('/book_change')
-def book_change():
-    return render_template("book_change.html")
-
-# 本削除
-@app.route('/book_delete')
-def book_delete():
-    return render_template("book_delete.html")
 
 # 管理者登録
 @app.route("/manager_register")

@@ -1,11 +1,11 @@
 {% extends "student_layout.html" %}
 {% block content %}
-          <div class="camera_area">
+            <div class="camera_area">
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
             <h4 id="left">※本をカメラで登録する為、本のisbnをカメラに向かってかざしてください。</h4>
                 <form autocomplete="off" action="{{url_for('book_register_verification')}}">
-                    <h3 id="half">本登録画面</h3>
-                    <h4 align=right><a href="">手入力登録する方はこちら</a></h4>
+                    
+                    
                     <!-- カメラ -->
                     <script>
                         var DetectedCount=0,DetectedCode="";
@@ -131,22 +131,41 @@
                       </div>
                     </form>
             </div>
-            <p class="rent_column" style="margin-top: 100pt;">
-              <span class="isbn">ISBN</span>
-              <span class="column_title">タイトル</span>
-          </p>
-          <p class="blue"></p>
-          <p class="white"></p>
-          <p class="blue"></p>
-          <p class="white"></p>
-          <p class="blue"></p>
-          <p class="white"></p>
-          <p class="blue"></p>
-          <p class="white"></p>
-          <p class="blue"></p>
-          <p class="white"></p>
-          <p class="blue"></p>
-          <p class="white"></p>
+            <link rel="stylesheet" href="../static/css/stu_table.css">
+
+             <table class="rent_table">
+            <tr>
+              <th class="id_table"></th>
+              <th class="isbn">ISBN</th>
+              <th class="column_title">タイトル</th>
+            </tr>
+            
+            <tr>
+                <td class="blue"></td>
+                <td class="blue"></td>
+                <td class="blue"></td>
+            </tr>
+                
+                <td class="white"></td>
+                <td class="white"></td>
+                <td class="white"></td>
+                
+            </tr>
+            <tr>
+              <td class="blue"></td>
+              <td class="blue"></td>
+              <td class="blue"></td>
+          </tr>
+        </tr>
+                
+        <td class="white"></td>
+        <td class="white"></td>
+        <td class="white"></td>
+        
+    </tr>
+                
+            
+        </table>
     
           <link rel="stylesheet" href="../static/css/book_register_camera.css">
           <script src="../static/js/quagga.min.js"></script>

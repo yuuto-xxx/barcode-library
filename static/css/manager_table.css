@@ -1,0 +1,38 @@
+.book_table{
+    overflow-y: auto;
+    border: none;
+    width: 100%;
+    margin-top: 5%;
+    border-collapse: collapse;
+    font-family: 'Times New Roman', Times, serif;
+    border-left: black solid 1px;
+    border-bottom: black solid 1px;
+}
+th {
+    background-color: #36587A;
+    color: white;
+    font-size: 20pt;
+    height: 35pt;
+    border: none;
+}
+.book_table .book_num{
+    width: 7%;
+}
+.book_table .column_book {
+    width: 20%;
+}
+.book_table .delete_button{
+    font-size: 12pt;
+    background-color: #45B3CF;
+    color: white;
+    margin-top: 5pt;
+    width: 80%;
+}
+tr{
+    border: none;
+}
+td{
+    border: none;
+    text-align: center;
+}
+
