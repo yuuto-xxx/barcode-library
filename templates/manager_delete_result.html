@@ -5,24 +5,31 @@
 {% endblock %}
 
 {% block content %}
+            <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <span class="report">※管理者一覧です</span>
-            <span class="delete_result">削除完了しました。</span>
-            <p class="promotion_column">
-                <span class="name">名前</span>
-                <span class="stu_number">メールアドレス</span>
-            </p>
-            <p class="blue"><button class="delete">削除</button></p>
-            <p class="white"><button class="delete">削除</button></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
+            <span class="delete_result" style="margin-left: 70%;">削除完了しました。</span>
+            <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
+            <table class="book_table">
+                <tr>
+                    <th class="column_view">名前</th>
+                    <th class="column_view">メールアドレス</th>
+                    <th class="book_num"></th>
+                </tr>
+                
+                <tr>
+                    <td class="blue"></td>
+                    <td class="blue"></td>
+                    <td class="blue"><button class="delete_button">削除</button></td>
+                </tr>
+                    <td class="white"></td>
+                    <td class="white"></td>
+                    <td class="white"><button class="delete_button">削除</button></td>
+                </tr>
+                <tr>
+                  <td class="blue"></td>
+                  <td class="blue"></td>
+                  <td class="blue"><button class="delete_button">削除</button></td>
+              </tr>
+            </table>
+            <!-- promotion_column -->
 {% endblock %}
