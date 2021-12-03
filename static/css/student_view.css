@@ -100,7 +100,6 @@
   nav.globalMenuSp.active {
     transform: translateX(0%);
   }
-  /*layout.css から持ってきた */
   
   body {
     margin: 0;
@@ -250,7 +249,15 @@
   }
   
   .book_table{
-    overflow-y:auto;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: none;
+    width: 1263px;
+    margin-top: 5px;
+    border-collapse: collapse;
+    font-family: 'Times New Roman', Times, serif;
+    border-left: black solid 1px;
+    border-bottom: black solid 1px;
   }
   
   .history_column .column_title,.history_column .author,.history_column .company,.rent_day,.history_column .return_day{
