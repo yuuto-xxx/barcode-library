@@ -1,0 +1,34 @@
+/* 一括登録の画面 */
+.csv_regist{
+    overflow-y: auto;
+    border: none;
+    margin-top: 2%;
+    border-collapse: collapse;
+    font-family: 'Times New Roman', Times, serif;
+    border-left: black solid 1px;
+    border-bottom: black solid 1px;
+    border: black solid 2px;
+    width: 80%;
+    margin-left: 10%;
+}
+.csv_regist tr th{
+    font-size: 20pt;
+    height: 35pt;
+    border-bottom: rgb(49, 48, 48) 1px solid;
+}
+.csv_regist .csv_column{
+    width: 20%;
+}
+.csv_regist tr td{
+    height: 35pt;
+}
+tr{
+    border: none;
+}
+td{
+    border: none;
+    text-align: center;
+}
+#error{
+    color: red;
+}

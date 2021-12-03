@@ -41,4 +41,18 @@ td{
     border: none;
     text-align: center;
 }
+/* 学生削除、編集 */
+.stu_search{
+    overflow-y: auto;
+    border: none;
+    margin-top: 2%;
+    border-collapse: collapse;
+    font-family: 'Times New Roman', Times, serif;
+    border-left: black solid 1px;
+    border-bottom: black solid 1px;
+    border: black solid 2px;
+    width:80%;
+    margin: 30pt 60pt 40pt
+}
+
 
