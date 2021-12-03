@@ -1,8 +1,9 @@
 {% extends "student_layout.html" %}
 {% block content %}
+<!-- <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}"> -->
     <p class="result_book">※該当検索は...件です</p>
     <span class="book_search">キーワード：</span>
-    <input type="text" name="key" size="15">
+    <input type="text" name="key" size="30" autocomplete="off">
     <button class="view_search">検索</button><br>
         <table class="book_table">
             <tr>
@@ -21,6 +22,7 @@
                 <td class="blue">{{book_list[i][4]}}</td>
                 <td class="blue">{{book_list[i][8]}}</td>
                 <td class="blue">〇</td>
+                <td class="blue"></td>
             </tr>
                 {% else %}
             <tr>
@@ -29,6 +31,7 @@
                 <td class="white">{{book_list[i][4]}}</td>
                 <td class="white">{{book_list[i][8]}}</td>
                 <td class="white">〇</td>
+                <td class="white"></td>
             </tr>
                 {% endif %}
             {% endfor %}

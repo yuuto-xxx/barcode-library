@@ -14,21 +14,34 @@
                     <th class="column_view">メールアドレス</th>
                     <th class="book_num"></th>
                 </tr>
-                
+                {% for i in range(list | length ) %}
+                {% if i%2 == 0 %}
                 <tr>
-                    <td class="blue"></td>
-                    <td class="blue"></td>
-                    <td class="blue"><button class="delete_button">削除</button></td>
+                    <td class="blue">{{list[i][0]}}</td>
+                    <td class="blue">{{list[i][1]}}</td>
+                    <td class="blue"><a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a></td>
                 </tr>
-                    <td class="white"></td>
-                    <td class="white"></td>
-                    <td class="white"><button class="delete_button">削除</button></td>
+                {% else %}
+                    <td class="white">{{list[i][0]}}</td>
+                    <td class="white">{{list[i][1]}}</td>
+                    <td class="white"><a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a></td>
                 </tr>
-                <tr>
-                  <td class="blue"></td>
-                  <td class="blue"></td>
-                  <td class="blue"><button class="delete_button">削除</button></td>
-              </tr>
+                {% endif %}
+                {% endfor %}
             </table>
-            <!-- promotion_column -->
+
+            <script>
+                var btn = document.getElementById("btn");
+                 
+                btn.addEventListener("click", function() {
+                    var result = window.confirm("本当に削除してよろしいですか？");
+                    
+                    if( result ) {
+                        console.log("はい");
+                    }
+                    else {
+                        console.log("いいえ");
+                    }
+                })
+            </script>
 {% endblock %}
