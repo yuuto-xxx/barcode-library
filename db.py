@@ -319,7 +319,7 @@ def book_search(key):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "select * from book where title like %s or author like %s or publisher like %s"
+    sql = "select * from book where (title like %s or author like %s or publisher like %s )and book_delete_flag = false"
     key_like = "%"+ key +"%"
     try:
         cur.execute(sql,(key_like,key_like,key_like,))
@@ -688,15 +688,15 @@ def test():
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "select * from book"
+    sql = "update book set book_delete_flag = false"
     try:
         cur.execute(sql,())
     except Exception as e:
         print("本の検索取得エラー",e)
 
-    result = cur.fetchall()
-
+    # result = cur.fetchall()
+    conn.commit()
     cur.close()
     conn.close()
 
-    return result
+    # return result

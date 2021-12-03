@@ -61,6 +61,10 @@ def manager_top():
     mail = request.form.get("mail")
     password = request.form.get("password")
     result = db.manager_login(mail,password)
+    
+    session["user"] = (result[0],result[1],mail)
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=30)
     print(result[1])
     if result[1]: #password_flagの判定
         student_flg = 0
@@ -149,7 +153,7 @@ def book_list():
             book_list[i] = book_list[i] + (review_avg,)
         return render_template("stu_book_list.html",book_list=book_list)
     else:
-        redirect(url_for('login_page'))
+        return redirect(url_for('login_page'))
 
 # 本の一覧(管理者)
 @app.route("/manager_book_list")
@@ -159,7 +163,7 @@ def manager_book_list():
         if result:
             return render_template("manager_book_list.html",book_list=result)
     else :
-        redirect(url_for('login_page'))
+        return redirect(url_for('login_page'))
 # 本の一覧(管理者検索)
 @app.route("/delete_search")
 def delete_search():
@@ -171,7 +175,7 @@ def delete_search():
         else :
             return redirect(url_for("manager_book_list"))
     else :
-        redirect(url_for('login_page'))
+        return redirect(url_for('login_page'))
 
 
 # 本情報変更
@@ -181,7 +185,7 @@ def book_change():
         book = request.args.getlist('book')
         return render_template("book_change.html",book=book)
     else :
-        redirect(url_for('login_page'))
+        return redirect(url_for('login_page'))
 
 
 # 本の情報変更
@@ -194,13 +198,24 @@ def book_change_main():
         pub = request.args.get('pub')
         day = request.args.get('day')
         num = request.args.get('quantity')
-        result = db.book_change(book_isbn,title,author,pub,day,num)
+        if num=='' or title==""or author==""or pub==""or day=="":
+            max = request.args.get('max')
+            tit = request.args.get('tit')
+            aut = request.args.get('aut')
+            p = request.args.get('p')
+            d = request.args.get('d')
+            result = db.book_change(book_isbn,tit,aut,p,d,max)
+        else :
+            if int(num) <= 0:
+                result = db.book_delete_flag(book_isbn)
+            else:
+                result = db.book_change(book_isbn,title,author,pub,day,num)
         if result:
             return redirect(url_for('manager_book_list'))
         else :
             return render_template('book_change_main.html',error="error")
     else :
-        redirect(url_for("login_page"))
+        return redirect(url_for("login_page"))
 
 # 本削除
 @app.route('/book_delete')
@@ -214,7 +229,7 @@ def book_delete():
             # session["book"] = book
             return render_template("book_delete.html",book=book)
     else:
-        redirect(url_for('login_page'))
+        return redirect(url_for('login_page'))
 
 # 本削除
 @app.route("/book_delete_main")
@@ -222,16 +237,20 @@ def book_delete_main():
     if "user" in session:
         isbn = request.args.get('isbn')
         max = request.args.get('max')
+        print(type(max))
+        max1 = int(max)
         quantity = request.args.get('quantity')
+        print(type(quantity))
+        quantity1 = int(quantity)
         # return render_template("book_delete_main.html",num=quantity)
-        if quantity >= max:
+        if quantity1 >= max1:
             result = db.book_delete_flag(isbn)
         else :
             result = db.book_delete_amount(isbn,quantity)
         if result:
-            return render_template('manager_book_list.html')
+            return redirect(url_for('manager_book_list'))
     else :
-        redirect(url_for('login_page'))
+        return redirect(url_for('login_page'))
 
 # 管理者登録
 @app.route("/manager_register")
