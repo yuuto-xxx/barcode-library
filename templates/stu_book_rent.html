@@ -2,25 +2,43 @@
 {% block content %}
             <div class="flex_class">
                 <p class="book_amount">※現在借りている本件数は...冊です</p>
-            <button class="return_button">返却</button>
+            <button class="return_button" style="margin-left: 65%;">返却</button>
             </div>
-            
-            <p class="rent_column2">
-                <span class="column_title">タイトル</span>
-                <span class="author">著者</span>
-                <span class="company">出版社</span>
-                <span class="return_day">返却期限</span>
-            </p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
+            <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
+            <table class="rent_result">
+              <tr>
+                <th class="id_table"></th>
+                <th id="rent_column2">タイトル</th>
+                <th id="rent_column2">著者</th>
+                <th id="rent_column2">出版社</th>
+                <th id="rent_column2">返却期限</th>
+              </tr>
+              <tr>
+                <td class="blue">1</td>
+                <td class="blue">2</td>
+                <td class="blue">3</td>
+                <td class="blue">4</td>
+                <td class="blue">5</td>
+              </tr>  
+                <td class="white">2</td>
+                <td class="white"></td>
+                <td class="white"></td>
+                <td class="white"></td>
+                <td class="white"></td>   
+              </tr>
+              <tr>
+                <td class="blue">3</td>
+                <td class="blue"></td>
+                <td class="blue"></td>
+                <td class="blue"></td>
+                <td class="blue"></td>
+              </tr>
+              <tr>          
+                <td class="white">4</td>
+                <td class="white"></td>
+                <td class="white"></td>
+                <td class="white"></td>
+                <td class="white"></td>
+              </tr>       
+            </table>                       
       {% endblock %}
