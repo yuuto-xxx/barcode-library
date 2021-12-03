@@ -6,16 +6,35 @@
 
 {% block content %}
             <p class="regist_report">※...件中...件エラー</p>
-            <div class="csv_table">
-                <p class="csv_column">
-                    <span class="name">名前</span>
-                    <span class="stu_number">学籍番号</span>
-                    <span class="course">学科</span>
-                    <span class="year">学年</span>
-                    <span class="mail">メールアドレス</span>
-                </p>
-                <!-- ここでCSVファイルから格納する -->
-
-            </div>
-            <p class="regist_button"><button>登録画面へ</button></p>  
+            <link rel="stylesheet" href="{{url_for('static', filename='css/group_regist_table.css')}}">
+            <table class="csv_regist">
+                <tr>
+                    <th class="csv_column">名前</th>
+                    <th class="csv_column">学籍番号</th>
+                    <th class="csv_column">学科</th>
+                    <th class="csv_column">学年</th>
+                    <th class="csv_column">メールアドレス</th>
+                </tr>
+                <tr>
+                    <td id="error">1</td>
+                    <td id="error">2</td>
+                    <td id="error">3</td>
+                    <td id="error">4</td>
+                    <td id="error">5</td>
+                </tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+              </tr>
+            </table>
+            <p class="regist_button" style="margin-left: 47%;"><button>登録画面へ</button></p>  
 {% endblock %}
