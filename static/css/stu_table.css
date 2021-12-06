@@ -1,14 +1,33 @@
-.book_table{
+.rent_table{
     overflow-y: auto;
     border: none;
-    width: 80%;
-    margin-top: 5%;
+    width: 70%;
     margin-left: 10%;
+    margin-top: 100pt;
+    border-collapse: collapse;
+    font-family: 'Times New Roman', Times, serif;
+}
+.rent_result{
+    overflow-y: auto;
+    border: none;
+    width: 100%;
+    margin-top: 2%;
     border-collapse: collapse;
     font-family: 'Times New Roman', Times, serif;
     border-left: black solid 1px;
-    border-right: black solid 1px;
     border-bottom: black solid 1px;
+}
+.rent_result .id_table{
+    width: 10%;
+}
+.rent_result .rent_column{
+    width: 50%;
+}
+.rent_result #rent_column2{
+    width: 25%;
+}
+.rent_result #book_view{
+    width: 16%;
 }
 th {
     background-color: #36587A;
@@ -17,16 +36,36 @@ th {
     height: 35pt;
     border: none;
 }
-.book_table .isbn{
-    width: 40%;
-}
-.book_table .id_table{
-    width:10%
-}
-.book_table .column_title{
-    width:60%
-}
 td{
     border: none;
     text-align: center;
 }
+tr {
+    border: none;
+}
+.book_table{
+    overflow-y: auto;
+    border: none;
+    width: 100%;
+    margin-top: 2%;
+    border-collapse: collapse;
+    font-family: 'Times New Roman', Times, serif;
+    border-left: black solid 1px;
+    border-bottom: black solid 1px;
+}
+.book_table .column_book {
+    width: 20%;
+}
+.book_num{
+    width: 7%;
+}
+.rent_table .isbn{
+    width: 40%;
+}
+.rent_table .id_table{
+    width:10%
+}
+.rent_table .column_title{
+    width:60%
+}
+
