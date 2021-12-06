@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/book_register.css')}}">
+    <title>書籍変更</title>
+</head>
+<body>
+    {% extends "manager_layout.html" %}
+    {% block content %}
+    <div class="form_group">
+    <form action="{{url_for('book_change_main')}}" method="get">
+        <h4 style="text-align: left;">本詳細情報</h4>
+        <div class="square">
+            <ul class="info2">
+                <li><img src={{book[1]}} width="180" height="200"></li>
+                <li>冊数:<input type="number" half  min="1" autocapitalize="off" name="quantity"></li>
+            </ul>
+            <ul class="info">
+                <li><input type="text" name="title" placeholder="タイトル" autocomplete="off" value={{book[2]}}></li>
+                <li><input type="text" name="author" placeholder="著者" autocomplete="off" value={{book[3]}}></li>
+                <li><input type="text" name="pub" placeholder="出版社" autocomplete="off" value={{book[4]}}></li>
+                <li><input type="text" name="day" placeholder="発売日" autocomplete="off" value={{book[5]}}></li>
+            </ul>
+        </div>
+        <input type="submit" value="この本を変更">
+        <input type="hidden" name="book" value={{book[0]}}>
+        <input type="hidden" name="max" value={{book[6]}}>
+        <input type="hidden" name="tit" value={{book[2]}}>
+        <input type="hidden" name="aut" value={{book[3]}}>
+        <input type="hidden" name="p" value={{book[4]}}>
+        <input type="hidden" name="d" value={{book[5]}}>
+    </form>
+    {% endblock %}
+</div>
+</body>
+</html>
