@@ -163,10 +163,39 @@ def stu_book_rent_result():
     else:
         return redirect(url_for('login_page'))
 
+#本を返す
+@app.route("/stu_camera_return")
+def stu_camera_return():
+    return render_template("stu_camera_return.html")
 
 @app.route("/student_book_return")
 def student_book_return():
-    return render_template("stu_camera_return .html")
+    print("student_book_return実行")
+    data = request.args.get("result")
+    if data != None:
+        result = db.book_detail(data)
+        book = {
+            "isbn": result[0],
+            "title": result[2]
+        }
+        book_json = json.dumps(book, ensure_ascii=False)
+    else:
+        print("isbn読み込みエラー")
+
+    return book_json
+
+@app.route("/student_book_return_result")
+def student_book_return_result():
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        isbn = request.args.get("isbn")
+        isbn_list = isbn.split()
+        db.book_return(stu_number, isbn_list)
+        return render_template("stu_book_rent.html")
+    else:
+        return redirect(url_for('login_page'))
+
 
 
 #本の一覧(学生)

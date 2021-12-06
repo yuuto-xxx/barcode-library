@@ -297,6 +297,22 @@ def rent_book(stu_number, isbn_list):
     cur.close()
     conn.close()
 
+#本を返す
+def book_return(stu_number, isbn_list):
+    conn = get_connection()
+    cur = conn.cursor()
+    date = datetime.date.today()
+
+    for i in isbn_list:
+        sql = "update rent_book set return_day=%s where stu_number=%s and book_isbn=%s"
+        try:
+            cur.execute(sql,(date,stu_number,i))
+        except Exception as e:
+            print("返却エラー",e)
+        conn.commit()
+    cur.close()
+    conn.close()
+
 # 本の削除(一部)
 def book_delete_amount(isbn,amount):
     conn = get_connection()
