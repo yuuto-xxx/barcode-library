@@ -2,7 +2,8 @@ from ctypes import resize
 from hashlib import new
 from logging import error
 from typing import Reversible
-from flask import Flask, render_template, redirect, request, url_for, session
+import os
+from flask import Flask, render_template, redirect, request, url_for, session, send_file
 from flask.globals import g
 from flask.sessions import SessionInterface
 import register_book
@@ -12,9 +13,10 @@ import mail_send
 import random
 import string
 import csv
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename, send_file
 import datetime as dt
 from datetime import timedelta
+import json
 
 app = Flask(__name__)
 
@@ -124,15 +126,37 @@ def stu_camera_rent():
 
 @app.route("/stu_book_rent")
 def stu_book_rent():
-    data = '12345678'
-    return data
+    print("stu_book_rent実行")
+    data = request.args.get("result")
+    if data != None:
+        result = db.book_detail(data)
+        book = {
+            "isbn": result[0],
+            "title": result[2]
+        }
+        book_json = json.dumps(book, ensure_ascii=False)
+    else:
+        print("isbn読み込みエラー")
 
-#本の一覧
+    return book_json
+
+@app.route("/stu_book_rent_result")
+def stu_book_rent_result():
+    isbn = request.args.get("isbn")
+    isbn_list = isbn.split()
+    print(isbn_list)
+    #リストを返しているのでエラーが起こる
+    return isbn_list
+
+@app.route("/student_book_return")
+def student_book_return():
+    return render_template("stu_camera_return .html")
+
+#本の一覧(学生)
 @app.route("/student_book_list")
 def book_list():
     if "user" in session:
         book_list = db.book_list()
-        # book_list = db.book_list()
         for i in range(len(book_list)):
             review_avg = 0
             review = db.book_review_score(book_list[i][0])
@@ -469,6 +493,7 @@ def first_login():
             return render_template("stu_book_rent.html")
         else:
             error = "パスワード不一致"
+            print(error)
     elif stu_flg == "0":
         if new_password == re_password:
             salt = db.manager_search_salt(mail)
@@ -480,14 +505,20 @@ def first_login():
     else:
         return "student_flgエラー"
 
-
 # 学生登録(一括)
 @app.route('/student_register_all')
 def student_register_all():
     return render_template('manager_group_regist.html')
 
+@app.route("/student_register_download")
+def csv_template():
+    print("ファイルダウンロード")
+    filepath = "C:/Users/komatsuyama/ドキュメント/library_application/student_register_template.csv"
+    filename = os.path.basename(filepath)
+    return send_file(filepath, as_attachment=True ,attachment_filename=filename, mimetype="application/vnd.ms-excel")
+
 # 学生登録(一括)テンプレートを表示
-@app.route('/student_all_file',methods=['POST'])
+@app.route('/student_all_file', methods=['POST'])
 def student_all_file():
     file = request.files['file']
     list = []
@@ -614,7 +645,8 @@ def book_detail():
     isbn = request.args.get("book")
     print(isbn)
     book = db.book_detail(isbn)
-    return render_template("book_detail.html", book=book)
+    review = db.book_show_review(isbn)
+    return render_template("book_detail.html", book=book, review=review)
 
 def book_detail(isbn):
     book = db.book_detail(isbn)
