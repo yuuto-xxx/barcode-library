@@ -51,6 +51,7 @@ tr {
     border-collapse: collapse;
     font-family: 'Times New Roman', Times, serif;
     border-left: black solid 1px;
+    border-right: black solid 1px; ;
     border-bottom: black solid 1px;
 }
 .book_table .column_book {
@@ -68,4 +69,3 @@ tr {
 .rent_table .column_title{
     width:60%
 }
-
