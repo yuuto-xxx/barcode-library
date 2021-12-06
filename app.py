@@ -510,21 +510,16 @@ def first_login():
 def student_register_all():
     return render_template('manager_group_regist.html')
 
-@app.route("/student_register_download")
-def csv_template():
-    print("ファイルダウンロード")
-    filepath = "C:/Users/komatsuyama/ドキュメント/library_application/student_register_template.csv"
-    filename = os.path.basename(filepath)
-    return send_file(filepath, as_attachment=True ,attachment_filename=filename, mimetype="application/vnd.ms-excel")
 
 # 学生登録(一括)テンプレートを表示
 @app.route('/student_all_file', methods=['POST'])
 def student_all_file():
-    file = request.files['file']
+    file = request.files['fileinput']
     list = []
     with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
         for line in csv.reader(f):
             list.append(line)
+    del list[0]
     return render_template('manager_group_regist.html',list=list)
 
 # 学生登録(一括)登録処理

@@ -5,13 +5,14 @@
 {% endblock %}
 
 {% block content %}
+            <form action="{{url_for('student_all_file')}}" method="post" enctype="multipart/form-data" accept=".csv">
             <div class="file_choose">
                 <span class="filename">ファイル選択</span>
-                <label><input type="file" name="fileinput" class="file_input">ファイル添付</label>
+                <label><input type="file" name="fileinput" class="file_input" id="csv_file">ファイル添付</label>
             </div><br>
             <a href="#" class="link_style"> テンプレートをダウンロードする</a>
             <div class="course_table">
-                <table>
+                <table id="csv_data_table">
                     <tr>
                         <th colspan="4">学科</th>
                     </tr>
@@ -57,27 +58,73 @@
                     <th class="csv_column">学年</th>
                     <th class="csv_column">メールアドレス</th>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                </tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-              </tr>
+                <tbody></tbody>
             </table>
             <!-- csv_table -->
-            <p class="regist_button"><button>登録</button></p>
+            <label class="regist_button"><input type="submit" value="登録"></label>
+        </form>
+        <script>
+            let fileInput = document.getElementById('csv_file');
+      let message = document.getElementById('message');
+      let fileReader = new FileReader();
+      
+      // ファイル変更時イベント
+      fileInput.onchange = () => {
+        message.innerHTML = "読み込み中..."
+      
+        let file = fileInput.files[0];
+        fileReader.readAsText(file, "Shift_JIS");
+      };
+      
+      // ファイル読み込み時
+      let items = [];
+      fileReader.onload = () => {
+        // ファイル読み込み
+        let fileResult = fileReader.result.split('\r\n');
+      
+        // 先頭行をヘッダとして格納
+        let header = fileResult[0].split(',')
+        // 先頭行の削除
+        fileResult.shift();
+      
+        // CSVから情報を取得
+        items = fileResult.map(item => {
+          let datas = item.split(',');
+          let result = {};
+          for (const index in datas) {
+            let key = header[index];
+            result[key] = datas[index];
+          }
+          return result;
+        });
+      
+        // テーブル初期化
+        let tbody = document.querySelector('#csv_data_table tbody');
+        tbody.innerHTML = "";
+      
+        //　CSVの内容を表示
+        let tbody_html = "";
+        for (item of items) {
+          tbody_html += `<tr>
+              <td>${item.name}</td>
+              <td>${item.id}</td>
+              <td>${item.course}</td>
+              <td>${item.year}</td>
+              <td>${item.mail}</td>
+            </tr>
+            `
+        }
+        tbody.innerHTML = tbody_html;
+      
+        message.innerHTML = items.length + "件のデータを読み込みました。"
+      }
+      
+      // ファイル読み取り失敗時
+      fileReader.onerror = () => {
+        items = [];
+        message.innerHTML = "ファイル読み取りに失敗しました。"
+      }
+      
+        </script>
+      
 {% endblock %}
