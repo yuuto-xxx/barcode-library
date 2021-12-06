@@ -119,6 +119,11 @@ def book_register_result():
     return "登録完了"
     # return render_template("",book=book)
 
+#　本手入力登録
+@app.route("/manual_book_register")
+def manual_book_register():
+    return render_template('manual_book_register.html')    
+
 #本を借りる
 @app.route("/stu_camera_rent")
 def stu_camera_rent():
