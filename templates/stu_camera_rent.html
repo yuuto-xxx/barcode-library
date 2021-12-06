@@ -1,15 +1,15 @@
-
 {% extends "student_layout.html" %}
-{% block content %}
   {% block head %}
     <link rel="stylesheet" href="{{url_for('static', filename='css/book_register_camera.css')}}">
     <script type="text/javascript" src="{{url_for('static', filename='js/quagga.min.js')}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <title>本貸出</title>
   {% endblock %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+  {% block content %}
     <div class="form_group">
     <h4>※本のisbnをカメラに向かってかざしてください。</h4>
-    <form autocomplete="off" action="#">
+    <form autocomplete="off" action="{{url_for('stu_book_rent_result')}}">
       <h3>本貸出画面</h3>
       <!-- カメラ -->
       <script>
@@ -28,13 +28,13 @@
             jan=document.getElementById("jan");
             
             navigator.mediaDevices.getUserMedia(
-              //マイクはオフ, カメラの設定   背面カメラを希望する 640×480を希望する 1230*800
-              {"audio":false,"video":{"facingMode":"environment","width":{"ideal":1200},"height":{"ideal":400}}}
+              //マイクはオフ, カメラの設定   背面カメラを希望する 640×480を希望する 1200:400
+              {"audio":false,"video":{"facingMode":"environment","width":{"ideal":640},"height":{"ideal":480}}}
             ).then( //許可
               function(stream){
                 video.srcObject = stream;
-                //1.5秒毎にスキャンする
-                setTimeout(Scan,1500,true);
+                //3秒毎にスキャンする
+                setTimeout(Scan,3000,true);
               }
             ).catch( //拒否
               function(err){jan.value+=err+'\n';}
@@ -51,19 +51,20 @@
                 //内部のサイズ
                 prev.setAttribute("width",w);
                 prev.setAttribute("height",h);
-                mw=w*0.6; //0.5
-                mh=w*0.3; //0.2
-                x1=(w-mw)/2;                  y1=(h-mh)/2;
+                mw=w*0.5; //0.5
+                mh=w*0.2; //0.2
+                x1=(w-mw)/2;
+                y1=(h-mh)/2;
               }
               prev_ctx.drawImage(video,0,0,w,h);
               prev_ctx.beginPath();
               prev_ctx.strokeStyle="rgb(255,0,0)";
               prev_ctx.lineWidth=2;
               prev_ctx.rect(x1,y1,mw,mh);
-              prev_ctx.stroke();                tmp.setAttribute("width",mw);
+              prev_ctx.stroke();
+              tmp.setAttribute("width",mw);
               tmp.setAttribute("height",mh);
               tmp_ctx.drawImage(prev,x1,y1,mw,mh,0,0,mw,mh);
-          
               tmp.toBlob(function(blob){
                 let reader = new FileReader();
                 reader.onload=function(){
@@ -82,21 +83,39 @@
               });
               setTimeout(Scan,50,false);
             }
-            
             Quagga.onDetected(function (result) {
-              //読み取り誤差が多いため、3回連続で同じ値だった場合に成功とする
+              //読み取り誤差が多いため、5回連続で同じ値だった場合に成功とする
               if(DetectedCode==result.codeResult.code){
                 DetectedCount++;
                }else{
                 DetectedCount=0;
                  DetectedCode=result.codeResult.code;
               }
-              if(DetectedCount>=3){
-                console.log(result.codeResult.code);
+              if(DetectedCount>=5){
                 jan.value+=result.codeResult.code+' ';
-                jan.scrollTop=jan.scrollHeight;  
+                $.get('stu_book_rent', { result : result.codeResult.code} )
+                .done(function(data){
+                  const book_json = JSON.parse(data);
+                  console.log(book_json);
+                  const book_isbn = document.getElementById('book_isbn');
+                  const book_title = document.getElementById('book_title');
+
+                  let table = document.getElementById('targetTable');
+                  let newRow = table.insertRow();
+                  let newCell = newRow.insertCell();
+                  let newText = document.createTextNode(book_json.isbn);
+                  newCell.appendChild(newText);
+
+                  newCell = newRow.insertCell();
+                  newText = document.createTextNode(book_json.title);
+                  newCell.appendChild(newText);
+                  console.log(book_json.title);
+                })
+                .fail(function(){
+                  window.alert('ISBN取得エラー');
+                })
                 DetectedCode='';
-                 DetectedCount=0;
+                DetectedCount=0;
               }
             });
           });
@@ -113,21 +132,21 @@
       </form>
 
       <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
-      <table class="book_table">
+      <table class="book_table" id="targetTable">
        <tr>
-         <th class="id_table"></th>
+         <!-- <th class="id_table"></th> -->
          <th class="isbn">ISBN</th>
          <th class="column_title">タイトル</th>
        </tr>
-       <tr>
+       <!-- <tr>
            <td class="blue">1</td>
-           <td class="blue">2</td>
-           <td class="blue">3</td>
+           <td class="blue" id="book_isbn"></td>
+           <td class="blue" id="book_title"></td>
        </tr>
        <tr>
            <td class="white"></td>
            <td class="white"></td>
            <td class="white"></td>
-       </tr>
+       </tr> -->
    </table>
 {% endblock %}

@@ -260,12 +260,30 @@ def book_detail(isbn):
 
     return result
 
+def book_show_review(isbn):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select review_comment, review_star, stu_number, name_flag from review where book_isbn=%s"
+
+    try:
+        cur.execute(sql,(isbn,))
+    except Exception as e:
+        print("レビュー取得エラー", e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
 #本を借りる
 def rent_book():
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = ""
+    sql = "update book set "
 
     try:
         cur.execute(sql,)
