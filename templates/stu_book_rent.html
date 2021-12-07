@@ -2,7 +2,7 @@
 {% block content %}
             <div class="flex_class">
                 <p class="book_amount">※現在借りている本件数は...冊です</p>
-            <button class="return_button" style="margin-left: 65%;">返却</button>
+            <button type="button" class="return_button" style="margin-left: 65%;" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button>
             </div>
             <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
             <table class="rent_result">

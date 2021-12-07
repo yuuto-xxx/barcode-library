@@ -1,0 +1,40 @@
+{% extends "manager_layout.html" %}
+{% block content %}
+    <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_list.css')}}">
+    <title>図書一覧</title>
+    <form action="{{url_for('delete_search')}}" method="get">
+        <span class="book_search">キーワード：</span>
+        <input type="text" name="key" size="30" autocomplete="off">
+        <input type="submit" class="view_search" value="検索">
+    </form>
+    <br>
+        <table class="book_table">
+            <tr>
+                <th class="book_column">タイトル</th>
+                <th class="book_column">著者</th>
+                <th class="book_column">出版社</th>
+                <th class="book_column">発売日</th>
+                <th class="tag"></th>
+            </tr>
+            {{error}}
+            {% for i in range(book_list | length) %}
+                {% if i%2 == 0 %}
+            <tr>
+                <td class="blue"><a href="{{url_for('book_change', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
+                <td class="blue">{{book_list[i][3]}}</td>
+                <td class="blue">{{book_list[i][4]}}</td>
+                <td class="blue">{{book_list[i][5]}}</td>
+                <td class="blue"><a href="{{url_for('book_delete',book=book_list[i])}}">削除</a></td>
+            </tr>
+                {% else %}
+            <tr>
+                <td class="white"><a href="{{url_for('book_change', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
+                <td class="white">{{book_list[i][3]}}</td>
+                <td class="white">{{book_list[i][4]}}</td>
+                <td class="white">{{book_list[i][5]}}</td>
+                <td class="white"><a href="{{url_for('book_delete',book=book_list[i])}}">削除</a></td>
+            </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+{% endblock %}

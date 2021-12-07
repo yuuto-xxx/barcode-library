@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    }
+form {
+    border: 2px solid #707070;
+    padding: 10px 10px 10px 18px;
+    /* width: 70%; */
+    /* max-width: 700px; */
+    border-radius: 20px;
+    text-align: center;
+    }
+
+.form_group {
+    width: 84%;
+    margin: 0 auto;
+    margin-top: 100px;
+  }
+.square {
+    border: 2px solid #707070;
+    padding: 10px 10px 0px 0px;
+    /* width: 95%; */
+    /* max-width: 700px; */
+    display: flex; 	
+    padding-top: 0px;
+    margin-right: 7px;
+}
+
+.square li {
+    display: list-item;  /* 縦に並べる */
+    list-style-type: none;
+    text-transform: uppercase;
+    /* padding: 0.5em; */
+  }
+
+/* infoクラス(本の情報が入るリスト)の左側に線をつける */
+.info{
+    border-left: 2px solid #707070;
+}
+
+.info2{
+    text-align: center;
+}
+
+  /* テキストボックス配置 */
+input {
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: 0.3s ease;
+    color: #131313;
+}
+
+input[type=text] {
+    width: 395px;
+    margin-bottom: 10px;
+    border: 2px solid #b5b6b8;
+}
+  
+input[type=text]:placeholder-shown {
+    border: 2px solid #EAE4DA;
+}
+  
+input[type=text]::placeholder {
+    color: #b5b6b8;
+}
+
+input[type=number][half] {
+    width: 100px;
+    height: 10px;
+    float: right;
+    margin-right: 50px;
+    border-radius: 0px;
+    text-align: center;
+    }
+
+  /* ボタン配置 */
+  * input[type=submit] {
+    font-size: 9pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 80pt;
+    margin-top: 10px;
+    border-radius: 0px;
+    text-align: center;
+}
+.main_board{
+    width: 70%;
+    margin: 0 auto;
+    transition: all 0.6s;
+    }

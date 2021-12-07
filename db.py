@@ -1,9 +1,11 @@
+from typing import Text
 import psycopg2
 import string
 import random
 import hashlib
 import os
 import urllib.parse
+import datetime
 
 from requests.api import get
 
@@ -207,7 +209,7 @@ def book_list():
     conn = get_connection()
     cur = conn.cursor()
     
-    sql = "select * from book"
+    sql = "select * from book where book_delete_flag = false"
 
     try:
         cur.execute(sql,())
@@ -260,21 +262,131 @@ def book_detail(isbn):
 
     return result
 
-#本を借りる
-def rent_book():
+def book_show_review(isbn):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = ""
+    sql = "select review_comment, review_star, stu_number, name_flag from review where book_isbn=%s"
 
     try:
-        cur.execute(sql,)
+        cur.execute(sql,(isbn,))
     except Exception as e:
-        print(e)
+        print("レビュー取得エラー", e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+#本を借りる
+def rent_book(stu_number, isbn_list):
+    conn = get_connection()
+    cur = conn.cursor()
+    date = datetime.date.today()
+
+    for i in isbn_list:
+        sql = "insert into rent_book values(%s,%s,%s,%s,%s)"
+        try:
+            cur.execute(sql,(stu_number,i,date,None,1))
+        except Exception as e:
+            print("借りるエラー", e)
+        conn.commit()
+    
+    cur.close()
+    conn.close()
+
+#本を返す
+def book_return(stu_number, isbn_list):
+    conn = get_connection()
+    cur = conn.cursor()
+    date = datetime.date.today()
+
+    for i in isbn_list:
+        sql = "update rent_book set return_day=%s where stu_number=%s and book_isbn=%s"
+        try:
+            cur.execute(sql,(date,stu_number,i))
+        except Exception as e:
+            print("返却エラー",e)
+        conn.commit()
+    cur.close()
+    conn.close()
+
+# 本の削除(一部)
+def book_delete_amount(isbn,amount):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update book set amount_max = amount_max - %s where book_isbn=%s"
+
+    try:
+        cur.execute(sql,(amount,isbn,))
+    except Exception as e:
+        print("本の最大数量変更エラー")
+
 
     conn.commit()
     cur.close()
     conn.close()
+
+    return True
+
+# 本の削除
+def book_delete_flag(isbn):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update book set book_delete_flag = true where book_isbn=%s"
+
+    try:
+        cur.execute(sql,(isbn,))
+    except Exception as e:
+        print("本の削除flag変更エラー")
+
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return True
+# 本の検索
+def book_search(key):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select * from book where (title like %s or author like %s or publisher like %s )and book_delete_flag = false"
+    key_like = "%"+ key +"%"
+    try:
+        cur.execute(sql,(key_like,key_like,key_like,))
+    except Exception as e:
+        print("本の検索取得エラー",e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+# 本の情報変更
+def book_change(isbn,title,author,pub,day,num):
+#     result = db.book_change(book[0],title,author,pub,day,num)
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update book set title=%s,author=%s,publisher=%s,release_day=%s,amount_max=%s where book_isbn=%s"
+
+    try:
+        cur.execute(sql,(title,author,pub,day,num,isbn))
+    except Exception as e:
+        print("本UPDATEエラー", e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return True
 
 
 # 学生一覧
@@ -604,3 +716,20 @@ def get_connection():
     )
 
     return connection
+
+def test():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update book set book_delete_flag = false"
+    try:
+        cur.execute(sql,())
+    except Exception as e:
+        print("本の検索取得エラー",e)
+
+    # result = cur.fetchall()
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    # return result

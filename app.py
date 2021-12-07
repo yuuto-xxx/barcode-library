@@ -2,7 +2,8 @@ from ctypes import resize
 from hashlib import new
 from logging import error
 from typing import Reversible
-from flask import Flask, render_template, redirect, request, url_for, session
+import os
+from flask import Flask, render_template, redirect, request, url_for, session, send_file
 from flask.globals import g
 from flask.sessions import SessionInterface
 import register_book
@@ -12,9 +13,10 @@ import mail_send
 import random
 import string
 import csv
-from werkzeug.utils import secure_filename
+from werkzeug.utils import secure_filename, send_file
 import datetime as dt
 from datetime import timedelta
+import json
 
 app = Flask(__name__)
 
@@ -61,6 +63,10 @@ def manager_top():
     mail = request.form.get("mail")
     password = request.form.get("password")
     result = db.manager_login(mail,password)
+    
+    session["user"] = (result[0],result[1],mail)
+    session.permanent = True
+    app.permanent_session_lifetime = timedelta(minutes=30)
     print(result[1])
     if result[1]: #password_flagの判定
         student_flg = 0
@@ -117,22 +123,86 @@ def book_register_result():
     return "登録完了"
     # return render_template("",book=book)
 
+#　本手入力登録
+@app.route("/manual_book_register")
+def manual_book_register():
+    return render_template('manual_book_register.html')    
+
 #本を借りる
 @app.route("/stu_camera_rent")
 def stu_camera_rent():
     return render_template("stu_camera_rent.html")
 
+#JSON作成
 @app.route("/stu_book_rent")
 def stu_book_rent():
-    data = '12345678'
-    return data
+    print("stu_book_rent実行")
+    data = request.args.get("result")
+    if data != None:
+        result = db.book_detail(data)
+        book = {
+            "isbn": result[0],
+            "title": result[2]
+        }
+        book_json = json.dumps(book, ensure_ascii=False)
+    else:
+        print("isbn読み込みエラー")
 
-#本の一覧
+    return book_json
+
+@app.route("/stu_book_rent_result")
+def stu_book_rent_result():
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        isbn = request.args.get("isbn")
+        isbn_list = isbn.split()
+        print(isbn_list)
+        db.rent_book(stu_number,isbn_list)
+        return render_template("stu_book_rent.html")
+    else:
+        return redirect(url_for('login_page'))
+
+#本を返す
+@app.route("/stu_camera_return")
+def stu_camera_return():
+    return render_template("stu_camera_return.html")
+
+@app.route("/student_book_return")
+def student_book_return():
+    print("student_book_return実行")
+    data = request.args.get("result")
+    if data != None:
+        result = db.book_detail(data)
+        book = {
+            "isbn": result[0],
+            "title": result[2]
+        }
+        book_json = json.dumps(book, ensure_ascii=False)
+    else:
+        print("isbn読み込みエラー")
+
+    return book_json
+
+@app.route("/student_book_return_result")
+def student_book_return_result():
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        isbn = request.args.get("isbn")
+        isbn_list = isbn.split()
+        db.book_return(stu_number, isbn_list)
+        return render_template("stu_book_rent.html")
+    else:
+        return redirect(url_for('login_page'))
+
+
+
+#本の一覧(学生)
 @app.route("/student_book_list")
 def book_list():
     if "user" in session:
         book_list = db.book_list()
-        # book_list = db.book_list()
         for i in range(len(book_list)):
             review_avg = 0
             review = db.book_review_score(book_list[i][0])
@@ -151,8 +221,104 @@ def book_list():
             book_list[i] = book_list[i] + (review_avg,)
         return render_template("stu_book_list.html",book_list=book_list)
     else:
-        redirect(url_for('login_page'))
+        return redirect(url_for('login_page'))
 
+# 本の一覧(管理者)
+@app.route("/manager_book_list")
+def manager_book_list():
+    if "user" in session:
+        result = db.book_list()
+        if result:
+            return render_template("manager_book_list.html",book_list=result)
+    else :
+        return redirect(url_for('login_page'))
+# 本の一覧(管理者検索)
+@app.route("/delete_search")
+def delete_search():
+    if "user" in session:
+        key = request.args.get("key")
+        result = db.book_search(key)
+        if result !=[]:
+            return render_template("manager_book_list.html",book_list=result)
+        else :
+            return redirect(url_for("manager_book_list"))
+    else :
+        return redirect(url_for('login_page'))
+
+
+# 本情報変更
+@app.route('/book_change')
+def book_change():
+    if "user" in session:
+        book = request.args.getlist('book')
+        return render_template("book_change.html",book=book)
+    else :
+        return redirect(url_for('login_page'))
+
+
+# 本の情報変更
+@app.route('/book_change_main')
+def book_change_main():
+    if "user" in session:
+        book_isbn = request.args.get('book')
+        title = request.args.get('title')
+        author = request.args.get('author')
+        pub = request.args.get('pub')
+        day = request.args.get('day')
+        num = request.args.get('quantity')
+        if num=='' or title==""or author==""or pub==""or day=="":
+            max = request.args.get('max')
+            tit = request.args.get('tit')
+            aut = request.args.get('aut')
+            p = request.args.get('p')
+            d = request.args.get('d')
+            result = db.book_change(book_isbn,tit,aut,p,d,max)
+        else :
+            if int(num) <= 0:
+                result = db.book_delete_flag(book_isbn)
+            else:
+                result = db.book_change(book_isbn,title,author,pub,day,num)
+        if result:
+            return redirect(url_for('manager_book_list'))
+        else :
+            return render_template('book_change_main.html',error="error")
+    else :
+        return redirect(url_for("login_page"))
+
+# 本削除
+@app.route('/book_delete')
+def book_delete():
+    if "user" in session:
+        book = request.args.getlist("book")
+        print(book)
+        print("aaa")
+        # isbn,image,title,author,publisher,release_day,amount_max,book_delete_flag
+        if book:
+            # session["book"] = book
+            return render_template("book_delete.html",book=book)
+    else:
+        return redirect(url_for('login_page'))
+
+# 本削除
+@app.route("/book_delete_main")
+def book_delete_main():
+    if "user" in session:
+        isbn = request.args.get('isbn')
+        max = request.args.get('max')
+        print(type(max))
+        max1 = int(max)
+        quantity = request.args.get('quantity')
+        print(type(quantity))
+        quantity1 = int(quantity)
+        # return render_template("book_delete_main.html",num=quantity)
+        if quantity1 >= max1:
+            result = db.book_delete_flag(isbn)
+        else :
+            result = db.book_delete_amount(isbn,quantity)
+        if result:
+            return redirect(url_for('manager_book_list'))
+    else :
+        return redirect(url_for('login_page'))
 
 # 管理者登録
 @app.route("/manager_register")
@@ -469,6 +635,7 @@ def first_login():
             return render_template("stu_book_rent.html")
         else:
             error = "パスワード不一致"
+            print(error)
     elif stu_flg == "0":
         if new_password == re_password:
             salt = db.manager_search_salt(mail)
@@ -480,20 +647,21 @@ def first_login():
     else:
         return "student_flgエラー"
 
-
 # 学生登録(一括)
 @app.route('/student_register_all')
 def student_register_all():
     return render_template('manager_group_regist.html')
 
+
 # 学生登録(一括)テンプレートを表示
-@app.route('/student_all_file',methods=['POST'])
+@app.route('/student_all_file', methods=['POST'])
 def student_all_file():
-    file = request.files['file']
+    file = request.files['fileinput']
     list = []
     with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
         for line in csv.reader(f):
             list.append(line)
+    del list[0]
     return render_template('manager_group_regist.html',list=list)
 
 # 学生登録(一括)登録処理
@@ -614,7 +782,8 @@ def book_detail():
     isbn = request.args.get("book")
     print(isbn)
     book = db.book_detail(isbn)
-    return render_template("book_detail.html", book=book)
+    # review = db.book_show_review(isbn)
+    return render_template("book_detail.html", book=book, review=review)
 
 def book_detail(isbn):
     book = db.book_detail(isbn)

@@ -7,7 +7,7 @@
 {% block content %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <form action="{{url_for('manager_student_edit')}}" method="post">
-            <p class="report" style="margin-left: 20%;">※以下の内容ご入力の上、ご確認ください。</p>
+            <p class="report" style="margin-left: 25%;">※以下の内容ご入力の上、ご確認ください。</p>
             <div class="edit_board" style="width: 56%;margin-right: 0%;margin-left: 25%;">
                 <p class="name">名前</p>
                 <p class="name_type"><span><input type="text" name="name" value="盛岡"></span>
@@ -40,28 +40,5 @@
                     {% endfor %}
                 </table>
                 </div>
-                <!-- <table class="search_table" width="61.5%">
-                    <tr>
-                        <th style="font-size: 30px;" class="search_table_name">名前</th>
-                        <th style="font-size: 30px;" class="search_table_stu_number">学籍番号</th>
-                        <th style="font-size: 30px;" class="search_table_course">学科</th>
-                    </tr>
-                    {% for i in range(name_list | length) %}
-                        {% if i%2 == 0 %}
-                            <tr>
-                                <td class="blue"><a href="{{url_for('stu_change', stu_number=name_list[i][1])}}">{{name_list[i][0]}}</a></td>
-                                <td class="blue">{{name_list[i][1]}}</td>
-                                <td class="blue">{{name_list[i][2]}}</td>
-                            </tr>
-                        {% else %}
-                            <tr>
-                                <td class="white"><a href="{{url_for('stu_change', stu_number=name_list[i][1])}}">{{name_list[i][0]}}</a></td>
-                                <td class="white">{{name_list[i][1]}}</td>
-                                <td class="white">{{name_list[i][2]}}</td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                </table>
-            </div> -->
         </form>
 {% endblock %}
