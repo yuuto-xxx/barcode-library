@@ -133,6 +133,7 @@ def manual_book_register():
 def stu_camera_rent():
     return render_template("stu_camera_rent.html")
 
+#JSON作成
 @app.route("/stu_book_rent")
 def stu_book_rent():
     print("stu_book_rent実行")
@@ -151,16 +152,50 @@ def stu_book_rent():
 
 @app.route("/stu_book_rent_result")
 def stu_book_rent_result():
-    isbn = request.args.get("isbn")
-    isbn_list = isbn.split()
-    print(isbn_list)
-    #リストを返しているのでエラーが起こる
-    return isbn_list
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        isbn = request.args.get("isbn")
+        isbn_list = isbn.split()
+        print(isbn_list)
+        db.rent_book(stu_number,isbn_list)
+        return render_template("stu_book_rent.html")
+    else:
+        return redirect(url_for('login_page'))
 
+#本を返す
+@app.route("/stu_camera_return")
+def stu_camera_return():
+    return render_template("stu_camera_return.html")
 
 @app.route("/student_book_return")
 def student_book_return():
-    return render_template("stu_camera_return .html")
+    print("student_book_return実行")
+    data = request.args.get("result")
+    if data != None:
+        result = db.book_detail(data)
+        book = {
+            "isbn": result[0],
+            "title": result[2]
+        }
+        book_json = json.dumps(book, ensure_ascii=False)
+    else:
+        print("isbn読み込みエラー")
+
+    return book_json
+
+@app.route("/student_book_return_result")
+def student_book_return_result():
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        isbn = request.args.get("isbn")
+        isbn_list = isbn.split()
+        db.book_return(stu_number, isbn_list)
+        return render_template("stu_book_rent.html")
+    else:
+        return redirect(url_for('login_page'))
+
 
 
 #本の一覧(学生)
@@ -744,7 +779,7 @@ def book_detail():
     isbn = request.args.get("book")
     print(isbn)
     book = db.book_detail(isbn)
-    review = db.book_show_review(isbn)
+    # review = db.book_show_review(isbn)
     return render_template("book_detail.html", book=book, review=review)
 
 def book_detail(isbn):

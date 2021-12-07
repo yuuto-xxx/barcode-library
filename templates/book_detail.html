@@ -33,16 +33,16 @@
         </form>
         <div class="flex2">
             <h4>レビュー</h4>
-            <button type="button" onclick="window.location.href='{{url_for(review, isbn=book[0])}}'">カスタムレビューを書く</button>
+            <button type="button" onclick="window.location.href='{{url_for('review', isbn=book[0])}}'">カスタムレビューを書く</button>
         </div>
     </div>
     <div class="review">
-        <div class="sampleText1">aaa</div>
+        <!-- <div class="sampleText1">aaa</div>
         <div class="sampleText1">bbb</div>
         <div class="sampleText1">ccc</div>
         <div class="sampleText1">ddd</div>
         <div class="sampleText1">eee</div>
         <div class="sampleText1">fff</div>
-        <div class="sampleText1">ggg</div>
+        <div class="sampleText1">ggg</div> -->
     </div>
 {% endblock %}

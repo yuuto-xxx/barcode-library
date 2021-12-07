@@ -5,6 +5,7 @@ import random
 import hashlib
 import os
 import urllib.parse
+import datetime
 
 from requests.api import get
 
@@ -281,18 +282,35 @@ def book_show_review(isbn):
     return result
 
 #本を借りる
-def rent_book():
+def rent_book(stu_number, isbn_list):
     conn = get_connection()
     cur = conn.cursor()
+    date = datetime.date.today()
 
-    sql = "update book set "
+    for i in isbn_list:
+        sql = "insert into rent_book values(%s,%s,%s,%s,%s)"
+        try:
+            cur.execute(sql,(stu_number,i,date,None,1))
+        except Exception as e:
+            print("借りるエラー", e)
+        conn.commit()
+    
+    cur.close()
+    conn.close()
 
-    try:
-        cur.execute(sql,)
-    except Exception as e:
-        print(e)
+#本を返す
+def book_return(stu_number, isbn_list):
+    conn = get_connection()
+    cur = conn.cursor()
+    date = datetime.date.today()
 
-    conn.commit()
+    for i in isbn_list:
+        sql = "update rent_book set return_day=%s where stu_number=%s and book_isbn=%s"
+        try:
+            cur.execute(sql,(date,stu_number,i))
+        except Exception as e:
+            print("返却エラー",e)
+        conn.commit()
     cur.close()
     conn.close()
 
