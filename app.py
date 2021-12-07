@@ -617,26 +617,15 @@ def first_login():
 def student_register_all():
     return render_template('manager_group_regist.html')
 
-
-# 学生登録(一括)テンプレートを表示
-@app.route('/student_all_file', methods=['POST'])
-def student_all_file():
-    file = request.files['fileinput']
-    list = []
-    with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
-        for line in csv.reader(f):
-            list.append(line)
-    del list[0]
-    return render_template('manager_group_regist.html',list=list)
-
 # 学生登録(一括)登録処理
 @app.route('/student_all_file_result',methods=['POST'])
 def student_all_file_2():
-    file = request.files['file']
+    file = request.files['fileinput']
     list = []
     list_true = []
+    list_true2 = list_true
     list_false = []
-    with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
+    with open ('./barcode-library/uploads/'+secure_filename(file.filename),encoding="Shift_JIS") as f:
         for line in csv.reader(f):
             list.append(line)
     del list[0]
@@ -648,16 +637,24 @@ def student_all_file_2():
             list_true.append(i)
         else :
             list_false.append(i)
+    print("list:", list_true)
     for n in list_true:
+        print("n:", n)
         name = n[0]
         stu_id = n[1]
         course = n[2]
         course_year = n[3]
         mail = n[4]
-        result = db.student_register(stu_id,mail,name,course,course_year)
-        if not result:
+        pw=db.new_pw()
+        result = db.student_register(stu_id,mail,name,course,course_year,pw)
+        # stu_number,mail,name,course_id,year,pw
+        if result:
+            mail_send.mail(mail,pw)
+        else :
+            list_true2.remove(n)
             list_false.append(n)
-    return render_template('manager_group_regist_result.html',list_true=list_true,list_false=list_false)
+
+    return render_template('manager_group_regist_result.html',list_true=list_true2,list_false=list_false)
   
 #　レビュー画面
 @app.route('/review')

@@ -39,6 +39,7 @@ def student_register(stu_number,mail,name,course_id,year,pw):
         print(hashed_pw)
     except Exception as e:
         print("SQL実行に失敗：", e)
+        return False
     
     conn.commit()
     cur.close()
@@ -709,9 +710,22 @@ def test():
     except Exception as e:
         print("本の検索取得エラー",e)
 
-    # result = cur.fetchall()
     conn.commit()
     cur.close()
     conn.close()
 
-    # return result
+def test_delete_stu():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "delete from student where stu_number=5205555 or stu_number=5202222"
+    try:
+        cur.execute(sql,())
+    except Exception as e:
+        print("本の検索取得エラー",e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+
