@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-            <p class="regist_report">※...件中...件エラー</p>
+            <p class="regist_report">※{{(list_true | length) +(list_false | length) }}件中{{list_false | length}}件エラー</p>
             <link rel="stylesheet" href="{{url_for('static', filename='css/group_regist_table.css')}}">
             <table class="csv_regist">
                 <tr>
@@ -15,26 +15,26 @@
                     <th class="csv_column">学年</th>
                     <th class="csv_column">メールアドレス</th>
                 </tr>
+                {% for i in list_false %}
                 <tr>
-                    <td id="error">1</td>
-                    <td id="error">2</td>
-                    <td id="error">3</td>
-                    <td id="error">4</td>
-                    <td id="error">5</td>
+                    <td id="error">{{i[0]}}</td>
+                    <td id="error">{{i[1]}}</td>
+                    <td id="error">{{i[2]}}</td>
+                    <td id="error">{{i[3]}}</td>
+                    <td id="error">{{i[4]}}</td>
                 </tr>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
-                    <td>5</td>
-                </tr>
+                {% endfor %}
+                {% for n in list_true %}
                 <tr>
-                    <td>1</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-              </tr>
+                    <td>{{n[0]}}</td>
+                    <td>{{n[1]}}</td>
+                    <td>{{n[2]}}</td>
+                    <td>{{n[3]}}</td>
+                    <td>{{n[4]}}</td>
+                </tr>
+                {% endfor %}
             </table>
             <p class="regist_button" style="margin-left: 47%;"><button>登録画面へ</button></p>  
+            <a href="{{url_for('stu_register')}}" id="migi">登録画面へ</a>
+
 {% endblock %}
