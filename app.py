@@ -658,7 +658,7 @@ def student_all_file_2():
     file = request.files['fileinput']
     list = []
     list_true = []
-    list_true2 = list_true
+    list_true2 = []
     list_false = []
     with open ('./barcode-library/uploads/'+secure_filename(file.filename),encoding="Shift_JIS") as f:
         for line in csv.reader(f):
@@ -672,7 +672,7 @@ def student_all_file_2():
             list_true.append(i)
         else :
             list_false.append(i)
-    print("list:", list_true)
+    # print("list:", list_true)
     for n in list_true:
         print("n:", n)
         name = n[0]
@@ -686,10 +686,12 @@ def student_all_file_2():
         if result:
             mail_send.mail(mail,pw)
         else :
-            list_true2.remove(n)
+            list_true2.append(n)
             list_false.append(n)
+    for i in list_true2:
+        list_true.remove(i)
 
-    return render_template('manager_group_regist_result.html',list_true=list_true2,list_false=list_false)
+    return render_template('manager_group_regist_result.html',list_true=list_true,list_false=list_false)
   
 #　レビュー画面
 @app.route('/review')
