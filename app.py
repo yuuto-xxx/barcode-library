@@ -96,9 +96,12 @@ def manager_top():
     else:
         return render_template("manager_renting_stu.html")
 
-@app.route("/manager/renting/student")
+#学生が借りている本の一覧(貸出一覧)
+@app.route("/manager_renting_student")
 def manager_renting():
-    return render_template("manager_renting_stu.html")
+    renting_list = db.student_renting()
+    print(renting_list)
+    return render_template("manager_renting_stu.html", renting_list=renting_list)
 
 #本の登録
 @app.route("/book_register")
@@ -252,6 +255,7 @@ def manager_book_list():
             return render_template("manager_book_list.html",book_list=result)
     else :
         return redirect(url_for('login_page'))
+
 # 本の一覧(管理者検索)
 @app.route("/delete_search")
 def delete_search():
@@ -795,14 +799,15 @@ def student_id_check(student_id):
     else:
         return False
 
-#　本詳細情報
+#　本詳細情報(レビューも)
 @app.route("/book_detail")
 def book_detail():
     isbn = request.args.get("book")
     print(isbn)
     book = db.book_detail(isbn)
-    # review = db.book_show_review(isbn)
-    return render_template("book_detail.html", book=book, review=review)
+    review = db.book_show_review(isbn)
+    print(review)
+    return render_template("book_detail.html", book=book)
 
 def book_detail(isbn):
     book = db.book_detail(isbn)
