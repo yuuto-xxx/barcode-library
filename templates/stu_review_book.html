@@ -12,10 +12,9 @@
             <form action="{{url_for('register_review')}}" method="post">
             <p class="screen_title">レビュー機能</p>
             <div class="review_style">
-                <div>
+                <div class="user_area">
                     <p class="user_name">公開名</p>
-                    <p class="name_type"><span><input type="text" name="name" value={{name}}></span>
-                    </p>
+                    <p class="name_type"><input type="text" name="name" value={{name}}></p>
                     <span class="show_anonymous">匿名で表示<input type="checkbox" name="anonymous" value="1" style="transform: scale(1.8);margin-left: 15pt;"></span>
                 </div>
                 <div class="rate">
