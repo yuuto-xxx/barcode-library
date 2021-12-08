@@ -1,10 +1,10 @@
 {% extends "student_layout.html" %}
 {% block content %}
-            <div class="flex_class">
-                <p class="book_amount">※現在借りている本件数は...冊です</p>
-            <button type="button" class="return_button" style="margin-left: 65%;" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button>
-            </div>
+            <!-- <div class="flex_class"> -->
+            <p class="book_amount">※現在借りている本件数は...冊です</p>
+            <p style="text-align: right;margin-top: -5%;"><button type="button" class="return_button" style="margin-left: 60%;" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button></p>
             <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
+            <div class="scroll_bar">
             <table class="rent_result">
               <tr>
                 <th class="id_table"></th>
@@ -13,32 +13,25 @@
                 <th id="rent_column2">出版社</th>
                 <th id="rent_column2">返却期限</th>
               </tr>
-              <tr>
-                <td class="blue">1</td>
-                <td class="blue">2</td>
-                <td class="blue">3</td>
-                <td class="blue">4</td>
-                <td class="blue">5</td>
-              </tr>  
-                <td class="white">2</td>
-                <td class="white"></td>
-                <td class="white"></td>
-                <td class="white"></td>
-                <td class="white"></td>   
-              </tr>
-              <tr>
-                <td class="blue">3</td>
-                <td class="blue"></td>
-                <td class="blue"></td>
-                <td class="blue"></td>
-                <td class="blue"></td>
-              </tr>
-              <tr>          
-                <td class="white">4</td>
-                <td class="white"></td>
-                <td class="white"></td>
-                <td class="white"></td>
-                <td class="white"></td>
-              </tr>       
-            </table>                       
-      {% endblock %}
+              {% for i in range(detail_list | length) %}
+                {% if i%2 == 0 %}
+                  <tr>
+                    <td class="blue">{{i+1}}</td>
+                    <td class="blue">{{detail_list[i][2]}}</td>
+                    <td class="blue">{{detail_list[i][3]}}</td>
+                    <td class="blue">{{detail_list[i][4]}}</td>
+                    <td class="blue">期限</th>
+                  </tr>
+                {% else %}
+                  <tr>
+                    <td class="white">{{i+1}}</td>
+                    <td class="white">{{detail_list[i][2]}}</td>
+                    <td class="white">{{detail_list[i][3]}}</td>
+                    <td class="white">{{detail_list[i][4]}}</td>
+                    <td class="white">期限</td>
+                  </tr> 
+                {% endif %}
+              {% endfor %}
+            </table>
+          </div>                  
+{% endblock %}

@@ -43,6 +43,7 @@ def stu_top():
     password = request.form.get("password")
     result = db.student_login(mail,password)
 
+    #session(stu_number, name, password_flag)
     session["user"] = (result[0],result[1],result[2])
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=30)
@@ -54,9 +55,30 @@ def stu_top():
         student_flg = 1
         return render_template("first_login.html", student_flg=student_flg, mail=mail)
     else:
-        return render_template("stu_book_rent.html")
-    
+        renting_list = db.book_renting(result[0])
+        detail_list = []
+        for i in range(len(renting_list)):
+            book_detail = db.book_detail(renting_list[i])
+            detail_list.append(book_detail)
+        print(detail_list)
+        return render_template("stu_book_rent.html", detail_list=detail_list)
 
+#自分が借りている一覧
+@app.route("/stu_book_renting")
+def stu_book_renting():
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        renting_list = db.book_renting(stu_number)
+        detail_list = []
+        for i in range(len(renting_list)):
+            book_detail = db.book_detail(renting_list[i])
+            detail_list.append(book_detail)
+        print(detail_list)
+        return render_template("stu_book_rent.html", detail_list=detail_list)
+    else:
+        return redirect(url_for('login_page'))
+    
 #管理者ログイン後トップページ
 @app.route("/manager_top", methods=['POST'])
 def manager_top():
@@ -74,9 +96,12 @@ def manager_top():
     else:
         return render_template("manager_renting_stu.html")
 
-@app.route("/manager/renting/student")
+#学生が借りている本の一覧(貸出一覧)
+@app.route("/manager_renting_student")
 def manager_renting():
-    return render_template("manager_renting_stu.html")
+    renting_list = db.student_renting()
+    print(renting_list)
+    return render_template("manager_renting_stu.html", renting_list=renting_list)
 
 #本の登録
 @app.route("/book_register")
@@ -196,8 +221,6 @@ def student_book_return_result():
     else:
         return redirect(url_for('login_page'))
 
-
-
 #本の一覧(学生)
 @app.route("/student_book_list")
 def book_list():
@@ -232,6 +255,7 @@ def manager_book_list():
             return render_template("manager_book_list.html",book_list=result)
     else :
         return redirect(url_for('login_page'))
+
 # 本の一覧(管理者検索)
 @app.route("/delete_search")
 def delete_search():
@@ -444,7 +468,7 @@ def student_change():
 def manager_stu_delete():
     return render_template("manager_stu_delete.html")
 
-# 学生削除検索結
+# 学生削除検索結果
 @app.route("/manager_student_delete",methods=["POST"])
 def manager_student_delete():
     name = request.form.get('name')
@@ -810,13 +834,12 @@ def student_id_check(student_id):
     else:
         return False
 
-#　本詳細情報
+#　本詳細情報(レビューも)
 @app.route("/book_detail")
 def book_detail():
     isbn = request.args.get("book")
-    print(isbn)
     book = db.book_detail(isbn)
-    # review = db.book_show_review(isbn)
+    review = db.book_show_review(isbn)
     return render_template("book_detail.html", book=book, review=review)
 
 def book_detail(isbn):
