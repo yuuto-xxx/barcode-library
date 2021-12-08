@@ -1,130 +1,199 @@
-{% extends "manager_layout.html" %}
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="Shift_JIS">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="../static/css/manager_view.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <title>学生アカウント一括登録</title>
+</head>
+<body>
+    <div>
+        <header>
+            <h2 class="title">図書管理システム</h2>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+        </header></div>
+       
+        <nav class="globalMenuSp">
+            <ul>
+                <li><a href="{{url_for('book_register_camera')}}" class="menu_style menu_hover">図書登録</a></li>
+                    <li><a href="{{url_for('book_list')}}"  class="menu_style menu_hover">図書一覧</a></li>
+                    <li><a href="#" class="menu_style menu_hover">貸出一覧</a></li>
+                    <li><a href="{{url_for('stu_register')}}" class="menu_style menu_hover">学生登録</a></li>
+                    <li><a href="{{url_for('manager_stu_edit')}}" class="menu_style menu_hover">学生変更</a></li>
+                    <li><a href="#" class="menu_style menu_hover">学生削除</a></li>
+                    <li><a href="#" class="menu_style menu_hover">学生進級</a></li>
+                    <li><a href="{{url_for('manager_register')}}" class="menu_style menu_hover">管理者登録</a></li>
+                    <li><a href="{{url_for('manager_manager_view')}}" class="menu_style menu_hover">管理者一覧</a></li>
+                    <li><a href="{{url_for('logout')}}" class="menu_style menu_hover">ログアウト</a></li>
+            </ul>
+        </nav>  
+        <div class="main_board">
+            <form action="{{url_for('student_all_file_2')}}" method="post" enctype="multipart/form-data" accept=".csv">
+                <div class="file_choose">
+                    <span class="filename">ファイル選択</span>
+                    <label><input type="file" name="fileinput" class="file_input" id="csv_file">ファイル添付</label>
+                </div><br>
+                <a href="#" class="link_style"> テンプレートをダウンロードする</a>
+                <div class="course_table">
+                    <table >
+                        <tr>
+                            <th colspan="4">学科</th>
+                        </tr>
+                        <tr>
+                            <td class="course_id">1</td>
+                            <td><span style="margin-left: 30pt;">情報システム科<span> </td>
+                            <td class="course_id">6</td>
+                            <td><span style="margin-left: 30pt;">グラフィックデザインコース</span></td>
+    
+                        </tr>
+                        <tr>
+                            <td class="course_id">2</td>
+                            <td><span style="margin-left: 30pt;">ネットワークセキュリティ科</span></td>
+                            <td class="course_id">7</td>
+                            <td><span style="margin-left: 30pt;">アニメ・マンガコース</span></td>
+                        </tr>
+                        <tr>
+                            <td class="course_id">3</td>
+                            <td><span style="margin-left: 30pt;">総合システム工学科</span></td>
+                            <td class="course_id">8</td>
+                            <td><span style="margin-left: 30pt;">CGクリエイトコース</span></td>
+                        </tr>
+                        <tr>
+                            <td class="course_id">4</td>
+                            <td><span style="margin-left: 30pt;">高度情報工学科</span></td>
+                            <td class="course_id">9</td>
+                            <td><span style="margin-left: 30pt;">建築インテリアコース</span></td>
+                        </tr>
+                        <tr>
+                            <td  class="course_id">5</td>
+                            <td><span style="margin-left: 30pt;">情報ビジネス科</span></td>
+                            <td class="course_id">10</td>
+                            <td><span style="margin-left: 30pt;">総合デザイン科</span></td>
+                        </tr>
+                    </table>
+                </div>
+                <link rel="stylesheet" href="{{url_for('static', filename='css/group_regist_table.css')}}">
+                <section class="section">                
+                    <div class="columns">
+                      <div class="column">
+                        <article class="message is-primary">
+                          <div class="message-body">
+                            <span id="message">ファイルを選択してください。</span>
+                          </div>
+                        </article>
+                      </div>
+                    </div>
+                                
+                    <div class="columns">
+                      <div class="column" style="overflow-y: scroll;">
+                        <table id="csv_data_table" class="csv_regist">
+                          <thead>
+                            <tr>
+                              <th class="csv_column">name</th>
+                              <th class="csv_column">id</th>
+                              <th class="csv_column">course</th>
+                              <th class="csv_column">year</th>
+                              <th class="csv_column">mail</th>
+                            </tr>
+                          </thead>
+                          <tbody></tbody>
+                        </table>
+                      </div>
+                    </div>
+                
+                  </section>
+                <label class="regist_button"><input type="submit" value="登録"></label>
+            </form>
+            
+</body>
+<script>
+let fileInput = document.getElementById('csv_file');
+let message = document.getElementById('message');
+let fileReader = new FileReader();
 
-{% block head %}
-<title>学生アカウント一括登録</title>
-{% endblock %}
+// ファイル変更時イベント
+fileInput.onchange = () => {
+message.innerHTML = "読み込み中..."
 
-{% block content %}
-            <form action="{{url_for('student_all_file')}}" method="post" enctype="multipart/form-data" accept=".csv">
-            <div class="file_choose">
-                <span class="filename">ファイル選択</span>
-                <label><input type="file" name="fileinput" class="file_input" id="csv_file">ファイル添付</label>
-            </div><br>
-            <a href="#" class="link_style"> テンプレートをダウンロードする</a>
-            <div class="course_table">
-                <table id="csv_data_table">
-                    <tr>
-                        <th colspan="4">学科</th>
-                    </tr>
-                    <tr>
-                        <td class="course_id">1</td>
-                        <td><span style="margin-left: 30pt;">情報システム科<span> </td>
-                        <td class="course_id">6</td>
-                        <td><span style="margin-left: 30pt;">グラフィックデザインコース</span></td>
+let file = fileInput.files[0];
+fileReader.readAsText(file, "Shift_JIS");
+};
 
-                    </tr>
-                    <tr>
-                        <td class="course_id">2</td>
-                        <td><span style="margin-left: 30pt;">ネットワークセキュリティ科</span></td>
-                        <td class="course_id">7</td>
-                        <td><span style="margin-left: 30pt;">アニメ・マンガコース</span></td>
-                    </tr>
-                    <tr>
-                        <td class="course_id">3</td>
-                        <td><span style="margin-left: 30pt;">総合システム工学科</span></td>
-                        <td class="course_id">8</td>
-                        <td><span style="margin-left: 30pt;">CGクリエイトコース</span></td>
-                    </tr>
-                    <tr>
-                        <td class="course_id">4</td>
-                        <td><span style="margin-left: 30pt;">高度情報工学科</span></td>
-                        <td class="course_id">9</td>
-                        <td><span style="margin-left: 30pt;">建築インテリアコース</span></td>
-                    </tr>
-                    <tr>
-                        <td  class="course_id">5</td>
-                        <td><span style="margin-left: 30pt;">情報ビジネス科</span></td>
-                        <td class="course_id">10</td>
-                        <td><span style="margin-left: 30pt;">総合デザイン科</span></td>
-                    </tr>
-                </table>
-            </div>
-            <link rel="stylesheet" href="{{url_for('static', filename='css/group_regist_table.css')}}">
-            <table class="csv_regist">
-                <tr>
-                    <th class="csv_column">名前</th>
-                    <th class="csv_column">学籍番号</th>
-                    <th class="csv_column">学科</th>
-                    <th class="csv_column">学年</th>
-                    <th class="csv_column">メールアドレス</th>
-                </tr>
-                <tbody></tbody>
-            </table>
-            <!-- csv_table -->
-            <label class="regist_button"><input type="submit" value="登録"></label>
-        </form>
-        <script>
-            let fileInput = document.getElementById('csv_file');
-      let message = document.getElementById('message');
-      let fileReader = new FileReader();
-      
-      // ファイル変更時イベント
-      fileInput.onchange = () => {
-        message.innerHTML = "読み込み中..."
-      
-        let file = fileInput.files[0];
-        fileReader.readAsText(file, "Shift_JIS");
-      };
-      
-      // ファイル読み込み時
-      let items = [];
-      fileReader.onload = () => {
-        // ファイル読み込み
-        let fileResult = fileReader.result.split('\r\n');
-      
-        // 先頭行をヘッダとして格納
-        let header = fileResult[0].split(',')
-        // 先頭行の削除
-        fileResult.shift();
-      
-        // CSVから情報を取得
-        items = fileResult.map(item => {
-          let datas = item.split(',');
-          let result = {};
-          for (const index in datas) {
-            let key = header[index];
-            result[key] = datas[index];
-          }
-          return result;
-        });
-      
-        // テーブル初期化
-        let tbody = document.querySelector('#csv_data_table tbody');
-        tbody.innerHTML = "";
-      
-        //　CSVの内容を表示
-        let tbody_html = "";
-        for (item of items) {
-          tbody_html += `<tr>
-              <td>${item.name}</td>
-              <td>${item.id}</td>
-              <td>${item.course}</td>
-              <td>${item.year}</td>
-              <td>${item.mail}</td>
-            </tr>
-            `
+// ファイル読み込み時
+let items = [];
+fileReader.onload = () => {
+// ファイル読み込み
+let fileResult = fileReader.result.split('\r\n');
+
+// 先頭行をヘッダとして格納
+let header = fileResult[0].split(',')
+// 先頭行の削除
+fileResult.shift();
+
+// CSVから情報を取得
+items = fileResult.map(item => {
+  let datas = item.split(',');
+  let result = {};
+  for (const index in datas) {
+    let key = header[index];
+    result[key] = datas[index];
+  }
+  return result;
+});
+items.pop()
+
+// テーブル初期化
+let tbody = document.querySelector('#csv_data_table tbody');
+tbody.innerHTML = "";
+
+//　CSVの内容を表示
+let tbody_html = "";
+for (item of items) {
+  tbody_html += `<tr>
+      <td>${item.name}</td>
+      <td>${item.id}</td>
+      <td>${item.course}</td>
+      <td>${item.year}</td>
+      <td>${item.mail}</td>
+    </tr>
+    `
+}
+tbody.innerHTML = tbody_html;
+
+message.innerHTML = items.length + "件のデータを読み込みました。"
+}
+
+// ファイル読み取り失敗時
+fileReader.onerror = () => {
+items = [];
+message.innerHTML = "ファイル読み取りに失敗しました。"
+}
+
+$(function() {
+    $('.hamburger').click(function() {
+        $(this).toggleClass('active');
+ 
+        if ($(this).hasClass('active')) {
+            $('.globalMenuSp').addClass('active');
+            $('.main_board').addClass('active');
+        } else {
+            $('.globalMenuSp').removeClass('active');
+            $('.main_board').removeClass('active');
         }
-        tbody.innerHTML = tbody_html;
-      
-        message.innerHTML = items.length + "件のデータを読み込みました。"
-      }
-      
-      // ファイル読み取り失敗時
-      fileReader.onerror = () => {
-        items = [];
-        message.innerHTML = "ファイル読み取りに失敗しました。"
-      }
-      
-        </script>
-      
-{% endblock %}
+        
+        
+    });
+});
+$('.file_choose .file_input').on('change', function () {
+    var file = $(this).prop('files')[0];
+    $(this).closest('.file_choose').find('.filename').text(file.name);
+   });
+</script>
+
+</html>

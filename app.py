@@ -43,6 +43,7 @@ def stu_top():
     password = request.form.get("password")
     result = db.student_login(mail,password)
 
+    #session(stu_number, name, password_flag)
     session["user"] = (result[0],result[1],result[2])
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=30)
@@ -54,9 +55,30 @@ def stu_top():
         student_flg = 1
         return render_template("first_login.html", student_flg=student_flg, mail=mail)
     else:
-        return render_template("stu_book_rent.html")
-    
+        renting_list = db.book_renting(result[0])
+        detail_list = []
+        for i in range(len(renting_list)):
+            book_detail = db.book_detail(renting_list[i])
+            detail_list.append(book_detail)
+        print(detail_list)
+        return render_template("stu_book_rent.html", detail_list=detail_list)
 
+#自分が借りている一覧
+@app.route("/stu_book_renting")
+def stu_book_renting():
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        renting_list = db.book_renting(stu_number)
+        detail_list = []
+        for i in range(len(renting_list)):
+            book_detail = db.book_detail(renting_list[i])
+            detail_list.append(book_detail)
+        print(detail_list)
+        return render_template("stu_book_rent.html", detail_list=detail_list)
+    else:
+        return redirect(url_for('login_page'))
+    
 #管理者ログイン後トップページ
 @app.route("/manager_top", methods=['POST'])
 def manager_top():
@@ -195,8 +217,6 @@ def student_book_return_result():
         return render_template("stu_book_rent.html")
     else:
         return redirect(url_for('login_page'))
-
-
 
 #本の一覧(学生)
 @app.route("/student_book_list")
@@ -444,7 +464,7 @@ def student_change():
 def manager_stu_delete():
     return render_template("manager_stu_delete.html")
 
-# 学生削除検索結
+# 学生削除検索結果
 @app.route("/manager_student_delete",methods=["POST"])
 def manager_student_delete():
     name = request.form.get('name')
@@ -652,26 +672,15 @@ def first_login():
 def student_register_all():
     return render_template('manager_group_regist.html')
 
-
-# 学生登録(一括)テンプレートを表示
-@app.route('/student_all_file', methods=['POST'])
-def student_all_file():
-    file = request.files['fileinput']
-    list = []
-    with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
-        for line in csv.reader(f):
-            list.append(line)
-    del list[0]
-    return render_template('manager_group_regist.html',list=list)
-
 # 学生登録(一括)登録処理
 @app.route('/student_all_file_result',methods=['POST'])
 def student_all_file_2():
-    file = request.files['file']
+    file = request.files['fileinput']
     list = []
     list_true = []
+    list_true2 = []
     list_false = []
-    with open ('./barcode-library/uploads/'+secure_filename(file.filename)) as f:
+    with open ('./barcode-library/uploads/'+secure_filename(file.filename),encoding="Shift_JIS") as f:
         for line in csv.reader(f):
             list.append(line)
     del list[0]
@@ -683,15 +692,25 @@ def student_all_file_2():
             list_true.append(i)
         else :
             list_false.append(i)
+    # print("list:", list_true)
     for n in list_true:
+        print("n:", n)
         name = n[0]
         stu_id = n[1]
         course = n[2]
         course_year = n[3]
         mail = n[4]
-        result = db.student_register(stu_id,mail,name,course,course_year)
-        if not result:
+        pw=db.new_pw()
+        result = db.student_register(stu_id,mail,name,course,course_year,pw)
+        # stu_number,mail,name,course_id,year,pw
+        if result:
+            mail_send.mail(mail,pw)
+        else :
+            list_true2.append(n)
             list_false.append(n)
+    for i in list_true2:
+        list_true.remove(i)
+
     return render_template('manager_group_regist_result.html',list_true=list_true,list_false=list_false)
   
 #　レビュー画面
