@@ -2,6 +2,7 @@
 {% block content %}
     <span class="book_history">※過去に借りた本の一覧です。</span>  
     <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">  
+    <div class="scroll_bar">
     <table class="book_table">
         <tr>
             <th class="book_num"></th>
@@ -44,5 +45,6 @@
             <td class="white"></td>
             <td class="white"></td>
         </tr>
-    </table>        
+    </table>
+    </div>   
 {% endblock %}

@@ -1,10 +1,10 @@
 {% extends "student_layout.html" %}
 {% block content %}
-            <div class="flex_class">
-                <p class="book_amount">※現在借りている本件数は...冊です</p>
-            <button type="button" class="return_button" style="margin-left: 60%;" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button>
-            </div>
+            <!-- <div class="flex_class"> -->
+            <p class="book_amount">※現在借りている本件数は...冊です</p>
+            <p style="text-align: right;margin-top: -5%;"><button type="button" class="return_button" style="margin-left: 60%;" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button></p>
             <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
+            <div class="scroll_bar">
             <table class="rent_result">
               <tr>
                 <th class="id_table"></th>
@@ -32,5 +32,6 @@
                   </tr> 
                 {% endif %}
               {% endfor %}
-            </table>                       
+            </table>
+          </div>                  
 {% endblock %}
