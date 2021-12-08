@@ -13,32 +13,24 @@
                 <th id="rent_column2">出版社</th>
                 <th id="rent_column2">返却期限</th>
               </tr>
-              <tr>
-                <td class="blue">1</td>
-                <td class="blue">2</td>
-                <td class="blue">3</td>
-                <td class="blue">4</td>
-                <td class="blue">5</td>
-              </tr>  
-                <td class="white">2</td>
-                <td class="white"></td>
-                <td class="white"></td>
-                <td class="white"></td>
-                <td class="white"></td>   
-              </tr>
-              <tr>
-                <td class="blue">3</td>
-                <td class="blue"></td>
-                <td class="blue"></td>
-                <td class="blue"></td>
-                <td class="blue"></td>
-              </tr>
-              <tr>          
-                <td class="white">4</td>
-                <td class="white"></td>
-                <td class="white"></td>
-                <td class="white"></td>
-                <td class="white"></td>
-              </tr>       
+              {% for i in range(detail_list | length) %}
+                {% if i%2 == 0 %}
+                  <tr>
+                    <th class="blue">{{i+1}}</th>
+                    <th class="blue">{{detail_list[i][2]}}</th>
+                    <th class="blue">{{detail_list[i][3]}}</th>
+                    <th class="blue">{{detail_list[i][4]}}</th>
+                    <th class="blue">期限</th>
+                  </tr>
+                {% else %}
+                  <tr>
+                    <th class="white">{{i+1}}</th>
+                    <th class="white">{{detail_list[i][2]}}</th>
+                    <th class="white">{{detail_list[i][3]}}</th>
+                    <th class="white">{{detail_list[i][4]}}</th>
+                    <th class="white">期限</th>
+                  </tr> 
+                {% endif %}
+              {% endfor %}
             </table>                       
-      {% endblock %}
+{% endblock %}

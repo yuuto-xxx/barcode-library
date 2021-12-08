@@ -14,8 +14,8 @@ insert into course values('10', '総合デザイン科',3);
 
 -- 学生テーブル
 create table student (stu_number int not null primary key,
-mail varchar(256) not null,
-name varchar(64) not null unique,
+mail varchar(256) not null unique,
+name varchar(64) not null,
 password varchar(64) not null,
 salt varchar(32) not null,
 course_id varchar(2) not null,
