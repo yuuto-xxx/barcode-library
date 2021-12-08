@@ -263,16 +263,39 @@ def book_detail(isbn):
 
     return result
 
+#本のレビュー表示
 def book_show_review(isbn):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "select review_comment, review_star, stu_number, name_flag from review where book_isbn=%s"
+    sql = "select * from review where book_isbn=%s"
 
     try:
         cur.execute(sql,(isbn,))
     except Exception as e:
         print("レビュー取得エラー", e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+#貸出一覧
+def student_renting():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select student.name, book.title, rent_book.rent_day, \
+            rent_book.return_day from student, book, rent_book\
+            where student.stu_number = rent_book.stu_number \
+            and book.book_isbn = rent_book.book_isbn"
+
+    try:
+        cur.execute(sql,)
+    except Exception as e:
+        print("貸出一覧取得エラー",e)
 
     result = cur.fetchall()
 
@@ -764,5 +787,3 @@ def test_delete_stu():
     conn.commit()
     cur.close()
     conn.close()
-
-
