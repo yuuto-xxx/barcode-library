@@ -34,7 +34,5 @@
                 </tr>
                 {% endfor %}
             </table>
-            <p class="regist_button" style="margin-left: 47%;"><button>登録画面へ</button></p>  
-            <a href="{{url_for('stu_register')}}" id="migi">登録画面へ</a>
-
+            <p class="regist_button" style="margin-left: 47%;"><button onclick="window.location.href='{{url_for('stu_register'}}'">登録画面へ</button></p>
 {% endblock %}
