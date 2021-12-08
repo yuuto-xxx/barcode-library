@@ -37,12 +37,26 @@
         </div>
     </div>
     <div class="review">
-        <!-- <div class="sampleText1">aaa</div>
-        <div class="sampleText1">bbb</div>
-        <div class="sampleText1">ccc</div>
-        <div class="sampleText1">ddd</div>
-        <div class="sampleText1">eee</div>
-        <div class="sampleText1">fff</div>
-        <div class="sampleText1">ggg</div> -->
+        {% for i in range(review | length) %}
+            {% if review[i][4] %}
+                {% if review[i][2] == None %}    
+                    とくめい
+                    <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
+                {% else %}
+                    とくめい
+                    <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
+                    {{review[i][2]}} <br>
+                {% endif %}
+            {% else %}
+                {% if review[i][2] == None %}    
+                    {{review[i][0]}}
+                    <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
+                {% else %}
+                    {{review[i][0]}}
+                    <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
+                    {{review[i][2]}} <br>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}

@@ -803,11 +803,9 @@ def student_id_check(student_id):
 @app.route("/book_detail")
 def book_detail():
     isbn = request.args.get("book")
-    print(isbn)
     book = db.book_detail(isbn)
     review = db.book_show_review(isbn)
-    print(review)
-    return render_template("book_detail.html", book=book)
+    return render_template("book_detail.html", book=book, review=review)
 
 def book_detail(isbn):
     book = db.book_detail(isbn)

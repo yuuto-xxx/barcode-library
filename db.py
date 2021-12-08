@@ -268,7 +268,9 @@ def book_show_review(isbn):
     conn = get_connection()
     cur = conn.cursor()
 
-    sql = "select * from review where book_isbn=%s"
+    sql = "select student.name, review.book_isbn, review.review_comment, review.review_star, review.name_flag \
+         from student, review where student.stu_number = review.stu_number and \
+            book_isbn=%s"
 
     try:
         cur.execute(sql,(isbn,))
