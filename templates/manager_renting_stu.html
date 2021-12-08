@@ -18,31 +18,40 @@
                     <th class="column_book">貸出日</th>
                     <th class="column_book">返却日</th>
                 </tr>
-                
-                <tr>
-                    <td class="blue"></td>
-                    <td class="blue"></td>
-                    <td class="blue"></td>
-                    <td class="blue"></td>
-                </tr>
-                    
-                    <td class="white"></td>
-                    <td class="white"></td>
-                    <td class="white"></td>
-                    <td class="white"></td>
-                </tr>
-                <tr>
-                  <td class="blue"></td>
-                  <td class="blue"></td>
-                  <td class="blue"></td>
-                  <td class="blue"></td>
-              </tr>
-            </tr>
-                    
-            <td class="white"></td>
-            <td class="white"></td>
-            <td class="white"></td>
-            <td class="white"></td>
-        </tr>
+                {% for i in range(renting_list | length ) %}
+                    {% if i%2 == 0 %}   
+                        {% if renting_list[i][3] == None %}
+                        <tr>
+                            <td class="blue">{{renting_list[i][0]}}</td>
+                            <td class="blue">{{renting_list[i][1]}}</td>
+                            <td class="blue">{{renting_list[i][2]}}</td>
+                            <td class="blue"></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td class="blue">{{renting_list[i][0]}}</td>
+                            <td class="blue">{{renting_list[i][1]}}</td>
+                            <td class="blue">{{renting_list[i][2]}}</td>
+                            <td class="blue">{{renting_list[i][3]}}</td>
+                        </tr>
+                        {% endif %}
+                {% else %}
+                    {% if renting_list[i][3] == None %}
+                    <tr>
+                        <td class="white">{{renting_list[i][0]}}</td>
+                        <td class="white">{{renting_list[i][1]}}</td>
+                        <td class="white">{{renting_list[i][2]}}</td>
+                        <td class="white"></td>
+                    </tr>
+                    {% else %}
+                        <tr>
+                            <td class="white">{{renting_list[i][0]}}</td>
+                            <td class="white">{{renting_list[i][1]}}</td>
+                            <td class="white">{{renting_list[i][2]}}</td>
+                            <td class="white">{{renting_list[i][3]}}</td>
+                        </tr>
+                    {% endif %}
+                    {% endif %}
+                {% endfor %}
             </table>
 {% endblock %}
