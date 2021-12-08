@@ -32,3 +32,18 @@ td{
 #error{
     color: red;
 }
+
+#message{
+    margin-left: 125px;
+}
+
+* input[type=submit] {
+    font-size: 15pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 80pt;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }

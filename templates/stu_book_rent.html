@@ -2,7 +2,7 @@
 {% block content %}
             <div class="flex_class">
                 <p class="book_amount">※現在借りている本件数は...冊です</p>
-            <button type="button" class="return_button" style="margin-left: 65%;" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button>
+            <button type="button" class="return_button" style="margin-left: 60%;" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button>
             </div>
             <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
             <table class="rent_result">
@@ -16,19 +16,19 @@
               {% for i in range(detail_list | length) %}
                 {% if i%2 == 0 %}
                   <tr>
-                    <th class="blue">{{i+1}}</th>
-                    <th class="blue">{{detail_list[i][2]}}</th>
-                    <th class="blue">{{detail_list[i][3]}}</th>
-                    <th class="blue">{{detail_list[i][4]}}</th>
-                    <th class="blue">期限</th>
+                    <td class="blue">{{i+1}}</td>
+                    <td class="blue">{{detail_list[i][2]}}</td>
+                    <td class="blue">{{detail_list[i][3]}}</td>
+                    <td class="blue">{{detail_list[i][4]}}</td>
+                    <td class="blue">期限</th>
                   </tr>
                 {% else %}
                   <tr>
-                    <th class="white">{{i+1}}</th>
-                    <th class="white">{{detail_list[i][2]}}</th>
-                    <th class="white">{{detail_list[i][3]}}</th>
-                    <th class="white">{{detail_list[i][4]}}</th>
-                    <th class="white">期限</th>
+                    <td class="white">{{i+1}}</td>
+                    <td class="white">{{detail_list[i][2]}}</td>
+                    <td class="white">{{detail_list[i][3]}}</td>
+                    <td class="white">{{detail_list[i][4]}}</td>
+                    <td class="white">期限</td>
                   </tr> 
                 {% endif %}
               {% endfor %}
