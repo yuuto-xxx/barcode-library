@@ -2,8 +2,8 @@
     overflow-y: auto;
     border: none;
     width: 70%;
-    margin-left: 10%;
-    margin-top: 100pt;
+    margin-left: 15%;
+    /* margin-top: 100pt; */
     border-collapse: collapse;
     font-family: 'Times New Roman', Times, serif;
 }
@@ -54,12 +54,12 @@ tr {
     border-right: black solid 1px; ;
     border-bottom: black solid 1px;
 }
-.book_table .column_book {
+/* .book_table .column_book {
     width: 20%;
-}
-.book_num{
+} */
+/* .book_num{
     width: 7%;
-}
+} */
 .rent_table .isbn{
     width: 40%;
 }
