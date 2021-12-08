@@ -298,7 +298,26 @@ def rent_book(stu_number, isbn_list):
     cur.close()
     conn.close()
 
-#本を返す
+#借りている一覧
+def book_renting(stu_number):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select book_isbn from rent_book where stu_number=%s and return_day is null"
+
+    try:
+        cur.execute(sql,(stu_number,))
+    except Exception as e:
+        print("借りている一覧表示エラー", e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+#本の返却
 def book_return(stu_number, isbn_list):
     conn = get_connection()
     cur = conn.cursor()
