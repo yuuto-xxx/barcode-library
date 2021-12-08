@@ -14,7 +14,7 @@
             <h4 style="text-align: left;">本詳細情報</h4>
             <div class="square">
                 <ul class="info2">
-                    <li><img src={{book[1]}} width="180" height="280"></li>
+                    <li><img src={{book[1]}}></li>
                 </ul>
                 <ul class="info">
                     <li><input type="text" placeholder="タイトル" autocomplete="off" value={{book[2]}} disabled></li>
@@ -37,12 +37,26 @@
         </div>
     </div>
     <div class="review">
-        <!-- <div class="sampleText1">aaa</div>
-        <div class="sampleText1">bbb</div>
-        <div class="sampleText1">ccc</div>
-        <div class="sampleText1">ddd</div>
-        <div class="sampleText1">eee</div>
-        <div class="sampleText1">fff</div>
-        <div class="sampleText1">ggg</div> -->
+        {% for i in range(review | length) %}
+            {% if review[i][4] %}
+                {% if review[i][2] == None %}    
+                    とくめい
+                    <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
+                {% else %}
+                    とくめい
+                    <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
+                    {{review[i][2]}} <br>
+                {% endif %}
+            {% else %}
+                {% if review[i][2] == None %}    
+                    {{review[i][0]}}
+                    <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
+                {% else %}
+                    {{review[i][0]}}
+                    <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
+                    {{review[i][2]}} <br>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
     </div>
 {% endblock %}
