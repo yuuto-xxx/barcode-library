@@ -2,35 +2,38 @@
 {% block content %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <p class="report">※進級処理をしたら下記の学生が削除されます</p>
-            <p class="last_change" style="margin-right: 3%;"><span>最終変更：2021年3月31日</span><span class="change_name">盛ジョビ</span></p>
+            {% if flagnum == 0%}
+            <p class="last_change" style="margin-right: 3%;"><span>最終変更：{{result[1]}}</span><span class="change_name">{{result[0]}}</span></p>
+            {% else %}
+            <p class="last_change" style="margin-right: 3%;">更新履歴はありません</p>
+            {% endif %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
+            <form action="{{url_for('manager_promotion_result')}}" method="get">
             <table class="book_table">
                 <tr>
-                    <th class="book_num"></th>
+                    <!-- <th class="book_num"></th> -->
                     <th class="promotion_table">名前</th>
                     <th class="promotion_table">学籍番号</th>
                     <th class="promotion_table">学科</th>
                 </tr>
-                
-                <tr>
-                    <td class="blue">1</td>
-                    <td class="blue"></td>
-                    <td class="blue"></td>
-                    <td class="blue"></td>
-                </tr>
-                    
-                    <td class="white">2</td>
-                    <td class="white"></td>
-                    <td class="white"></td>
-                    <td class="white"></td>
-                </tr>
-                <tr>
-                  <td class="blue">3</td>
-                  <td class="blue"></td>
-                  <td class="blue"></td>
-                  <td class="blue"></td>
-                </tr>
+                {% for i in range(student_list | length ) %}
+                    {% if i%2 == 0 %}
+                    <tr>
+                        <td class="blue"><a href="{{url_for('stu_change', stu_number=student_list[i][0])}}">{{student_list[i][1]}}</a></td>
+                        <td class="blue">{{student_list[i][0]}}</td>
+                        <td class="blue">{{student_list[i][2]}}</td>
+                    </tr>
+                        {% else %}
+                        <tr>
+                            <td class="white"><a href="{{url_for('stu_change', stu_number=student_list[i][0])}}">{{student_list[i][1]}}</a></td>
+                            <td class="white">{{student_list[i][0]}}</td>
+                            <td class="white">{{student_list[i][2]}}</td>
+                        </tr>
+                        {% endif %}
+                {% endfor %}
             </table>
-            <p class="promotion_button"><button>進級</button></p>
+            <input type="submit" value="進級">
+            <!-- <p class="promotion_button"><button onclick="forget_pw">進級</button></p> -->
+        </form>
             <!-- promotion_column -->
 {% endblock %}
