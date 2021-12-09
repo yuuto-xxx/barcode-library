@@ -30,7 +30,8 @@
             
             navigator.mediaDevices.getUserMedia(
               //マイクはオフ, カメラの設定   背面カメラを希望する 640×480を希望する 1200:400
-              {"audio":false,"video":{"facingMode":"environment","width":{"ideal":640},"height":{"ideal":480}}}
+              {"audio":false,"video":{"facingMode":"environment"}}
+              // {"audio":false,"video":{"facingMode":"environment","width":{"ideal":640},"height":{"ideal":480}}}
             ).then( //許可
               function(stream){
                 video.srcObject = stream;
@@ -47,8 +48,8 @@
                 w=video.videoWidth;
                 h=video.videoHeight;
                 //画面上の表示サイズ
-                prev.style.width=(w/2)+"px";
-                prev.style.height=(h/2)+"px";
+                // prev.style.width=(w/2)+"px";
+                // prev.style.height=(h/2)+"px";
                 //内部のサイズ
                 prev.setAttribute("width",w);
                 prev.setAttribute("height",h);
@@ -111,6 +112,14 @@
                   newText = document.createTextNode(book_json.title);
                   newCell.appendChild(newText);
                   console.log(book_json.title);
+
+                  // テーブル交互
+                  var row = table.rows.length;
+                  if (row % 2  == 0){
+                    newRow.classList.add('Even');
+                  }else{
+                    newRow.classList.add('Odd');
+                  }
                 })
                 .fail(function(){
                   window.alert('ISBN取得エラー');
@@ -135,19 +144,8 @@
       <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
       <table class="book_table2" id="targetTable">
        <tr>
-         <!-- <th class="id_table"></th> -->
          <th class="isbn">ISBN</th>
          <th class="column_title">タイトル</th>
        </tr>
-       <!-- <tr>
-           <td class="blue">1</td>
-           <td class="blue" id="book_isbn"></td>
-           <td class="blue" id="book_title"></td>
-       </tr>
-       <tr>
-           <td class="white"></td>
-           <td class="white"></td>
-           <td class="white"></td>
-       </tr> -->
    </table>
 {% endblock %}
