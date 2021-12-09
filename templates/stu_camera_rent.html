@@ -1,5 +1,6 @@
 {% extends "student_layout.html" %}
   {% block head %}
+  <link rel="stylesheet" href="{{url_for('static', filename='css/book_register_camera2.css')}}">
     <link rel="stylesheet" href="{{url_for('static', filename='css/book_register_camera.css')}}">
     <script type="text/javascript" src="{{url_for('static', filename='js/quagga.min.js')}}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -132,7 +133,7 @@
       </form>
 
       <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
-      <table class="book_table" id="targetTable">
+      <table class="book_table2" id="targetTable">
        <tr>
          <!-- <th class="id_table"></th> -->
          <th class="isbn">ISBN</th>
