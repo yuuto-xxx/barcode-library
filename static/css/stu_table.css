@@ -68,6 +68,16 @@
     .rent_table .column_title{
         width:60%
     }
+    .book_table2{
+        overflow-y: auto;
+        border: none;
+        width: 100%;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+    }
 }
 @media screen and (max-width: 480px) {
     .scroll_bar{
@@ -133,6 +143,17 @@
         font-family: 'Times New Roman', Times, serif;
         border-left: black solid 1px;
         border-bottom: black solid 1px;
+    }
+    .book_table2{
+        overflow-y: auto;
+        border: none;
+        width: 100%;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+
     }
     .book_table .column_book {
         width: 20%;

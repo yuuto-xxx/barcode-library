@@ -1,49 +1,106 @@
 /* 一括登録の画面 */
-.csv_regist{
-    overflow-y: auto;
-    border: none;
-    margin-top: 2%;
-    border-collapse: collapse;
-    font-family: 'Times New Roman', Times, serif;
-    border-left: black solid 1px;
-    border-bottom: black solid 1px;
-    border: black solid 2px;
-    width: 80%;
-    margin-left: 10%;
+@media screen and (min-width: 1025px) {
+    .csv_regist{
+        overflow-y: auto;
+        border: none;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+        border: black solid 2px;
+        width: 80%;
+        margin-left: 10%;
+    }
+    .csv_regist tr th{
+        font-size: 20pt;
+        height: 35pt;
+        border-bottom: rgb(49, 48, 48) 1px solid;
+    }
+    .csv_regist .csv_column{
+        width: 20%;
+    }
+    .csv_regist tr td{
+        height: 35pt;
+    }
+    tr{
+        border: none;
+    }
+    td{
+        border: none;
+        text-align: center;
+    }
+    #error{
+        color: red;
+    }
+    
+    #message{
+        margin-left: 125px;
+    }
+    
+    * input[type=submit] {
+        font-size: 15pt;
+        background-color: #45B3CF;
+        color: white;
+        width: 80pt;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin-top: 15px;
+        margin-bottom: 30px;
+      }
 }
-.csv_regist tr th{
-    font-size: 20pt;
-    height: 35pt;
-    border-bottom: rgb(49, 48, 48) 1px solid;
+@media screen and (max-width: 480px) {
+    .scroll_bar{
+        display: block;
+        overflow-x: scroll;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    .csv_regist{
+        overflow-y: auto;
+        border: none;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+        border: black solid 2px;
+        width: 250%;
+    }
+    .csv_regist tr th{
+        font-size: 18pt;
+        height: 35pt;
+        border-bottom: rgb(49, 48, 48) 1px solid;
+    }
+    .csv_regist .csv_column{
+        width: 20%;
+    }
+    .csv_regist tr td{
+        height: 35pt;
+    }
+    tr{
+        border: none;
+    }
+    td{
+        border: none;
+        text-align: center;
+    }
+    #error{
+        color: red;
+    }
+    
+    #message{
+        margin-left: 125px;
+    }
+    
+    * input[type=submit] {
+        font-size: 15pt;
+        background-color: #45B3CF;
+        color: white;
+        width: 80pt;
+        padding: 5px 10px;
+        border-radius: 10px;
+        margin-top: 15px;
+        margin-bottom: 30px;
+      } 
 }
-.csv_regist .csv_column{
-    width: 20%;
-}
-.csv_regist tr td{
-    height: 35pt;
-}
-tr{
-    border: none;
-}
-td{
-    border: none;
-    text-align: center;
-}
-#error{
-    color: red;
-}
-
-#message{
-    margin-left: 125px;
-}
-
-* input[type=submit] {
-    font-size: 15pt;
-    background-color: #45B3CF;
-    color: white;
-    width: 80pt;
-    padding: 5px 10px;
-    border-radius: 10px;
-    margin-top: 15px;
-    margin-bottom: 30px;
-  }
