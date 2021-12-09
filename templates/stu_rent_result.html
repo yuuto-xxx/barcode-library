@@ -1,8 +1,36 @@
 {% extends "student_layout.html" %}
 {% block content %}
             <p class="attention">※返却日には必ず本を返却してください</p>   
-            <p class="result">...冊借りました</p>         
-            <p class="rent_column">
+            <p class="result" style="text-align: right;">...冊借りました</p>         
+            <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
+<div class="scroll_bar">
+<table class="rent_result" style="width: 100%;">
+  <tr>
+    <th class="id_table"></th>
+    <th class="rent_column">ISBN</th>
+    <th class="rent_column">タイトル</th>
+  </tr>
+  <tr>
+    <td class="blue">1</td>
+    <td class="blue">2</td>
+    <td class="blue">3</td>
+  </tr>  
+    <td class="white">2</td>
+    <td class="white"></td>
+    <td class="white"></td>   
+  </tr>
+  <tr>
+    <td class="blue">3</td>
+    <td class="blue"></td>
+    <td class="blue"></td>
+  </tr>
+  <tr>          
+    <td class="white">4</td>
+    <td class="white"></td>
+    <td class="white"></td>
+  </tr>       
+</table>
+            <!-- <p class="rent_column">
                 <span class="isbn">ISBN</span>
                 <span class="column_title">タイトル</span>
             </p>
@@ -17,5 +45,5 @@
             <p class="blue"></p>
             <p class="white"></p>
             <p class="blue"></p>
-            <p class="white"></p>
+            <p class="white"></p> -->
 {% endblock %}

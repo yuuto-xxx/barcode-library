@@ -1,9 +1,10 @@
 {% extends "student_layout.html" %}
 {% block content %}
             <span class="book_search" style="margin-left: 27%;">キーワード：</span>
-            <input type="text" name="key" size="30">
+            <input type="text" name="key" size="19">
             <button class="view_search">検索</button><br>
             <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
+            <div class="scroll_bar">
             <table class="rent_result">
               <tr>
                 <th class="id_table"></th>
@@ -50,5 +51,6 @@
                 <td class="white"></td>
                 <td class="white"></td>
               </tr>       
-            </table>                       
+            </table>
+            </div>                     
 {% endblock %}        

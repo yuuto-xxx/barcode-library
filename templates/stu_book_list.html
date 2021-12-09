@@ -2,10 +2,12 @@
 {% block content %}
 <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}"> -->
     <p class="result_book">※該当検索は...件です</p>
-    <span class="book_search">キーワード：</span>
-    <input type="text" name="key" size="30" autocomplete="off">
+    <span class="book_search" style="margin-left: 27%;">キーワード：</span>
+    <input type="text" name="key" size="19" autocomplete="off">
     <button class="view_search">検索</button><br>
-        <table class="book_table">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
+    <div class="scroll_bar">
+    <table class="book_table">
             <tr>
                 <th class="book_column">タイトル</th>
                 <th class="book_column">著者</th>
@@ -36,4 +38,5 @@
                 {% endif %}
             {% endfor %}
         </table>
+        </div>
 {% endblock %}

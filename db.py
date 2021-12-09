@@ -472,6 +472,80 @@ def search_student_mail():
 
     return result
 
+# 学生進級一覧
+def promotion_student_list():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select stu_number,name,course_name from student \
+        join course on (student.course_id=course.course_id) where \
+            (((student.course_id='3' or student.course_id='10') and year=3) \
+            or (student.course_id='4' and year=4) \
+            or (student.course_id<>'3' and student.course_id<>'4' and student.course_id<>'10' and year=2))and delete_flag=false;"
+
+    try:
+        cur.execute(sql,)
+    except Exception as e:
+        print("学生進級一覧取得エラー",e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+# 学生進級処理
+def manager_promotion():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update student set year = year + 1 where delete_flag=false"
+
+    try:
+        cur.execute(sql,())
+    except Exception as e:
+        print("UPDATEエラー", e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+    return True
+
+# 進級処理で削除flagを変更
+def manager_promotion_delete():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update student set delete_flag=true \
+        where (((student.course_id='3' or student.course_id='10') and year>3)\
+        or (student.course_id='4' and year>4)\
+        or (student.course_id<>'3' and student.course_id<>'4' and student.course_id<>'10' and year>2)) and delete_flag=false;"
+
+    try:
+        cur.execute(sql,())
+    except Exception as e:
+        print("進級フラグUPDATEエラー", e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+    return True
+def promotion_history(mail):
+    conn = get_connection()
+    cur = conn.cursor()
+    date = datetime.date.today()
+    sql = "insert into promotion_history(promotion_day,manager_mail) values(%s,%s)"
+
+    try:
+        cur.execute(sql,(date,mail,))
+    except Exception as e:
+        print("進級履歴UPDATEエラー", e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+    return True
 def update_student(mail, new_pw, new_salt):
     conn = get_connection()
     cur = conn.cursor()
@@ -747,6 +821,23 @@ def book_review_star(review):
     cur.close()
     conn.close()
 
+# 最後の更新日をselect
+def last_promotion_history():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql="select * from promotion_history,manager where mail=manager_mail order by promotion_day desc limit 1"
+    try:
+        cur.execute(sql,)
+    except Exception as e:
+        print("管理者一覧エラー:",e)
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result
 
 # DBとのコネクションを取得
 def get_connection():
@@ -765,27 +856,15 @@ def get_connection():
 def test():
     conn = get_connection()
     cur = conn.cursor()
-
-    sql = "update book set book_delete_flag = false"
+    date = datetime.date.today()
+    
+    sql = "insert into promotion_history(promotion_day,manager_mail) values(%s,'b.ou.sys20@morijyobi.ac.jp')"
     try:
-        cur.execute(sql,())
+        cur.execute(sql,(date))
     except Exception as e:
         print("本の検索取得エラー",e)
 
-    conn.commit()
-    cur.close()
-    conn.close()
-
-def test_delete_stu():
-    conn = get_connection()
-    cur = conn.cursor()
-
-    sql = "delete from student where stu_number=5205555 or stu_number=5202222"
-    try:
-        cur.execute(sql,())
-    except Exception as e:
-        print("本の検索取得エラー",e)
-
+    # result = cur.fetchall()
     conn.commit()
     cur.close()
     conn.close()

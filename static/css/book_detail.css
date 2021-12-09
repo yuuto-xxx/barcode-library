@@ -1,3 +1,4 @@
+@media screen and (min-width: 1025px) {
 *{
     margin: 0;
     padding: 0;
@@ -190,3 +191,9 @@ input[type=text][half] {
 .star5_rating[data-rate="2"]:after{ width: 40%; } /* 星2 */
 .star5_rating[data-rate="1"]:after{ width: 20%; } /* 星1 */
 .star5_rating[data-rate="0"]:after{ width: 0%; } /* 星0 */
+ /* 変更 */
+ .info2 img{
+    width: 180px;
+    height: 280px;
+}
+}

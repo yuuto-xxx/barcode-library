@@ -724,13 +724,14 @@ def student_all_file_2():
             list_false.append(i)
     # print("list:", list_true)
     for n in list_true:
-        print("n:", n)
+        # print("n:", n)
         name = n[0]
         stu_id = n[1]
         course = n[2]
         course_year = n[3]
         mail = n[4]
         pw=db.new_pw()
+        # pw = "Morijyobi111"
         result = db.student_register(stu_id,mail,name,course,course_year,pw)
         # stu_number,mail,name,course_id,year,pw
         if result:
@@ -742,7 +743,41 @@ def student_all_file_2():
         list_true.remove(i)
 
     return render_template('manager_group_regist_result.html',list_true=list_true,list_false=list_false)
-  
+
+# 学生進級
+@app.route('/manager_promotion')
+def manager_promotion():
+    if "user" in session:
+        # mail = session["user"][2]
+        # mail,day
+        result = db.last_promotion_history()
+        flagnum = 0
+        if result == []:
+            flagnum = 1
+        # id,name,course_name
+        student_list = db.promotion_student_list()
+            
+        return render_template('manager_promotion.html',result=[result[1],result[4]],student_list=student_list,flagnum=flagnum)
+    else :
+        return redirect(url_for('login_page'))
+
+@app.route('/manager_promotion_result')
+def manager_promotion_result():
+    if "user" in session:
+        mail = session["user"][2]
+        result = db.manager_promotion()
+        result2 = db.manager_promotion_delete()
+        result3 = db.promotion_history(mail)
+        if result and result2 and result3:
+            return "成功"
+        else :
+            return "error"
+
+    else :
+        return redirect(url_for('login_page'))
+
+    # return redirect('manager_top',session=session)
+
 #　レビュー画面
 @app.route('/review')
 def review():
