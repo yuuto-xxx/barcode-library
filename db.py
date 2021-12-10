@@ -244,6 +244,28 @@ def book_review_score(isbn):
 
     return list
 
+# 借りている本の数
+def select_amount(isbn):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select rent_book.book_isbn,count(rent_book.amount),book.amount_max from rent_book join book on (rent_book.book_isbn=book.book_isbn) where rent_book.return_day is null and book.book_isbn =%s group by (rent_book.book_isbn,book.amount_max)"
+
+    try:
+        cur.execute(sql,(isbn,))
+    except Exception as e:
+        print("本の数selectエラー[def book_review_score(isbn):]",e)
+        return None
+
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+
 # 本の詳細情報
 def book_detail(isbn):
     conn = get_connection()
@@ -254,7 +276,7 @@ def book_detail(isbn):
     try:
         cur.execute(sql,(isbn,))
     except Exception as e:
-        print("本の詳細情報取得エラー")
+        print("本の詳細情報取得エラー",e)
 
     result = cur.fetchone()
 
