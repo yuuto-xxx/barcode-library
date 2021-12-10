@@ -141,8 +141,6 @@
   }
   /* ここが問題児 */
   .main_board{
-  /* margin-top: 70pt; */
-  /* width: 70%; */
   margin: 0 auto;
   transition: all 0.6s;
   }
@@ -375,7 +373,6 @@
   border-bottom: black solid 1px;
   font-size: 16pt;
   margin-top: 1pt;
-  /* height: 35pt; */
   font-weight: lighter;
   }
   .csv_table .name{
@@ -462,7 +459,6 @@
     }
     
     nav.globalMenuSp {
-      /* overflow-y: auto; */
       position: fixed;
       z-index : 2;
       margin-top: 10pt;
@@ -506,7 +502,6 @@
       text-decoration :none;
       font-size: 15pt;
     }
-    /* このクラスを、jQueryで付与・削除する */
     nav.globalMenuSp.active {
       transform: translateX(0%);
     }
@@ -566,8 +561,6 @@
     /* ここが問題児 */
     .main_board{
       margin-top: 70pt;
-      /* width: 100%; */
-      /* margin: 0 auto; */
       transition: all 0.6s;
     }
     .main_board .report{
