@@ -1,69 +1,150 @@
-.book_table{
-    overflow-y: auto;
-    border: none;
-    width: 100%;
-    margin-top: 2%;
-    border-collapse: collapse;
-    font-family: 'Times New Roman', Times, serif;
-    border-left: black solid 1px;
-    border-bottom: black solid 1px;
+@media screen and (min-width: 1025px) {
+    .rent_result2 {
+        overflow-y: auto;
+        border: none;
+        width: 100%;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border: black solid 1px;
+    }
+    .rent_result2 .column_view{
+        width: 45%;
+    }
+    .rent_result2 .book_num{
+        width: 10%;
+    }
+    .book_table{
+        overflow-y: auto;
+        border: none;
+        width: 100%;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+    }
+    .book_num{
+        width: 7%;
+    }
+    .book_table .column_book {
+        width: 20%;
+    }
+    .book_table .delete_button{
+        font-size: 12pt;
+        background-color: #45B3CF;
+        color: white;
+        margin-top: 5pt;
+        width: 80%;
+    }
+    .book_table .column_view{
+        width:46%
+    }
+    .promotion_table{
+        width:31%
+    }
+    th {
+        background-color: #36587A;
+        color: white;
+        font-size: 20pt;
+        height: 35pt;
+        border: none;
+    }
+    td{
+        border: none;
+        text-align: center;
+    }
+    tr {
+        border: none;
+    }
+    /* 学生削除、編集 */
+    .stu_search{
+        overflow-y: auto;
+        border: none;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+        border: black solid 2px;
+        width:80%;
+        margin: 30pt 60pt 40pt
+    }
 }
-th {
-    background-color: #36587A;
-    color: white;
-    font-size: 20pt;
-    height: 35pt;
-    border: none;
+@media screen and (max-width: 480px) {
+    .scroll_bar{
+        display: block;
+        overflow-x: scroll;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+    }
+    .stu_search{
+        overflow-y: auto;
+        border: none;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+        border: black solid 2px;
+        width:150%;
+        margin-bottom: 20pt;
+        margin-left: 12pt;
+        margin-right: 10pt;
+    }
+    .promotion_table{
+        width:31%
+    }
+    .book_table{
+        overflow-y: auto;
+        border: none;
+        width: 200%;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+    }
+    .book_num{
+        width: 7%;
+    }
+    .book_table .column_book {
+        width: 20%;
+    }
+    th {
+        background-color: #36587A;
+        color: white;
+        font-size: 20pt;
+        height: 35pt;
+        border: none;
+    }
+    td{
+        border: none;
+        text-align: center;
+    }
+    tr {
+        border: none;
+    }
+    .book_table .delete_button{
+        font-size: 12pt;
+        background-color: #45B3CF;
+        color: white;
+        margin-top: 5pt;
+        width: 80%;
+    }
+    .rent_result2 {
+        overflow-y: auto;
+        border: none;
+        width: 150%;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border: black solid 1px;
+    }
+    .rent_result2 .column_view{
+        width: 40%;
+    }
+    .rent_result2 .book_num{
+        width: 20%;
+    }
 }
-.book_num{
-    width: 7%;
-}
-.book_table .column_book {
-    width: 20%;
-}
-.book_table .delete_button{
-    font-size: 12pt;
-    background-color: #45B3CF;
-    color: white;
-    margin-top: 5pt;
-    width: 80%;
-}
-.book_table .column_view{
-    width:46%
-}
-.promotion_table{
-    width:31%
-}
-tr{
-    border: none;
-}
-td{
-    border: none;
-    text-align: center;
-}
-/* 学生削除、編集 */
-.stu_search{
-    overflow-y: auto;
-    border: none;
-    margin-top: 2%;
-    border-collapse: collapse;
-    font-family: 'Times New Roman', Times, serif;
-    border-left: black solid 1px;
-    border-bottom: black solid 1px;
-    border: black solid 2px;
-    width:80%;
-    margin: 30pt 60pt 40pt
-}
-
-  /* ボタン配置 */
-  * input[type=submit] {
-    font-size: 15pt;
-    background-color: #45B3CF;
-    color: white;
-    width: 80pt;
-    padding: 5px 10px;
-    border-radius: 10px;
-    margin-top: 15px;
-    margin-bottom: 30px;
-    margin-left: 45%;
-  }

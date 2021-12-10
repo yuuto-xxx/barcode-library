@@ -4,17 +4,18 @@
     <title>図書一覧</title>
     <form action="{{url_for('delete_search')}}" method="get">
         <span class="book_search">キーワード：</span>
-        <input type="text" name="key" size="30" autocomplete="off">
+        <input type="text" name="key" size="19" autocomplete="off">
         <input type="submit" class="view_search" value="検索">
     </form>
     <br>
+    <div class="scroll_bar">       
         <table class="book_table">
             <tr>
                 <th class="book_column">タイトル</th>
                 <th class="book_column">著者</th>
                 <th class="book_column">出版社</th>
                 <th class="book_column">発売日</th>
-                <th class="tag"></th>
+                <th class="book_column"></th>
             </tr>
             {{error}}
             {% for i in range(book_list | length) %}
@@ -37,4 +38,5 @@
                 {% endif %}
             {% endfor %}
         </table>
+        </div>
 {% endblock %}

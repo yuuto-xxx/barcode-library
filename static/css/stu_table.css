@@ -140,7 +140,9 @@
     }
     .rent_result2 .id_table{
         width: 10%;
-
+    }
+    .rent_result2 .column_view{
+        width: 45%;
     }
     th {
         background-color: #36587A;
