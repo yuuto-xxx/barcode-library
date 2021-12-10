@@ -204,7 +204,7 @@
         font-family: 'Times New Roman', Times, serif;
     }
     #preview{
-        width: 100px;
-        height: 100px;
+        width: 255px;
+        height: 250px;
     }
 }

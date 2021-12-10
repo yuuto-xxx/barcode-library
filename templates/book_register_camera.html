@@ -1,12 +1,11 @@
 {% extends "manager_layout.html" %}
-{% block content %}
   {% block head %}
     <link rel="stylesheet" href="{{url_for('static', filename='css/book_register_camera.css')}}">
     <script type="text/javascript" src="{{url_for('static', filename='js/quagga.min.js')}}"></script>
     <title>本登録(カメラ)</title>
   {% endblock %}
     
-<body>
+  {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="form_group">
     <h4>※本をカメラで登録する為、本のisbnをカメラに向かってかざしてください。</h4> 
@@ -18,6 +17,7 @@
         <!-- カメラ -->
         <script>
             var DetectedCount=0,DetectedCode="";
+            let flag = true;
             var video,tmp,tmp_ctx,jan,prev,prev_ctx,w,h,mw,mh,x1,y1;
             window.addEventListener('load',function(event){
               video=document.createElement('video');
@@ -33,12 +33,12 @@
             
               navigator.mediaDevices.getUserMedia(
                 //マイクはオフ, カメラの設定   背面カメラを希望する 640×480を希望する 1230*800
-                {"audio":false,"video":{"facingMode":"environment","width":{"ideal":1200},"height":{"ideal":400}}}
+                {"audio":false,"video":{"facingMode":"environment"}}
               ).then( //許可
                 function(stream){
                   video.srcObject = stream;
-                  //1.5秒毎にスキャンする
-                  setTimeout(Scan,1500,true);
+                  //3秒毎にスキャンする
+                  setTimeout(Scan,3000,true);
                 }
               ).catch( //拒否
                 function(err){jan.value+=err+'\n';}
@@ -50,8 +50,8 @@
                   w=video.videoWidth;
                   h=video.videoHeight;
                   //画面上の表示サイズ
-                  prev.style.width=(w/2)+"px";
-                  prev.style.height=(h/2)+"px";
+                  // prev.style.width=(w/2)+"px";
+                  // prev.style.height=(h/2)+"px";
                   //内部のサイズ
                   prev.setAttribute("width",w);
                   prev.setAttribute("height",h);
@@ -97,12 +97,20 @@
                   DetectedCount=0;
                   DetectedCode=result.codeResult.code;
                 }
-                if(DetectedCount>=3){
-                  console.log(result.codeResult.code);
-                  jan.value+=result.codeResult.code+' ';
-                  jan.scrollTop=jan.scrollHeight;  
-                  DetectedCode='';
-                  DetectedCount=0;
+                try{
+                  if (flag){
+                    if(DetectedCount>=3){
+                    jan.value+=result.codeResult.code+'';
+                    jan.scrollTop=jan.scrollHeight;
+                    DetectedCode='';
+                    DetectedCount=0;
+                    flag = false;
+                    }
+                  }else{
+                    throw new Error("終了");
+                  }
+                }catch(e){
+                  console.log(e.message);
                 }
               });
             });
@@ -117,6 +125,4 @@
           </div>
         </div>
         </form> 
-</body>
-</html>
 {% endblock %}
