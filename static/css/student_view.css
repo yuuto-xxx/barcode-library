@@ -31,7 +31,6 @@
   .hamburger span:nth-child(3) {
     top: 30px;
   }
-  
   /* ナビ開いてる時のボタン */
   .hamburger.active span:nth-child(1) {
     top : 16px;
@@ -52,7 +51,6 @@
   }
   
   nav.globalMenuSp {
-    /* overflow-y: auto; */
     position: fixed;
     z-index : 2;
     margin-top: 10pt;
@@ -96,7 +94,7 @@
     text-decoration :none;
     font-size: 15pt;
   }
-  /* このクラスを、jQueryで付与・削除する */
+
   nav.globalMenuSp.active {
     transform: translateX(0%);
   }
@@ -153,11 +151,9 @@
     color: #04A9F3;
     border-left: #04A9F3 5px solid;
   }
-  /* ここが問題児 */
+
   .main_board{
     margin-top: 70pt;
-    /* width: 100%; */
-    /* margin: 0 auto; */
     transition: all 0.6s;
   }
   .screen_title{
@@ -182,7 +178,6 @@
       height: 35pt;
       margin-bottom: -12pt;
   }
-  /* 多分貸出css? */
   .rent_column .column_title{
       margin-left: 200pt;
   }
@@ -230,7 +225,7 @@
       height: 5%;
       margin-top: 1%;
   }
-  /* ここが問題児2 */
+
   .book_column, .book_column_available, .book_column_review, .tag{
     background-color: #36587A;
     color: white;
@@ -239,12 +234,10 @@
   }
   
   .book_column{
-    /* margin-left: 100px; */
     width:20%;
   }
   
   .book_column_review, .book_column_available, .tag{
-    /* margin-left: 100px; */
     width: 10%;
   }
   
