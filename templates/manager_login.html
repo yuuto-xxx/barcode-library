@@ -14,15 +14,17 @@
 	<div class="wrapper">
 		<form action="{{url_for('manager_top')}}" method="POST" class="login">
 		<p class="title">管理者ログイン</p>
-		<a href="{{url_for('login_page')}}" id="migi">学生ログイン</a>
-		<input type="email" name="mail" placeholder="メールアドレス" required="required" autofocus/>
-		<i class="fa fa-user"></i>
-
+		<a href="{{url_for('login_page')}}" id="migi">学生ログイン</a><br>
+		<div class="input-wrap">
+			<input type="email" name="mail" placeholder="メールアドレス" required="required" autofocus/>
+			<i class="fa fa-user"></i>
+		</div>
 		<form id="fieldPassword">
-			<span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()"></span>
-		<input type="password" name="password" id="textpassword"  placeholder="パスワード" required="required" />
-
-		<i class="fa fa-key"></i>
+		<div class="input-wrap">
+			<input type="password" name="password" id="textpassword"  placeholder="パスワード" required="required"/>
+			<i class="fa fa-key"></i>
+			<i id="buttonEye" class="toggle-pass fa fa-eye" onclick="pushHideButton()"></i>
+		</div>
 		<a href="{{url_for('forget_pw')}}">パスワード忘れた方</a><br>
 			
 			<button>
@@ -38,10 +40,10 @@
 		var btnEye = document.getElementById("buttonEye");
 		if (txtPass.type === "text") {
 			txtPass.type = "password";
-			btnEye.className = "fa fa-eye";
+			btnEye.className = "fa fa-eye toggle-pass";
 		} else {
 			txtPass.type = "text";
-			btnEye.className = "fa fa-eye-slash";
+			btnEye.className = "fa fa-eye-slash toggle-pass";
 		}
 	}
 </script>
