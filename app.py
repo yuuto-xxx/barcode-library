@@ -28,7 +28,8 @@ app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
 def login_page():
     session = request.args.get("session")
     error = request.args.get("error")
-
+    print(session)
+    print(error)
     return render_template("login.html", session=session, error=error)
 
 @app.route("/manager_login") #管理者ログイン
@@ -75,7 +76,6 @@ def stu_book_renting():
         for i in range(len(renting_list)):
             book_detail = db.book_detail(renting_list[i])
             detail_list.append(book_detail)
-        print(detail_list)
         return render_template("stu_book_rent.html", detail_list=detail_list)
     else:
         return redirect(url_for('login_page'))
@@ -90,7 +90,6 @@ def manager_top():
     session["user"] = (result[0],result[1],mail)
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=30)
-    print(result[1])
     if result[1]: #password_flagの判定
         student_flg = 0
         return render_template("first_login.html", student_flg=student_flg, mail=mail)
@@ -102,7 +101,6 @@ def manager_top():
 @app.route("/manager_renting_student")
 def manager_renting():
     renting_list = db.student_renting()
-    print(renting_list)
     return render_template("manager_renting_stu.html", renting_list=renting_list)
 
 #本の登録
@@ -145,10 +143,8 @@ def book_register_result():
     quantity = request.args.get("quantity")
     book = request.args.getlist("book")
     book.append(quantity)
-    print(book)
     db.book_register(book)
-    return "登録完了"
-    # return render_template("",book=book)
+    return render_template("manager_book_register.html")
 
 #　本手入力登録
 @app.route("/manual_book_register")
@@ -205,9 +201,9 @@ def stu_book_rent_result():
         stu_number = user[0]
         isbn = request.args.get("isbn")
         isbn_list = isbn.split()
-        print(isbn_list)
         db.rent_book(stu_number,isbn_list)
-        return render_template("stu_book_rent.html")
+        renting_list = db.student_renting()
+        return render_template("stu_book_rent.html", renting_list=renting_list)
     else:
         return redirect(url_for('login_page'))
 
@@ -240,9 +236,10 @@ def student_book_return_result():
         isbn = request.args.get("isbn")
         isbn_list = isbn.split()
         db.book_return(stu_number, isbn_list)
-        return render_template("stu_book_rent.html")
+        renting_list = db.student_renting()
+        return render_template("stu_book_rent.html", renting_list=renting_list)
     else:
-        return redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 #履歴
 @app.route("/stu_book_history")
@@ -253,7 +250,7 @@ def stu_book_history():
         history = db.book_history(stu_number)
         return render_template("stu_book_history.html", history=history)
     else:
-        return redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 #本の一覧(学生)
 @app.route("/student_book_list")
@@ -278,7 +275,7 @@ def book_list():
             book_list[i] = book_list[i] + (review_avg,)
         return render_template("stu_book_list.html",book_list=book_list)
     else:
-        return redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 # 本の一覧(管理者)
 @app.route("/manager_book_list")
@@ -288,7 +285,7 @@ def manager_book_list():
         if result:
             return render_template("manager_book_list.html",book_list=result)
     else :
-        return redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 # 本の一覧(管理者検索)
 @app.route("/delete_search")
@@ -301,7 +298,7 @@ def delete_search():
         else :
             return redirect(url_for("manager_book_list"))
     else :
-        return redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 
 # 本情報変更
@@ -311,7 +308,7 @@ def book_change():
         book = request.args.getlist('book')
         return render_template("book_change.html",book=book)
     else :
-        return redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 
 # 本の情報変更
@@ -341,7 +338,7 @@ def book_change_main():
         else :
             return render_template('book_change_main.html',error="error")
     else :
-        return redirect(url_for("login_page"))
+        return redirect(url_for("login_page",session="セッション有効期限切れです。"))
 
 # 本削除
 @app.route('/book_delete')
@@ -354,7 +351,7 @@ def book_delete():
             # session["book"] = book
             return render_template("book_delete.html",book=book)
     else:
-        return redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 # 本削除
 @app.route("/book_delete_main")
@@ -373,7 +370,7 @@ def book_delete_main():
         if result:
             return redirect(url_for('manager_book_list'))
     else :
-        return redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 # 管理者登録
 @app.route("/manager_register")
@@ -727,9 +724,7 @@ def student_all_file_2():
             list_true.append(i)
         else :
             list_false.append(i)
-    # print("list:", list_true)
     for n in list_true:
-        # print("n:", n)
         name = n[0]
         stu_id = n[1]
         course = n[2]
@@ -764,7 +759,7 @@ def manager_promotion():
             
         return render_template('manager_promotion.html',result=[result[1],result[4]],student_list=student_list,flagnum=flagnum)
     else :
-        return redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 @app.route('/manager_promotion_result')
 def manager_promotion_result():
@@ -793,7 +788,7 @@ def review():
         isbn = request.args.get("isbn")
         return render_template("stu_review_book.html", stu_number=stu_number, name=name, isbn=isbn)
     else:
-        redirect(url_for('login_page'))
+        redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 @app.route("/register_review", methods=["POST"])
 def register_review():

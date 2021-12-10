@@ -417,6 +417,7 @@ def book_delete_flag(isbn):
     conn.close()
 
     return True
+
 # 本の検索
 def book_search(key):
     conn = get_connection()
@@ -438,7 +439,6 @@ def book_search(key):
 
 # 本の情報変更
 def book_change(isbn,title,author,pub,day,num):
-#     result = db.book_change(book[0],title,author,pub,day,num)
     conn = get_connection()
     cur = conn.cursor()
 
