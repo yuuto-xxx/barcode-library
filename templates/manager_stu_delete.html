@@ -2,8 +2,8 @@
 {% block content %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <form action="" method="post">
-            <p class="report" style="margin-left: 20%;">※以下の内容ご入力の上、ご確認ください。</p>
-            <div class="edit_board" style="width: 56%;margin-right: 0%;margin-left: 25%;">
+            <p class="report2">※以下の内容ご入力の上、ご確認ください。</p>
+            <div class="edit_board">
                 <p class="name">名前</p>
                 <p class="name_type"><span><input type="text" name="name" placeholder="(例)盛岡" list="student_list" autocomplete="off"></span>
                     <datalist id="student_list">
@@ -12,16 +12,17 @@
                         {% endfor %}
                     </datalist><br>
                     <span><button>検索</button></span>
-                </p>
-                </div>
-                <!-- <table class="search_table" width="61.5%">
+                </p> 
+                 <!-- <table class="search_table" width="61.5%">
                     <tr>
                         <th style="font-size: 30px;" class="search_table_name">名前</th>
                         <th style="font-size: 30px;" class="search_table_stu_number">学籍番号</th>
                         <th style="font-size: 30px;" class="search_table_course">学科</th>
-                    </tr> -->
-                </table>
-                <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
+                    </tr>
+                </table> -->
+                
+            <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
+            <div class="scroll_bar">
             <table class="stu_search">
                 <tr>
                     <th class="book_num"></th>
@@ -50,6 +51,7 @@
                   <td class="blue"></td>
                 </tr>
             </table>
+            </div>
             </div>
             <!-- search_table -->
                 <!-- <div class="search_table">

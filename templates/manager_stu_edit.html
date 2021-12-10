@@ -7,14 +7,16 @@
 {% block content %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <form action="{{url_for('manager_student_edit')}}" method="post">
-            <p class="report" style="margin-left: 25%;">※以下の内容ご入力の上、ご確認ください。</p>
-            <div class="edit_board" style="width: 56%;margin-right: 0%;margin-left: 25%;">
+            <p class="report2">※以下の内容ご入力の上、ご確認ください。</p>
+            <div class="edit_board">
                 <p class="name">名前</p>
                 <p class="name_type"><span><input type="text" name="name" value="盛岡"></span>
                     <span><button>検索</button></span>
                 </p>
                 <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
-                <table class="stu_search">
+                
+                <div class="scroll_bar">
+                    <table class="stu_search">
                     <tr>
                         <th class="book_num"></th>
                         <th class="promotion_table">名前</th>
@@ -39,6 +41,7 @@
                     {% endif %}
                     {% endfor %}
                 </table>
+                </div>
                 </div>
         </form>
 {% endblock %}

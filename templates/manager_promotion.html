@@ -12,7 +12,8 @@
             {% endif %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
             <form action="{{url_for('manager_promotion_result')}}" method="get">
-            <table class="book_table">
+                <div class="scroll_bar">
+                <table class="book_table">
                 <tr>
                     <!-- <th class="book_num"></th> -->
                     <th class="promotion_table">名前</th>
@@ -35,6 +36,7 @@
                         {% endif %}
                 {% endfor %}
             </table>
+        </div>
             <input type="submit" value="進級">
             <!-- <p class="promotion_button"><button onclick="forget_pw">進級</button></p> -->
         </form>
