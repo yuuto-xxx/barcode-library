@@ -275,8 +275,8 @@ def book_list():
                     review_avg = review_score / review_count
             except Exception as e:
                 review_avg = 0
+                print(e)
             t = db.select_tag(book_list[i][0])
-            # print(t)
             book_list[i] = book_list[i] + (review_avg,)
             tag.append(t)
         return render_template("stu_book_list.html",book_list=book_list,tag=tag)
@@ -844,24 +844,8 @@ def manager_promotion_result():
             return "成功"
         else :
             return "error"
-
     else :
-        return redirect(url_for('login_page'))
-
-    # return redirect('manager_top',session=session)
-
-#　借りる図書の履歴
-@app.route('/stu_book_history')
-def stu_book_history():
-    return "aaa"
-    # if "user" in session:
-    #     user = session["user"]
-    #     stu_number = user[0]
-    #     name = user[1]
-    #     isbn = request.args.get("isbn")
-    #     return render_template("stu_review_book.html", stu_number=stu_number, name=name, isbn=isbn)
-    # else:
-    #     redirect(url_for('login_page'))
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 #　レビュー画面
 @app.route('/review')
@@ -952,15 +936,11 @@ def book_detail():
     book = db.book_detail(isbn)
     review = db.book_show_review(isbn)
     tag_pd,tag = db.tag_pull_down(isbn)
-    # print(tag_pd)
-    # print(tag)
     return render_template("book_detail.html", book=book, review=review,tag=tag,tag_pd=tag_pd)
 
 def book_detail(isbn):
     book = db.book_detail(isbn)
     tag_pd,tag = db.tag_pull_down(isbn)
-    # print(tag_pd)
-    # print(tag)
     return render_template("book_detail.html", book=book,tag=tag,tag_pd=tag_pd)
 
 # タグ追加

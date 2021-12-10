@@ -37,8 +37,8 @@
               ).then( //許可
                 function(stream){
                   video.srcObject = stream;
-                  //1.5秒毎にスキャンする
-                  setTimeout(Scan,1500,true);
+                  //3秒毎にスキャンする
+                  setTimeout(Scan,3000,true);
                 }
               ).catch( //拒否
                 function(err){jan.value+=err+'\n';}
