@@ -6,19 +6,11 @@
   form {
     border: 2px solid #707070;
     padding: 10px 10px 0px 40px;
-    /* width: 70%; */
     max-width: 700px;
     border-radius: 20px;
-    /* margin-left: 20pt; */
     margin-bottom: 20px;
     }
-      /* .camera_area form h4{
-        font-size: 12pt;
-        margin-top: -5pt;
-        margin-left: 10%;
-      } */
       #preview{
-        /* margin-left: 45pt; */
         margin-bottom: 10px;
       } 
     .form_group {
@@ -110,19 +102,11 @@
   form {
     border: 2px solid #707070;
     padding: 10px 10px 0px 20px;
-    /* width: 70%; */
     max-width: 700px;
     border-radius: 20px;
-    /* margin-left: 20pt; */
     margin-bottom: 20px;
     }
-      /* .camera_area form h4{
-        font-size: 12pt;
-        margin-top: -5pt;
-        margin-left: 10%;
-      } */
       #preview{
-        /* margin-left: 45pt; */
         margin-bottom: 10px;
       } 
     .form_group {
@@ -181,7 +165,11 @@
   float: left;
   margin-left: -55%;
   }
-  
+
+  .info2 img{
+    width: 250px;
+    height: 500px;
+}
   
     /* ボタン配置 */
   * input[type=submit] {
