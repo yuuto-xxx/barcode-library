@@ -22,15 +22,27 @@
                     <li><input type="text" placeholder="出版社" autocomplete="off" value={{book[4]}} disabled></li>
                     <li><input type="text" placeholder="発売日" autocomplete="off" value={{book[5]}} disabled></li>
                 </ul>
+                {% for i in tag%}
+                    <a href="{{url_for('stu_book_search',key=i,tag_flag=1)}}">{{i[0]}}</a>
+                {% endfor %}
             </div>
+        </form>
+        <form action="{{url_for('tag_add')}}" method="post">
             <div class="flex">
                 <h4>残り 3 冊</h4>
                 <div class="tag2">
-                    <input type="text" half placeholder="タグを追加">
+                    <input type="text" name="tag" half placeholder="タグを追加" list="datalist">
+                    <datalist name="course" id="datalist">
+                        <option value="" hidden>タグを選択</option>
+                        {% for n in tag_pd%}
+                            <option value="{{n[0]}}">{{n[0]}}</option>
+                        {% endfor %}
+                    </datalist>        
+                    <input type="text" name="book_number" value="{{book[0]}}">
                     <input type="submit" value="追加">
                 </div>
             </div>
-        </form>
+            </form>
         <div class="flex2">
             <h4>レビュー</h4>
             <button type="button" onclick="window.location.href='{{url_for('review', isbn=book[0])}}'">カスタムレビューを書く</button>
