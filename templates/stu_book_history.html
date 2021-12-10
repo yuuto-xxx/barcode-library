@@ -8,43 +8,31 @@
             <th class="book_num"></th>
             <th class="column_book">タイトル</th>
             <th class="column_book">著者</th>
+            <th class="column_book">出版社</th>
             <th class="column_book">貸出日</th>
-            <th class="column_book">出版日</th>
             <th class="column_book">返却日</th>
         </tr>
-        
-        <tr>
-            <td class="blue">1</td>
-            <td class="blue">2</td>
-            <td class="blue">3</td>
-            <td class="blue">4</td>
-            <td class="blue">5</td>
-            <td class="blue">6</td>
-        </tr>
-            
-            <td class="white">2</td>
-            <td class="white"></td>
-            <td class="white"></td>
-            <td class="white"></td>
-            <td class="white"></td>
-            <td class="white"></td>
-        </tr>
-        <tr>
-            <td class="blue">3</td>
-            <td class="blue"></td>
-            <td class="blue"></td>
-            <td class="blue"></td>
-            <td class="blue"></td>
-            <td class="blue"></td>
-        </tr>
-        <tr>   
-            <td class="white">4</td>
-            <td class="white"></td>
-            <td class="white"></td>
-            <td class="white"></td>
-            <td class="white"></td>
-            <td class="white"></td>
-        </tr>
+        {% for i in range(history | length ) %}
+            {% if i%2 == 0 %}
+                <tr>
+                    <td class="blue">{{i+1}}</td>
+                    <td class="blue">{{history[i][0]}}</td>
+                    <td class="blue">{{history[i][2]}}</td>
+                    <td class="blue">{{history[i][3]}}</td>
+                    <td class="blue">{{history[i][4]}}</td>
+                    <td class="blue">{{history[i][5]}}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td class="white">{{i+1}}</td>
+                    <td class="white">{{history[i][0]}}</td>
+                    <td class="white">{{history[i][2]}}</td>
+                    <td class="white">{{history[i][3]}}</td>
+                    <td class="white">{{history[i][4]}}</td>
+                    <td class="white">{{history[i][5]}}</td>
+                </tr>
+            {% endif %}
+        {% endfor %}
     </table>
     </div>   
 {% endblock %}

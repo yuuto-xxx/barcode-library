@@ -1,0 +1,57 @@
+{% extends "student_layout.html" %}
+{% block content %}
+<!-- <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}"> -->
+    <p class="result_book">※該当検索は{{book_list | length}}件です</p>
+    <form action="{{url_for('stu_book_search')}}" method="get">
+        <span class="book_search">キーワード：</span>
+        <input type="text" name="key" size="30" autocomplete="off">
+        <input type="hidden" name="tag_flag" value="0">
+        <input type="submit" class="view_search" value="検索">
+    </form>
+    {{result}}
+    <!-- <span class="book_search" style="margin-left: 27%;">キーワード：</span>
+    <input type="text" name="key" size="19" autocomplete="off">
+    <button class="view_search">検索</button><br> -->
+    <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
+    <div class="scroll_bar">
+    <table class="book_table">
+            <tr>
+                <th class="book_column">タイトル</th>
+                <th class="book_column">著者</th>
+                <th class="book_column">出版社</th>
+                <th class="book_column_review">評価</th>
+                <th class="book_column_available">貸出可否</th>
+                <th class="tag">タグ</th>
+            </tr>
+            {% for i in range(book_list | length) %}
+                {% if i%2 == 0 %}
+            <tr>
+                <td class="blue"><a href="{{url_for('book_detail', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
+                <td class="blue">{{book_list[i][3]}}</td>
+                <td class="blue">{{book_list[i][4]}}</td>
+                <td class="blue">{{book_list[i][12]}}</td>
+                <td class="blue">〇</td>
+                <td class="blue">
+                    {% for n in tag[i]%}
+                        <a href="{{url_for('stu_book_search',key=n[1],tag_flag=1)}}">{{n[1]}}</a>
+                    {% endfor %}
+                </td>
+            </tr>
+                {% else %}
+            <tr>
+                <td class="white"><a href="{{url_for('book_detail', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
+                <td class="white">{{book_list[i][3]}}</td>
+                <td class="white">{{book_list[i][4]}}</td>
+                <td class="white">{{book_list[i][12]}}</td>
+                <td class="white">〇</td>
+                <td class="white">
+                    {% for n in tag[i]%}
+                        <a href="{{url_for('stu_book_search',key=n[1],tag_flag=1)}}">{{n[1]}}</a>
+                    {% endfor %}
+                </td>
+            </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        </div>
+{% endblock %}
