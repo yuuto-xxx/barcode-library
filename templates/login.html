@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
 	<title>ログインページ</title>
 </head>
+
 <body>
 	{% if session != None %}
         <p style="color: blue;">{{session}}</p>
@@ -16,37 +17,39 @@
 	<script src="static/js/login.js"></script>
 	<div class="wrapper">
 		<form action="{{url_for('stu_top')}}" method="POST" class="login">
-		<p class="title">学生ログイン</p>
-		<a href="{{url_for('manager_login')}}" id="migi">管理者ログイン</a>
-		<input type="email" name="mail" placeholder="メールアドレス" required="required" autofocus/>
-		<i class="fa fa-user"></i>
-
-		<form id="fieldPassword">
-		<span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()"></span>
-		<input type="password" name="password" id="textpassword"  placeholder="パスワード" required="required"/>
-
-		<i class="fa fa-key"></i>
-		<a href="{{url_for('forget_pw')}}">パスワード忘れた方</a><br>
+			<p class="title">学生ログイン</p>
+			<a href="{{url_for('manager_login')}}" id="migi">管理者ログイン</a><br>
+			<div class="input-wrap">
+				<input type="email" name="mail" placeholder="メールアドレス" required="required" autofocus />
+				<i class="fa fa-user"></i>
+			</div>
+			<form id="fieldPassword">
+				<div class="input-wrap">
+					<input type="password" name="password" id="textpassword" placeholder="パスワード" required="required" />
+					<i class="fa fa-key"></i>
+					<i id="buttonEye" class="toggle-pass fa fa-eye" onclick="pushHideButton()"></i>
+				</div>
+				<a href="{{url_for('forget_pw')}}">パスワード忘れた方</a><br>
 				
-			<button>
-				<i class="spinner"></i>
-				<span class="state">ログイン</span>
-		</button>
-	</form>
-	</form>
-</div>
-<script language="javascript">
-	function pushHideButton() {
-		var txtPass = document.getElementById("textpassword");
-		var btnEye = document.getElementById("buttonEye");
-		if (txtPass.type === "text") {
-			txtPass.type = "password";
-			btnEye.className = "fa fa-eye";
-		} else {
-			txtPass.type = "text";
-			btnEye.className = "fa fa-eye-slash";
+				<button>
+					<i class="spinner"></i>
+					<span class="state">ログイン</span>
+				</button>
+			</form>
+		</form>
+	</div>
+	<script language="javascript">
+		function pushHideButton() {
+			var txtPass = document.getElementById("textpassword");
+			var btnEye = document.getElementById("buttonEye");
+			if (txtPass.type === "text") {
+				txtPass.type = "password";
+				btnEye.className = "fa fa-eye toggle-pass";
+			} else {
+				txtPass.type = "text";
+				btnEye.className = "fa fa-eye-slash toggle-pass";
+			}
 		}
-	}
-</script>
+	</script>
 </body>
 </html>
