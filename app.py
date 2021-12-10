@@ -119,13 +119,14 @@ def book_register_camera():
 @app.route("/book_register_verification")
 def book_register_verification():
     isbn = request.args.get("isbn")
+    print(isbn)
     if len(isbn) <= 9:
         return "isbnを入力して下さい"
     else:
         json_data = register_book.get_book(isbn)
         if(json_data == None):
-            print("jsonなし")
-            return "検索結果なし"
+            error = "検索結果なし"
+            return render_template("book_register_camera.html",error=error)
         else:
             large_image_url = json_data["largeImageUrl"]
             title = json_data["title"]
@@ -146,7 +147,7 @@ def book_register_result():
     book = request.args.getlist("book")
     book.append(quantity)
     db.book_register(book)
-    return render_template("manager_book_register.html")
+    return render_template("book_register_camera.html")
 
 #　本手入力登録
 @app.route("/manual_book_register")
