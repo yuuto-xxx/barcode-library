@@ -51,7 +51,7 @@
     }
     .info2 img{
         width: 250px;
-        height: 150px;
+        height: 300px;
     }
       /* テキストボックス配置 */
     input {
@@ -139,12 +139,6 @@
         background-color: rgba(36, 36, 39, 0.5);
         border-radius: 10px;
     }
-    
-    /* 
-    #review::-webkit-scrollbar-track {
-        background-color: #e4e4e4;
-        border-radius: 100px;
-    } */
     
     .main_board{
         /* margin-top: 70pt; */
