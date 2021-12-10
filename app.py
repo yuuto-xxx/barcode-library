@@ -23,6 +23,8 @@ app = Flask(__name__)
 
 # 秘密鍵
 app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
+# upload_folder = './library_application/uploads/image/'
+# app.config['UPLOAD_FOLDER'] = upload_folder
 
 @app.route("/") #学生ログイン
 def login_page():
