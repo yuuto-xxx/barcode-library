@@ -1,12 +1,11 @@
 {% extends "manager_layout.html" %}
-{% block content %}
   {% block head %}
     <link rel="stylesheet" href="{{url_for('static', filename='css/book_register_camera.css')}}">
     <script type="text/javascript" src="{{url_for('static', filename='js/quagga.min.js')}}"></script>
     <title>本登録(カメラ)</title>
   {% endblock %}
     
-<body>
+  {% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="form_group">
     <h4>※本をカメラで登録する為、本のisbnをカメラに向かってかざしてください。</h4> 
@@ -99,7 +98,7 @@
                 }
                 if(DetectedCount>=3){
                   console.log(result.codeResult.code);
-                  jan.value+=result.codeResult.code+' ';
+                  jan.value+=result.codeResult.code+'';
                   jan.scrollTop=jan.scrollHeight;  
                   DetectedCode='';
                   DetectedCount=0;
@@ -117,6 +116,4 @@
           </div>
         </div>
         </form> 
-</body>
-</html>
 {% endblock %}
