@@ -2,15 +2,15 @@
 
 {% block head %}
 <title>学生変更</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
 {% endblock %}
 
 {% block content %}
-            <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <form action="{{url_for('manager_student_edit')}}" method="post">
             <p class="report2">※以下の内容ご入力の上、ご確認ください。</p>
             <div class="edit_board">
                 <p class="name">名前</p>
-                <p class="name_type"><span><input type="text" name="name" value="盛岡"></span>
+                <p class="name_type"><span><input type="text" name="name" placeholder="盛岡"></span>
                     <span><button>検索</button></span>
                 </p>
                 <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">

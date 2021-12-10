@@ -107,12 +107,9 @@
         text-align: center;
         align-items: center;
     }
-    
     .tag2{
         width: 90%;
-
     }
-    
     /* 要素内の縦スクロールバー追記 */
     .review{
         overflow-y: auto;
@@ -141,7 +138,6 @@
     }
     
     .main_board{
-        /* margin-top: 70pt; */
         width: 100%;
         margin: 0 auto;
         transition: all 0.6s;
