@@ -68,6 +68,38 @@
     .rent_table .column_title{
         width:60%
     }
+    .book_table2{
+        overflow-y: auto;
+        border: none;
+        width: 100%;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+    }
+    /* テーブル交互 */
+    .Even{
+        background-color: #E7EFF8;
+        font-size: 20px;
+        height: 40px;
+        border-right: black solid 1px;
+        border-bottom: black solid 1px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .Odd{
+        background-color: white;
+        font-size: 20px;
+        height: 40px;
+        border-right: black solid 1px;
+        border-bottom: black solid 1px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    #preview{
+        width: 600px;
+        height: 300px;
+    }
 }
 @media screen and (max-width: 480px) {
     .scroll_bar{
@@ -108,7 +140,9 @@
     }
     .rent_result2 .id_table{
         width: 10%;
-
+    }
+    .rent_result2 .column_view{
+        width: 45%;
     }
     th {
         background-color: #36587A;
@@ -134,10 +168,43 @@
         border-left: black solid 1px;
         border-bottom: black solid 1px;
     }
+    .book_table2{
+        overflow-y: auto;
+        border: none;
+        width: 100%;
+        margin-top: 2%;
+        border-collapse: collapse;
+        font-family: 'Times New Roman', Times, serif;
+        border-left: black solid 1px;
+        border-bottom: black solid 1px;
+
+    }
     .book_table .column_book {
         width: 20%;
     }
     .book_num{
         width: 7%;
+    }
+    .Even{
+        background-color: #E7EFF8;
+        height: 35pt;
+        text-align: center;
+        font-size: 20px;
+        border-right: black solid 1px;
+        border-bottom: black solid 1px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .Odd{
+        background-color: white;
+        font-size: 20px;
+        height: 35pt;
+        border-right: black solid 1px;
+        border-bottom: black solid 1px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    #preview{
+        width: 100px;
+        height: 100px;
     }
 }

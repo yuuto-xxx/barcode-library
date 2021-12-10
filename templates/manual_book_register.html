@@ -1,13 +1,17 @@
 {% extends "manager_layout.html" %}
-{% block content %}
+
+{% block head %}
 <title>手入力画面</title>
 <link rel="stylesheet" href="{{url_for('static', filename='css/manual_book_register.css')}}">
+{% endblock %}
+
+{% block content %}
 <div class="form_group">
-    <form action="{{url_for('book_register_result')}}">
+    <form action="{{url_for('manual_book_register_result')}}" enctype="multipart/form-data" method="post">
         <h4 style="text-align: left;">本詳細情報</h4>
         <div class="square">
             <ul class="info2">
-                <li><input type="file" accept='image/*' class="pro_image" onchange="previewImage(this);"></li>
+                <li><input type="file" name="file" accept='image/*' class="pro_image" onchange="previewImage(this);"></li>
                 <li><p>
                     写真を表示:<br>
                     <canvas id="preview" style="max-width:280px;"></canvas>
@@ -15,11 +19,11 @@
                 <li>冊数:<input type="number" half  min="1" autocapitalize="off" name="quantity"></li>
             </ul>
             <ul class="info">
-                <li><input type="text" placeholder="ISBN→例:9784295011248" autocomplete="off"></li>
-                <li><input type="text" placeholder="タイトル→例:スッキリわかるjava入門" autocomplete="off"></li>
-                <li><input type="text" placeholder="著者→例:盛岡太郎" autocomplete="off"></li>
-                <li><input type="text" placeholder="出版社→例:MCL盛岡情報ビジネス＆デザイン専門学校" autocomplete="off"></li>
-                <li><input type="text" placeholder="発売日→例:2020/01/30" autocomplete="off"></li>
+                <li><input type="text" placeholder="ISBN→例:9784295011248" autocomplete="off" name="isbn"></li>
+                <li><input type="text" placeholder="タイトル→例:スッキリわかるjava入門" autocomplete="off" name="title"></li>
+                <li><input type="text" placeholder="著者→例:盛岡太郎" autocomplete="off" name="author"></li>
+                <li><input type="text" placeholder="出版社→例:MCL盛岡情報ビジネス＆デザイン専門学校" autocomplete="off" name="publisher"></li>
+                <li><input type="text" placeholder="発売日→例:2020/01/30" autocomplete="off" name="release_day"></li>
             </ul>
         </div>
         <input type="submit" value="この本を登録">

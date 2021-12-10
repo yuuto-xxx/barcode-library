@@ -1,6 +1,9 @@
 {% extends "manager_layout.html" %}
+{% block head %}
+<title>学生進級</title>
+<link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
+{% endblock %}
 {% block content %}
-            <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <p class="report">※進級処理をしたら下記の学生が削除されます</p>
             {% if flagnum == 0%}
             <p class="last_change" style="margin-right: 3%;"><span>最終変更：{{result[1]}}</span><span class="change_name">{{result[0]}}</span></p>
@@ -9,7 +12,8 @@
             {% endif %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
             <form action="{{url_for('manager_promotion_result')}}" method="get">
-            <table class="book_table">
+                <div class="scroll_bar">
+                <table class="book_table">
                 <tr>
                     <!-- <th class="book_num"></th> -->
                     <th class="promotion_table">名前</th>
@@ -32,6 +36,7 @@
                         {% endif %}
                 {% endfor %}
             </table>
+        </div>
             <input type="submit" value="進級">
             <!-- <p class="promotion_button"><button onclick="forget_pw">進級</button></p> -->
         </form>

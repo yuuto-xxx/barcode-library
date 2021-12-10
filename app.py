@@ -3,7 +3,7 @@ from hashlib import new
 from logging import error
 from typing import Reversible
 import os
-from flask import Flask, render_template, redirect, request, url_for, session, send_file
+from flask import Flask, render_template, redirect, request, url_for, session
 from flask.globals import g
 from flask.sessions import SessionInterface
 import register_book
@@ -13,15 +13,18 @@ import mail_send
 import random
 import string
 import csv
-from werkzeug.utils import secure_filename, send_file
+from werkzeug.utils import secure_filename
 import datetime as dt
 from datetime import timedelta
 import json
+import pathlib
 
 app = Flask(__name__)
 
 # 秘密鍵
 app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
+# upload_folder = './library_application/uploads/image/'
+# app.config['UPLOAD_FOLDER'] = upload_folder
 
 @app.route("/") #学生ログイン
 def login_page():
@@ -94,7 +97,8 @@ def manager_top():
         student_flg = 0
         return render_template("first_login.html", student_flg=student_flg, mail=mail)
     else:
-        return render_template("manager_renting_stu.html")
+        renting_list = db.student_renting()
+        return render_template("manager_renting_stu.html", renting_list=renting_list)
 
 #学生が借りている本の一覧(貸出一覧)
 @app.route("/manager_renting_student")
@@ -142,8 +146,8 @@ def book_register_verification():
 def book_register_result():
     quantity = request.args.get("quantity")
     book = request.args.getlist("book")
-    print(book[5])
     book.append(quantity)
+    print(book)
     db.book_register(book)
     return "登録完了"
     # return render_template("",book=book)
@@ -152,6 +156,27 @@ def book_register_result():
 @app.route("/manual_book_register")
 def manual_book_register():
     return render_template('manual_book_register.html')    
+
+@app.route("/manual_book_register_result", methods=['POST'])
+def manual_book_register_result():
+    print("pathlib:",pathlib.Path.cwd())
+    file = request.files.get('file')
+    if 'file' not in request.files:
+        return "画像ファイルなし"
+    file_name = secure_filename(file.filename)
+    isbn = request.form.get("isbn")
+    title = request.form.get("title")
+    author = request.form.get("author")
+    publisher = request.form.get("publisher")
+    release_day = request.form.get("release_day")
+    quantity = request.form.get("quantity")
+    img_url = os.path.join('./static/image/', file_name )
+    print("パス:",os.path.exists('./static/image/'))
+    file.save(img_url)
+    book = [isbn, img_url, title, author, publisher, release_day, quantity]
+    print(book)
+    db.book_register(book)
+    return render_template("book_register_camera.html")
 
 #本を借りる
 @app.route("/stu_camera_rent")
@@ -218,6 +243,17 @@ def student_book_return_result():
         isbn_list = isbn.split()
         db.book_return(stu_number, isbn_list)
         return render_template("stu_book_rent.html")
+    else:
+        return redirect(url_for('login_page'))
+
+#履歴
+@app.route("/stu_book_history")
+def stu_book_history():
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        history = db.book_history(stu_number)
+        return render_template("stu_book_history.html", history=history)
     else:
         return redirect(url_for('login_page'))
 
@@ -385,7 +421,6 @@ def book_delete():
     if "user" in session:
         book = request.args.getlist("book")
         print(book)
-        print("aaa")
         # isbn,image,title,author,publisher,release_day,amount_max,book_delete_flag
         if book:
             # session["book"] = book
@@ -399,10 +434,8 @@ def book_delete_main():
     if "user" in session:
         isbn = request.args.get('isbn')
         max = request.args.get('max')
-        print(type(max))
         max1 = int(max)
         quantity = request.args.get('quantity')
-        print(type(quantity))
         quantity1 = int(quantity)
         # return render_template("book_delete_main.html",num=quantity)
         if quantity1 >= max1:

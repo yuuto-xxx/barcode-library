@@ -8,6 +8,7 @@
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <span class="report">※管理者一覧です</span>
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
+            <div class="scroll_bar">
             <table class="book_table">
                 <tr>
                     <th class="column_view">名前</th>
@@ -29,7 +30,7 @@
                 {% endif %}
                 {% endfor %}
             </table>
-
+        </div>
             <script>
                 var btn = document.getElementById("btn");
                  

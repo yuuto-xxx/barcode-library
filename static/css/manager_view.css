@@ -150,10 +150,13 @@
   margin-left: 20pt;
   font-size: 15pt;
   }
+  .main_board .report2{
+    margin-left: 20%;
+  }
   .main_board .delete_result{
   font-size: 15pt;
   color: red;
-  margin-left: 700px;
+  text-align: right;
   }
   .main_board .last_change{
     text-align: right;
@@ -228,39 +231,39 @@
   }
   /* ここは学生変更のスタイル*/
   .edit_board{
-  margin-top: 20pt;
-  margin-left: 100pt;
-  margin-right: 350pt;
-  border: black solid 1px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  }
-  .edit_board .name{
-  margin-left: 120pt;
-  margin-bottom: -10pt;
-  font-size: 20pt;
-  font-weight:lighter;
-  }
-  .edit_board .name_type{
-  margin-left: 110pt;
-  }
-  .name_type input{
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  font-size: 20pt;
-  padding: 10px;
-  width: 200pt;
-  }
-  .name_type button{
-  font-size: 15pt;
-  background-color: #45B3CF;
-  color: white;
-  width: 70pt;
-  height: 35pt;
-  margin-left: 60pt;
-  }
+    margin-top: 20pt;
+    width: 56%;
+    margin-left: 25%;
+    border: black solid 1px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    }
+    .edit_board .name{
+    margin-left: 120pt;
+    margin-bottom: -10pt;
+    font-size: 20pt;
+    font-weight:lighter;
+    }
+    .edit_board .name_type{
+    margin-left: 110pt;
+    }
+    .name_type input{
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    font-size: 20pt;
+    padding: 10px;
+    width: 200pt;
+    }
+    .name_type button{
+    font-size: 15pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 70pt;
+    height: 35pt;
+    margin-left: 60pt;
+    }
   .search_table{
   border: black solid 2px;
   margin: 30pt 110pt 40pt
@@ -350,6 +353,9 @@
   border-bottom: 1px solid rgb(139, 138, 138);
   width: 200pt;
   }
+  #course_margin{
+    margin-left: 30pt;
+  }
   .course_table table tr {
   height: 30pt;
   }
@@ -402,7 +408,7 @@
   }
 
 /* ここからスマホ画面 */
-  @media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
     .hamburger {
       display : block;
       position: absolute;
@@ -435,6 +441,7 @@
     .hamburger span:nth-child(3) {
       top: 30px;
     }
+    
     /* ナビ開いてる時のボタン */
     .hamburger.active span:nth-child(1) {
       top : 16px;
@@ -444,6 +451,7 @@
       -moz-transform   : rotate(-45deg);
       transform        : rotate(-45deg);
     }
+    
     .hamburger.active span:nth-child(2),
     .hamburger.active span:nth-child(3) {
       top: 16px;
@@ -452,31 +460,34 @@
       -moz-transform   : rotate(45deg);
       transform        : rotate(45deg);
     }
+    
     nav.globalMenuSp {
       /* overflow-y: auto; */
       position: fixed;
       z-index : 2;
       margin-top: 10pt;
-      top  : 40px;
+      top  : 47px;
       left : 0;
       color: #000;
       background: #707070;
       text-align: center;
       transform: translateX(-100%);
       transition: all 0.6s;
-      width: 25%;
+      width: 40%;
     }
+  
     /* メニュー設定 */
     nav.globalMenuSp ul {
       background: #707070;
       padding: 0;
       width: 100%;
-      height: 85vh;
-    } 
+      height: 90vh;
+    }
+    
     nav.globalMenuSp ul li {
       list-style-type: none;
       padding: 0;
-      width: 100%; 
+      width: 100%;
     }
     nav.globalMenuSp ul li:last-child {
       margin-top: 3pt;
@@ -487,21 +498,24 @@
     nav.globalMenuSp ul li:hover{
       background :#ddd;
     }
+    
     nav.globalMenuSp ul li a {
       display: block;
       color: #FFFFFF;
       padding: 0.5em 0;
       text-decoration :none;
       font-size: 15pt;
-    } 
+    }
     /* このクラスを、jQueryで付与・削除する */
     nav.globalMenuSp.active {
       transform: translateX(0%);
     }
+    
     body {
       margin: 0;
       width: 100%;
-    }   
+    }
+    
     header {
       position: absolute;
       position: fixed;
@@ -512,25 +526,30 @@
       top: 0;
       left: 0;
     }
+    
     .title {
       margin-left: 70px;
       margin-top: 10px;
       color: #FFFFFF;
     }
+    
     .header_menu {
       list-style: none;
       padding: 0;
     }
+    
     .header_menu li {
       width: 220px;
       padding: 10px 0;
       margin-left: 5px;
     }
+    
     .logout {
       position: absolute;
       bottom: 20px;
       width: 220px;
-    }    
+    }
+    
     .header_menu .menu_style {
       font-size: 1.2rem;
       color: #aaa;
@@ -538,29 +557,31 @@
       width: 100%;
       padding: 10px 0 10px 20px;
       text-decoration: none;
-    } 
+    }
+    
     .menu_hover:hover {
       color: #04A9F3;
       border-left: #04A9F3 5px solid;
     }
     /* ここが問題児 */
     .main_board{
-    /* margin-top: 70pt; */
-    /* width: 70%; */
-    margin: 0 auto;
-    transition: all 0.6s;
-    }
-    .main_board.active{
-      transform: translateX(20%);
+      margin-top: 70pt;
+      /* width: 100%; */
+      /* margin: 0 auto; */
+      transition: all 0.6s;
     }
     .main_board .report{
-    margin-left: 20pt;
+    margin-left: 5%;
     font-size: 15pt;
+    }
+    .main_board .report2{
+      margin-left: 5%;
+      font-size: 13pt;
     }
     .main_board .delete_result{
     font-size: 15pt;
     color: red;
-    margin-left: 700px;
+    text-align: right;
     }
     .main_board .last_change{
       text-align: right;
@@ -573,6 +594,10 @@
     .main_board .student_search{
       margin-left: 130pt;
       font-size: 15pt;
+      display: none;
+    }
+    input[type=text]{
+      margin-left: 3%;
     }
     .main_board .view_search{
     font-size: 15pt;
@@ -630,42 +655,43 @@
     font-size: 15pt;
     background-color: #45B3CF;
     color: white;
-    width: 70pt;
     }
     /* ここは学生変更のスタイル*/
     .edit_board{
     margin-top: 20pt;
-    margin-left: 100pt;
-    margin-right: 350pt;
+    width: 85%;
+    margin-left: 5%;
     border: black solid 1px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
     }
     .edit_board .name{
-    margin-left: 120pt;
+    margin-left: 5%;
     margin-bottom: -10pt;
-    font-size: 20pt;
+    font-size: 18pt;
     font-weight:lighter;
     }
     .edit_board .name_type{
-    margin-left: 110pt;
+    margin-left: 4%;
+    display: block;
     }
     .name_type input{
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
-    font-size: 20pt;
+    font-size: 15pt;
     padding: 10px;
-    width: 200pt;
+    width: 80%;
     }
     .name_type button{
     font-size: 15pt;
     background-color: #45B3CF;
     color: white;
     width: 70pt;
-    height: 35pt;
-    margin-left: 60pt;
+    height: 30pt;
+    margin-left: 33%;
+    margin-top: 5%;
     }
     .search_table{
     border: black solid 1px;
@@ -688,8 +714,8 @@
     /*一括登録の画面*/
     .file_choose{
     border: black solid 1px;
-    margin-left: 30pt;
-    margin-right: 300pt;
+    width: 90%;
+    margin-left: 5%;
     height: 35pt;
     position: relative;
     }
@@ -698,11 +724,11 @@
     background: #666;
     color:#fff;
     font-size: 16px;
-    padding: 5px 10px;
+    padding: 5px 5px;
     border-radius: 4px;
     transition: all 0.3s;
     margin-top: 5pt;
-    margin-left: 588pt;
+    margin-left: 65%;
     
     }
     .file_choose label:hover {
@@ -722,10 +748,12 @@
     margin:0 0 0 10px;
     position: absolute;
     margin-top: 5pt;
+    overflow: hidden;
+    width: 50%;
     }
     .link_style{
     text-decoration: none;
-    margin-left: 520pt;
+    margin-left: 20%;
     color: #04A9F3;
     font-size: 13pt;
     }
@@ -733,8 +761,9 @@
     color: red;
     }
     .course_table{
-    margin-left: 295pt;
-    margin-top: 5pt;
+      width: 100%;
+      margin-top: 5pt;
+      margin-bottom: 10%;
     }
     .course_table table {
     border: 1px solid rgb(139, 138, 138);
@@ -750,10 +779,10 @@
     width: 200pt;
     }
     .course_table table tr {
-    height: 30pt;
+    height: 45%;
     }
     .course_table table .course_id{
-    width: 30pt;
+    width: 10%;
     text-align: center;
     }
     .csv_table{
@@ -777,7 +806,7 @@
     margin-left: 80pt;
     }
     .regist_button{
-    margin-left: 330pt;
+    margin-left: 38%;
     }
     .regist_button button{
     font-size: 15pt;
@@ -788,7 +817,7 @@
     .main_board .regist_report{
     font-size: 20pt;
     font-weight: lighter;
-    margin-left: 60pt;
+    margin-left: 3%;
     margin-top: 80pt;
     }
     .camera_area{
