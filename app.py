@@ -18,7 +18,6 @@ import datetime as dt
 from datetime import timedelta
 import json
 import pathlib
-import base64
 
 app = Flask(__name__)
 
@@ -247,6 +246,17 @@ def student_book_return_result():
     else:
         return redirect(url_for('login_page'))
 
+#履歴
+@app.route("/stu_book_history")
+def stu_book_history():
+    if "user" in session:
+        user = session["user"]
+        stu_number = user[0]
+        history = db.book_history(stu_number)
+        return render_template("stu_book_history.html", history=history)
+    else:
+        return redirect(url_for('login_page'))
+
 #本の一覧(学生)
 @app.route("/student_book_list")
 def book_list():
@@ -341,7 +351,6 @@ def book_delete():
     if "user" in session:
         book = request.args.getlist("book")
         print(book)
-        print("aaa")
         # isbn,image,title,author,publisher,release_day,amount_max,book_delete_flag
         if book:
             # session["book"] = book
@@ -355,10 +364,8 @@ def book_delete_main():
     if "user" in session:
         isbn = request.args.get('isbn')
         max = request.args.get('max')
-        print(type(max))
         max1 = int(max)
         quantity = request.args.get('quantity')
-        print(type(quantity))
         quantity1 = int(quantity)
         # return render_template("book_delete_main.html",num=quantity)
         if quantity1 >= max1:

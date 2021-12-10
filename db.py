@@ -358,6 +358,28 @@ def book_return(stu_number, isbn_list):
     cur.close()
     conn.close()
 
+#履歴
+def book_history(stu_number):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select book.title, book,author, book.publisher,\
+         rent_book.rent_day, rent_book.return_day from book,rent_book \
+             where rent_book.stu_number=%s and rent_book.book_isbn=book.book_isbn \
+                 and return_day is not null"
+
+    try:
+        cur.execute(sql,(stu_number,))
+    except Exception as e:
+        print("本の履歴取得エラー",e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
 # 本の削除(一部)
 def book_delete_amount(isbn,amount):
     conn = get_connection()
@@ -531,6 +553,7 @@ def manager_promotion_delete():
     cur.close()
     conn.close()
     return True
+
 def promotion_history(mail):
     conn = get_connection()
     cur = conn.cursor()
@@ -546,6 +569,7 @@ def promotion_history(mail):
     cur.close()
     conn.close()
     return True
+
 def update_student(mail, new_pw, new_salt):
     conn = get_connection()
     cur = conn.cursor()
