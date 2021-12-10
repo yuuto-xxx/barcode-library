@@ -262,6 +262,7 @@ def stu_book_history():
 def book_list():
     if "user" in session:
         book_list = db.book_list()
+        tag = []
         for i in range(len(book_list)):
             review_avg = 0
             review = db.book_review_score(book_list[i][0])
@@ -277,10 +278,79 @@ def book_list():
                     review_avg = review_score / review_count
             except Exception as e:
                 review_avg = 0
+            t = db.select_tag(book_list[i][0])
+            # print(t)
             book_list[i] = book_list[i] + (review_avg,)
-        return render_template("stu_book_list.html",book_list=book_list)
+            tag.append(t)
+        return render_template("stu_book_list.html",book_list=book_list,tag=tag)
     else:
         return redirect(url_for('login_page'))
+
+# 本の検索(学生)
+@app.route("/stu_book_search")
+def stu_book_search():
+    if "user" in session:
+        key = request.args.get("key")
+        tag_flag = request.args.get("tag_flag")
+        if tag_flag == "0":
+            tag = []
+            result = db.stu_book_search(key)
+            
+            for i in range(len(result)):
+                t = db.select_tag(result[i][0])
+                tag.append(t)
+            for i in range(len(result)):
+                review_avg = 0
+                review = db.book_review_score(result[i][0])
+                review_score = 0
+                review_count = 0
+                for j in range(len(review)):
+                    review_score += review[j]
+                    review_count += 1
+                try:
+                    if review_count == 0:
+                        review_avg = 0
+                    else:
+                        review_avg = review_score / review_count
+                except Exception as e:
+                    review_avg = 0
+                result[i] = result[i] + (review_avg,)
+                # print("0",result)
+        else :
+            tag =[]
+            result = db.tag_book_search(key)
+            
+            for i in range(len(result)):
+                t = db.select_tag(result[i][0])
+                tag.append(t)
+            for i in range(len(result)):
+                t = db.select_tag(result[i][0])
+                tag.append(t)
+            for i in range(len(result)):
+                review_avg = 0
+                review = db.book_review_score(result[i][0])
+                review_score = 0
+                review_count = 0
+                for j in range(len(review)):
+                    review_score += review[j]
+                    review_count += 1
+                try:
+                    if review_count == 0:
+                        review_avg = 0
+                    else:
+                        review_avg = review_score / review_count
+                except Exception as e:
+                    review_avg = 0
+                result[i] = result[i] + (review_avg,)
+            # print("1",result)
+        if result !=[]:
+            return render_template("stu_book_sreach.html",book_list=result,tag=tag)
+        else :
+            return redirect(url_for("book_list"))
+    else :
+        return redirect(url_for('login_page'))
+#         <!-- {{redirect(url_for('book_detail'))}} -->
+
 
 # 本の一覧(管理者)
 @app.route("/manager_book_list")
@@ -785,6 +855,19 @@ def manager_promotion_result():
 
     # return redirect('manager_top',session=session)
 
+#　借りる図書の履歴
+@app.route('/stu_book_history')
+def stu_book_history():
+    return "aaa"
+    # if "user" in session:
+    #     user = session["user"]
+    #     stu_number = user[0]
+    #     name = user[1]
+    #     isbn = request.args.get("isbn")
+    #     return render_template("stu_review_book.html", stu_number=stu_number, name=name, isbn=isbn)
+    # else:
+    #     redirect(url_for('login_page'))
+
 #　レビュー画面
 @app.route('/review')
 def review():
@@ -867,17 +950,35 @@ def student_id_check(student_id):
     else:
         return False
 
-#　本詳細情報(レビューも)
+# 本詳細情報(レビューも)
 @app.route("/book_detail")
 def book_detail():
     isbn = request.args.get("book")
     book = db.book_detail(isbn)
     review = db.book_show_review(isbn)
-    return render_template("book_detail.html", book=book, review=review)
+    tag_pd,tag = db.tag_pull_down(isbn)
+    # print(tag_pd)
+    # print(tag)
+    return render_template("book_detail.html", book=book, review=review,tag=tag,tag_pd=tag_pd)
 
 def book_detail(isbn):
     book = db.book_detail(isbn)
-    return render_template("book_detail.html", book=book)
+    tag_pd,tag = db.tag_pull_down(isbn)
+    # print(tag_pd)
+    # print(tag)
+    return render_template("book_detail.html", book=book,tag=tag,tag_pd=tag_pd)
+
+# タグ追加
+@app.route("/tag_add",methods=["POST"])
+def tag_add():
+    isbn = request.form.get("book_number")
+    tag_name = request.form.get("tag")
+    print(tag_name)
+    result =  db.tag_add_book(isbn,tag_name)
+    if result:
+        return redirect(url_for('book_list'))
+    else :
+        return "@tag_add_error"
 
 @app.route("/logout")
 def logout():
