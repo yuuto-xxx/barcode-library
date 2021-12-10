@@ -33,7 +33,7 @@
             
               navigator.mediaDevices.getUserMedia(
                 //マイクはオフ, カメラの設定   背面カメラを希望する 640×480を希望する 1230*800
-                {"audio":false,"video":{"facingMode":"environment","width":{"ideal":1200},"height":{"ideal":400}}}
+                {"audio":false,"video":{"facingMode":"environment"}}
               ).then( //許可
                 function(stream){
                   video.srcObject = stream;
@@ -50,8 +50,8 @@
                   w=video.videoWidth;
                   h=video.videoHeight;
                   //画面上の表示サイズ
-                  prev.style.width=(w/2)+"px";
-                  prev.style.height=(h/2)+"px";
+                  // prev.style.width=(w/2)+"px";
+                  // prev.style.height=(h/2)+"px";
                   //内部のサイズ
                   prev.setAttribute("width",w);
                   prev.setAttribute("height",h);
