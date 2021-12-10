@@ -150,6 +150,9 @@
   margin-left: 20pt;
   font-size: 15pt;
   }
+  .main_board .report2{
+    margin-left: 20%;
+  }
   .main_board .delete_result{
   font-size: 15pt;
   color: red;
@@ -228,39 +231,39 @@
   }
   /* ここは学生変更のスタイル*/
   .edit_board{
-  margin-top: 20pt;
-  margin-left: 100pt;
-  margin-right: 350pt;
-  border: black solid 1px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  }
-  .edit_board .name{
-  margin-left: 120pt;
-  margin-bottom: -10pt;
-  font-size: 20pt;
-  font-weight:lighter;
-  }
-  .edit_board .name_type{
-  margin-left: 110pt;
-  }
-  .name_type input{
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
-  font-size: 20pt;
-  padding: 10px;
-  width: 200pt;
-  }
-  .name_type button{
-  font-size: 15pt;
-  background-color: #45B3CF;
-  color: white;
-  width: 70pt;
-  height: 35pt;
-  margin-left: 60pt;
-  }
+    margin-top: 20pt;
+    width: 56%;
+    margin-left: 25%;
+    border: black solid 1px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    }
+    .edit_board .name{
+    margin-left: 120pt;
+    margin-bottom: -10pt;
+    font-size: 20pt;
+    font-weight:lighter;
+    }
+    .edit_board .name_type{
+    margin-left: 110pt;
+    }
+    .name_type input{
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    font-size: 20pt;
+    padding: 10px;
+    width: 200pt;
+    }
+    .name_type button{
+    font-size: 15pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 70pt;
+    height: 35pt;
+    margin-left: 60pt;
+    }
   .search_table{
   border: black solid 2px;
   margin: 30pt 110pt 40pt
@@ -405,7 +408,7 @@
   }
 
 /* ここからスマホ画面 */
-  @media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
     .hamburger {
       display : block;
       position: absolute;
@@ -571,6 +574,10 @@
     margin-left: 5%;
     font-size: 15pt;
     }
+    .main_board .report2{
+      margin-left: 5%;
+      font-size: 13pt;
+    }
     .main_board .delete_result{
     font-size: 15pt;
     color: red;
@@ -652,37 +659,39 @@
     /* ここは学生変更のスタイル*/
     .edit_board{
     margin-top: 20pt;
-    margin-left: 100pt;
-    margin-right: 350pt;
+    width: 85%;
+    margin-left: 5%;
     border: black solid 1px;
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
     }
     .edit_board .name{
-    margin-left: 120pt;
+    margin-left: 5%;
     margin-bottom: -10pt;
-    font-size: 20pt;
+    font-size: 18pt;
     font-weight:lighter;
     }
     .edit_board .name_type{
-    margin-left: 110pt;
+    margin-left: 4%;
+    display: block;
     }
     .name_type input{
     -webkit-border-radius: 15px;
     -moz-border-radius: 15px;
     border-radius: 15px;
-    font-size: 20pt;
+    font-size: 15pt;
     padding: 10px;
-    width: 200pt;
+    width: 80%;
     }
     .name_type button{
     font-size: 15pt;
     background-color: #45B3CF;
     color: white;
     width: 70pt;
-    height: 35pt;
-    margin-left: 60pt;
+    height: 30pt;
+    margin-left: 33%;
+    margin-top: 5%;
     }
     .search_table{
     border: black solid 1px;

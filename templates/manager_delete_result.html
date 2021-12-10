@@ -6,30 +6,32 @@
 
 {% block content %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
-            <span class="report">※管理者一覧です</span>
-            <span class="delete_result" style="margin-left: 70%;">削除完了しました。</span>
+                <p class="report">※管理者一覧です</p>
+                <p class="delete_result">削除完了しました。</p>
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
-            <table class="book_table">
-                <tr>
-                    <th class="column_view">名前</th>
-                    <th class="column_view">メールアドレス</th>
-                    <th class="book_num"></th>
-                </tr>
-                
-                <tr>
-                    <td class="blue"></td>
-                    <td class="blue"></td>
-                    <td class="blue"><button class="delete_button">削除</button></td>
-                </tr>
-                    <td class="white"></td>
-                    <td class="white"></td>
-                    <td class="white"><button class="delete_button">削除</button></td>
-                </tr>
-                <tr>
-                  <td class="blue"></td>
-                  <td class="blue"></td>
-                  <td class="blue"><button class="delete_button">削除</button></td>
-              </tr>
-            </table>
+            <div class="scroll_bar">
+                <table class="rent_result2">
+                    <tr>
+                        <th class="column_view">名前</th>
+                        <th class="column_view">メールアドレス</th>
+                        <th class="book_num"></th>
+                    </tr>
+                    
+                    <tr>
+                        <td class="blue"></td>
+                        <td class="blue"></td>
+                        <td class="blue"><button class="delete_button">削除</button></td>
+                    </tr>
+                        <td class="white"></td>
+                        <td class="white"></td>
+                        <td class="white"><button class="delete_button">削除</button></td>
+                    </tr>
+                    <tr>
+                      <td class="blue"></td>
+                      <td class="blue"></td>
+                      <td class="blue"><button class="delete_button">削除</button></td>
+                  </tr>
+                </table>
+            </div>
             <!-- promotion_column -->
 {% endblock %}
