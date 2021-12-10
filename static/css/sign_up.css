@@ -235,7 +235,7 @@
     }
     
   .form_group {
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     margin-top: 80px;
   }  
@@ -287,6 +287,10 @@
   }
   .yoko h4{
     margin-top: 5%;
+  }
+  .yoko #right{
+    text-align: right;
+    margin-bottom: -8%;
   }
   
     /* プルダウン学科css */
@@ -420,7 +424,7 @@
       border-radius: 0px;
       margin-top: 15px;
       margin-bottom: 30px;
-      margin-left: 30%;
+      margin-left: 35%;
     }
   
   * input:focus {
