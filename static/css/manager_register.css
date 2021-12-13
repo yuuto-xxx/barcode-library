@@ -53,11 +53,6 @@ input[type=text][half] {
     margin-right: 30px;
   }
 
-/* #left{
-    float: left;
-    margin-right: 350px;
-} */
-
 #left{
   width: 100%;
 }
@@ -78,7 +73,6 @@ input[type=text][half] {
   outline: 0;
 }
 .main_board{
-  /* margin-top: 70pt; */
   width: 70%;
   margin: 0 auto;
   transition: all 0.6s;
@@ -90,19 +84,6 @@ input[type=text][half] {
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
   }
-  
-  /* body {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-  } */
-  /* 
-  body{
-    text-align: center;
-  } */
   
   form {
     border: 2px solid #707070;
@@ -152,12 +133,7 @@ input[type=text][half] {
       float: left;
       margin-right: 10px;
     }
-  
-  /* #left{
-      float: left;
-      margin-right: 350px;
-  } */
-  
+
   #left{
     width: 100%;
   }
@@ -178,7 +154,6 @@ input[type=text][half] {
     outline: 0;
   }
   .main_board{
-    /* margin-top: 70pt; */
     width: 70%;
     margin: 0 auto;
     transition: all 0.6s;
