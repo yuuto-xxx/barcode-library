@@ -17,6 +17,7 @@
         <!-- カメラ -->
         <script>
             var DetectedCount=0,DetectedCode="";
+            let flag = true;
             var video,tmp,tmp_ctx,jan,prev,prev_ctx,w,h,mw,mh,x1,y1;
             window.addEventListener('load',function(event){
               video=document.createElement('video');
@@ -96,12 +97,20 @@
                   DetectedCount=0;
                   DetectedCode=result.codeResult.code;
                 }
-                if(DetectedCount>=3){
-                  console.log(result.codeResult.code);
-                  jan.value+=result.codeResult.code+'';
-                  jan.scrollTop=jan.scrollHeight;  
-                  DetectedCode='';
-                  DetectedCount=0;
+                try{
+                  if (flag){
+                    if(DetectedCount>=3){
+                    jan.value+=result.codeResult.code+'';
+                    jan.scrollTop=jan.scrollHeight;
+                    DetectedCode='';
+                    DetectedCount=0;
+                    flag = false;
+                    }
+                  }else{
+                    throw new Error("終了");
+                  }
+                }catch(e){
+                  console.log(e.message);
                 }
               });
             });

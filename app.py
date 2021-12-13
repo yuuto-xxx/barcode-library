@@ -261,6 +261,7 @@ def book_list():
     if "user" in session:
         book_list = db.book_list()
         tag = []
+        rent_flag = []
         for i in range(len(book_list)):
             review_avg = 0
             review = db.book_review_score(book_list[i][0])
@@ -280,7 +281,16 @@ def book_list():
             t = db.select_tag(book_list[i][0])
             book_list[i] = book_list[i] + (review_avg,)
             tag.append(t)
-        return render_template("stu_book_list.html",book_list=book_list,tag=tag)
+            amount_flag = db.select_amount(book_list[i][0])
+            if amount_flag:
+                if amount_flag[1] >= amount_flag[2]:
+                    rent_flag.append("X")
+                else :
+                    rent_flag.append("O")
+            else :
+                rent_flag.append("O")
+
+        return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag)
     else:
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
@@ -292,11 +302,26 @@ def stu_book_search():
         tag_flag = request.args.get("tag_flag")
         if tag_flag == "0":
             tag = []
+            rent_flag = []
             result = db.stu_book_search(key)
             
             for i in range(len(result)):
                 t = db.select_tag(result[i][0])
                 tag.append(t)
+            for i in range(len(result)):
+                amount_flag = db.select_amount(result[i][0])
+                print(amount_flag)
+                print(result[i][0])
+                
+                if amount_flag:
+                    if amount_flag[1] >= amount_flag[2]:
+                        rent_flag.append("X")
+                    else :
+                        rent_flag.append("O")
+                else :
+                    rent_flag.append("O")
+                print(rent_flag)
+
             for i in range(len(result)):
                 review_avg = 0
                 review = db.book_review_score(result[i][0])
@@ -317,7 +342,7 @@ def stu_book_search():
         else :
             tag =[]
             result = db.tag_book_search(key)
-            
+            rent_flag = []
             for i in range(len(result)):
                 t = db.select_tag(result[i][0])
                 tag.append(t)
@@ -340,9 +365,18 @@ def stu_book_search():
                 except Exception as e:
                     review_avg = 0
                 result[i] = result[i] + (review_avg,)
+                amount_flag = db.select_amount(result[i][0])
+                
+                if amount_flag:
+                    if amount_flag[1] >= amount_flag[2]:
+                        rent_flag.append("X")
+                    else :
+                        rent_flag.append("O")
+                else :
+                    rent_flag.append("O")
             # print("1",result)
         if result !=[]:
-            return render_template("stu_book_sreach.html",book_list=result,tag=tag)
+            return render_template("stu_book_sreach.html",book_list=result,tag=tag,rent_flag=rent_flag)
         else :
             return redirect(url_for("book_list"))
     else :
