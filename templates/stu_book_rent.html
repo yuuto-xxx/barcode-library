@@ -1,7 +1,7 @@
 {% extends "student_layout.html" %}
 {% block content %}
             <!-- <div class="flex_class"> -->
-            <p class="book_amount">※現在借りている本件数は...冊です</p>
+            <p class="book_amount">※現在借りている本件数は{{detail_list | length}}冊です</p>
             <p style="text-align: right;margin-top: -5%;"><button type="button" class="return_button" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button></p>
             <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
             <div class="scroll_bar">
