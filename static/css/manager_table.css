@@ -70,6 +70,18 @@
         width:80%;
         margin: 30pt 60pt 40pt
     }
+
+    .push{
+        font-size: 18pt;
+        background-color: #45B3CF;
+        color: white;
+        width: 80pt;
+        padding: 10px 15px;
+        border-radius: 10px;
+        margin-top: 10px;
+        margin-bottom: 30px;
+        margin-left: 590px;
+    }
 }
 @media screen and (max-width: 480px) {
     .scroll_bar{
