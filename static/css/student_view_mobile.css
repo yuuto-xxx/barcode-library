@@ -357,4 +357,11 @@
     margin-right: 300pt;
     margin-left: 150pt;
   }
+  .text_box{
+    width: 55%;
+    height: 21pt;
+  }
+  .hidari{
+    margin-left: 3%;
+  }
   }

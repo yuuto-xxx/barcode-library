@@ -25,10 +25,7 @@
                 </ul>
             </div>
             <div class="flex">
-                <h4>残り {{book_amount}} 冊</h4>
-                <!-- {% for i in tag%}
-                    <a href="{{url_for('stu_book_search',key=i,tag_flag=1)}}">{{i[0]}}</a>
-                {% endfor %} -->
+                <h4>残り <span style="color: red;">{{book_amount}}</span> 冊</h4>
                 <div class="tag2">
                     <input type="text" name="tag" half placeholder="タグを追加" list="datalist">
                     <datalist name="course" id="datalist">

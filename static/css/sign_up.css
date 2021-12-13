@@ -190,7 +190,7 @@
       border-radius: 10px;
       margin-top: 10px;
       margin-bottom: 30px;
-      margin-left: 250px;
+      margin-left: 290px;
     }
   
   * input:focus {
@@ -199,7 +199,7 @@
   
   .yoko {
     display: flex; 
-    justify-content: space-between;
+    /* justify-content: space-between; */
   }
   .main_board{
     /* margin-top: 70pt; */
@@ -207,6 +207,9 @@
     margin: 0 auto;
     transition: all 0.6s;
     }
+  .yoko #right{
+    margin-left: 140pt;
+  }
 }
 @media screen and (max-width: 480px) {
   *{
