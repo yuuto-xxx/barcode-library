@@ -25,7 +25,7 @@
             {% for i in range(book_list | length) %}
                 {% if i%2 == 0 %}
             <tr>
-                <td class="blue"><a href="{{url_for('book_detail', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
+                <td class="blue"><a href="{{url_for('book_detail', book=book_list[i],book_amount=book_amount_list[i])}}">{{book_list[i][2]}}</a></td>
                 <td class="blue">{{book_list[i][3]}}</td>
                 <td class="blue">{{book_list[i][4]}}</td>
                 <td class="blue">{{book_list[i][8]}}</td>
@@ -44,7 +44,7 @@
             </tr>
                 {% else %}
             <tr>
-                <td class="white"><a href="{{url_for('book_detail', book=book_list[i])}}">{{book_list[i][2]}}</a></td>
+                <td class="white"><a href="{{url_for('book_detail', book=book_list[i],book_amount=book_amount_list[i])}}">{{book_list[i][2]}}</a></td>
                 <td class="white">{{book_list[i][3]}}</td>
                 <td class="white">{{book_list[i][4]}}</td>
                 <td class="white">{{book_list[i][8]}}</td>
