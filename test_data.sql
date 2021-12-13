@@ -21,3 +21,10 @@ insert into book_tag(book_isbn,tag_id) values ('9784295006329',8);
 insert into book_tag(book_isbn,tag_id) values ('9784815601577',5);
 
 insert into book_tag(book_isbn,tag_id) values ('9784295006329',5);
+
+select stu_number,name,course_name from 
+student join course on (student.course_id=course.course_id) where
+(((student.course_id='3' or student.course_id='10') and year=3)
+or (student.course_id='4' and year=4)
+or (student.course_id<>'3' and student.course_id<>'4' and student.course_id<>'10' and year=2))
+and student.delete_flag=false;

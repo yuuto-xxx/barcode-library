@@ -7,11 +7,12 @@
             <p class="report">※進級処理をしたら下記の学生が削除されます</p>
             {% if flagnum == 0%}
             <p class="last_change" style="margin-right: 3%;"><span>最終変更：{{result[1]}}</span><span class="change_name">{{result[0]}}</span></p>
+            <h4>{{event}}</h4>
             {% else %}
             <p class="last_change" style="margin-right: 3%;">更新履歴はありません</p>
             {% endif %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
-            <form action="{{url_for('manager_promotion_result')}}" method="get">
+            <form action="{{url_for('manager_promotion_result')}}" method="get" onsubmit="return check()">
                 <div class="scroll_bar">
                 <table class="book_table">
                 <tr>
@@ -41,4 +42,19 @@
             <!-- <p class="promotion_button"><button onclick="forget_pw">進級</button></p> -->
         </form>
             <!-- promotion_column -->
+<!-- アラート機能 -->
+<script>
+    function check(){
+        if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+            btn.style.visibility = 'hidden';
+            return true; // 「OK」時は送信を実行
+        }
+        else{ // 「キャンセル」時の処理
+            window.alert('キャンセルされました'); // 警告ダイアログを表示
+            return false; // 送信を中止
+        }
+    }
+</script>
 {% endblock %}
+</body>
+</html>

@@ -20,30 +20,42 @@
                 <tr>
                     <td class="blue">{{list[i][0]}}</td>
                     <td class="blue">{{list[i][1]}}</td>
-                    <td class="blue"><a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a></td>
+                    <td class="blue">
+                        <!-- <a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a> -->
+                        <form action="{{url_for('manager_delete_result')}}" method="get" onsubmit="return check()">
+                            <input type="hidden" name="mail" value="{{list[i][1]}}">
+                            <input type="submit" value="削除" id="btn">
+                        </form>
+                    </td>
                 </tr>
                 {% else %}
                     <td class="white">{{list[i][0]}}</td>
                     <td class="white">{{list[i][1]}}</td>
-                    <td class="white"><a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a></td>
+                    <td class="white">
+                        <!-- <a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a> -->
+                    <form action="{{url_for('manager_delete_result')}}" method="get"onsubmit="return check()">
+                        <input type="hidden" name="mail" value="{{list[i][1]}}">
+                        <input type="submit" value="削除" id="btn">
+                    </form>
+                    </td>
                 </tr>
                 {% endif %}
                 {% endfor %}
             </table>
         </div>
-            <script>
-                var btn = document.getElementById("btn");
-                 
-                btn.addEventListener("click", function() {
-                    var result = window.confirm("本当に削除してよろしいですか？");
-                    
-                    if( result ) {
-                        console.log("はい");
-                    }
-                    else {
-                        
-                        console.log("いいえ");
-                    }
-                })
-            </script>
+<!-- アラート機能 -->
+<script>
+    function check(){
+        if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+            btn.style.visibility = 'hidden';
+            return true; // 「OK」時は送信を実行
+        }
+        else{ // 「キャンセル」時の処理
+            window.alert('キャンセルされました'); // 警告ダイアログを表示
+            return false; // 送信を中止
+        }
+    }
+</script>
 {% endblock %}
+</body>
+</html>
