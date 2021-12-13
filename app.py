@@ -510,7 +510,12 @@ def manager_register_result():
 #学生登録
 @app.route("/stu_register")
 def stu_register():
-    return render_template("stu_register.html")
+    visibility = 0
+    return render_template("stu_register.html",visibility=visibility)
+
+# def stu_register(list):
+#     list = request.ar
+#     return render_template("stu_register.html")
         
 @app.route("/student_register", methods=['POST']) 
 def student_register():
@@ -598,7 +603,7 @@ def student_change():
             print("失敗")
     else :
         error = "正しい形式で入力してください"
-        print("学生変更エラー")
+        print("学生変更エラー(python)バリエーションチェックエラー606")
         # return redirect(url_for('stu_change', error=error))
 
 # 学生削除検索
@@ -879,7 +884,7 @@ def manager_promotion_result():
         result2 = db.manager_promotion_delete()
         result3 = db.promotion_history(mail)
         if result and result2 and result3:
-            return "成功"
+            return redirect(url_for('manager_promotion',event="進級完了"))
         else :
             return "error"
     else :

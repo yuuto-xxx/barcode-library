@@ -889,7 +889,7 @@ def student_search_change_result(stu_number):
     cur = conn.cursor()
 
     sql = "select student.mail,student.name,student.stu_number,\
-        course.course_name,student.year from student \
+        course.course_name,student.year,course.course_id from student \
             join course on (student.course_id = course.course_id) \
                 where student.stu_number = %s and student.delete_flag is false"
 

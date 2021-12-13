@@ -32,7 +32,6 @@
                 <div class="tag2">
                     <input type="text" name="tag" half placeholder="タグを追加" list="datalist">
                     <datalist name="course" id="datalist">
-                        <option value="" hidden>タグを選択</option>
                         {% for n in tag_pd%}
                             <option value="{{n[0]}}">{{n[0]}}</option>
                         {% endfor %}

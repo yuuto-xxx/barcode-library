@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="form_group">
     <h4>※下記の内容をご入力の上、ご確認ください</h4>
-    <form autocomplete="off" action="" method="POST" id="form1">
+    <form autocomplete="off" action="" method="POST" id="form1" onsubmit="return check()">
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
         <h4 id=half>学籍番号</h4>
@@ -53,23 +53,21 @@
       </form>
       <input type="submit" value="削除" form="form1" id="btn">
     </div>
-    <!-- アラート機能 -->
-      <script>
-        var btn = document.getElementById('btn');
-         
-        btn.addEventListener('click', function() {
-            var result = window.confirm('本当に削除してよろしいですか？');
-            
-            if( result ) {
-                console.log('はい');
-            }
-            else {
-                console.log('いいえ');
-            }
-        })
-    </script>
-    {{error}}
-    {{event}}
-    {% endblock %}
+<!-- アラート機能 -->
+<script>
+    function check(){
+        if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+            btn.style.visibility = 'hidden';
+            return true; // 「OK」時は送信を実行
+        }
+        else{ // 「キャンセル」時の処理
+            window.alert('キャンセルされました'); // 警告ダイアログを表示
+            return false; // 送信を中止
+        }
+    }
+</script>
+{{error}}
+{{event}}
+{% endblock %}
 </body>
 </html>
