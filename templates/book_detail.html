@@ -11,7 +11,7 @@
 
     {% block content %}
     <div class="info-area">
-        <form action="{{url_for('book_register_result')}}">
+        <form action="{{url_for('tag_add')}}" method="post">
             <h4 style="text-align: left;">本詳細情報</h4>
             <div class="square">
                 <ul class="info2">
@@ -23,14 +23,12 @@
                     <li><input type="text" placeholder="出版社" autocomplete="off" value={{book[4]}} disabled></li>
                     <li><input type="text" placeholder="発売日" autocomplete="off" value={{book[5]}} disabled></li>
                 </ul>
-                {% for i in tag%}
-                    <a href="{{url_for('stu_book_search',key=i,tag_flag=1)}}">{{i[0]}}</a>
-                {% endfor %}
             </div>
-        </form>
-        <form action="{{url_for('tag_add')}}" method="post">
             <div class="flex">
                 <h4>残り 3 冊</h4>
+                <!-- {% for i in tag%}
+                    <a href="{{url_for('stu_book_search',key=i,tag_flag=1)}}">{{i[0]}}</a>
+                {% endfor %} -->
                 <div class="tag2">
                     <input type="text" name="tag" half placeholder="タグを追加" list="datalist">
                     <datalist name="course" id="datalist">
@@ -39,7 +37,7 @@
                             <option value="{{n[0]}}">{{n[0]}}</option>
                         {% endfor %}
                     </datalist>        
-                    <input type="text" name="book_number" value="{{book[0]}}">
+                    <input type="hidden" name="book_number" value="{{book[0]}}">
                     <input type="submit" value="追加">
                 </div>
             </div>
