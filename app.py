@@ -262,6 +262,7 @@ def book_list():
         book_list = db.book_list()
         tag = []
         rent_flag = []
+        book_amount_list = []
         for i in range(len(book_list)):
             review_avg = 0
             review = db.book_review_score(book_list[i][0])
@@ -285,12 +286,14 @@ def book_list():
             if amount_flag:
                 if amount_flag[1] >= amount_flag[2]:
                     rent_flag.append("X")
+                    book_amount_list.append(0)
                 else :
                     rent_flag.append("O")
+                    book_amount_list.append(int(amount_flag[2]-amount_flag[1]))
             else :
                 rent_flag.append("O")
-
-        return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag)
+                book_amount_list.append(int(book_list[i][6]))
+        return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag,book_amount_list=book_amount_list)
     else:
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
@@ -968,10 +971,11 @@ def student_id_check(student_id):
 @app.route("/book_detail")
 def book_detail():
     isbn = request.args.get("book")
+    book_amount = request.args.get("book_amount")
     book = db.book_detail(isbn)
     review = db.book_show_review(isbn)
     tag_pd,tag = db.tag_pull_down(isbn)
-    return render_template("book_detail.html", book=book, review=review,tag=tag,tag_pd=tag_pd)
+    return render_template("book_detail.html", book=book, review=review,tag=tag,tag_pd=tag_pd,book_amount=book_amount)
 
 def book_detail(isbn):
     book = db.book_detail(isbn)
