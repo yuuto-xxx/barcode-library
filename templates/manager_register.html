@@ -13,7 +13,7 @@
     {% block content %}
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="form_group">
-    <h4 id="left">※下記の内容をご入力の上、ご確認ください</h4>
+    <h4 id="left" style="margin-bottom: 15pt;">※下記の内容をご入力の上、ご確認ください</h4>
     <form autocomplete="off" action="{{url_for('manager_register_result')}}" method="post" id="form1">
         <h4>名前</h4>
         <input type="text" half placeholder="(例)盛岡太郎" autocomplete="off" name="name">
