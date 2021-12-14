@@ -254,8 +254,14 @@ def student_book_return_result():
         isbn = request.args.get("isbn")
         isbn_list = isbn.split()
         db.book_return(stu_number, isbn_list)
-        renting_list = db.student_renting()
-        return render_template("stu_book_rent.html", renting_list=renting_list)
+        renting_list = db.book_renting(user[0])
+        detail_list = []
+        for i in range(len(renting_list)):
+            book_detail = db.book_detail(renting_list[i])
+            detail_list.append(book_detail)
+        print(detail_list)
+
+        return render_template("stu_book_rent.html", detail_list=detail_list)
     else:
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
