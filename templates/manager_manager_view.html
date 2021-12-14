@@ -24,7 +24,7 @@
                         <!-- <a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a> -->
                         <form action="{{url_for('manager_delete_result')}}" method="get" onsubmit="return check()">
                             <input type="hidden" name="mail" value="{{list[i][1]}}">
-                            <input type="submit" value="削除" id="btn">
+                            <input type="submit" value="削除" id="btn" class="delete_button">
                         </form>
                     </td>
                 </tr>
@@ -35,7 +35,7 @@
                         <!-- <a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a> -->
                     <form action="{{url_for('manager_delete_result')}}" method="get"onsubmit="return check()">
                         <input type="hidden" name="mail" value="{{list[i][1]}}">
-                        <input type="submit" value="削除" id="btn">
+                        <input type="submit" value="削除" id="btn" class="delete_button">
                     </form>
                     </td>
                 </tr>
