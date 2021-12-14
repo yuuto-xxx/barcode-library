@@ -190,7 +190,7 @@
       border-radius: 10px;
       margin-top: 10px;
       margin-bottom: 30px;
-      margin-left: 250px;
+      margin-left: 290px;
     }
   
   * input:focus {
@@ -199,7 +199,7 @@
   
   .yoko {
     display: flex; 
-    justify-content: space-between;
+    /* justify-content: space-between; */
   }
   .main_board{
     /* margin-top: 70pt; */
@@ -207,6 +207,9 @@
     margin: 0 auto;
     transition: all 0.6s;
     }
+  .yoko #right{
+    margin-left: 140pt;
+  }
 }
 @media screen and (max-width: 480px) {
   *{
@@ -215,21 +218,10 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
     }
-    
-  /* body {
-    height: 100vh;
-    display: flex;
-    flex-direction: column; 
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    } */
-  
   form {
     margin-top: 10%;
     border: 2px solid #707070;
     padding: 15px 10px 0px 20px;
-    /* width: 70%; */
     max-width: 700px;
     border-radius: 20px;
     }
@@ -352,12 +344,9 @@
       padding: 8px 38px 8px 8px;
       color: #666666;
     }
-  
-    
      /* プルダウン学年css */
      .s_year {
       overflow: hidden;
-      /*width: 45%;*/
       text-align: right;
       width: calc(50% - 10px);
       float: left;
@@ -413,7 +402,6 @@
       padding: 8px 38px 8px 8px;
       color: #666666;
     }  
-  
     /* ボタン配置 */
   * input[type=submit] {
       font-size: 15pt;
@@ -434,9 +422,8 @@
   .yoko {
     justify-content: space-between;
   }
-  
+
   .main_board{
-    /* margin-top: 70pt; */
     width: 90%;
     margin: 0 auto;
     transition: all 0.6s;

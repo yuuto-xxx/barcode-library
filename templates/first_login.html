@@ -14,31 +14,36 @@
 	<div class="wrapper">
 		<form class="login" action="{{url_for('first_login')}}" method="post">
 			<p class="title">パスワード変更</p>
-			<input type="password" name="new_password" id="textpassword"  placeholder="新規パスワード" required="required"/>
+			<div class="input-wrap">
+			<input type="password" name="new_password"  placeholder="新規パスワード" required="required"/>
+			<i class="fa fa-key"></i>
+			</div>
 			<form id="fieldPassword">
-			<i class="fa fa-key"></i>
-     		<span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()"></span>
-			<input type="password" name="re_password" id="textpassword"  placeholder="パスワード(再入力)" required="required"/>
-			<i class="fa fa-key"></i>
+				<div class="input-wrap">
+					<input type="password" name="re_password" id="textpassword" placeholder="パスワード" required="required" />
+					<i class="fa fa-key"></i>
+					<i id="buttonEye" class="toggle-pass fa fa-eye" onclick="pushHideButton()"></i>
+				</div>
 			<input type="hidden" name="student_flg" value={{student_flg}}>	
 			<input type="hidden" name="mail" value={{mail}}>
 			<button>
 				<i class="spinner"></i> <span class="state">登録</span>
 			</button>
+			</form>
 		</form>
 	</div>
-<script language="javascript">
-  function pushHideButton() {
-    var txtPass = document.getElementById("textpassword");
-    var btnEye = document.getElementById("buttonEye");
-    if (txtPass.type === "text") {
-      txtPass.type = "password";
-      btnEye.className = "fa fa-eye";
-    } else {
-      txtPass.type = "text";
-      btnEye.className = "fa fa-eye-slash";
-    }
-  }
-</script>
+	<script language="javascript">
+		function pushHideButton() {
+			var txtPass = document.getElementById("textpassword");
+			var btnEye = document.getElementById("buttonEye");
+			if (txtPass.type === "text") {
+				txtPass.type = "password";
+				btnEye.className = "fa fa-eye toggle-pass";
+			} else {
+				txtPass.type = "text";
+				btnEye.className = "fa fa-eye-slash toggle-pass";
+			}
+		}
+	</script>
 </body>
 </html>

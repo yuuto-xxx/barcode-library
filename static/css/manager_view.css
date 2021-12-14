@@ -141,8 +141,6 @@
   }
   /* ここが問題児 */
   .main_board{
-  /* margin-top: 70pt; */
-  /* width: 70%; */
   margin: 0 auto;
   transition: all 0.6s;
   }
@@ -151,7 +149,7 @@
   font-size: 15pt;
   }
   .main_board .report2{
-    margin-left: 20%;
+    margin-left: 25%;
   }
   .main_board .delete_result{
   font-size: 15pt;
@@ -167,8 +165,8 @@
   margin-left: 20pt;
   }
   .main_board .student_search{
-    margin-left: 130pt;
-    font-size: 15pt;
+    margin-left: 23%;
+    font-size: 18pt;
   }
   .main_board .view_search{
   font-size: 15pt;
@@ -231,39 +229,39 @@
   }
   /* ここは学生変更のスタイル*/
   .edit_board{
-    margin-top: 20pt;
-    width: 56%;
-    margin-left: 25%;
-    border: black solid 1px;
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    }
-    .edit_board .name{
-    margin-left: 120pt;
-    margin-bottom: -10pt;
-    font-size: 20pt;
-    font-weight:lighter;
-    }
-    .edit_board .name_type{
-    margin-left: 110pt;
-    }
-    .name_type input{
-    -webkit-border-radius: 15px;
-    -moz-border-radius: 15px;
-    border-radius: 15px;
-    font-size: 20pt;
-    padding: 10px;
-    width: 200pt;
-    }
-    .name_type button{
-    font-size: 15pt;
-    background-color: #45B3CF;
-    color: white;
-    width: 70pt;
-    height: 35pt;
-    margin-left: 60pt;
-    }
+  margin-top: 20pt;
+  width: 56%;
+  margin-left: 25%;
+  border: black solid 1px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  }
+  .edit_board .name{
+  margin-left: 120pt;
+  margin-bottom: -10pt;
+  font-size: 20pt;
+  font-weight:lighter;
+  }
+  .edit_board .name_type{
+  margin-left: 110pt;
+  }
+  .name_type input{
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  border-radius: 15px;
+  font-size: 20pt;
+  padding: 10px;
+  width: 200pt;
+  }
+  .name_type button{
+  font-size: 15pt;
+  background-color: #45B3CF;
+  color: white;
+  width: 70pt;
+  height: 35pt;
+  margin-left: 60pt;
+  }
   .search_table{
   border: black solid 2px;
   margin: 30pt 110pt 40pt
@@ -375,7 +373,6 @@
   border-bottom: black solid 1px;
   font-size: 16pt;
   margin-top: 1pt;
-  /* height: 35pt; */
   font-weight: lighter;
   }
   .csv_table .name{
@@ -405,10 +402,14 @@
   margin-right: 300pt;
   margin-left: 150pt;
   }
+  .text_box{
+    width: 440px;
+    height: 22pt;
+  }
   }
 
 /* ここからスマホ画面 */
-@media screen and (max-width: 480px) {
+  @media screen and (max-width: 480px) {
     .hamburger {
       display : block;
       position: absolute;
@@ -462,7 +463,6 @@
     }
     
     nav.globalMenuSp {
-      /* overflow-y: auto; */
       position: fixed;
       z-index : 2;
       margin-top: 10pt;
@@ -506,7 +506,6 @@
       text-decoration :none;
       font-size: 15pt;
     }
-    /* このクラスを、jQueryで付与・削除する */
     nav.globalMenuSp.active {
       transform: translateX(0%);
     }
@@ -566,8 +565,6 @@
     /* ここが問題児 */
     .main_board{
       margin-top: 70pt;
-      /* width: 100%; */
-      /* margin: 0 auto; */
       transition: all 0.6s;
     }
     .main_board .report{
@@ -824,5 +821,9 @@
     height: 300pt;
     margin-right: 300pt;
     margin-left: 150pt;
+    }
+    .text_box{
+      width: 55%;
+      height: 21pt;
     }
   }

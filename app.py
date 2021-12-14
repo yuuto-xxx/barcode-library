@@ -15,7 +15,7 @@ import string
 import csv
 from werkzeug.utils import secure_filename
 import datetime as dt
-from datetime import timedelta
+from datetime import datetime, timedelta
 import json
 import pathlib
 
@@ -103,6 +103,13 @@ def manager_top():
 @app.route("/manager_renting_student")
 def manager_renting():
     renting_list = db.student_renting()
+    return render_template("manager_renting_stu.html", renting_list=renting_list)
+
+#貸出一覧検索結果
+@app.route("/manager_renting_search")
+def renting_search():
+    key = request.args.get("key")
+    renting_list = db.student_renting_search(key)
     return render_template("manager_renting_stu.html", renting_list=renting_list)
 
 #本の登録
@@ -261,6 +268,8 @@ def book_list():
     if "user" in session:
         book_list = db.book_list()
         tag = []
+        rent_flag = []
+        book_amount_list = []
         for i in range(len(book_list)):
             review_avg = 0
             review = db.book_review_score(book_list[i][0])
@@ -280,7 +289,18 @@ def book_list():
             t = db.select_tag(book_list[i][0])
             book_list[i] = book_list[i] + (review_avg,)
             tag.append(t)
-        return render_template("stu_book_list.html",book_list=book_list,tag=tag)
+            amount_flag = db.select_amount(book_list[i][0])
+            if amount_flag:
+                if amount_flag[1] >= amount_flag[2]:
+                    rent_flag.append("X")
+                    book_amount_list.append(0)
+                else :
+                    rent_flag.append("O")
+                    book_amount_list.append(int(amount_flag[2]-amount_flag[1]))
+            else :
+                rent_flag.append("O")
+                book_amount_list.append(int(book_list[i][6]))
+        return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag,book_amount_list=book_amount_list)
     else:
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
@@ -292,11 +312,26 @@ def stu_book_search():
         tag_flag = request.args.get("tag_flag")
         if tag_flag == "0":
             tag = []
+            rent_flag = []
             result = db.stu_book_search(key)
             
             for i in range(len(result)):
                 t = db.select_tag(result[i][0])
                 tag.append(t)
+            for i in range(len(result)):
+                amount_flag = db.select_amount(result[i][0])
+                print(amount_flag)
+                print(result[i][0])
+                
+                if amount_flag:
+                    if amount_flag[1] >= amount_flag[2]:
+                        rent_flag.append("X")
+                    else :
+                        rent_flag.append("O")
+                else :
+                    rent_flag.append("O")
+                print(rent_flag)
+
             for i in range(len(result)):
                 review_avg = 0
                 review = db.book_review_score(result[i][0])
@@ -317,7 +352,7 @@ def stu_book_search():
         else :
             tag =[]
             result = db.tag_book_search(key)
-            
+            rent_flag = []
             for i in range(len(result)):
                 t = db.select_tag(result[i][0])
                 tag.append(t)
@@ -340,9 +375,18 @@ def stu_book_search():
                 except Exception as e:
                     review_avg = 0
                 result[i] = result[i] + (review_avg,)
+                amount_flag = db.select_amount(result[i][0])
+                
+                if amount_flag:
+                    if amount_flag[1] >= amount_flag[2]:
+                        rent_flag.append("X")
+                    else :
+                        rent_flag.append("O")
+                else :
+                    rent_flag.append("O")
             # print("1",result)
         if result !=[]:
-            return render_template("stu_book_sreach.html",book_list=result,tag=tag)
+            return render_template("stu_book_sreach.html",book_list=result,tag=tag,rent_flag=rent_flag)
         else :
             return redirect(url_for("book_list"))
     else :
@@ -473,7 +517,12 @@ def manager_register_result():
 #学生登録
 @app.route("/stu_register")
 def stu_register():
-    return render_template("stu_register.html")
+    visibility = 0
+    return render_template("stu_register.html",visibility=visibility)
+
+# def stu_register(list):
+#     list = request.ar
+#     return render_template("stu_register.html")
         
 @app.route("/student_register", methods=['POST']) 
 def student_register():
@@ -561,7 +610,8 @@ def student_change():
             print("失敗")
     else :
         error = "正しい形式で入力してください"
-        print("学生変更エラー")
+        print("学生変更エラー(python)バリエーションチェックエラー606")
+        # return redirect(url_for('stu_change', error=error))
 
 # 学生削除検索
 @app.route("/manager_stu_delete")
@@ -706,14 +756,14 @@ def pw_change():
 def pw_reset():
     mail = request.args.get('mail')
     student_flg = request.args.get('student_flg')
-    session["data"] = [mail,student_flg]
+    session["data"] = [mail,student_flg]   
     return render_template('pw_reset.html')
 
 # パスワードリセット(確認)
 @app.route('/pw_reset_2',methods=["POST"])
 def pw_reset_2():
     if "data" in session:
-        flg = session["data"][1]  
+        flg = session["data"][1]
         mail = session["data"][0]
         pw = request.form.get("pw_first")
         pw_2 =  request.form.get("pw_2")
@@ -740,6 +790,11 @@ def pw_reset_2():
                 # result_2 = db.manager_update(mail,pw_2)
                 event = "パスワードリセット成功"
                 return render_template('login.html',event=event)
+
+# パスリセット(2)
+@app.route('/pass_reset')
+def pass_reset():
+    return render_template('first_login.html')
 
 #初回ログイン時パスワード変更
 @app.route("/first_login", methods=["POST"])
@@ -826,7 +881,9 @@ def manager_promotion():
             flagnum = 1
         # id,name,course_name
         student_list = db.promotion_student_list()
-            
+        today = dt.datetime.today()
+        time = today - result[4]
+        print(time.days)
         return render_template('manager_promotion.html',result=[result[1],result[4]],student_list=student_list,flagnum=flagnum)
     else :
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
@@ -839,7 +896,7 @@ def manager_promotion_result():
         result2 = db.manager_promotion_delete()
         result3 = db.promotion_history(mail)
         if result and result2 and result3:
-            return "成功"
+            return redirect(url_for('manager_promotion',event="進級完了"))
         else :
             return "error"
     else :
@@ -931,15 +988,26 @@ def student_id_check(student_id):
 @app.route("/book_detail")
 def book_detail():
     isbn = request.args.get("book")
+    book_amount = request.args.get("book_amount")
     book = db.book_detail(isbn)
     review = db.book_show_review(isbn)
     tag_pd,tag = db.tag_pull_down(isbn)
-    return render_template("book_detail.html", book=book, review=review,tag=tag,tag_pd=tag_pd)
+    return render_template("book_detail.html", book=book, review=review,tag=tag,tag_pd=tag_pd,book_amount=book_amount)
 
 def book_detail(isbn):
     book = db.book_detail(isbn)
+    review = db.book_show_review(isbn)
     tag_pd,tag = db.tag_pull_down(isbn)
-    return render_template("book_detail.html", book=book,tag=tag,tag_pd=tag_pd)
+    amount_flag = db.select_amount(isbn)
+    if amount_flag:
+        if amount_flag[1] >= amount_flag[2]:
+            book_amount = 0
+        else :
+            book_amount = (int(amount_flag[2]-amount_flag[1]))
+    else :
+            book_amount = (int(book[6]))
+
+    return render_template("book_detail.html", book=book,tag=tag,tag_pd=tag_pd,book_amount=book_amount, review=review)
 
 # タグ追加
 @app.route("/tag_add",methods=["POST"])

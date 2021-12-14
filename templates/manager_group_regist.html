@@ -1,114 +1,86 @@
-<!DOCTYPE html>
-<html lang="jp">
-<head>
-    <meta charset="Shift_JIS">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="../static/css/manager_view.css">
-    <script type="text/javascript" src="https://code.jquery.com/jquery-latest.min.js"></script>
-    <title>学生アカウント一括登録</title>
-</head>
-<body>
-    <div>
-        <header>
-            <h2 class="title">図書管理システム</h2>
-                <div class="hamburger">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+{% extends "manager_layout.html" %}
+
+{% block head %}
+<title>学生アカウント一括登録</title>
+{% endblock %}
+
+{% block content %}
+<div class="main_board">
+    <form action="{{url_for('student_all_file_2')}}" method="post" enctype="multipart/form-data" accept=".csv" onsubmit="return check()">
+        <div class="file_choose">
+            <span class="filename">ファイル選択</span>
+            <label><input type="file" name="fileinput" class="file_input" id="csv_file">ファイル添付</label>
+        </div><br>
+        <a href="#" class="link_style"> テンプレートをダウンロードする</a>
+        <div class="course_table">
+            <table >
+                <tr>
+                    <th colspan="4">学科</th>
+                </tr>
+                <tr>
+                  <td class="course_id">1</td>
+                  <td><span>情報システム科<span> </td>
+                  <td class="course_id">6</td>
+                  <td><span>グラフィックデザインコース</span></td>
+
+              </tr>
+              <tr>
+                  <td class="course_id">2</td>
+                  <td><span>ネットワークセキュリティ科</span></td>
+                  <td class="course_id">7</td>
+                  <td><span>アニメ・マンガコース</span></td>
+              </tr>
+              <tr>
+                  <td class="course_id">3</td>
+                  <td><span>総合システム工学科</span></td>
+                  <td class="course_id">8</td>
+                  <td><span>CGクリエイトコース</span></td>
+              </tr>
+              <tr>
+                  <td class="course_id">4</td>
+                  <td><span>高度情報工学科</span></td>
+                  <td class="course_id">9</td>
+                  <td><span>建築インテリアコース</span></td>
+              </tr>
+              <tr>
+                  <td  class="course_id">5</td>
+                  <td><span>情報ビジネス科</span></td>
+                  <td class="course_id">10</td>
+                  <td><span>総合デザイン科</span></td>
+              </tr>
+            </table>
+        </div>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/group_regist_table.css')}}">
+        <section class="section">                
+            <div class="columns">
+              <div class="column">
+                <article class="message is-primary">
+                  <div class="message-body">
+                    <span id="message">ファイルを選択してください。</span>
                   </div>
-        </header></div>
-       
-        <nav class="globalMenuSp">
-            <ul>
-                <li><a href="{{url_for('book_register_camera')}}" class="menu_style menu_hover">図書登録</a></li>
-                    <li><a href="{{url_for('book_list')}}"  class="menu_style menu_hover">図書一覧</a></li>
-                    <li><a href="#" class="menu_style menu_hover">貸出一覧</a></li>
-                    <li><a href="{{url_for('stu_register')}}" class="menu_style menu_hover">学生登録</a></li>
-                    <li><a href="{{url_for('manager_stu_edit')}}" class="menu_style menu_hover">学生変更</a></li>
-                    <li><a href="#" class="menu_style menu_hover">学生削除</a></li>
-                    <li><a href="#" class="menu_style menu_hover">学生進級</a></li>
-                    <li><a href="{{url_for('manager_register')}}" class="menu_style menu_hover">管理者登録</a></li>
-                    <li><a href="{{url_for('manager_manager_view')}}" class="menu_style menu_hover">管理者一覧</a></li>
-                    <li><a href="{{url_for('logout')}}" class="menu_style menu_hover">ログアウト</a></li>
-            </ul>
-        </nav>  
-        <div class="main_board">
-            <form action="{{url_for('student_all_file_2')}}" method="post" enctype="multipart/form-data" accept=".csv">
-                <div class="file_choose">
-                    <span class="filename">ファイル選択</span>
-                    <label><input type="file" name="fileinput" class="file_input" id="csv_file">ファイル添付</label>
-                </div><br>
-                <a href="#" class="link_style"> テンプレートをダウンロードする</a>
-                <div class="course_table">
-                    <table >
-                        <tr>
-                            <th colspan="4">学科</th>
-                        </tr>
-                        <tr>
-                          <td class="course_id">1</td>
-                          <td><span>情報システム科<span> </td>
-                          <td class="course_id">6</td>
-                          <td><span>グラフィックデザインコース</span></td>
-  
-                      </tr>
-                      <tr>
-                          <td class="course_id">2</td>
-                          <td><span>ネットワークセキュリティ科</span></td>
-                          <td class="course_id">7</td>
-                          <td><span>アニメ・マンガコース</span></td>
-                      </tr>
-                      <tr>
-                          <td class="course_id">3</td>
-                          <td><span>総合システム工学科</span></td>
-                          <td class="course_id">8</td>
-                          <td><span>CGクリエイトコース</span></td>
-                      </tr>
-                      <tr>
-                          <td class="course_id">4</td>
-                          <td><span>高度情報工学科</span></td>
-                          <td class="course_id">9</td>
-                          <td><span>建築インテリアコース</span></td>
-                      </tr>
-                      <tr>
-                          <td  class="course_id">5</td>
-                          <td><span>情報ビジネス科</span></td>
-                          <td class="course_id">10</td>
-                          <td><span>総合デザイン科</span></td>
-                      </tr>
-                    </table>
-                </div>
-                <link rel="stylesheet" href="{{url_for('static', filename='css/group_regist_table.css')}}">
-                <section class="section">                
-                    <div class="columns">
-                      <div class="column">
-                        <article class="message is-primary">
-                          <div class="message-body">
-                            <span id="message">ファイルを選択してください。</span>
-                          </div>
-                        </article>
-                      </div>
-                    </div>
-                                
-                    <div class="columns">
-                      <div class="column" style="overflow-y: scroll;">
-                        <table id="csv_data_table" class="csv_regist">
-                          <thead>
-                            <tr>
-                              <th class="csv_column">名前</th>
-                              <th class="csv_column">学籍番号</th>
-                              <th class="csv_column">学科</th>
-                              <th class="csv_column">学年</th>
-                              <th class="csv_column">メールアドレス</th>
-                            </tr>
-                          </thead>
-                          <tbody></tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </section>
-                <label class="regist_button"><input type="submit" value="登録"></label>
-            </form>
+                </article>
+              </div>
+            </div>
+                        
+            <div class="columns">
+              <div class="column" style="overflow-y: scroll;">
+                <table id="csv_data_table" class="csv_regist">
+                  <thead>
+                    <tr>
+                      <th class="csv_column">名前</th>
+                      <th class="csv_column">学籍番号</th>
+                      <th class="csv_column">学科</th>
+                      <th class="csv_column">学年</th>
+                      <th class="csv_column">メールアドレス</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        <label class="regist_button"><input type="submit" value="登録"></label>
+    </form>
             
 </body>
 <script>
@@ -193,5 +165,17 @@ $('.file_choose .file_input').on('change', function () {
     var file = $(this).prop('files')[0];
     $(this).closest('.file_choose').find('.filename').text(file.name);
    });
+    function check(){
+        if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+            btn.style.visibility = 'hidden';
+            return true; // 「OK」時は送信を実行
+        }
+        else{ // 「キャンセル」時の処理
+            window.alert('キャンセルされました'); // 警告ダイアログを表示
+            return false; // 送信を中止
+        }
+    }
 </script>
+{% endblock %}
+</body>
 </html>

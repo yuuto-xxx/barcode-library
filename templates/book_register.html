@@ -8,7 +8,7 @@
     <div class="square">
         <ul class="info2">
             <li><img src={{book[1]}}></li>
-            <li>冊数:<input type="number" half  min="1" autocapitalize="off" name="quantity"></li>
+            <li>冊数:<input type="number" half  min="1" autocapitalize="off" name="quantity" onsubmit="return check()"></li>
         </ul>
         <ul class="info">
             <li><input type="text" placeholder="タイトル" autocomplete="off" value={{book[2]}}></li>
@@ -22,4 +22,19 @@
         <input type="hidden" name="book" value={{book[i]}}>
     {% endfor %}
 </form>
+<!-- アラート機能 -->
+<script>
+    function check(){
+        if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+            btn.style.visibility = 'hidden';
+            return true; // 「OK」時は送信を実行
+        }
+        else{ // 「キャンセル」時の処理
+            window.alert('キャンセルされました'); // 警告ダイアログを表示
+            return false; // 送信を中止
+        }
+    }
+</script>
 {% endblock %}
+</body>
+</html>

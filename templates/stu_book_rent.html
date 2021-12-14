@@ -1,8 +1,8 @@
 {% extends "student_layout.html" %}
 {% block content %}
             <!-- <div class="flex_class"> -->
-            <p class="book_amount">※現在借りている本件数は...冊です</p>
-            <p style="text-align: right;margin-top: -5%;"><button type="button" class="return_button" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button></p>
+            <p class="book_amount">※現在借りている本件数は{{detail_list | length}}冊です</p>
+            <p style="text-align: right;margin-top: -4%;margin-right: 5%;"><button type="button" class="return_button" onclick="window.location.href='{{url_for('stu_camera_return')}}'">返却</button></p>
             <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
             <div class="scroll_bar">
             <table class="rent_result">
@@ -11,7 +11,6 @@
                 <th id="rent_column2">タイトル</th>
                 <th id="rent_column2">著者</th>
                 <th id="rent_column2">出版社</th>
-                <th id="rent_column2">返却期限</th>
               </tr>
               {% for i in range(detail_list | length) %}
                 {% if i%2 == 0 %}
@@ -20,7 +19,6 @@
                     <td class="blue">{{detail_list[i][2]}}</td>
                     <td class="blue">{{detail_list[i][3]}}</td>
                     <td class="blue">{{detail_list[i][4]}}</td>
-                    <td class="blue">期限</th>
                   </tr>
                 {% else %}
                   <tr>
@@ -28,7 +26,6 @@
                     <td class="white">{{detail_list[i][2]}}</td>
                     <td class="white">{{detail_list[i][3]}}</td>
                     <td class="white">{{detail_list[i][4]}}</td>
-                    <td class="white">期限</td>
                   </tr> 
                 {% endif %}
               {% endfor %}

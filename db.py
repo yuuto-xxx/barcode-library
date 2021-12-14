@@ -244,6 +244,28 @@ def book_review_score(isbn):
 
     return list
 
+# 借りている本の数
+def select_amount(isbn):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select rent_book.book_isbn,count(rent_book.amount),book.amount_max from rent_book join book on (rent_book.book_isbn=book.book_isbn) where rent_book.return_day is null and book.book_isbn =%s group by (rent_book.book_isbn,book.amount_max)"
+
+    try:
+        cur.execute(sql,(isbn,))
+    except Exception as e:
+        print("本の数selectエラー[def book_review_score(isbn):]",e)
+        return None
+
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+
 # 本の詳細情報
 def book_detail(isbn):
     conn = get_connection()
@@ -254,7 +276,7 @@ def book_detail(isbn):
     try:
         cur.execute(sql,(isbn,))
     except Exception as e:
-        print("本の詳細情報取得エラー")
+        print("本の詳細情報取得エラー",e)
 
     result = cur.fetchone()
 
@@ -298,6 +320,29 @@ def student_renting():
         cur.execute(sql,)
     except Exception as e:
         print("貸出一覧取得エラー",e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+#貸出一覧検索
+def student_renting_search(key):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select student.name, book.title, rent_book.rent_day, \
+            rent_book.return_day from student, book, rent_book\
+            where student.stu_number = rent_book.stu_number \
+            and book.book_isbn = rent_book.book_isbn \
+            and (student.name ilike %s or book.title ilike %s)"
+    key_like = "%"+key+"%"
+    try:
+        cur.execute(sql,(key_like,key_like,))
+    except Exception as e:
+        print("貸出一覧検索取得エラー",e)
 
     result = cur.fetchall()
 
@@ -867,7 +912,7 @@ def student_search_change_result(stu_number):
     cur = conn.cursor()
 
     sql = "select student.mail,student.name,student.stu_number,\
-        course.course_name,student.year from student \
+        course.course_name,student.year,course.course_id from student \
             join course on (student.course_id = course.course_id) \
                 where student.stu_number = %s and student.delete_flag is false"
 

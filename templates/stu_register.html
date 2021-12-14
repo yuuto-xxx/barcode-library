@@ -17,7 +17,7 @@
         <h4 id="right"><a href="student_register_all">一括登録する方はこちら</a></h4>
     </div>
 
-    <form autocomplete="off" action="{{url_for('student_register')}}" method="POST" id="form1">
+    <form autocomplete="off" action="{{url_for('student_register')}}" method="POST" id="form1" onsubmit="return check()">
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
         <h4 id=half>学籍番号</h4>
@@ -57,22 +57,23 @@
         <h4>メールアドレス(再入力)</h4>
         <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" name="re_mail">
       </form>
-      <input type="submit" value="登録" form="form1" id="btn">
+      {% if visibility == 0 %}
+        <input type="submit" value="登録" form="form1" id="btn">
+    {% endif %}
+    {{visibility}}
     </div>
     <!-- アラート機能 -->
-      <script>
-        var btn = document.getElementById("btn");
-         
-        btn.addEventListener("click", function() {
-            var result = window.confirm("本当に登録してよろしいですか？");
-            
-            if( result ) {
-                console.log("はい");
+    <script>
+        function check(){
+            if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+                btn.style.visibility = 'hidden';
+                return true; // 「OK」時は送信を実行
             }
-            else {
-                console.log("いいえ");
+            else{ // 「キャンセル」時の処理
+                window.alert('キャンセルされました'); // 警告ダイアログを表示
+                return false; // 送信を中止
             }
-        })
+}
     </script>
     {{error}}
     {{event}}
