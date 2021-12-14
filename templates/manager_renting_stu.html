@@ -7,9 +7,11 @@
 {% block content %}
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
             <p class="report">※現在、学生が借りている一覧です。</p>
-            <span class="student_search">キーワード：</span>
-            <input type="text" name="key" class="text_box" style="font-size: 15pt;">
-            <button class="view_search">検索</button><br>
+            <form action="{{url_for('renting_search')}}" method="get">
+                <span class="student_search">キーワード：</span>
+                <input type="text" name="key" class="text_box" style="font-size: 15pt;">
+                <input type="submit" value="検索">
+            </form>
             <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
             <div class="scroll_bar">
             <table class="book_table">
@@ -57,3 +59,4 @@
             </table>
             </div>
 {% endblock %}
+                <!-- <button class="view_search">検索</button><br> -->

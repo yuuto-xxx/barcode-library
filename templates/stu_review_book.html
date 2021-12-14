@@ -9,7 +9,7 @@
 </head>
 
 {% block content %}
-            <form action="{{url_for('register_review')}}" method="post">
+            <form action="{{url_for('register_review')}}" method="post" onsubmit="return check()">
             <p class="screen_title">レビュー機能</p>
             <div class="review_style">
                 <div class="user_area">
@@ -41,6 +41,22 @@
                 <p class="title_view">レビューを追加</p>
                 <textarea name="review" cols="56" rows="5" maxlength="1024" class="review_add"></textarea>
             </div>
-            <p class="post_button"><button>投稿</button></p>
+            <!-- <p class="post_button"><button>投稿</button></p> -->
+            <input type="submit" value="投稿"class="post_button">
           </form>
+<!-- アラート機能 -->
+<script>
+  function check(){
+      if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+          btn.style.visibility = 'hidden';
+          return true; // 「OK」時は送信を実行
+      }
+      else{ // 「キャンセル」時の処理
+          window.alert('キャンセルされました'); // 警告ダイアログを表示
+          return false; // 送信を中止
+      }
+  }
+</script>
 {% endblock %}
+</body>
+</html>

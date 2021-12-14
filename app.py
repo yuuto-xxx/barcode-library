@@ -15,7 +15,7 @@ import string
 import csv
 from werkzeug.utils import secure_filename
 import datetime as dt
-from datetime import timedelta
+from datetime import datetime, timedelta
 import json
 import pathlib
 
@@ -103,6 +103,13 @@ def manager_top():
 @app.route("/manager_renting_student")
 def manager_renting():
     renting_list = db.student_renting()
+    return render_template("manager_renting_stu.html", renting_list=renting_list)
+
+#貸出一覧検索結果
+@app.route("/manager_renting_search")
+def renting_search():
+    key = request.args.get("key")
+    renting_list = db.student_renting_search(key)
     return render_template("manager_renting_stu.html", renting_list=renting_list)
 
 #本の登録
@@ -751,14 +758,14 @@ def pw_change():
 def pw_reset():
     mail = request.args.get('mail')
     student_flg = request.args.get('student_flg')
-    session["data"] = [mail,student_flg]
+    session["data"] = [mail,student_flg]   
     return render_template('pw_reset.html')
 
 # パスワードリセット(確認)
 @app.route('/pw_reset_2',methods=["POST"])
 def pw_reset_2():
     if "data" in session:
-        flg = session["data"][1]  
+        flg = session["data"][1]
         mail = session["data"][0]
         pw = request.form.get("pw_first")
         pw_2 =  request.form.get("pw_2")
@@ -785,6 +792,11 @@ def pw_reset_2():
                 # result_2 = db.manager_update(mail,pw_2)
                 event = "パスワードリセット成功"
                 return render_template('login.html',event=event)
+
+# パスリセット(2)
+@app.route('/pass_reset')
+def pass_reset():
+    return render_template('first_login.html')
 
 #初回ログイン時パスワード変更
 @app.route("/first_login", methods=["POST"])
@@ -871,7 +883,9 @@ def manager_promotion():
             flagnum = 1
         # id,name,course_name
         student_list = db.promotion_student_list()
-            
+        today = dt.datetime.today()
+        time = today - result[4]
+        print(time.days)
         return render_template('manager_promotion.html',result=[result[1],result[4]],student_list=student_list,flagnum=flagnum)
     else :
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
@@ -984,8 +998,18 @@ def book_detail():
 
 def book_detail(isbn):
     book = db.book_detail(isbn)
+    review = db.book_show_review(isbn)
     tag_pd,tag = db.tag_pull_down(isbn)
-    return render_template("book_detail.html", book=book,tag=tag,tag_pd=tag_pd)
+    amount_flag = db.select_amount(isbn)
+    if amount_flag:
+        if amount_flag[1] >= amount_flag[2]:
+            book_amount = 0
+        else :
+            book_amount = (int(amount_flag[2]-amount_flag[1]))
+    else :
+            book_amount = (int(book[6]))
+
+    return render_template("book_detail.html", book=book,tag=tag,tag_pd=tag_pd,book_amount=book_amount, review=review)
 
 # タグ追加
 @app.route("/tag_add",methods=["POST"])
