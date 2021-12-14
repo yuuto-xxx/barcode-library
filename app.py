@@ -301,7 +301,8 @@ def book_list():
                 review_avg = 0
                 print(e)
             t = db.select_tag(book_list[i][0])
-            book_list[i] = book_list[i] + (review_avg,)
+            book_list[i] = book_list[i] + (round(review_avg,1),)
+            # print(review_avg)
             tag.append(t)
             amount_flag = db.select_amount(book_list[i][0])
             if amount_flag:
