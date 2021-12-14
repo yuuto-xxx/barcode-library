@@ -13,15 +13,15 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="static/js/login.js"></script>
 	<div class="wrapper">
-		<form action="" method="POST" class="login">
+		<form action="{{url_for('pw_reset_2')}}" method="POST" class="login" onsubmit="return check()">
 			<p class="title">パスワード変更</p>
 			<div class="input-wrap">
-				<input type="email" name="password" placeholder="現在のパスワード" required="required" autofocus />
+				<input type="password" name="password" placeholder="現在のパスワード" required="required" autofocus />
 				<i class="fa fa-user"></i>
 			</div>
 			<form id="fieldPassword">
 				<div class="input-wrap">
-					<input type="password" name="password" id="textpassword" placeholder="新規パスワード" required="required" />
+					<input type="password" name="password1" id="textpassword" placeholder="新規パスワード" required="required" />
 					<i class="fa fa-key"></i>
 					<i id="buttonEye" class="toggle-pass fa fa-eye" onclick="pushHideButton()"></i>
 				</div>
@@ -49,6 +49,19 @@
 				btnEye.className = "fa fa-eye-slash toggle-pass";
 			}
 		}
-	</script>
+	// アラート機能
+    function check(){
+        if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+            btn.style.visibility = 'hidden';
+            return true; // 「OK」時は送信を実行
+        }
+        else{ // 「キャンセル」時の処理
+            window.alert('キャンセルされました'); // 警告ダイアログを表示
+            return false; // 送信を中止
+        }
+    }
+</script>
+{{error}}
+{{event}}
 </body>
 </html>
