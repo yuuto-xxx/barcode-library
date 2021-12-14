@@ -1,30 +1,27 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+{% extends "manager_layout.html" %} 
+
+{% block head %}
     <link rel="stylesheet" href="{{url_for('static', filename='css/sign_up.css')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>学生削除</title>
-</head>
-<body>
-    {% extends "manager_layout.html" %}
-    {% block content %}
+{% endblock %}
+    
+{% block content %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="form_group">
     <h4>※下記の内容をご入力の上、ご確認ください</h4>
-    <form autocomplete="off" action="" method="POST" id="form1" onsubmit="return check()">
+    <form autocomplete="off" action="{{url_for('student_delete')}}" method="POST" id="form1" onsubmit="return check()">
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
         <h4 id=half>学籍番号</h4>
-        <input type="text" half placeholder="(例)盛岡太郎" autocomplete="off">
-        <input type="text" half placeholder="(例)3201120" autocomplete="off">
+        <input type="text" half placeholder="(例)盛岡太郎" autocomplete="off" value="{{result[0][1]}}">
+        <input type="text" half placeholder="(例)3201120" autocomplete="off" value="{{result[0][2]}}">
         <!-- プルダウン -->
         <h4 id=half>学科</h4>
         <h4 id=half>学年</h4>
         <div class="cp_ipselect cp_sl02">
             <select required>
-                <option value="" hidden>選択してください</option>
+                <option value="{{result[0][3]}}" hidden>{{result[0][3]}}</option>
                 <option value="1">情報システム科</option>
                 <option value="2">ネットワークセキュリティ科</option>
                 <option value="3">総合システム工学科</option>
@@ -39,7 +36,7 @@
         </div>
         <div class="s_year cp_pull">
             <select>
-                <option value="" hidden>選択してください</option>
+                <option value={{result[0][4]}} hidden>{{result[0][4]}}</option>
                 <option value="">1</option>
                 <option value="">2</option>
                 <option value="">3</option>
@@ -49,7 +46,7 @@
 
         <!-- メールアドレス　-->
         <h4>メールアドレス</h4>
-        <input type="text" placeholder="(例)safasfd@morijyobi.ac.jp" autocomplete="off">
+        <input type="text" value="{{result[0][0]}}" placeholder="(例)safasfd@morijyobi.ac.jp" autocomplete="off">
       </form>
       <input type="submit" value="削除" form="form1" id="btn">
     </div>

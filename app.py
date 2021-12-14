@@ -625,7 +625,6 @@ def manager_student_delete():
     if name_check(name):
         result = db.student_search_change(name)
     if result:
-        print(result)
         return render_template("manager_stu_delete.html", name_list=result)
     else :
         error="名前は存在しません"
@@ -645,11 +644,10 @@ def student_delete():
     stu_number = request.form.get('stu_number')
     result = db.delete_flag(stu_number)
     if result:
-        event="削除成功"
-        return render_template("stu_delete.html",event=event)
+        return render_template("manager_stu_delete.html")
     else :
-        error="削除失敗"
-        return render_template("stu_delete.html",error=error)
+        print("削除失敗")
+        return render_template("manager_stu_delete.html")
 
 # 管理者一覧画面
 @app.route("/manager_manager_view")
