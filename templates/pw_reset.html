@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+	<link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
+	<title>パスワード変更</title>
+</head>
+
+<body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="static/js/login.js"></script>
+	<div class="wrapper">
+		<form action="" method="POST" class="login">
+			<p class="title">パスワード変更</p>
+			<div class="input-wrap">
+				<input type="email" name="password" placeholder="現在のパスワード" required="required" autofocus />
+				<i class="fa fa-user"></i>
+			</div>
+			<form id="fieldPassword">
+				<div class="input-wrap">
+					<input type="password" name="password" id="textpassword" placeholder="新規パスワード" required="required" />
+					<i class="fa fa-key"></i>
+					<i id="buttonEye" class="toggle-pass fa fa-eye" onclick="pushHideButton()"></i>
+				</div>
+				<div class="input-wrap">
+					<input type="password" name="password2" id="textpassword" placeholder="確認パスワード" required="required" />
+					<i class="fa fa-key"></i>
+					<i id="buttonEye" class="toggle-pass fa fa-eye" onclick="pushHideButton()"></i>
+				</div>
+				<button>
+					<i class="spinner"></i>
+					<span class="state">変更</span>
+				</button>
+			</form>
+		</form>
+	</div>
+	<script language="javascript">
+		function pushHideButton() {
+			var txtPass = document.getElementById("textpassword");
+			var btnEye = document.getElementById("buttonEye");
+			if (txtPass.type === "text") {
+				txtPass.type = "password";
+				btnEye.className = "fa fa-eye toggle-pass";
+			} else {
+				txtPass.type = "text";
+				btnEye.className = "fa fa-eye-slash toggle-pass";
+			}
+		}
+	</script>
+</body>
+</html>
