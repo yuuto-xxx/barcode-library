@@ -328,6 +328,29 @@ def student_renting():
 
     return result
 
+#貸出一覧検索
+def student_renting_search(key):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select student.name, book.title, rent_book.rent_day, \
+            rent_book.return_day from student, book, rent_book\
+            where student.stu_number = rent_book.stu_number \
+            and book.book_isbn = rent_book.book_isbn \
+            and (student.name ilike %s or book.title ilike %s)"
+    key_like = "%"+key+"%"
+    try:
+        cur.execute(sql,(key_like,key_like,))
+    except Exception as e:
+        print("貸出一覧検索取得エラー",e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
 #本を借りる
 def rent_book(stu_number, isbn_list):
     conn = get_connection()
