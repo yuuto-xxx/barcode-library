@@ -2,6 +2,8 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from smtplib import SMTP
 import smtplib
+import sendgrid
+import os
 
 def mail(address,pw):
     # SMTP認証情報

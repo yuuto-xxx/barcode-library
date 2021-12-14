@@ -199,7 +199,7 @@
   
   .yoko {
     display: flex; 
-    /* justify-content: space-between; */
+    justify-content: space-between;
   }
   .main_board{
     /* margin-top: 70pt; */
