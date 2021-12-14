@@ -31,7 +31,7 @@ def mail(address,pw):
     print("ok")
     return True
 
-def forget_pw_mail(address,pw,student_flg):
+def forget_pw_mail(address,pw,student_flg,new_salt):
     # SMTP認証情報
     account = "morijyobi.library.apprication@gmail.com"
     password = "morijyobi"
@@ -40,7 +40,7 @@ def forget_pw_mail(address,pw,student_flg):
     to_email = address
     from_email = account
     
-    email = "?mail="+address+"?student_flg="+str(student_flg)
+    email = "?mail="+address+"?student_flg="+str(student_flg)+"?salt="+new_salt
     # MIMEの作成
     subject = "仮パスワードの送信"
     message = f"新しいパスワード；＿＿{pw}__http://127.0.0.1/pw_reset{email}"

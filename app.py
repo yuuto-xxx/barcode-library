@@ -46,9 +46,11 @@ def stu_top():
     mail = request.form.get("mail")
     password = request.form.get("password")
     result = db.student_login(mail,password)
-
-    #session(stu_number, name, password_flag)
-    session["user"] = (result[0],result[1],result[2])
+    if result == None:
+        error = "メールアドレス又はパスワードが間違っています"
+        return render_template("login.html",session=error)
+    #session(stu_number, name, password_flag,mail)
+    session["user"] = (result[0],result[1],result[2],mail)
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=30)
 
@@ -212,8 +214,14 @@ def stu_book_rent_result():
         isbn = request.args.get("isbn")
         isbn_list = isbn.split()
         db.rent_book(stu_number,isbn_list)
-        renting_list = db.student_renting()
-        return render_template("stu_book_rent.html", renting_list=renting_list)
+        renting_list = db.book_renting(user[0])
+        detail_list = []
+        for i in range(len(renting_list)):
+            book_detail = db.book_detail(renting_list[i])
+            detail_list.append(book_detail)
+        print(detail_list)
+
+        return render_template("stu_book_rent.html", detail_list=detail_list)
     else:
         return redirect(url_for('login_page'))
 
@@ -695,7 +703,7 @@ def forget_pw_2():
         new_salt = db.create_salt()
         # 仮パスワードをアップデートしてメール送信
         db.update_student(mail, new_pw, new_salt)
-        mail_send.forget_pw_mail(mail, new_pw, student_flg)
+        mail_send.forget_pw_mail(mail, new_pw, student_flg,new_salt)
         return render_template('pw_change.html', student_flg=student_flg,salt=new_salt,mail=mail)
     else:
         salt = db.manager_search_salt(mail)
@@ -754,47 +762,41 @@ def pw_change():
 # パスワードリセット(メール送信url) 
 @app.route('/pw_reset')
 def pw_reset():
-    mail = request.args.get('mail')
-    student_flg = request.args.get('student_flg')
-    session["data"] = [mail,student_flg]   
-    return render_template('pw_reset.html')
+    if "user" in session:
+        return render_template('pw_reset.html')
+    else :
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 # パスワードリセット(確認)
 @app.route('/pw_reset_2',methods=["POST"])
 def pw_reset_2():
-    if "data" in session:
-        flg = session["data"][1]
-        mail = session["data"][0]
-        pw = request.form.get("pw_first")
-        pw_2 =  request.form.get("pw_2")
-        pw_3 = request.form.get("pw_3")
-        if pw_2 != pw_3:
+    if "user" in session:
+        mail = session["user"][3]
+        password = request.form.get('password')
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
+        if password == password1:
+            error = "過去のパスワードと新規パスワードは同じです"
+            return redirect(url_for('pw_reset',error=error))        
+        if password1 != password2:
             error = "パスワードとパスワード(確認)は一致していません"
-            return render_template('pw_reset.html',error=error)
-        if passwd_check(pw_2):
+            return redirect(url_for('pw_reset',error=error))
+        if passwd_check(password1):
+            result = db.student_login(mail,password)
+            print(result)
+            if result:
+                result2 = db.pw_reset(mail,password1)
+                if result2:
+                    return redirect(url_for('stu_book_renting'))
+                else :
+                    return redirect(url_for('pw_reset',error="登録失敗"))
+            else :
+                return redirect(url_for('pw_reset',error="アカウントが存在しません"))
+        else :
             error = "バリエーションエラー"
-            return render_template('pw_reset.html',error=error)
-        # 学生の場合
-        if flg == 1:
-            result = db.student_login(mail,pw)
-            if result:
-                # 学生パスワードリセット
-                # result_2 = db.student_update(mail,pw_2)
-                event = "パスワードリセット成功"
-                return render_template('login.html',event=event)
-        # 管理者の場合
-        elif flg == 0:
-            result = db.manager_login(mail,pw)
-            if result:
-                # 管理者パスワードリセット
-                # result_2 = db.manager_update(mail,pw_2)
-                event = "パスワードリセット成功"
-                return render_template('login.html',event=event)
-
-# パスリセット(2)
-@app.route('/pass_reset')
-def pass_reset():
-    return render_template('first_login.html')
+            return redirect(url_for('pw_reset',error=error))
+    else :
+        return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 #初回ログイン時パスワード変更
 @app.route("/first_login", methods=["POST"])
@@ -873,7 +875,6 @@ def student_all_file_2():
 @app.route('/manager_promotion')
 def manager_promotion():
     if "user" in session:
-        # mail = session["user"][2]
         # mail,day
         result = db.last_promotion_history()
         flagnum = 0

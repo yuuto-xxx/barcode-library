@@ -48,6 +48,26 @@ def student_register(stu_number,mail,name,course_id,year,pw):
     
     return True
 
+# パスワードリセット(学生ログイン後)
+def pw_reset(mail,password):
+    conn = get_connection()
+    cur = conn.cursor()
+    salt = create_salt()
+    sql = "update student set password=%s,salt=%s where mail=%s"
+    hashed_pw = hash_pw(password,salt)
+    try:
+        cur.execute(sql,(hashed_pw,salt,mail,))
+        print(hashed_pw)
+    except Exception as e:
+        print("SQL実行に失敗：", e)
+        return False
+    
+    conn.commit()
+    cur.close()
+    conn.close()
+    
+    return True
+
 # ソルトの新規作成
 def create_salt():
     return ''.join(random.choices(string.ascii_letters + string.digits, k=32))
@@ -163,6 +183,7 @@ def search_student_account(mail, password):
         cur.execute(sql,(mail,password))
     except Exception as e:
         print("search_student_account_error",e)
+        return None
 
     result = cur.fetchone()
 
