@@ -23,15 +23,11 @@ app = Flask(__name__)
 
 # 秘密鍵
 app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
-# upload_folder = './library_application/uploads/image/'
-# app.config['UPLOAD_FOLDER'] = upload_folder
 
 @app.route("/") #学生ログイン
 def login_page():
     session = request.args.get("session")
     error = request.args.get("error")
-    print(session)
-    print(error)
     return render_template("login.html", session=session, error=error)
 
 @app.route("/manager_login") #管理者ログイン
@@ -302,7 +298,6 @@ def book_list():
                 print(e)
             t = db.select_tag(book_list[i][0])
             book_list[i] = book_list[i] + (round(review_avg,1),)
-            # print(review_avg)
             tag.append(t)
             amount_flag = db.select_amount(book_list[i][0])
             if amount_flag:
@@ -406,8 +401,6 @@ def stu_book_search():
             return redirect(url_for("book_list"))
     else :
         return redirect(url_for('login_page'))
-#         <!-- {{redirect(url_for('book_detail'))}} -->
-
 
 # 本の一覧(管理者)
 @app.route("/manager_book_list")
@@ -767,7 +760,7 @@ def pw_change():
 def pw_reset():
     if "user" in session:
         return render_template('pw_reset.html')
-    else :
+    else:
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 # パスワードリセット(確認)
