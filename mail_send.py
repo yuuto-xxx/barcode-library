@@ -5,8 +5,8 @@ import smtplib
 
 def mail(address,pw):
     # SMTP認証情報
-    account = "morijyobi.library.apprication@gmail.com"
-    password = "vqocudprlyloowue"
+    account = "morijyobi.library.application@gmail.com"
+    password = "ebitlukbrhhognds"
     
     # 送受信先
     to_email = address
@@ -31,7 +31,7 @@ def mail(address,pw):
 
 def forget_pw_mail(address,pw,student_flg,new_salt):
     # SMTP認証情報
-    account = "morijyobi.library.apprication@gmail.com"
+    account = "morijyobi.library.application@gmail.com"
     password = "morijyobi"
     
     # 送受信先
@@ -53,5 +53,4 @@ def forget_pw_mail(address,pw,student_flg,new_salt):
     server.login(account, password)
     server.send_message(msg)
     server.quit()
-    print("ok")
     return True
