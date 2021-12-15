@@ -562,6 +562,26 @@ def tag_pull_down(isbn):
         result.remove(i)
     return result,old_tag
 
+# タグの確認
+def tag_result(isbn,tag_name):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select tag.tag_name from tag join book_tag on (tag.tag_id=book_tag.tag_id) where book_tag.book_isbn=%s and tag.tag_name=%s"
+
+    try:
+        cur.execute(sql,(isbn,tag_name))
+    except Exception as e:
+        print("本のtag情報取得エラー")
+        return None
+
+    result = cur.fetchone()
+
+    cur.close()
+    conn.close()
+
+    return result
+
 
 # 本の検索(学生)
 def stu_book_search(key):
