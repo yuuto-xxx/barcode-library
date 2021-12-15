@@ -349,7 +349,11 @@
     margin-top: -15pt;
   }
   .post_button{
-    margin-left: 33%;
+    font-size: 15pt;
+    background-color: #45B3CF;
+    color: white;
+    width: 90pt;
+    margin-left: 550px
   }
   input[type=submit]{
     font-size: 15pt;
