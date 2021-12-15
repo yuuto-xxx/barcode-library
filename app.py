@@ -534,10 +534,6 @@ def manager_register_result():
 def stu_register():
     visibility = 0
     return render_template("stu_register.html",visibility=visibility)
-
-# def stu_register(list):
-#     list = request.ar
-#     return render_template("stu_register.html")
         
 @app.route("/student_register", methods=['POST']) 
 def student_register():

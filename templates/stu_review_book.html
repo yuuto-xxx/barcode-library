@@ -1,12 +1,10 @@
 {% extends "student_layout.html" %}
-<!DOCTYPE html>
-<html lang="ja">
-<head>
+{% block head %}
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+  <title>レビュー画面</title>
+{% endblock %}
 
 {% block content %}
             <form action="{{url_for('register_review')}}" method="post" onsubmit="return check()">
@@ -41,13 +39,12 @@
                 <p class="title_view">レビューを追加</p>
                 <textarea name="review" cols="56" rows="5" maxlength="1024" class="review_add"></textarea>
             </div>
-            <!-- <p class="post_button"><button>投稿</button></p> -->
             <input type="submit" value="投稿" class="post_button">
           </form>
 <!-- アラート機能 -->
 <script>
   function check(){
-      if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+      if(window.confirm('投稿してよろしいですか？')){ // 確認ダイアログを表示
           btn.style.visibility = 'hidden';
           return true; // 「OK」時は送信を実行
       }
@@ -58,5 +55,3 @@
   }
 </script>
 {% endblock %}
-</body>
-</html>
