@@ -1017,15 +1017,33 @@ def book_detail(isbn):
 
     return render_template("book_detail.html", book=book,tag=tag,tag_pd=tag_pd,book_amount=book_amount, review=review)
 
+def book_detail(isbn,tag_name):
+    book = db.book_detail(isbn)
+    review = db.book_show_review(isbn)
+    tag_pd,tag = db.tag_pull_down(isbn)
+    amount_flag = db.select_amount(isbn)
+    if amount_flag:
+        if amount_flag[1] >= amount_flag[2]:
+            book_amount = 0
+        else :
+            book_amount = (int(amount_flag[2]-amount_flag[1]))
+    else :
+            book_amount = (int(book[6]))
+
+    return render_template("book_detail.html", book=book,tag=tag,tag_pd=tag_pd,book_amount=book_amount, review=review,tag_name=tag_name)
+
 # タグ追加
 @app.route("/tag_add",methods=["POST"])
 def tag_add():
     isbn = request.form.get("book_number")
     tag_name = request.form.get("tag")
     print(tag_name)
+    tag_search = db.tag_result(isbn,tag_name)
+    if tag_search:
+        return book_detail(isbn,tag_name+"タグが存在します。")
     result =  db.tag_add_book(isbn,tag_name)
     if result:
-        return redirect(url_for('book_list'))
+        return book_detail(isbn,tag_name+"タグを追加しました")
     else :
         return "@tag_add_error"
 
