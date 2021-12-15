@@ -49,6 +49,7 @@ def stu_top():
     session["user"] = (result[0],result[1],result[2],mail)
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=30)
+    session.modified = True
 
     if result == None:
         error = "メールアドレス又はパスワードが間違っています"
