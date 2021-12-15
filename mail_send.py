@@ -2,13 +2,11 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from smtplib import SMTP
 import smtplib
-# import sendgrid
-# import os
 
 def mail(address,pw):
     # SMTP認証情報
     account = "morijyobi.library.apprication@gmail.com"
-    password = "morijyobi"
+    password = "vqocudprlyloowue"
     
     # 送受信先
     to_email = address
