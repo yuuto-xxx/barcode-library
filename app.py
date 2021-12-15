@@ -130,8 +130,8 @@ def book_register_verification():
     else:
         json_data = register_book.get_book(isbn)
         if(json_data == None):
-            error = "検索結果なし"
-            return render_template("book_register_camera.html",error=error)
+            error = "ISBNで書籍情報が取得できませんでした"
+            return render_template("manual_book_register.html",error=error)
         else:
             large_image_url = json_data["largeImageUrl"]
             title = json_data["title"]
