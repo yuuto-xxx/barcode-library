@@ -87,3 +87,149 @@ input[type=number][half] {
     margin: 0 auto;
     transition: all 0.6s;
     }
+@media screen and (max-width: 480px) {
+    .form_group {
+        width: 100%;
+        margin: 0 auto;
+        margin-top: 20%;
+        margin-left: -1%;
+      }
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+        }
+        
+    body {
+        height: 80vh;
+        flex-wrap: wrap;
+        }
+    
+    .info-area{
+        margin-top: 130px;
+    }
+    
+    form {
+        border: 2px solid #707070;
+        padding: 10px 10px 10px 25px;
+        width: 90%;
+        max-width: 700px;
+        border-radius: 20px;
+        text-align: center;
+        margin: 0 auto;
+        }
+    
+    .square {
+        border: 2px solid #707070;
+        padding: 10px 0px 0px 0px;
+        width: 95%;
+        max-width: 700px;
+        display: block; 	
+        padding-top: 0px;
+    }
+    
+    .square li {
+        display: list-item;
+        list-style-type: none;
+        text-transform: uppercase;
+        padding: 0.5em;
+      }
+    
+    /* infoクラス(本の情報が入るリスト)の左側に線をつける */
+    .info{
+        border-top: 2px solid #707070;
+    }
+    
+    .info2{
+        text-align: center;
+    }
+    .info2 img{
+        width: 250px;
+        height: 150px;
+    }
+    input[type=number][half] {
+        width: 50%;
+        height: 10px;
+        float: right;
+        margin-right: 10px;
+        border-radius: 0px;
+        text-align: center;
+        }
+      /* テキストボックス配置 */
+    input {
+        padding: 10px 15px;
+        border-radius: 10px;
+        transition: 0.3s ease;
+        color: #131313;
+    }
+    
+    input[type=text] {
+        width: 90%;
+        margin-bottom: 10px;
+        border: 2px solid #b5b6b8;
+    }
+      
+    input[type=text]:placeholder-shown {
+        border: 2px solid #EAE4DA;
+    }
+      
+    input[type=text]::placeholder {
+        color: #b5b6b8;
+    }
+    
+    
+      /* ボタン配置 */
+      * input[type=submit] {
+        font-size: 10pt;
+        background-color: #45B3CF;
+        color: white;
+        width: 80pt;
+        padding: 5px;
+        margin-top: 10px;
+        border-radius: 0px;
+        text-align: center;
+    }
+    /* 横並び */
+    .flex2{
+        width: 70%;
+        max-width: 700px;
+        margin: 0 auto;
+        padding-top: 30px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        text-align: center;
+        align-items: center;
+    }
+    
+    .tag2{
+        width: 90%;
+
+    }
+    .review::-webkit-scrollbar{
+        width: 10px;
+    }
+    
+    .review::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background: #cde7ee;
+      }
+    
+    .review::-webkit-scrollbar-thumb {
+        background-color: rgba(36, 36, 39, 0.5);
+        border-radius: 10px;
+    }
+    .main_board{
+        /* margin-top: 70pt; */
+        width: 100%;
+        margin: 0 auto;
+        transition: all 0.6s;
+        }
+    
+    .main_board button{
+        background-color: #3e4142;
+        color: white;
+        height: 30px;
+        }
+}
