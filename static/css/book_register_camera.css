@@ -60,6 +60,10 @@
     display: flex; 
     justify-content: space-between;
   }
+  .yoko1 {
+    display: flex; 
+    justify-content: space-between;
+  }
   .list {
   position: relative;
   overflow: hidden;
@@ -72,11 +76,11 @@
   margin-left: -130px;
   }
     /* ボタン配置 */
-  * input[type=submit] {
+  .yoko input[type=submit] {
       font-size: 13pt;
       background-color: #45B3CF;
       color: white;
-      height: 40pt;
+      height: 33pt;
       padding: 5px ;
       border-radius: 0px;
     }
@@ -136,6 +140,7 @@
       input[type=text][half] {
         width: calc(100% - 10px);
         float: left;
+        margin-bottom: 5%;
         }
       
       #half{
@@ -148,14 +153,18 @@
         float: center;
         margin-right: 200px;
       }
-      .yoko {
+      /* .yoko {
+        display: flex; 
+        justify-content: space-between;
+      } */
+      .yoko1{
         display: flex; 
         justify-content: space-between;
       }
-      .yoko h3{
+      .yoko1 h3{
         width: 50%;
       }
-      .yoko h4{
+      .yoko1 h4{
         text-align: right;
       }
       .list {
@@ -170,7 +179,7 @@
       margin-left: -55%;
       }
         /* ボタン配置 */
-      * input[type=submit] {
+      .yoko input[type=submit] {
           font-size: 13pt;
           background-color: #45B3CF;
           color: white;
@@ -179,6 +188,7 @@
           padding: 5px ;
           border-radius: 0px;
           margin-left: 40%;
+          margin-bottom: 5%;
         }
       
       * input:focus {
