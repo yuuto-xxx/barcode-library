@@ -1028,13 +1028,15 @@ def book_detail(isbn,tag_name):
 def tag_add():
     isbn = request.form.get("book_number")
     tag_name = request.form.get("tag")
+    if len(tag_name) > 16:
+        return book_detail(isbn,"["+tag_name+"]タグが16文字以下です。")
     print(tag_name)
     tag_search = db.tag_result(isbn,tag_name)
     if tag_search:
-        return book_detail(isbn,tag_name+"タグが存在します。")
+        return book_detail(isbn,"["+tag_name+"]タグが存在します。")
     result =  db.tag_add_book(isbn,tag_name)
     if result:
-        return book_detail(isbn,tag_name+"タグを追加しました")
+        return book_detail(isbn,"["+tag_name+"]タグを追加しました")
     else :
         return "@tag_add_error"
 

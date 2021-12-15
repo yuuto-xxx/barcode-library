@@ -27,7 +27,7 @@
             <div class="flex">
                 <h4>残り <span style="color: red;">{{book_amount}}</span> 冊</h4>
                 <div class="tag2">
-                    <span style="color: red;">{{tag_name}}</span>
+
                     <input type="text" name="tag" half placeholder="タグを追加" list="datalist">
                     <datalist name="course" id="datalist">
                         {% for n in tag_pd%}
@@ -38,6 +38,7 @@
                     <input type="submit" value="追加">
                 </div>
             </div>
+            <p style="color: red;">{{tag_name}}</p>
             </form>
         <div class="flex2">
             <h4>レビュー</h4>
