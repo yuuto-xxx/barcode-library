@@ -878,8 +878,8 @@ def manager_promotion():
             flagnum = 1
         # id,name,course_name
         student_list = db.promotion_student_list()
-        today = dt.datetime.today()
-        time = today - result[4]
+        today = dt.date.today()
+        time = today - result[1]
         print(time.days)
         return render_template('manager_promotion.html',result=[result[1],result[4]],student_list=student_list,flagnum=flagnum)
     else :
