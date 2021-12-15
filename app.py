@@ -22,16 +22,13 @@ import pathlib
 app = Flask(__name__)
 
 # 秘密鍵
-app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
-# upload_folder = './library_application/uploads/image/'
-# app.config['UPLOAD_FOLDER'] = upload_folder
+# app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
+app.secret_key = "morijyobi"
 
 @app.route("/") #学生ログイン
 def login_page():
     session = request.args.get("session")
     error = request.args.get("error")
-    print(session)
-    print(error)
     return render_template("login.html", session=session, error=error)
 
 @app.route("/manager_login") #管理者ログイン
@@ -53,6 +50,7 @@ def stu_top():
     session["user"] = (result[0],result[1],result[2],mail)
     session.permanent = True
     app.permanent_session_lifetime = timedelta(minutes=30)
+    session.modified = True
 
     if result == None:
         error = "メールアドレス又はパスワードが間違っています"
@@ -134,8 +132,8 @@ def book_register_verification():
     else:
         json_data = register_book.get_book(isbn)
         if(json_data == None):
-            error = "検索結果なし"
-            return render_template("book_register_camera.html",error=error)
+            error = "ISBNで書籍情報が取得できませんでした"
+            return render_template("manual_book_register.html",error=error)
         else:
             large_image_url = json_data["largeImageUrl"]
             title = json_data["title"]
@@ -302,7 +300,6 @@ def book_list():
                 print(e)
             t = db.select_tag(book_list[i][0])
             book_list[i] = book_list[i] + (round(review_avg,1),)
-            # print(review_avg)
             tag.append(t)
             amount_flag = db.select_amount(book_list[i][0])
             if amount_flag:
@@ -406,8 +403,6 @@ def stu_book_search():
             return redirect(url_for("book_list"))
     else :
         return redirect(url_for('login_page'))
-#         <!-- {{redirect(url_for('book_detail'))}} -->
-
 
 # 本の一覧(管理者)
 @app.route("/manager_book_list")
@@ -534,10 +529,6 @@ def manager_register_result():
 def stu_register():
     visibility = 0
     return render_template("stu_register.html",visibility=visibility)
-
-# def stu_register(list):
-#     list = request.ar
-#     return render_template("stu_register.html")
         
 @app.route("/student_register", methods=['POST']) 
 def student_register():
@@ -771,7 +762,7 @@ def pw_change():
 def pw_reset():
     if "user" in session:
         return render_template('pw_reset.html')
-    else :
+    else:
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
 # パスワードリセット(確認)
@@ -889,8 +880,8 @@ def manager_promotion():
             flagnum = 1
         # id,name,course_name
         student_list = db.promotion_student_list()
-        today = dt.datetime.today()
-        time = today - result[4]
+        today = dt.date.today()
+        time = today - result[1]
         print(time.days)
         return render_template('manager_promotion.html',result=[result[1],result[4]],student_list=student_list,flagnum=flagnum)
     else :

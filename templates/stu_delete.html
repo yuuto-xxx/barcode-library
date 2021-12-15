@@ -14,13 +14,13 @@
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
         <h4 id=half>学籍番号</h4>
-        <input type="text" half placeholder="(例)盛岡太郎" autocomplete="off" value="{{result[0][1]}}">
-        <input type="text" half placeholder="(例)3201120" autocomplete="off" value="{{result[0][2]}}">
+        <input type="text" half placeholder="(例)盛岡太郎" autocomplete="off" value="{{result[0][1]}}" readonly>
+        <input type="text" half placeholder="(例)3201120" autocomplete="off" value="{{result[0][2]}}" readonly>
         <!-- プルダウン -->
         <h4 id=half>学科</h4>
         <h4 id=half>学年</h4>
         <div class="cp_ipselect cp_sl02">
-            <select required>
+            <select required disabled>
                 <option value="{{result[0][3]}}" hidden>{{result[0][3]}}</option>
                 <option value="1">情報システム科</option>
                 <option value="2">ネットワークセキュリティ科</option>
@@ -35,7 +35,7 @@
             </select>
         </div>
         <div class="s_year cp_pull">
-            <select>
+            <select disabled>
                 <option value={{result[0][4]}} hidden>{{result[0][4]}}</option>
                 <option value="">1</option>
                 <option value="">2</option>
@@ -46,14 +46,14 @@
 
         <!-- メールアドレス　-->
         <h4>メールアドレス</h4>
-        <input type="text" value="{{result[0][0]}}" placeholder="(例)safasfd@morijyobi.ac.jp" autocomplete="off">
+        <input type="text" value="{{result[0][0]}}" placeholder="(例)safasfd@morijyobi.ac.jp" autocomplete="off" readonly>
       </form>
       <input type="submit" value="削除" form="form1" id="btn">
     </div>
 <!-- アラート機能 -->
 <script>
     function check(){
-        if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+        if(window.confirm('削除してよろしいですか？')){ // 確認ダイアログを表示
             btn.style.visibility = 'hidden';
             return true; // 「OK」時は送信を実行
         }

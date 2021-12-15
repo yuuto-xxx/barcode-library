@@ -177,7 +177,7 @@
         font-family: 'Times New Roman', Times, serif;
         border-left: black solid 1px;
         border-bottom: black solid 1px;
-
+        margin-bottom: 20px;
     }
     .book_table .column_book {
         width: 20%;
@@ -206,5 +206,10 @@
     #preview{
         width: 255px;
         height: 250px;
+    }
+
+    .yoko{
+        display: flex; 
+        justify-content: space-between;
     }
 }

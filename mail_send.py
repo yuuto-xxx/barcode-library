@@ -2,13 +2,11 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from smtplib import SMTP
 import smtplib
-import sendgrid
-import os
 
 def mail(address,pw):
     # SMTP認証情報
-    account = "morijyobi.library.apprication@gmail.com"
-    password = "morijyobi"
+    account = "morijyobi.library.application@gmail.com"
+    password = "ebitlukbrhhognds"
     
     # 送受信先
     to_email = address
@@ -16,7 +14,7 @@ def mail(address,pw):
     
     # MIMEの作成
     subject = "仮パスワードの送信"
-    message = f"新しいパスワード；＿＿{pw}"
+    message = f"新しいパスワード；{pw}"
     msg = MIMEText(message, "html")
     msg["Subject"] = subject
     msg["To"] = to_email
@@ -33,8 +31,8 @@ def mail(address,pw):
 
 def forget_pw_mail(address,pw,student_flg,new_salt):
     # SMTP認証情報
-    account = "morijyobi.library.apprication@gmail.com"
-    password = "morijyobi"
+    account = "morijyobi.library.application@gmail.com"
+    password = "ebitlukbrhhognds"
     
     # 送受信先
     to_email = address
@@ -55,5 +53,4 @@ def forget_pw_mail(address,pw,student_flg,new_salt):
     server.login(account, password)
     server.send_message(msg)
     server.quit()
-    print("ok")
     return True

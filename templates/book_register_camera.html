@@ -10,7 +10,7 @@
     <div class="form_group">
     <h4>※本をカメラで登録する為、本のisbnをカメラに向かってかざしてください。</h4> 
     <form autocomplete="off" action="{{url_for('book_register_verification')}}">
-      <div class="yoko">
+      <div class="yoko1">
         <h3>本登録画面</h3>
         <h4><a href="{{url_for('manual_book_register')}}">手入力登録する方はこちら</a></h4>
       </div>
@@ -117,11 +117,9 @@
             </script>
 
         <div><canvas id="preview"></canvas></div>
-          <div class="list">
-            <ul>
+          <div class="yoko">
             <input type="text" half id="jan" name="isbn">
-            <input type="submit" value="登録">
-            </ul>
+            <input type="submit" value="登 録">
           </div>
         </div>
         </form> 

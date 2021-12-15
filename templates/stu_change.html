@@ -54,12 +54,11 @@
         {% if visibility == 0 %}
             <input type="submit" value="変更" form="form1" id="btn">
         {% endif %}
-        {{visibility}}
     </div>
     
     <script>
         function check(){
-            if(window.confirm('送信してよろしいですか？')){ // 確認ダイアログを表示
+            if(window.confirm('変更してよろしいですか？')){ // 確認ダイアログを表示
                 btn.style.visibility = 'hidden';
                 return true; // 「OK」時は送信を実行
             }

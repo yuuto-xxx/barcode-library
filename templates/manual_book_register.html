@@ -8,6 +8,9 @@
 {% block content %}
 <div class="form_group">
     <form action="{{url_for('manual_book_register_result')}}" enctype="multipart/form-data" method="post">
+        {% if error != None %}
+        <p style="color: blue;">{{error}}</p>
+        {% endif %}
         <h4 style="text-align: left;">本詳細情報</h4>
         <div class="square">
             <ul class="info2">
