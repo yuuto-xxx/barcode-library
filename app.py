@@ -22,7 +22,8 @@ import pathlib
 app = Flask(__name__)
 
 # 秘密鍵
-app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
+# app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
+app.secret_key = "morijyobi"
 
 @app.route("/") #学生ログイン
 def login_page():
