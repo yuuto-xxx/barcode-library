@@ -414,7 +414,7 @@ def manager_book_list():
             return render_template("manager_book_list.html",book_list=result)
         else :
             event = "本は登録されていません"
-            return render_template("manager_book_list.html",event=event)
+            return render_template("manager_book_list.html",event=event)       
     else :
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
