@@ -411,6 +411,8 @@ def manager_book_list():
         result = db.book_list()
         if result:
             return render_template("manager_book_list.html",book_list=result)
+        else:
+            return render_template("book_register_camera.html")
     else :
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 

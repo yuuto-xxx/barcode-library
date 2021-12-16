@@ -243,7 +243,11 @@ def book_list():
     cur.close()
     conn.close()
 
-    return result
+    if result != []:
+        return result
+    else:
+        result = False
+        return result
 
 def book_review_score(isbn):
     conn = get_connection()
