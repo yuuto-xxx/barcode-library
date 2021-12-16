@@ -14,6 +14,12 @@
 	<div class="wrapper">
 		<form class="login" action="{{url_for('pw_change')}}" method="post">
 			<p class="title">パスワード変更</p>
+			{% if event != None %}
+            <br><p style="color: red;">{{event}}</p>
+            {% endif %}    
+            {% if error != None %}
+            <br><p style="color: blue;">{{error}}</p>
+            {% endif %}
 			<input type="text" name="temporary_password" placeholder="仮パスワード" autofocus required="required" autocomplete="off"/>
 			<i class="fa fa-user"></i>
 

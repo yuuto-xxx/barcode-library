@@ -8,6 +8,12 @@
 {% block content %}
             <form action="{{url_for('manager_student_edit')}}" method="post">
             <p class="report2">※以下の内容ご入力の上、ご確認ください。</p>
+            {% if event != None %}
+            <br><p style="color: red;">{{event}}</p>
+            {% endif %}    
+            {% if error != None %}
+            <br><p style="color: blue;">{{error}}</p>
+            {% endif %}
             <div class="edit_board">
                 <p class="name">名前</p>
                 <p class="name_type"><span><input type="text" name="name" placeholder="盛岡"></span>

@@ -13,6 +13,12 @@
     <div class="form_group">
     <form action="{{url_for('book_delete_main')}}" method="get">
         <h4 style="text-align: left;">本詳細情報</h4>
+        {% if event != None %}
+        <p style="color: red;">{{event}}</p>
+        {% endif %}    
+        {% if error != None %}
+        <p style="color: blue;">{{error}}</p>
+        {% endif %}    
         <div class="square">
             <ul class="info2">
                 <li><img src={{book[1]}} width="180" height="200"></li>

@@ -17,7 +17,12 @@
                 <th class="book_column">発売日</th>
                 <th class="book_column"></th>
             </tr>
-            {{error}}
+            {% if event != None %}
+            <br><p style="color: red;">{{event}}</p>
+            {% endif %}    
+            {% if error != None %}
+            <br><p style="color: blue;">{{error}}</p>
+            {% endif %}
             {% for i in range(book_list | length) %}
                 {% if i%2 == 0 %}
             <tr>

@@ -6,6 +6,7 @@ import os
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask.globals import g
 from flask.sessions import SessionInterface
+from werkzeug.local import F
 import register_book
 import db
 import re
@@ -146,7 +147,7 @@ def book_register_verification():
                 sales_date = dt.datetime.strptime(sales_date,"%Y年%m月%d日頃")
             sales_date = sales_date.strftime("%Y/%m/%d")
             book = [isbn, large_image_url, title, author, publisher, sales_date]
-            return render_template('book_register.html', book=book)
+            return render_template('book_register.html', book=book,event="登録成功しました。")
 
 @app.route("/book_register_result") #登録リザルト
 def book_register_result():
@@ -411,8 +412,9 @@ def manager_book_list():
         result = db.book_list()
         if result:
             return render_template("manager_book_list.html",book_list=result)
-        else:
-            return render_template("book_register_camera.html")
+        else :
+            event = "本は登録されていません"
+            return render_template("manager_book_list.html",event=event)       
     else :
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
@@ -460,12 +462,18 @@ def book_change_main():
         else :
             if int(num) <= 0:
                 result = db.book_delete_flag(book_isbn)
+                d_flag = True
             else:
                 result = db.book_change(book_isbn,title,author,pub,day,num)
+                d_flag = False
         if result:
-            return redirect(url_for('manager_book_list'))
+            if d_flag:
+                event =tit+"が削除されました"
+            else :
+                event=tit+"が削除されました"
+            return redirect(url_for('manager_book_list',event=event))
         else :
-            return render_template('book_change_main.html',error="error")
+            return render_template('book_change_main.html',error="削除に失敗しました。")
     else :
         return redirect(url_for("login_page",session="セッション有効期限切れです。"))
 
@@ -494,10 +502,16 @@ def book_delete_main():
         # return render_template("book_delete_main.html",num=quantity)
         if quantity1 >= max1:
             result = db.book_delete_flag(isbn)
+            d_flag = True
         else :
             result = db.book_delete_amount(isbn,quantity)
+            d_flag = False
         if result:
-            return redirect(url_for('manager_book_list'))
+            if d_flag :
+                event = "削除されました"
+            else :
+                event = "変更成功しました"
+            return redirect(url_for('manager_book_list',event=event))
     else :
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 
@@ -532,7 +546,7 @@ def stu_register():
     visibility = 0
     return render_template("stu_register.html",visibility=visibility)
         
-@app.route("/student_register", methods=['POST']) 
+@app.route("/student_register", methods=['POST'])
 def student_register():
     stu_number = request.form.get("stu_number")
     name = request.form.get("name")
@@ -548,12 +562,13 @@ def student_register():
         result = db.student_register(stu_number, mail, name, course, year, pw)
         if result:
             event = "登録成功"
+            visibility = 1
             mail_send.mail(mail,pw) #新規登録用メールメソッド
-            return render_template("stu_register.html")
+            return render_template("stu_register.html",event=event,visibility=visibility)
             # return render_template("stu_register.html",event=event,course_list=session['course_list'],grade_list=session['grade_list'])
         else :
-            event = "登録失敗"
-            return render_template("stu_register.html", event=event)
+            error = "登録失敗"
+            return render_template("stu_register.html", error=error)
             # return render_template("stu_register.html",event=event,course_list=session['course_list'],grade_list=session['grade_list'])
     else :
         error = "正しい形式で入力してください"
@@ -591,12 +606,21 @@ def stu_change():
         visibility = 0
         return render_template("stu_change.html",result=result, visibility=visibility)
 
-def stu_change(stu_number):
+def stu_change(stu_number,error_flag):
     result = db.student_search_change_result(stu_number)
+    if error_flag == 0:
+        event="変更成功しました"
+    elif error_flag == 1:
+        error="変更失敗しました"
+    else :
+        error="バリエーションチェックエラー"
     print("りだいれくと")
-    visibility = 1
     if result:
-        return render_template("stu_change.html",result=result, visibility=visibility)
+        visibility = 1
+        return render_template("stu_change.html",result=result, visibility=visibility,event=event)
+    else :
+        visibility = 0
+        return render_template("stu_change.html",result=result, visibility=visibility,error=error)
 
 # 学生変更確認
 @app.route("/student_change",methods=["POST"])
@@ -613,13 +637,14 @@ def student_change():
         result = db.stu_change_update(stu_number,name,mail,course,year)
         if result:
             print("学生変更成功")
-            return redirect(url_for('stu_change', stu_number=stu_number))
+            return redirect(url_for('stu_change', stu_number=stu_number,error_flag=0))
         else :
             print("失敗")
+            return redirect(url_for('stu_change', stu_number=stu_number,error_flag=1))
     else :
         error = "正しい形式で入力してください"
-        print("学生変更エラー(python)バリエーションチェックエラー606")
-        # return redirect(url_for('stu_change', error=error))
+        print("失敗")
+        return redirect(url_for('stu_change', stu_number=stu_number,error_flag=2))
 
 # 学生削除検索
 @app.route("/manager_stu_delete")
@@ -632,6 +657,9 @@ def manager_student_delete():
     name = request.form.get('name')
     if name_check(name):
         result = db.student_search_change(name)
+    else :
+        error = "名前は64文字以下です"
+        return render_template("manager_stu_delete.html",error=error)
     if result:
         return render_template("manager_stu_delete.html", name_list=result)
     else :
@@ -645,6 +673,9 @@ def stu_delete():
     # mail,name,stu_number,course_name,year
     if result:
         return render_template("stu_delete.html",result=result)
+    else :
+        error=f"[{stu_number}]学籍番号は存在しません"
+        return render_template("manager_stu_delete.html",error=error)
 
 # 学生削除処理
 @app.route("/student_delete",methods=["POST"])
@@ -652,10 +683,12 @@ def student_delete():
     stu_number = request.form.get('stu_number')
     result = db.delete_flag(stu_number)
     if result:
-        return render_template("manager_stu_delete.html")
+        event = f"[学籍番号が{stu_number}の学生が削除成功しました。]"
+        return render_template("manager_stu_delete.html",event=event)
     else :
         print("削除失敗")
-        return render_template("manager_stu_delete.html")
+        error = f"[{stu_number}の学生が削除失敗しました。]"
+        return render_template("manager_stu_delete.html",error=error)
 
 # 管理者一覧画面
 @app.route("/manager_manager_view")
@@ -679,7 +712,7 @@ def manager_delete_result():
         return render_template("manager_delete_result.html",event=event,list=manager_all)
     else :
         error="削除失敗"
-        return render_template("manager_manager_view.html",error=error)
+        return  redirect(url_for("manager_manager_view",error=error))
 
 
 # パスワード忘れた方
@@ -759,7 +792,7 @@ def pw_change():
         return "student_flgエラー"
     
 
-# パスワードリセット(メール送信url) 
+# パスワードリセット
 @app.route('/pw_reset')
 def pw_reset():
     if "user" in session:
@@ -876,16 +909,26 @@ def student_all_file_2():
 def manager_promotion():
     if "user" in session:
         # mail,day
-        result = db.last_promotion_history()
-        flagnum = 0
-        if result == []:
-            flagnum = 1
         # id,name,course_name
         student_list = db.promotion_student_list()
+
+        result = db.last_promotion_history()
+        print(result)
+        print(student_list)
         today = dt.date.today()
+        print(today,"type:",type(today))
+        print(result,"type:",type(result))
         time = today - result[1]
         print(time.days)
-        return render_template('manager_promotion.html',result=[result[1],result[4]],student_list=student_list,flagnum=flagnum)
+        if time.days >= 365:
+            btn_flag = "1"
+        else :
+            btn_flag = "0"
+        flagnum = 0
+        if result is None:
+            flagnum = 1
+            return render_template('manager_promotion.html',student_list=student_list,flagnum=flagnum,btn_flag=btn_flag)
+        return render_template('manager_promotion.html',result=[result[1],result[4]],student_list=student_list,flagnum=flagnum,btn_flag=btn_flag)
     else :
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
 

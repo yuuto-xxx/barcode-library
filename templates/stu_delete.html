@@ -10,6 +10,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <div class="form_group">
     <h4>※下記の内容をご入力の上、ご確認ください</h4>
+    {% if event != None %}
+    <br><p style="color: red;">{{event}}</p>
+    {% endif %}    
+    {% if error != None %}
+    <br><p style="color: blue;">{{error}}</p>
+    {% endif %}
     <form autocomplete="off" action="{{url_for('student_delete')}}" method="POST" id="form1" onsubmit="return check()">
         <!-- テキストボックスを半分 -->
         <h4 id=half>名前</h4>
@@ -63,8 +69,6 @@
         }
     }
 </script>
-{{error}}
-{{event}}
 {% endblock %}
 </body>
 </html>
