@@ -5,44 +5,44 @@
 {% endblock %}
 
 {% block content %}
-            <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
-            <span class="report">※管理者一覧です</span>
-            <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
-            <div class="scroll_bar">
-            <table class="book_table">
-                <tr>
-                    <th class="column_view">名前</th>
-                    <th class="column_view">メールアドレス</th>
-                    <th class="book_num"></th>
-                </tr>
-                {% for i in range(list | length ) %}
-                {% if i%2 == 0 %}
-                <tr>
-                    <td class="blue">{{list[i][0]}}</td>
-                    <td class="blue">{{list[i][1]}}</td>
-                    <td class="blue">
-                        <!-- <a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a> -->
-                        <form action="{{url_for('manager_delete_result')}}" method="get" onsubmit="return check()">
-                            <input type="hidden" name="mail" value="{{list[i][1]}}">
-                            <input type="submit" value="削除" id="btn" class="delete_button">
-                        </form>
-                    </td>
-                </tr>
-                {% else %}
-                    <td class="white">{{list[i][0]}}</td>
-                    <td class="white">{{list[i][1]}}</td>
-                    <td class="white">
-                        <!-- <a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a> -->
-                    <form action="{{url_for('manager_delete_result')}}" method="get"onsubmit="return check()">
-                        <input type="hidden" name="mail" value="{{list[i][1]}}">
-                        <input type="submit" value="削除" id="btn" class="delete_button">
-                    </form>
-                    </td>
-                </tr>
-                {% endif %}
-                {% endfor %}
-            </table>
-        </div>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/manager_book_view.css')}}">
+    <span class="report">※管理者一覧です</span>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}">
+    <div class="scroll_bar">
+    <table class="book_table">
+        <tr>
+            <th class="column_view">名前</th>
+            <th class="column_view">メールアドレス</th>
+            <th class="book_num"></th>
+        </tr>
+        {% for i in range(list | length ) %}
+        {% if i%2 == 0 %}
+        <tr>
+            <td class="blue">{{list[i][0]}}</td>
+            <td class="blue">{{list[i][1]}}</td>
+            <td class="blue">
+                <!-- <a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a> -->
+                <form action="{{url_for('manager_delete_result')}}" method="get" onsubmit="return check()">
+                    <input type="hidden" name="mail" value="{{list[i][1]}}">
+                    <input type="submit" value="削除" id="btn" class="delete_button">
+                </form>
+            </td>
+        </tr>
+        {% else %}
+            <td class="white">{{list[i][0]}}</td>
+            <td class="white">{{list[i][1]}}</td>
+            <td class="white">
+                <!-- <a href="{{url_for('manager_delete_result',mail=list[i][1])}}" id="btn">削除</a> -->
+            <form action="{{url_for('manager_delete_result')}}" method="get"onsubmit="return check()">
+                <input type="hidden" name="mail" value="{{list[i][1]}}">
+                <input type="submit" value="削除" id="btn" class="delete_button">
+            </form>
+            </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+</div>
 <!-- アラート機能 -->
 <script>
     function check(){

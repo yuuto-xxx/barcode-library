@@ -13,6 +13,12 @@
     </header><br>
         <h3>現在のパスワードをリセットして、新しいパスワードを再発行します。<br>
             アカウント登録したメールアドレスを入力してください。</h3><br>
+            {% if event != None %}
+            <br><p style="color: red;">{{event}}</p>
+            {% endif %}    
+            {% if error != None %}
+            <br><p style="color: blue;">{{error}}</p>
+            {% endif %}
         <form action="{{url_for('forget_pw_2')}}" method="post">
             メール:<input type="email" name="email" placeholder="例：morijyobi.ac.jp" class="hoge" required><br>
             <div class="btn">

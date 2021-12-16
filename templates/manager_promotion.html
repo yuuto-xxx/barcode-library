@@ -5,9 +5,15 @@
 {% endblock %}
 {% block content %}
             <p class="report">※進級処理をしたら下記の学生が削除されます</p>
+            {% if event != None %}
+            <br><p style="color: red;">{{event}}</p>
+            {% endif %}    
+            {% if error != None %}
+            <br><p style="color: blue;">{{error}}</p>
+            {% endif %}
             {% if flagnum == 0%}
             <p class="last_change" style="margin-right: 3%;"><span>最終変更：{{result[1]}}</span><span class="change_name">{{result[0]}}</span></p>
-            <h4>{{event}}</h4>
+            <h4 style="color: red;">{{event}}</h4>
             {% else %}
             <p class="last_change" style="margin-right: 3%;">更新履歴はありません</p>
             {% endif %}
@@ -38,7 +44,11 @@
                 {% endfor %}
             </table>
         </div>
+        {% if btn_flag == "1"%}
             <input type="submit" value="進級" class="push">
+        {% else %}
+            <input type="submit" value="進級" class="push" disabled>
+        {% endif%}
             <!-- <p class="promotion_button"><button onclick="forget_pw">進級</button></p> -->
         </form>
             <!-- promotion_column -->
