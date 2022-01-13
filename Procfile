@@ -1,1 +1,2 @@
-web: gunicorn -b :$PORT app:app -c config.py
+gunicorn app:app --timeout 120
+web: gunicorn -b :$PORT app:app
