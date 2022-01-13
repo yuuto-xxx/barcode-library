@@ -559,6 +559,7 @@ def student_register():
      and len(stu_number) == 7 and stu_number.isdigit() \
      and len(name) <= 64 :
         pw = db.new_pw()
+        print(pw)
         result = db.student_register(stu_number, mail, name, course, year, pw)
         if result:
             event = "登録成功"

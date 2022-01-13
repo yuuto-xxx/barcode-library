@@ -4,6 +4,10 @@ from smtplib import SMTP
 import smtplib
 
 def mail(address,pw):
+    #検証用
+    print(address)
+    print(pw)
+
     # SMTP認証情報
     account = "morijyobi.library.application@gmail.com"
     password = "ebitlukbrhhognds"
