@@ -23,6 +23,8 @@ from rq import Queue
 from worker import conn
 # from bottle import route,run
 
+# redis://redistogo:ddd454e18df3383b0a92c474a49c8171@sole.redistogo.com:10345
+
 q = Queue(connection=conn)
 
 app = Flask(__name__)
