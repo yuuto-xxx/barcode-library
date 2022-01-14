@@ -364,10 +364,11 @@ def background_process(name):
             else :
                 rent_flag.append("O")
                 book_amount_list.append(int(book_list[i][6]))
-    #     return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag,book_amount_list=book_amount_list)
+        print(name)
+        return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag,book_amount_list=book_amount_list)
     # else:
     #     return redirect(url_for('login_page',session="セッション有効期限切れです。"))
-        return name * 10 
+        # return name * 10 
 
 
 # 本の検索(学生)
