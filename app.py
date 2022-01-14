@@ -19,6 +19,11 @@ import datetime as dt
 from datetime import datetime, timedelta
 import json
 import pathlib
+from rq import Queue
+from worker import conn
+# from bottle import route,run
+
+q = Queue(connection=conn)
 
 app = Flask(__name__)
 
@@ -316,6 +321,53 @@ def book_list():
         return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag,book_amount_list=book_amount_list)
     else:
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
+
+@app.route("/background")
+def index():
+    result = q.enqueue(background_process, '引数1')
+    return result
+
+def background_process(name):
+    if "user" in session:
+        book_list = db.book_list()
+        tag = []
+        rent_flag = []
+        book_amount_list = []
+        for i in range(len(book_list)):
+            review_avg = 0
+            review = db.book_review_score(book_list[i][0])
+            review_score = 0
+            review_count = 0
+            for j in range(len(review)):
+                review_score += review[j]
+                review_count += 1
+            try:
+                if review_count == 0:
+                    review_avg = 0
+                else:
+                    review_avg = review_score / review_count
+            except Exception as e:
+                review_avg = 0
+                print(e)
+            t = db.select_tag(book_list[i][0])
+            book_list[i] = book_list[i] + (round(review_avg,1),)
+            tag.append(t)
+            amount_flag = db.select_amount(book_list[i][0])
+            if amount_flag:
+                if amount_flag[1] >= amount_flag[2]:
+                    rent_flag.append("X")
+                    book_amount_list.append(0)
+                else :
+                    rent_flag.append("O")
+                    book_amount_list.append(int(amount_flag[2]-amount_flag[1]))
+            else :
+                rent_flag.append("O")
+                book_amount_list.append(int(book_list[i][6]))
+    #     return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag,book_amount_list=book_amount_list)
+    # else:
+    #     return redirect(url_for('login_page',session="セッション有効期限切れです。"))
+        return name * 10 
+
 
 # 本の検索(学生)
 @app.route("/stu_book_search")

@@ -1,1 +1,2 @@
-web: gunicorn -b :$PORT app:app -c timeout 120
+web: gunicorn -b :$PORT app:app
+worker:python worker.py
