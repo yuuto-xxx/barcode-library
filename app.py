@@ -21,9 +21,6 @@ import json
 import pathlib
 from rq import Queue
 from worker import conn
-# from bottle import route,run
-
-# redis://redistogo:ddd454e18df3383b0a92c474a49c8171@sole.redistogo.com:10345
 
 q = Queue(connection=conn)
 
@@ -326,7 +323,7 @@ def book_list():
 
 @app.route("/background")
 def index():
-    result = q.enqueue(background_process, '引数1')
+    result = q.enqueue(background_process, 'http://heroku.com')
     print(result)
     return result
 
