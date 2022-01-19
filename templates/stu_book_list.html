@@ -20,7 +20,6 @@
                 <th class="book_column">著者</th>
                 <th class="book_column">出版社</th>
                 <th class="book_column_review">評価</th>
-                <th class="book_column_available">貸出可否</th>
                 <th class="tag">タグ</th>
             </tr>
             {% for i in range(book_list | length) %}
@@ -31,16 +30,7 @@
                 <td class="blue">{{book_list[i][4]}}</td>
                 <td class="blue">{{book_list[i][8]}}</td>
                 <td class="blue">
-                    {% if rent_flag[i] == "O"%}
-                        〇
-                    {% else %}
-                        ✖
-                    {% endif %}
-                </td>
-                <td class="blue">
-                    {% for n in tag[i]%}
-                        <a href="{{url_for('stu_book_search',key=n[1],tag_flag=1)}}">{{n[1]}}</a>
-                    {% endfor %}
+                    <a href="{{url_for('stu_book_search',key=book_list[i][9],tag_flag=1)}}">{{book_list[i][9]}}</a>
                 </td>
             </tr>
                 {% else %}
@@ -50,16 +40,7 @@
                 <td class="white">{{book_list[i][4]}}</td>
                 <td class="white">{{book_list[i][8]}}</td>
                 <td class="white">
-                {% if rent_flag[i] == "O"%}
-                    〇
-                {% else %}
-                    ✖
-                {% endif %}
-                </td>
-                <td class="white">
-                    {% for n in tag[i]%}
-                        <a href="{{url_for('stu_book_search',key=n[1],tag_flag=1)}}">{{n[1]}}</a>
-                    {% endfor %}
+                    <a href="{{url_for('stu_book_search',key=book_list[i][9],tag_flag=1)}}">{{book_list[i][9]}}</a>
                 </td>
             </tr>
                 {% endif %}
