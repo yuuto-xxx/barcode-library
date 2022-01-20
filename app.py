@@ -755,7 +755,8 @@ def pw_change():
         stu_tem_pass = db.stu_search_temporary_password(mail)
         if temporary_password == stu_tem_pass[0]:
             if password == re_password:
-                db.update_student(mail,password,salt)
+                hash_pw = db.hash_pw(password,salt)
+                db.update_student(mail,hash_pw,salt)
                 return render_template("login.html")
             else:
                 error = "再入力パスワードが間違っています"
