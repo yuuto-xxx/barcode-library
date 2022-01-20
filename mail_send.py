@@ -45,7 +45,7 @@ def forget_pw_mail(address,pw,student_flg,new_salt):
     email = "?mail="+address+"?student_flg="+str(student_flg)+"?salt="+new_salt
     # MIMEの作成
     subject = "仮パスワードの送信"
-    message = f"新しいパスワード；{pw}\n https://barcode-library.herokuapp.com/pw_reset{email}"
+    message = f"新しいパスワード；{pw}"
     msg = MIMEText(message, "html")
     msg["Subject"] = subject
     msg["To"] = to_email

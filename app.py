@@ -724,7 +724,7 @@ def forget_pw_2():
         new_salt = db.create_salt()
         # 仮パスワードをアップデートしてメール送信
         db.update_student(mail, new_pw, new_salt)
-        mail_send.forget_pw_mail(mail, new_pw, student_flg,new_salt)
+        mail_send.forget_pw_mail(mail, new_pw, student_flg, new_salt)
         return render_template('pw_change.html', student_flg=student_flg,salt=new_salt,mail=mail)
     else:
         salt = db.manager_search_salt(mail)
@@ -753,7 +753,7 @@ def pw_change():
 
     if flg == "1":
         stu_tem_pass = db.stu_search_temporary_password(mail)
-        if temporary_password == stu_tem_pass:
+        if temporary_password == stu_tem_pass[0]:
             if password == re_password:
                 db.update_student(mail,password,salt)
                 return render_template("login.html")
