@@ -6,50 +6,73 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
 	<link rel="stylesheet" href="{{url_for('static', filename='css/login.css')}}">
-	<title>パスワードを忘れた方</title>
+	<title>パスワードリセット</title>
 </head>
 <body>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 	<script src="./js/login.js"></script>
 	<div class="wrapper">
 		<form class="login" action="{{url_for('pw_change')}}" method="post">
-			<p class="title">パスワード変更</p>
+			<p class="title">パスワードリセット</p>
 			{% if event != None %}
             <br><p style="color: red;">{{event}}</p>
             {% endif %}    
             {% if error != None %}
             <br><p style="color: blue;">{{error}}</p>
             {% endif %}
-			<input type="text" name="temporary_password" placeholder="仮パスワード" autofocus required="required" autocomplete="off"/>
-			<i class="fa fa-user"></i>
-
-			<input type="password" name="new_password" placeholder="新規パスワード" required="required"/>
-			<i class="fa fa-key"></i>
+			<div class="input-warp">
+				<input type="text" name="temporary_password" placeholder="仮パスワード" autofocus required="required" autocomplete="off"/>
+				<i class="fa fa-user"></i>
+			</div>
 			<form id="fieldPassword">
-     		<span id="buttonEye" class="fa fa-eye" onclick="pushHideButton()"></span>
-			<input type="password" name="re_password" id="textpassword"  placeholder="パスワード(確認)" required="required" />
-			<input type="hidden" name="student_flg" value={{student_flg}}>
-			<input type="hidden" name="new_salt" value={{new_salt}}>
-			<input type="hidden" name="mail" value={{mail}}>
+				<div class="input-wrap">
+					<input type="password" name="new_password" placeholder="新規パスワード" required="required"/>
+					<i class="fa fa-key"></i>
+					<i id="buttonEye" class="toggle-pass fa fa-eye" onclick="pushHideButton()"></i>
+				</div>
+				
+				<div class="input-wrap">
+					<input type="password" name="re_password" id="textpassword"  placeholder="パスワード(確認)" required="required" />
+					<i class="fa fa-key"></i>
+					<i id="buttonEye" class="toggle-pass fa fa-eye" onclick="pushHideButton()"></i>
+				</div>
+				
+				<input type="hidden" name="student_flg" value={{student_flg}}>
+				<input type="hidden" name="new_salt" value={{new_salt}}>
+				<input type="hidden" name="mail" value={{mail}}>
 
-			<i class="fa fa-key"></i>
 			<button>
-				<i class="spinner"></i> <span class="state">登録</span>
+				<i class="spinner"></i>
+				<span class="state">登録</span>
 			</button>
 		</form>
+		</form>
 	</div>
-<script language="javascript">
-  function pushHideButton() {
-    var txtPass = document.getElementById("textpassword");
-    var btnEye = document.getElementById("buttonEye");
-    if (txtPass.type === "text") {
-      txtPass.type = "password";
-      btnEye.className = "fa fa-eye";
-    } else {
-      txtPass.type = "text";
-      btnEye.className = "fa fa-eye-slash";
+	<script language="javascript">
+		function pushHideButton() {
+			var txtPass = document.getElementById("textpassword");
+			var btnEye = document.getElementById("buttonEye");
+			if (txtPass.type === "text") {
+				txtPass.type = "password";
+				btnEye.className = "fa fa-eye toggle-pass";
+			} else {
+				txtPass.type = "text";
+				btnEye.className = "fa fa-eye-slash toggle-pass";
+			}
+		}
+	// アラート機能
+    function check(){
+        if(window.confirm('変更してよろしいですか？')){ // 確認ダイアログを表示
+            btn.style.visibility = 'hidden';
+            return true; // 「OK」時は送信を実行
+        }
+        else{ // 「キャンセル」時の処理
+            window.alert('キャンセルされました'); // 警告ダイアログを表示
+            return false; // 送信を中止
+        }
     }
-  }
 </script>
+{{error}}
+{{event}}
 </body>
 </html>
