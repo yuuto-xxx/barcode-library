@@ -20,16 +20,10 @@ import datetime as dt
 from datetime import datetime, timedelta
 import json
 import pathlib
-from rq import Queue
-from worker import conn
-import decimal
-
-q = Queue(connection=conn)
 
 app = Flask(__name__)
 
 # 秘密鍵
-# app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
 app.secret_key = "morijyobi"
 
 @app.route("/") #学生ログイン
@@ -304,6 +298,7 @@ def book_list():
             for l in range(len(tag_list)):
                 if tag_list[l][2] == book_list[i][0]:
                     book_list[i] = book_list[i] + (tag_list[l][1],)
+        book_amount_list = 1
         return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag,book_amount_list=book_amount_list)
     else:
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
@@ -996,7 +991,8 @@ def register_review():
 
 # メールアドレスのバリエーションチェック
 def mail_check(mail):
-    pattren = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    # pattren = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    pattren = "/^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;"
     if re.match(pattren,mail)\
         and len(mail) <= 256 :
         return True
