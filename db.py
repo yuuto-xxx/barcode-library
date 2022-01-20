@@ -507,6 +507,42 @@ def book_search(key):
 
     return result
 
+def tag_list():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select * from tag join book_tag on (tag.tag_id=book_tag.tag_id)"
+
+    try:
+        cur.execute(sql,)
+    except Exception as e:
+        print("本のtag情報取得エラー")
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+def tag_count():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select count(*) from book_tag"
+
+    try:
+        cur.execute(sql,)
+    except Exception as e:
+        print("タグ数取得エラー")
+    
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
 # タグのselect
 def select_tag(isbn):
     conn = get_connection()
@@ -1124,6 +1160,74 @@ def last_promotion_history():
     conn.close()
 
     return result
+
+def insert_review_score(isbn,star):
+    conn = get_connection()
+    cur = conn.cursor()
+    print(isbn , star)
+
+    sql = "insert into review_score values(%s,%s)"
+
+    try:
+        cur.execute(sql,(isbn,star))
+    except Exception as e:
+        print("レビュー点数エラー:",e)
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+def review_amount(isbn):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select * from review where exists (select * from review where review.book_isbn=%s)"
+
+    try:
+        cur.execute(sql,(isbn,))
+    except Exception as e:
+        print("すこあえらー:",e)
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+#図書一覧画面で取得する
+def review_check():
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "select * from review_score"
+
+    try:
+        cur.execute(sql,)
+    except Exception as e:
+        print("えらー")
+
+    result = cur.fetchall()
+
+    cur.close()
+    conn.close()
+
+    return result
+
+def review_score_update(isbn, avg):
+    conn = get_connection()
+    cur = conn.cursor()
+
+    sql = "update review_score set score=%s where book_isbn=%s"
+
+    try:
+        cur.execute(sql,(isbn,avg))
+    except Exception as e:
+        print("updateエラー")
+
+    conn.commit()
+    cur.close()
+    conn.close()
 
 # DBとのコネクションを取得
 def get_connection():

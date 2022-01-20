@@ -4,6 +4,10 @@ from smtplib import SMTP
 import smtplib
 
 def mail(address,pw):
+    #検証用
+    print(address)
+    print(pw)
+
     # SMTP認証情報
     account = "morijyobi.library.application@gmail.com"
     password = "ebitlukbrhhognds"
@@ -41,7 +45,7 @@ def forget_pw_mail(address,pw,student_flg,new_salt):
     email = "?mail="+address+"?student_flg="+str(student_flg)+"?salt="+new_salt
     # MIMEの作成
     subject = "仮パスワードの送信"
-    message = f"新しいパスワード；＿＿{pw}__http://127.0.0.1/pw_reset{email}"
+    message = f"新しいパスワード；{pw}"
     msg = MIMEText(message, "html")
     msg["Subject"] = subject
     msg["To"] = to_email

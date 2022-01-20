@@ -3,6 +3,7 @@ from hashlib import new
 from logging import error
 from typing import Reversible
 import os
+from unicodedata import decimal
 from flask import Flask, render_template, redirect, request, url_for, session
 from flask.globals import g
 from flask.sessions import SessionInterface
@@ -23,7 +24,6 @@ import pathlib
 app = Flask(__name__)
 
 # 秘密鍵
-# app.secret_key = "".join(random.choices(string.ascii_letters,k=256))
 app.secret_key = "morijyobi"
 
 @app.route("/") #学生ログイン
@@ -283,39 +283,26 @@ def book_list():
         tag = []
         rent_flag = []
         book_amount_list = []
+        review_avg = db.review_check()
+        tag_list = db.tag_list()
         for i in range(len(book_list)):
-            review_avg = 0
-            review = db.book_review_score(book_list[i][0])
-            review_score = 0
-            review_count = 0
-            for j in range(len(review)):
-                review_score += review[j]
-                review_count += 1
-            try:
-                if review_count == 0:
-                    review_avg = 0
-                else:
-                    review_avg = review_score / review_count
-            except Exception as e:
-                review_avg = 0
-                print(e)
-            t = db.select_tag(book_list[i][0])
-            book_list[i] = book_list[i] + (round(review_avg,1),)
-            tag.append(t)
-            amount_flag = db.select_amount(book_list[i][0])
-            if amount_flag:
-                if amount_flag[1] >= amount_flag[2]:
-                    rent_flag.append("X")
-                    book_amount_list.append(0)
-                else :
-                    rent_flag.append("O")
-                    book_amount_list.append(int(amount_flag[2]-amount_flag[1]))
-            else :
-                rent_flag.append("O")
-                book_amount_list.append(int(book_list[i][6]))
+            avg = 0
+            book_list[i] = book_list[i] + (avg,)
+            for k in range(len(review_avg)):
+                if book_list[i][0] == review_avg[k][0]:
+                    avg = review_avg[k][1]
+                    b_list = list(book_list[i])
+                    b_list[8] = avg
+                    book_list[i] = tuple(b_list)
+
+            for l in range(len(tag_list)):
+                if tag_list[l][2] == book_list[i][0]:
+                    book_list[i] = book_list[i] + (tag_list[l][1],)
+        book_amount_list = 1
         return render_template("stu_book_list.html",book_list=book_list,tag=tag,rent_flag=rent_flag,book_amount_list=book_amount_list)
     else:
         return redirect(url_for('login_page',session="セッション有効期限切れです。"))
+
 
 # 本の検索(学生)
 @app.route("/stu_book_search")
@@ -559,6 +546,7 @@ def student_register():
      and len(stu_number) == 7 and stu_number.isdigit() \
      and len(name) <= 64 :
         pw = db.new_pw()
+        print(pw)
         result = db.student_register(stu_number, mail, name, course, year, pw)
         if result:
             event = "登録成功"
@@ -736,7 +724,7 @@ def forget_pw_2():
         new_salt = db.create_salt()
         # 仮パスワードをアップデートしてメール送信
         db.update_student(mail, new_pw, new_salt)
-        mail_send.forget_pw_mail(mail, new_pw, student_flg,new_salt)
+        mail_send.forget_pw_mail(mail, new_pw, student_flg, new_salt)
         return render_template('pw_change.html', student_flg=student_flg,salt=new_salt,mail=mail)
     else:
         salt = db.manager_search_salt(mail)
@@ -765,7 +753,7 @@ def pw_change():
 
     if flg == "1":
         stu_tem_pass = db.stu_search_temporary_password(mail)
-        if temporary_password == stu_tem_pass:
+        if temporary_password == stu_tem_pass[0]:
             if password == re_password:
                 db.update_student(mail,password,salt)
                 return render_template("login.html")
@@ -971,6 +959,21 @@ def register_review():
         print("匿名表示:" , anonymous)
         print("レビュー内容:" , review)
 
+        score = db.review_amount(isbn)
+        print(score)
+
+        if score != None:
+            avg = 0
+            i = 0
+            for i in range(len(score)):
+                print(score[i][3])
+                avg+= score[i][3]
+            avg = avg/(i+1)
+            print(avg)
+            db.review_score_update(isbn,avg)
+
+        db.insert_review_score(isbn,star)
+
         if len(review) == 0:
             if anonymous == None:
                 anonymous = False
@@ -988,7 +991,8 @@ def register_review():
 
 # メールアドレスのバリエーションチェック
 def mail_check(mail):
-    pattren = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    # pattren = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    pattren = "/^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;"
     if re.match(pattren,mail)\
         and len(mail) <= 256 :
         return True
@@ -1053,7 +1057,7 @@ def book_detail(isbn):
 
     return render_template("book_detail.html", book=book,tag=tag,tag_pd=tag_pd,book_amount=book_amount, review=review)
 
-def book_detail(isbn,tag_name):
+def book_detail_tag(isbn,tag_name):
     book = db.book_detail(isbn)
     review = db.book_show_review(isbn)
     tag_pd,tag = db.tag_pull_down(isbn)
@@ -1074,14 +1078,14 @@ def tag_add():
     isbn = request.form.get("book_number")
     tag_name = request.form.get("tag")
     if len(tag_name) > 16:
-        return book_detail(isbn,"["+tag_name+"]タグが16文字以下です。")
+        return book_detail_tag(isbn,"["+tag_name+"]タグが16文字以下です。")
     print(tag_name)
     tag_search = db.tag_result(isbn,tag_name)
     if tag_search:
-        return book_detail(isbn,"["+tag_name+"]タグが存在します。")
+        return book_detail_tag(isbn,"["+tag_name+"]タグが存在します。")
     result =  db.tag_add_book(isbn,tag_name)
     if result:
-        return book_detail(isbn,"["+tag_name+"]タグを追加しました")
+        return book_detail_tag(isbn,"["+tag_name+"]タグを追加しました")
     else :
         return "@tag_add_error"
 

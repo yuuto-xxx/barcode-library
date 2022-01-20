@@ -76,3 +76,7 @@ foreign key(tag_id) references tag(tag_id));
 -- タグテーブル
 create table tag (tag_id serial not null primary key,
 tag_name varchar(16) not null);
+
+create table review_score(book_isbn varchar(13) not null,
+score decimal, primary key(book_isbn),
+foreign key(book_isbn) references book(book_isbn));
