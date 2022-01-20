@@ -542,7 +542,7 @@ def student_register():
     year = request.form.get("year")
     mail = request.form.get("mail")
     re_mail = request.form.get("re_mail")
-    if mail == re_mail and mail_check(mail) \
+    if mail == re_mail \
      and mail not in db.search_student_mail() \
      and len(stu_number) == 7 and stu_number.isdigit() \
      and len(name) <= 64 :
@@ -622,7 +622,7 @@ def student_change():
     mail = request.form.get('mail')
     re_mail = request.form.get('re_mail')
     if name_check(name) and student_id_check(stu_number) and \
-     mail==re_mail and mail_check(mail) and int(year)<=int(max_year):
+     mail==re_mail and int(year)<=int(max_year):
         result = db.stu_change_update(stu_number,name,mail,course,year)
         if result:
             print("学生変更成功")
@@ -713,9 +713,6 @@ def forget_pw():
 @app.route('/forget_pw_2',methods=['POST'])
 def forget_pw_2():
     mail = request.form.get('email')
-    if mail_check(mail):
-        error="メールアドレスの形式は間違っています"
-        return render_template("forget_pw.html",error=error)
     salt = db.search_student_salt(mail)
     # 1の場合は学生
     student_flg = "1"
@@ -868,9 +865,9 @@ def student_all_file_2():
     del list[0]
     for i in list:
         if name_check(i[0]) and student_id_check(i[1]) and \
-         i[0] not in db.search_student_mail() and \
-         mail_check(i[4]) and int(i[3])>=1 and int(i[3])<=4 and\
-         int(i[2])>=1 and int(i[2])<=10 :
+        i[0] not in db.search_student_mail() and \
+        int(i[3])>=1 and int(i[3])<=4 and\
+        int(i[2])>=1 and int(i[2])<=10 :
             list_true.append(i)
         else :
             list_false.append(i)
