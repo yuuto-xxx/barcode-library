@@ -1,4 +1,12 @@
 {% extends "student_layout.html" %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>検索</title>
+{% endblock %}
+
 {% block content %}
 <!-- <link rel="stylesheet" href="{{url_for('static', filename='css/manager_table.css')}}"> -->
     <p class="result_book">※該当検索は{{book_list | length}}件です</p>

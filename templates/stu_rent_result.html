@@ -1,4 +1,12 @@
 {% extends "student_layout.html" %}
+
+{% block head %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>返却画面</title>
+{% endblock %}
+
 {% block content %}
             <p class="attention">※返却日には必ず本を返却してください</p>   
             <p class="result" style="text-align: right;">...冊借りました</p>         
@@ -30,20 +38,4 @@
     <td class="white"></td>
   </tr>       
 </table>
-            <!-- <p class="rent_column">
-                <span class="isbn">ISBN</span>
-                <span class="column_title">タイトル</span>
-            </p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p>
-            <p class="blue"></p>
-            <p class="white"></p> -->
 {% endblock %}
