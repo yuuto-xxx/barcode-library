@@ -513,7 +513,8 @@ def manager_register_result():
     name = request.form.get("name")
     mail_first = request.form.get("mail")
     mail_second = request.form.get("re_mail")
-    if mail_first == mail_second and mail_check(mail_first):
+    if mail_first == mail_second :
+        # mail_check(mail_first)
         salt = db.create_salt()
         pw = db.new_pw()
         print("パスワード:", pw)
