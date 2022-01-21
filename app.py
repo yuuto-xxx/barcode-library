@@ -1035,13 +1035,6 @@ def student_id_check(student_id):
 @app.route("/book_detail")
 def book_detail():
     isbn = request.args.get("book")
-    book_amount = request.args.get("book_amount")
-    book = db.book_detail(isbn)
-    review = db.book_show_review(isbn)
-    tag_pd,tag = db.tag_pull_down(isbn)
-    return render_template("book_detail.html", book=book, review=review,tag=tag,tag_pd=tag_pd,book_amount=book_amount)
-
-def book_detail(isbn):
     book = db.book_detail(isbn)
     review = db.book_show_review(isbn)
     tag_pd,tag = db.tag_pull_down(isbn)

@@ -20,7 +20,7 @@ def manager_insert(mail,name,pw,salt):
     try:
         cur.execute(sql,(mail,name,hashed_pw,salt))
     except Exception as e:
-        print("SQL実行に失敗：", e)
+        print("SQL実行に失敗", e)
     
     conn.commit()
     cur.close()
@@ -39,7 +39,7 @@ def student_register(stu_number,mail,name,course_id,year,pw):
         cur.execute(sql,(stu_number,mail,name,hashed_pw,salt,course_id,year))
         print(hashed_pw)
     except Exception as e:
-        print("SQL実行に失敗：", e)
+        print("SQL実行に失敗", e)
         return False
     
     conn.commit()
@@ -59,7 +59,7 @@ def pw_reset(mail,password):
         cur.execute(sql,(hashed_pw,salt,mail,))
         print(hashed_pw)
     except Exception as e:
-        print("SQL実行に失敗：", e)
+        print("SQL実行に失敗", e)
         return False
     
     conn.commit()
@@ -281,7 +281,6 @@ def select_amount(isbn):
     except Exception as e:
         print("本の数selectエラー[def book_review_score(isbn):]",e)
         return None
-
 
     result = cur.fetchone()
 
