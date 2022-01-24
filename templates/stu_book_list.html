@@ -11,8 +11,8 @@
         <span class="hidari"><input type="text" name="key" class="text_box" autocomplete="off"></span>
         <input type="hidden" name="tag_flag" value="0">
         <input type="submit" class="view_search" value="検索">
-        <input type="submit" class="view_search" value="全件検索">
     </form>
+    <button name="all_search" onclick="window.location.href='{{url_for('book_list')}}'" class="view_search">全件検索</button>    
     <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
     <div class="scroll_bar">
     <table class="book_table">
@@ -32,6 +32,8 @@
                 <td class="blue">{{book_list[i][8]}}</td>
                 <td class="blue">
                     <a href="{{url_for('stu_book_search',key=book_list[i][9],tag_flag=1)}}">{{book_list[i][9]}}</a>
+                    <a href="{{url_for('stu_book_search',key=book_list[i][10],tag_flag=1)}}">{{book_list[i][10]}}</a>
+                    <a href="{{url_for('stu_book_search',key=book_list[i][11],tag_flag=1)}}">{{book_list[i][11]}}</a>
                 </td>
             </tr>
                 {% else %}
@@ -42,6 +44,8 @@
                 <td class="white">{{book_list[i][8]}}</td>
                 <td class="white">
                     <a href="{{url_for('stu_book_search',key=book_list[i][9],tag_flag=1)}}">{{book_list[i][9]}}</a>
+                    <a href="{{url_for('stu_book_search',key=book_list[i][10],tag_flag=1)}}">{{book_list[i][10]}}</a>
+                    <a href="{{url_for('stu_book_search',key=book_list[i][11],tag_flag=1)}}">{{book_list[i][11]}}</a>
                 </td>
             </tr>
                 {% endif %}
