@@ -319,20 +319,6 @@ def stu_book_search():
                 t = db.select_tag(result[i][0])
                 tag.append(t)
             for i in range(len(result)):
-                amount_flag = db.select_amount(result[i][0])
-                print(amount_flag)
-                print(result[i][0])
-                
-                if amount_flag:
-                    if amount_flag[1] >= amount_flag[2]:
-                        rent_flag.append("X")
-                    else :
-                        rent_flag.append("O")
-                else :
-                    rent_flag.append("O")
-                print(rent_flag)
-
-            for i in range(len(result)):
                 review_avg = 0
                 review = db.book_review_score(result[i][0])
                 review_score = 0
@@ -348,7 +334,6 @@ def stu_book_search():
                 except Exception as e:
                     review_avg = 0
                 result[i] = result[i] + (review_avg,)
-                # print("0",result)
         else :
             tag =[]
             result = db.tag_book_search(key)
@@ -375,18 +360,8 @@ def stu_book_search():
                 except Exception as e:
                     review_avg = 0
                 result[i] = result[i] + (review_avg,)
-                amount_flag = db.select_amount(result[i][0])
-                
-                if amount_flag:
-                    if amount_flag[1] >= amount_flag[2]:
-                        rent_flag.append("X")
-                    else :
-                        rent_flag.append("O")
-                else :
-                    rent_flag.append("O")
-            # print("1",result)
         if result !=[]:
-            return render_template("stu_book_sreach.html",book_list=result,tag=tag,rent_flag=rent_flag)
+            return render_template("stu_book_sreach.html",book_list=result,tag=tag)
         else :
             return redirect(url_for("book_list"))
     else :
