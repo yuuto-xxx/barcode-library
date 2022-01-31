@@ -1,19 +1,24 @@
 {% extends "student_layout.html" %}
 
 {% block head %}
+<!-- <link rel="stylesheet" href="../static/css/stu_table.css"> -->
+<link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
 <title>図書一覧</title>
 {% endblock %}
 
 {% block content %}
     <p class="result_book">※該当検索は{{book_list | length}}件です</p>
+    <div class="yoko">
     <form action="{{url_for('stu_book_search')}}" method="get">
         <span class="book_search">キーワード：</span>
         <span class="hidari"><input type="text" name="key" class="text_box" autocomplete="off"></span>
         <input type="hidden" name="tag_flag" value="0">
         <input type="submit" class="view_search" value="検索">
-    </form>
-    <button name="all_search" onclick="window.location.href='{{url_for('book_list')}}'" class="view_search">全件検索</button>    
-    <link rel="stylesheet" href="{{url_for('static', filename='css/stu_table.css')}}">
+</form>
+    <nobr>
+    <button name="all_search" onclick="window.location.href='{{url_for('book_list')}}'" class="view_search">全件検索</button>
+    </nobr>
+</div>
     <div class="scroll_bar">
     <table class="book_table">
             <tr>
