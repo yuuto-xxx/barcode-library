@@ -39,6 +39,14 @@
 		</form>
 	</div>
 	<script language="javascript">
+		window.onload = function(){
+			history.replaceState(null, null, "/");
+		}
+		window.addEventListener('popstate', function() {
+			print("a");
+			alert("戻るボタン検出");
+		});
+
 		function pushHideButton() {
 			var txtPass = document.getElementById("textpassword");
 			var btnEye = document.getElementById("buttonEye");
