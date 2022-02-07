@@ -42,17 +42,17 @@
             </form>
         <div class="flex2">
             <h4>レビュー</h4>
-            <button type="button" onclick="window.location.href='{{url_for('review', isbn=book[0])}}'">カスタムレビューを書く</button>
+            <button type="button" onclick="window.location.href='{{url_for('review', isbn=book[0])}}'">レビューを書く</button>
         </div>
     </div>
     <div class="review">
         {% for i in range(review | length) %}
             {% if review[i][4] %}
                 {% if review[i][2] == None %}    
-                    とくめい
+                    匿名ユーザ
                     <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
                 {% else %}
-                    とくめい
+                    匿名ユーザ
                     <p><span class="star5_rating" data-rate={{review[i][3]}}></span></p>
                     {{review[i][2]}} <br>
                 {% endif %}
