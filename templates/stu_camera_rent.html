@@ -34,7 +34,7 @@
             ).then( //許可
               function(stream){
                 video.srcObject = stream;
-                //3秒毎にスキャンする
+                //4秒毎にスキャンする
                 setTimeout(Scan,4000,true);
               }
             ).catch( //拒否
@@ -85,14 +85,14 @@
               setTimeout(Scan,50,false);
             }
             Quagga.onDetected(function (result) {
-              //読み取り誤差が多いため、5回連続で同じ値だった場合に成功とする
+              //読み取り誤差が多いため、7回連続で同じ値だった場合に成功とする
               if(DetectedCode==result.codeResult.code){
                 DetectedCount++;
                }else{
                 DetectedCount=0;
                  DetectedCode=result.codeResult.code;
               }
-              if(DetectedCount>=5){
+              if(DetectedCount>=7){
                 jan.value+=result.codeResult.code+' ';
                 $.get('stu_book_rent', { result : result.codeResult.code} )
                 .done(function(data){
